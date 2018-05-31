@@ -1,14 +1,19 @@
 ﻿using Instart.Repository.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Instart.Repository
 {
-    public interface IUserRepository
+    public class InstartDbContext : DbContext
     {
-        User GetUser(string name, string password);
+        public InstartDbContext() : base("name=Instart") 
+        {
+        }
+
+        public DbSet<User> Users { get; set; }
     }
 }
