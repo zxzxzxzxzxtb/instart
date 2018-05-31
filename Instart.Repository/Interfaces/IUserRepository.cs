@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Instart.Repository
 {
-    public class Class1
+    public interface IUserRepository
     {
     }
 }

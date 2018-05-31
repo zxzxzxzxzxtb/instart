@@ -4,11 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Instart.Web.Controllers
+namespace Instart.Web.Areas.Manage.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index() {
+        // GET: Manage/Home
+        public ActionResult Index()
+        {
             return View();
         }
     }
