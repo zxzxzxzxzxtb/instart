@@ -14,9 +14,18 @@ namespace Instart.Web.App_Start
     {
         public static void Register()
         {
+            //builder.RegisterType<UserService>().As<IUserService>();
+
             var builder = new ContainerBuilder();
-            builder.RegisterType<UserService>().As<IUserService>();
+
             builder.RegisterControllers(Assembly.GetExecutingAssembly());
+
+            Assembly serviceAssembly = Assembly.Load("Instart.Service");
+            builder.RegisterTypes(serviceAssembly.GetTypes()).AsImplementedInterfaces();
+
+            Assembly repositoryAssembly = Assembly.Load("Instart.Repository");
+            builder.RegisterTypes(repositoryAssembly.GetTypes()).AsImplementedInterfaces();
+            
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
