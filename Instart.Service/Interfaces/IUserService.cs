@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Instart.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,8 @@ namespace Instart.Service
 {
     public interface IUserService
     {
+        User GetByName(string name);
+
+        IEnumerable<User> GetUsers(int pageIndex, int pageSize, out int total);
     }
 }

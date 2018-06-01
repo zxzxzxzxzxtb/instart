@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Instart.Repository", "Insta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Instart.Common", "Instart.Common\Instart.Common.csproj", "{9E841B69-8747-474A-96AA-E9CD041787EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Instart.Models", "Instart.Models\Instart.Models.csproj", "{B3346B33-40AA-4974-866A-957DA188E8AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{9E841B69-8747-474A-96AA-E9CD041787EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E841B69-8747-474A-96AA-E9CD041787EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E841B69-8747-474A-96AA-E9CD041787EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3346B33-40AA-4974-866A-957DA188E8AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3346B33-40AA-4974-866A-957DA188E8AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3346B33-40AA-4974-866A-957DA188E8AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3346B33-40AA-4974-866A-957DA188E8AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-﻿using Instart.Repository.Models;
+﻿using Instart.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

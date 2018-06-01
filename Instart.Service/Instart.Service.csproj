@@ -43,6 +43,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\ServiceBase.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -51,6 +52,10 @@
     <ProjectReference Include="..\Instart.Common\Instart.Common.csproj">
       <Project>{9e841b69-8747-474a-96aa-e9cd041787ec}</Project>
       <Name>Instart.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Instart.Models\Instart.Models.csproj">
+      <Project>{b3346b33-40aa-4974-866a-957da188e8ab}</Project>
+      <Name>Instart.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Instart.Repository\Instart.Repository.csproj">
       <Project>{c53f913f-fc4a-43df-b8df-b914425b402c}</Project>

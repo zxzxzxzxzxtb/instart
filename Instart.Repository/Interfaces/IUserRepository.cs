@@ -1,4 +1,4 @@
-﻿using Instart.Repository.Models;
+﻿using Instart.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,8 @@ namespace Instart.Repository
 {
     public interface IUserRepository
     {
-        User GetUser(string name, string password);
+        User GetByName(string name);
+
+        IEnumerable<User> GetUsers(int pageIndex, int pageSize, out int total);
     }
 }

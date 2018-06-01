@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Instart.Repository.Models;
 using Instart.Repository;
+using Instart.Models;
 
 namespace Instart.Repository
 {
@@ -14,8 +14,13 @@ namespace Instart.Repository
 
         }
 
-        public User GetUser(string name, string password) {
-            return this.Get(n => n.UserName.Equals(name) && n.Password.Equals(password)).FirstOrDefault();
+        public User GetByName(string name) {
+            return this.Get(n => n.UserName.Equals(name)).FirstOrDefault();
+        }
+
+        public IEnumerable<User> GetUsers(int pageIndex, int pageSize, out int total) {
+            total = this.DbSet.Count();
+            return this.Get(p => true, pageIndex, pageSize, p => p.CreateTime, false);
         }
     }
 }
