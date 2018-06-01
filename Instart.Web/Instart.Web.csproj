@@ -45,12 +45,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.0.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.0.1\lib\net45\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.0.1011, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -294,6 +288,10 @@
     <ProjectReference Include="..\Instart.Common\Instart.Common.csproj">
       <Project>{9e841b69-8747-474a-96aa-e9cd041787ec}</Project>
       <Name>Instart.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Instart.Models\Instart.Models.csproj">
+      <Project>{b3346b33-40aa-4974-866a-957da188e8ab}</Project>
+      <Name>Instart.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Instart.Service\Instart.Service.csproj">
       <Project>{fae04aa0-a631-40ee-bc13-c7bcfd1bdeec}</Project>

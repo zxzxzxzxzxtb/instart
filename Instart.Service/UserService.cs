@@ -5,28 +5,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Instart.Models;
+using Instart.Repository.Base;
 
 namespace Instart.Service
 {
     public class UserService : ServiceBase, IUserService
     {
-        public IUserRepository UserRepository { get; private set; }
+        IUserRepository _userRepository = AutofacRepository.Resolve<IUserRepository>();
 
-        public UserService(IUserRepository repository) {
-            this.UserRepository = repository;
-            base.AddDisposableObject(repository);
+        public UserService() {
+            base.AddDisposableObject(_userRepository);
         }
 
         public User GetByName(string name) {
             if (string.IsNullOrEmpty(name)) {
                 return null;
             }
-            return this.UserRepository.GetByName(name);
+            return _userRepository.GetByName(name);
         }
 
         public IEnumerable<User> GetUsers(int pageIndex, int pageSize, out int total) {
             pageIndex = Math.Max(pageIndex, 1);
-            return this.UserRepository.GetUsers(pageIndex, pageSize, out total);
+            return _userRepository.GetUsers(pageIndex, pageSize, out total);
         }
     }
 }

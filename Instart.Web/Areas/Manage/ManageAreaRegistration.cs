@@ -17,7 +17,11 @@ namespace Instart.Web.Areas.Manage
             context.MapRoute(
                 "Manage_default",
                 "Manage/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new {
+                    action = "Index",
+                    id = UrlParameter.Optional,                    
+                },
+                new string[] { "Instart.Web.Areas.Manage.Controllers" }
             );
         }
     }

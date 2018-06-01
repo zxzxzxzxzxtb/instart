@@ -10,10 +10,6 @@ namespace Instart.Repository
 {
     public class UserRepository : RepositoryBase<User>, IUserRepository
     {
-        public UserRepository(InstartDbContext context) : base(context) {
-
-        }
-
         public User GetByName(string name) {
             return this.Get(n => n.UserName.Equals(name)).FirstOrDefault();
         }
