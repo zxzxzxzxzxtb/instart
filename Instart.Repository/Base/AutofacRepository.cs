@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Instart.Repository.Base
+namespace Instart.Repository
 {
     public class AutofacRepository
     {

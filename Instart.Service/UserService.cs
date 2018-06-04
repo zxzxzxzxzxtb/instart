@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Instart.Models;
-using Instart.Repository.Base;
+using Instart.Common;
 
 namespace Instart.Service
 {
@@ -17,16 +17,24 @@ namespace Instart.Service
             base.AddDisposableObject(_userRepository);
         }
 
-        public User GetByName(string name) {
+        public async Task<User> GetByIdAsync(int id)
+        {
+            if (id <= 0)
+            {
+                return null;
+            }
+            return await _userRepository.GetByIdAsync(id);
+        }
+
+        public async Task<User> GetByNameAsync(string name) {
             if (string.IsNullOrEmpty(name)) {
                 return null;
             }
-            return _userRepository.GetByName(name);
+            return await _userRepository.GetByNameAsync(name);
         }
 
-        public IEnumerable<User> GetUsers(int pageIndex, int pageSize, out int total) {
-            pageIndex = Math.Max(pageIndex, 1);
-            return _userRepository.GetUsers(pageIndex, pageSize, out total);
+        public async Task<PageModel<User>> GetUserListAsync(int pageIndex, int pageSize) {
+            return await _userRepository.GetUserListAsync(pageIndex, pageSize);
         }
     }
 }

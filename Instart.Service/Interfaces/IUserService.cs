@@ -1,4 +1,5 @@
-﻿using Instart.Models;
+﻿using Instart.Common;
+using Instart.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,10 @@ namespace Instart.Service
 {
     public interface IUserService
     {
-        User GetByName(string name);
+        Task<User> GetByIdAsync(int id);
 
-        IEnumerable<User> GetUsers(int pageIndex, int pageSize, out int total);
+        Task<User> GetByNameAsync(string name);
+
+        Task<PageModel<User>> GetUserListAsync(int pageIndex, int pageSize);
     }
 }

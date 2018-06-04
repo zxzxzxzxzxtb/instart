@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Instart.Repository;
-using Instart.Repository.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;

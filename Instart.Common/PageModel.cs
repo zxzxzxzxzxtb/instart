@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Instart.Common
 {
-    public class Class1
+    public class PageModel<T> where T: class
     {
+        public List<T> Data { get; set; }
+
+        public int Total { get; set; }
     }
 }

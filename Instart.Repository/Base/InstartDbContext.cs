@@ -10,7 +10,7 @@ namespace Instart.Repository
 {
     public class InstartDbContext : DbContext
     {
-        public InstartDbContext() : base("name=Instart") 
+        public InstartDbContext() : base(AppSettings.ConnectionString) 
         {
         }
 

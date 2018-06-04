@@ -5,18 +5,33 @@ using System.Text;
 using System.Threading.Tasks;
 using Instart.Repository;
 using Instart.Models;
+using System.Data.SqlClient;
+using Dapper;
+using Instart.Common;
 
 namespace Instart.Repository
 {
     public class UserRepository : RepositoryBase<User>, IUserRepository
     {
-        public User GetByName(string name) {
-            return this.Get(n => n.UserName.Equals(name)).FirstOrDefault();
+        public Task<User> GetByIdAsync(int id)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = "select * from user where Id = @Id";
+                return conn.QuerySingleAsync<User>(sql, new { Id = id });
+            }
         }
 
-        public IEnumerable<User> GetUsers(int pageIndex, int pageSize, out int total) {
-            total = this.DbSet.Count();
-            return this.Get(p => true, pageIndex, pageSize, p => p.CreateTime, false);
+        public async Task<User> GetByNameAsync(string name) {
+            var result = await base.GetAsync(n => n.UserName.Equals(name));
+            return result?.FirstOrDefault();
+        }
+
+        public async Task<PageModel<User>> GetUserListAsync(int pageIndex, int pageSize) {
+            var result = new PageModel<User>();
+            result.Total = await base.CountAsync(null);
+            result.Data = await base.GetAsync(p => true, pageIndex, pageSize, p => p.CreateTime, false);
+            return result;
         }
     }
 }
