@@ -1,5 +1,4 @@
-﻿using Instart.Common;
-using Instart.Models;
+﻿using Instart.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +13,6 @@ namespace Instart.Repository
 
         Task<User> GetByNameAsync(string name);
 
-        Task<PageModel<User>> GetUserListAsync(int pageIndex, int pageSize);
+        Task<PageModel<User>> GetListAsync(int pageIndex, int pageSize);
     }
 }

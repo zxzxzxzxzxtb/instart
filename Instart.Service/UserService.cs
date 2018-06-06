@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Instart.Models;
-using Instart.Common;
 
 namespace Instart.Service
 {
@@ -33,8 +32,8 @@ namespace Instart.Service
             return await _userRepository.GetByNameAsync(name);
         }
 
-        public async Task<PageModel<User>> GetUserListAsync(int pageIndex, int pageSize) {
-            return await _userRepository.GetUserListAsync(pageIndex, pageSize);
+        public async Task<PageModel<User>> GetListAsync(int pageIndex, int pageSize) {
+            return await _userRepository.GetListAsync(pageIndex, pageSize);
         }
     }
 }

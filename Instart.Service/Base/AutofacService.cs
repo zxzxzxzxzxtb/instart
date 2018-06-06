@@ -28,6 +28,7 @@ namespace Instart.Service.Base
         public static void Register() {
             var builder = new ContainerBuilder();
             builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
+            builder.RegisterType<ArticleService>().As<IArticleService>().InstancePerMatchingLifetimeScope();
             container = builder.Build();
         }
     }

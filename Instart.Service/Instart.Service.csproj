@@ -47,6 +47,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArticleService.cs" />
+    <Compile Include="Interfaces\IArticleService.cs" />
     <Compile Include="Base\AutofacService.cs" />
     <Compile Include="Base\ServiceBase.cs" />
     <Compile Include="Interfaces\IUserService.cs" />

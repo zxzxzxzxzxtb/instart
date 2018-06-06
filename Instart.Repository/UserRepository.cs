@@ -7,7 +7,7 @@ using Instart.Repository;
 using Instart.Models;
 using System.Data.SqlClient;
 using Dapper;
-using Instart.Common;
+using System.Linq.Expressions;
 
 namespace Instart.Repository
 {
@@ -22,15 +22,24 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<User> GetByNameAsync(string name) {
-            var result = await base.GetAsync(n => n.UserName.Equals(name));
+        public async Task<User> GetByNameAsync(string name)
+        {
+            var result = await base.GetAsync(p => p.UserName.Equals(name), p => p);
             return result?.FirstOrDefault();
         }
 
-        public async Task<PageModel<User>> GetUserListAsync(int pageIndex, int pageSize) {
+        public async Task<PageModel<User>> GetListAsync(int pageIndex, int pageSize)
+        {
             var result = new PageModel<User>();
-            result.Total = await base.CountAsync(null);
-            result.Data = await base.GetAsync(p => true, pageIndex, pageSize, p => p.CreateTime, false);
+            Expression<Func<User, User>> selector = p => new User
+            {
+                Id = p.Id,
+                UserName = p.UserName,
+                Role = p.Role,
+                CreateTime = p.CreateTime
+            };
+            result.Total = await base.CountAsync(p => true);
+            result.Data = await base.GetAsync(p => true, selector, pageIndex, pageSize, p => p.CreateTime, false);
             return result;
         }
     }

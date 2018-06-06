@@ -20,26 +20,26 @@ namespace Instart.Repository
         }
 
         #region 同步
-        public IEnumerable<TEntity> Get()
+        public IEnumerable<TEntity> Get(Expression<Func<TEntity, TEntity>> selector)
         {
-            return this.DbContext.Set<TEntity>().AsQueryable();
+            return this.DbContext.Set<TEntity>().Select(selector).AsQueryable();
         }
 
-        public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter)
+        public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TEntity>> selector)
         {
-            return this.DbContext.Set<TEntity>().Where(filter).AsQueryable();
+            return this.DbContext.Set<TEntity>().Where(filter).Select(selector).AsQueryable();
         }
 
-        public IEnumerable<TEntity> Get<TOrderkey>(Expression<Func<TEntity, bool>> filter, int pageIndex, int pageSize, Expression<Func<TEntity, TOrderkey>> sortKeySelector, bool isAsc = true)
+        public IEnumerable<TEntity> Get<TOrderkey>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TEntity>> selector, int pageIndex, int pageSize, Expression<Func<TEntity, TOrderkey>> sortKeySelector, bool isAsc = true)
         {
             if (isAsc)
             {
-                return this.DbContext.Set<TEntity>().Where(filter).OrderBy(sortKeySelector)
+                return this.DbContext.Set<TEntity>().Where(filter).Select(selector).OrderBy(sortKeySelector)
                     .Skip(pageSize * (pageSize - 1)).Take(pageSize).AsQueryable();
             }
             else
             {
-                return this.DbContext.Set<TEntity>().Where(filter).OrderByDescending(sortKeySelector)
+                return this.DbContext.Set<TEntity>().Where(filter).Select(selector).OrderByDescending(sortKeySelector)
                    .Skip(pageSize * (pageSize - 1)).Take(pageSize).AsQueryable();
             }
         }
@@ -72,26 +72,26 @@ namespace Instart.Repository
         #endregion
 
         #region 异步
-        public async Task<List<TEntity>> GetAsync()
+        public async Task<List<TEntity>> GetAsync(Expression<Func<TEntity, TEntity>> selector)
         {
-            return await this.DbContext.Set<TEntity>().AsQueryable().ToListAsync();
+            return await this.DbContext.Set<TEntity>().Select(selector).AsQueryable().ToListAsync();
         }
 
-        public async Task<List<TEntity>> GetAsync(Expression<Func<TEntity, bool>> filter)
+        public async Task<List<TEntity>> GetAsync(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TEntity>> selector)
         {
-            return await this.DbContext.Set<TEntity>().Where(filter).AsQueryable().ToListAsync();
+            return await this.DbContext.Set<TEntity>().Where(filter).Select(selector).AsQueryable().ToListAsync();
         }
 
-        public async Task<List<TEntity>> GetAsync<TOrderkey>(Expression<Func<TEntity, bool>> filter, int pageIndex, int pageSize, Expression<Func<TEntity, TOrderkey>> sortKeySelector, bool isAsc = true)
+        public async Task<List<TEntity>> GetAsync<TOrderkey>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TEntity>> selector, int pageIndex, int pageSize, Expression<Func<TEntity, TOrderkey>> sortKeySelector, bool isAsc = true)
         {
             if (isAsc)
             {
-                return await this.DbContext.Set<TEntity>().Where(filter).OrderBy(sortKeySelector)
+                return await this.DbContext.Set<TEntity>().Where(filter).Select(selector).OrderBy(sortKeySelector)
                     .Skip(pageSize * (pageSize - 1)).Take(pageSize).AsQueryable().ToListAsync();
             }
             else
             {
-                return await this.DbContext.Set<TEntity>().Where(filter).OrderByDescending(sortKeySelector)
+                return await this.DbContext.Set<TEntity>().Where(filter).Select(selector).OrderByDescending(sortKeySelector)
                    .Skip(pageSize * (pageSize - 1)).Take(pageSize).AsQueryable().ToListAsync();
             }
         }

@@ -19,6 +19,11 @@ namespace Instart.Models
         public int CategoryId { get; set; }
 
         /// <summary>
+        /// 分类名称
+        /// </summary>
+        public string CategoryName { get; set; }
+
+        /// <summary>
         /// 标题
         /// </summary>
         public string Title { get; set; }
