@@ -67,7 +67,7 @@ namespace Instart.Service
             var model = await _articleRepository.GetByIdAsync(id);
             if(model == null)
             {
-                throw new Exception($"用户不存在, id:{id}");
+                throw new Exception($"文章不存在, id:{id}");
             }
 
             model.IsDelete = true;
