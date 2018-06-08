@@ -24,7 +24,7 @@ namespace Instart.Repository
 
         public async Task<User> GetByNameAsync(string name)
         {
-            var result = await base.GetAsync(p => p.UserName.Equals(name), p => p);
+            var result = await base.GetAsync(p => p.Account.Equals(name), p => p);
             return result?.FirstOrDefault();
         }
 

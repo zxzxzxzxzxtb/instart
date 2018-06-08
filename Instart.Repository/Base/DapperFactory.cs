@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -13,7 +14,7 @@ namespace Instart.Repository
     {
         public static IDbConnection GetConnection()
         {
-            return new SqlConnection(AppSettings.ConnectionString);
+            return new MySqlConnection(AppSettings.ConnectionString);
         }
     }
 }

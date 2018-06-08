@@ -18,7 +18,7 @@ namespace Instart.Web.Controllers
         }
 
         public async Task<ActionResult> Index() {
-            var user = await _userService.GetByNameAsync("liufei");
+            var user = await _userService.GetByNameAsync("4046836e");
             return View();
         }
     }
