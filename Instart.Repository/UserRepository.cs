@@ -11,36 +11,66 @@ using System.Linq.Expressions;
 
 namespace Instart.Repository
 {
-    public class UserRepository : RepositoryBase<User>, IUserRepository
+    public class UserRepository : IUserRepository
     {
         public Task<User> GetByIdAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = "select * from user where Id = @Id";
+                string sql = "select * from `User` where Id = @Id and Status=1;";
                 return conn.QuerySingleAsync<User>(sql, new { Id = id });
             }
         }
 
         public async Task<User> GetByNameAsync(string name)
         {
-            var result = await base.GetAsync(p => p.Account.Equals(name), p => p);
-            return result?.FirstOrDefault();
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = "select * from `User` where Name = @name and Status=1;";
+                return await conn.QuerySingleAsync<User>(sql, new { name = name });
+            }
         }
 
         public async Task<PageModel<User>> GetListAsync(int pageIndex, int pageSize)
         {
-            var result = new PageModel<User>();
-            Expression<Func<User, User>> selector = p => new User
+            using (var conn = DapperFactory.GetConnection())
             {
-                Id = p.Id,
-                UserName = p.UserName,
-                Role = p.Role,
-                CreateTime = p.CreateTime
-            };
-            result.Total = await base.CountAsync(p => true);
-            result.Data = await base.GetAsync(p => true, selector, pageIndex, pageSize, p => p.CreateTime, false);
-            return result;
+                string countSql = "select count(1) from `User` where and Status=1;";
+                int total = await conn.ExecuteScalarAsync<int>(countSql);
+                if (total == 0)
+                {
+                    return new PageModel<User>();
+                }
+
+                string sql = $"select * from `User` where Status=1 limit {(pageIndex - 1) * pageIndex},{pageSize};";
+                var list = await conn.QueryAsync<User>(sql);
+
+                return new PageModel<User>
+                {
+                    Total = total,
+                    Data = list?.ToList()
+                };
+            }
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = "update `User` set Status=0 where Id=@Id;";
+                var result = await conn.ExecuteAsync(sql, new { Id = id });
+                return result > 0;
+            }
+        }
+
+        public async Task<bool> UpdatePasswordAsync(int id, string password)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = "update `User` set Password=@Password where Id=@Id;";
+                var result = await conn.ExecuteAsync(sql, new { Id = id, Password = password });
+                return result > 0;
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Instart.Repository
 {
-    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
+    //[DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class InstartDbContext : DbContext
     {
         public InstartDbContext() : base(AppSettings.ConnectionString) 

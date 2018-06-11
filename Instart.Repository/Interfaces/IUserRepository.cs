@@ -14,5 +14,9 @@ namespace Instart.Repository
         Task<User> GetByNameAsync(string name);
 
         Task<PageModel<User>> GetListAsync(int pageIndex, int pageSize);
+
+        Task<bool> DeleteAsync(int id);
+
+        Task<bool> UpdatePasswordAsync(int id, string password);
     }
 }
