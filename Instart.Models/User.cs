@@ -10,16 +10,39 @@ namespace Instart.Models
     [Table("User")]
     public class User
     {
+        /// <summary>
+        /// 主键ID
+        /// </summary>
         public long Id { get; set; }
 
-        public string Account { get; set; }
-
+        /// <summary>
+        /// 用户名
+        /// </summary>
         public string UserName { get; set; }
 
+        /// <summary>
+        /// 密码
+        /// </summary>
         public string Password { get; set; }
 
+        /// <summary>
+        /// 角色
+        /// </summary>
         public int Role { get; set; }
 
+        /// <summary>
+        /// 状态，1：正常，0：删除
+        /// </summary>
+        public int Status { get; set; }
+
+        /// <summary>
+        /// 创建时间
+        /// </summary>
         public DateTime CreateTime { get; set; }
+
+        /// <summary>
+        /// 修改时间
+        /// </summary>
+        public DateTime? ModifyTime { get; set; }
     }
 }

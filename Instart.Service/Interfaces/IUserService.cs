@@ -18,5 +18,7 @@ namespace Instart.Service
         Task<bool> DeleteAsync(int id);
 
         Task<bool> UpdatePasswordAsync(int id, string password);
+
+        Task<bool> InsertAsync(User model);
     }
 }

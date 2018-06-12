@@ -56,9 +56,9 @@ namespace Instart.Models
         public string Content { get; set; }
 
         /// <summary>
-        /// 是否删除
+        /// 状态，1：正常，0：删除
         /// </summary>
-        public bool IsDelete { get; set; }
+        public int Status { get; set; }
 
         /// <summary>
         /// 是否推荐

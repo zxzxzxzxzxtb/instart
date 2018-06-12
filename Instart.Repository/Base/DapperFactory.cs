@@ -14,7 +14,7 @@ namespace Instart.Repository
     {
         public static IDbConnection GetConnection()
         {
-            return new MySqlConnection(AppSettings.ConnectionString);
+            return new SqlConnection(AppSettings.ConnectionString);
         }
     }
 }

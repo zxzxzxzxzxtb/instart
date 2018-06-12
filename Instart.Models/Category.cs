@@ -36,6 +36,11 @@ namespace Instart.Models
         public int GroupIndex { get; set; }
 
         /// <summary>
+        /// 状态，1：正常，0：删除
+        /// </summary>
+        public int Status { get; set; }
+
+        /// <summary>
         /// 创建时间
         /// </summary>
         public DateTime CreateTime { get; set; }

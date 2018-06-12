@@ -79,6 +79,8 @@
     <Compile Include="Base\AutofacRepository.cs" />
     <Compile Include="Base\DapperFactory.cs" />
     <Compile Include="Base\DbContextFactory.cs" />
+    <Compile Include="Base\Extensions.cs" />
+    <Compile Include="Base\FieldEqualityComparer.cs" />
     <Compile Include="Base\InstartDbContext.cs" />
     <Compile Include="Base\IRepository.cs" />
     <Compile Include="Base\RepositoryBase.cs" />

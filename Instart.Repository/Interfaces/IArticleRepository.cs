@@ -13,7 +13,7 @@ namespace Instart.Repository
 
         Task<PageModel<Article>> GetListAsync(int pageIndex, int pageSize, int categoryId = 0);
 
-        Task<bool> AddAsync(Article model);
+        Task<bool> InsertAsync(Article model);
 
         Task<bool> UpdateAsync(Article model);
     }

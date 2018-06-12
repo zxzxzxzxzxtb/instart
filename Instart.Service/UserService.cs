@@ -68,5 +68,29 @@ namespace Instart.Service
 
             return await _userRepository.UpdatePasswordAsync(id, encryptPwd);
         }
+
+        public async Task<bool> InsertAsync(User model)
+        {
+            if(model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            if (string.IsNullOrEmpty(model.UserName))
+            {
+                throw new ArgumentNullException(nameof(model.UserName));
+            }
+
+            if (string.IsNullOrEmpty(model.Password))
+            {
+                throw new ArgumentNullException(nameof(model.Password));
+            }
+
+            model.Password = Md5Helper.Encrypt(model.Password);
+            model.CreateTime = DateTime.Now;
+            model.ModifyTime = DateTime.Now;
+
+            return await _userRepository.InsertAsync(model);
+        }
     }
 }

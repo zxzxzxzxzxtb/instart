@@ -32,14 +32,14 @@ namespace Instart.Service
             return await _articleRepository.GetListAsync(pageIndex, pageSize, categoryId);
         }
 
-        public async Task<bool> AddAsync(Article model)
+        public async Task<bool> InsertAsync(Article model)
         {
             if(model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            return await _articleRepository.AddAsync(model);
+            return await _articleRepository.InsertAsync(model);
         }
 
         public async Task<bool> UpdateAsync(Article model)
@@ -70,7 +70,7 @@ namespace Instart.Service
                 throw new Exception($"文章不存在, id:{id}");
             }
 
-            model.IsDelete = true;
+            model.Status = 0;
             return await _articleRepository.UpdateAsync(model);
         }
     }

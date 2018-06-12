@@ -21,7 +21,7 @@ namespace Instart.Repository
             return result;
         }
 
-        public async new Task<bool> AddAsync(Article model)
+        public async new Task<bool> InsertAsync(Article model)
         {
             return false;
         }
