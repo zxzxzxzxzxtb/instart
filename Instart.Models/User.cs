@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace Instart.Models
 {
-    [Table("User")]
     public class User
     {
         /// <summary>
