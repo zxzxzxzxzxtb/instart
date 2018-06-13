@@ -13,12 +13,12 @@ namespace Instart.Repository
 {
     public class UserRepository : IUserRepository
     {
-        public Task<User> GetByIdAsync(int id)
+        public async Task<User> GetByIdAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select * from [User] where Id = @Id and Status=1;";
-                return conn.QuerySingleAsync<User>(sql, new { Id = id });
+                return await conn.QuerySingleAsync<User>(sql, new { Id = id });
             }
         }
 
