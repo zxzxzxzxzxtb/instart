@@ -18,7 +18,7 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select * from [User] where Id = @Id and Status=1;";
-                return await conn.QuerySingleAsync<User>(sql, new { Id = id });
+                return await conn.QueryFirstOrDefaultAsync<User>(sql, new { Id = id });
             }
         }
 
@@ -60,7 +60,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                var fields = model.ToFields(new List<string> { nameof(model.Id) });
+                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id) });
                 if (fields == null || fields.Count == 0)
                 {
                     return false;

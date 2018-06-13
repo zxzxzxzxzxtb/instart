@@ -70,6 +70,11 @@ namespace Instart.Models
         public bool IsTop { get; set; }
 
         /// <summary>
+        /// 是否热门
+        /// </summary>
+        public bool IsHot { get; set; }
+
+        /// <summary>
         /// 排序
         /// </summary>
         public int GroupIndex { get; set; }

@@ -27,9 +27,9 @@ namespace Instart.Service
             return await _articleRepository.GetByIdAsync(id);
         }
 
-        public async Task<PageModel<Article>> GetListAsync(int pageIndex, int pageSize, int categoryId = 0)
+        public async Task<PageModel<Article>> GetListAsync(int pageIndex, int pageSize, int categoryId = 0, string title = null)
         {
-            return await _articleRepository.GetListAsync(pageIndex, pageSize, categoryId);
+            return await _articleRepository.GetListAsync(pageIndex, pageSize, categoryId, title);
         }
 
         public async Task<bool> InsertAsync(Article model)
@@ -39,6 +39,7 @@ namespace Instart.Service
                 throw new ArgumentNullException(nameof(model));
             }
 
+            model.ModifyTime = DateTime.Now;
             return await _articleRepository.InsertAsync(model);
         }
 
@@ -54,6 +55,7 @@ namespace Instart.Service
                 throw new ArgumentOutOfRangeException(nameof(model.Id));
             }
 
+            model.ModifyTime = DateTime.Now;
             return await _articleRepository.UpdateAsync(model);
         }
 
@@ -64,14 +66,7 @@ namespace Instart.Service
                 throw new ArgumentOutOfRangeException(nameof(id));
             }
 
-            var model = await _articleRepository.GetByIdAsync(id);
-            if(model == null)
-            {
-                throw new Exception($"文章不存在, id:{id}");
-            }
-
-            model.Status = 0;
-            return await _articleRepository.UpdateAsync(model);
+            return await _articleRepository.DeleteAsync(id);
         }
     }
 }
