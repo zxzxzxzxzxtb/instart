@@ -70,6 +70,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repository\ArticleRepositoryTest.cs" />
+    <Compile Include="Repository\CategoryRepositoryTest.cs" />
     <Compile Include="Repository\UserRepositoryTest.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
