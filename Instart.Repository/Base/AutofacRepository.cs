@@ -27,6 +27,7 @@ namespace Instart.Repository
             var builder = new ContainerBuilder();
             builder.RegisterType<UserRepository>().As<IUserRepository>().InstancePerLifetimeScope();
             builder.RegisterType<ArticleRepository>().As<IArticleRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<CategoryRepository>().As<ICategoryRepository>().InstancePerLifetimeScope();
             container = builder.Build();
         }
     }
