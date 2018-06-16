@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArticleRepository.cs" />
+    <Compile Include="BannerRepository.cs" />
     <Compile Include="Base\AppSettings.cs" />
     <Compile Include="Base\AutofacRepository.cs" />
     <Compile Include="Base\DapperFactory.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Base\RepositoryBase.cs" />
     <Compile Include="CategoryRepository.cs" />
     <Compile Include="Interfaces\IArticleRepository.cs" />
+    <Compile Include="Interfaces\IBannerRepository.cs" />
     <Compile Include="Interfaces\ICategoryRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
