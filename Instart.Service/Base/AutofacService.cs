@@ -28,7 +28,13 @@ namespace Instart.Service.Base
         public static void Register() {
             var builder = new ContainerBuilder();
             builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
-            builder.RegisterType<ArticleService>().As<IArticleService>().InstancePerMatchingLifetimeScope();
+            builder.RegisterType<ArticleService>().As<IArticleService>().InstancePerLifetimeScope();
+            builder.RegisterType<CategoryService>().As<ICategoryService>().InstancePerLifetimeScope();
+            builder.RegisterType<BannerService>().As<IBannerService>().InstancePerLifetimeScope();
+            builder.RegisterType<SchoolService>().As<ISchoolService>().InstancePerLifetimeScope();
+            builder.RegisterType<MajorService>().As<IMajorService>().InstancePerLifetimeScope();
+            builder.RegisterType<TeacherService>().As<ITeacherService>().InstancePerLifetimeScope();
+            builder.RegisterType<StudentService>().As<IStudentService>().InstancePerLifetimeScope();
             container = builder.Build();
         }
     }

@@ -66,6 +66,10 @@ namespace Instart.Repository
                     return false;
                 }
 
+                model.CreateTime = DateTime.Now;
+                model.ModifyTime = DateTime.Now;
+                model.Status = 1;
+
                 string sql = $"insert into [User] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
                 return await conn.ExecuteAsync(sql, model) > 0;
             }

@@ -48,10 +48,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArticleService.cs" />
+    <Compile Include="BannerService.cs" />
+    <Compile Include="CategoryService.cs" />
     <Compile Include="Interfaces\IArticleService.cs" />
     <Compile Include="Base\AutofacService.cs" />
     <Compile Include="Base\ServiceBase.cs" />
+    <Compile Include="Interfaces\ICategoryService.cs" />
+    <Compile Include="Interfaces\IBannerService.cs" />
+    <Compile Include="Interfaces\IStudentService.cs" />
+    <Compile Include="Interfaces\ITeacherService.cs" />
+    <Compile Include="Interfaces\IMajorService.cs" />
+    <Compile Include="Interfaces\ISchoolService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="StudentService.cs" />
+    <Compile Include="TeacherService.cs" />
+    <Compile Include="MajorService.cs" />
+    <Compile Include="SchoolService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -72,6 +72,10 @@ namespace Instart.Repository
                     return false;
                 }
 
+                model.CreateTime = DateTime.Now;
+                model.ModifyTime = DateTime.Now;
+                model.Status = 1;
+
                 string sql = $"insert into [Category] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
                 return await conn.ExecuteAsync(sql, model) > 0;
             }
@@ -98,6 +102,8 @@ namespace Instart.Repository
                 {
                     fieldList.Add($"{field}=@{field}");
                 }
+
+                model.ModifyTime = DateTime.Now;
 
                 string sql = $"update [Category] set {string.Join(",", fieldList)} where Id=@Id;";
                 return await conn.ExecuteAsync(sql, model) > 0;

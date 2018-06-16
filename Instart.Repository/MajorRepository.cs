@@ -4,57 +4,48 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Instart.Models;
-using Instart.Models.Enums;
 using Dapper;
 
 namespace Instart.Repository
 {
-    public class BannerRepository : IBannerRepository
+    public class MajorRepository : IMajorRepository
     {
-        public async Task<Banner> GetByIdAsync(int id) {
+        public async Task<Major> GetByIdAsync(int id) {
             using (var conn = DapperFactory.GetConnection()) {
-                string sql = "select * from [Banner] where Id = @Id and Status=1;";
-                return await conn.QueryFirstOrDefaultAsync<Banner>(sql, new { Id = id });
+                string sql = "select * from [Major] where Id = @Id and Status=1;";
+                return await conn.QueryFirstOrDefaultAsync<Major>(sql, new { Id = id });
             }
         }
 
-        public async Task<PageModel<Banner>> GetListAsync(int pageIndex, int pageSize, string title = null) {
+        public async Task<PageModel<Major>> GetListAsync(int pageIndex, int pageSize, string name = null) {
             using (var conn = DapperFactory.GetConnection()) {
                 #region generate condition
                 string where = "where Status=1";
-                if (!string.IsNullOrEmpty(title)) {
-                    where += $" and Title like '%{title}%'";
+                if (!string.IsNullOrEmpty(name)) {
+                    where += $" and Name like '%{name}%'";
                 }
                 #endregion
 
-                string countSql = $"select count(1) from [Banner] {where};";
+                string countSql = $"select count(1) from [Major] {where};";
                 int total = await conn.ExecuteScalarAsync<int>(countSql);
                 if (total == 0) {
-                    return new PageModel<Banner>();
+                    return new PageModel<Major>();
                 }
 
                 string sql = $@"select * from (   
-　　　　                            select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [Banner] {where} 
+　　　　                            select Id,Name,CreateTime ROW_NUMBER() over (Order by Id desc) as RowNumber from [Major] {where} 
 　　                            ) as b  
 　　                            where RowNumber between {(pageIndex - 1) * pageIndex} and {pageIndex * pageIndex};";
-                var list = await conn.QueryAsync<Banner>(sql);
+                var list = await conn.QueryAsync<Major>(sql);
 
-                return new PageModel<Banner> {
+                return new PageModel<Major> {
                     Total = total,
                     Data = list?.ToList()
                 };
             }
         }
 
-        public async Task<List<Banner>> GetListByPosAsync(EnumBannerPos pos = EnumBannerPos.Index) {
-            using (var conn = DapperFactory.GetConnection()) {
-                string sql = "select * from [Banner] where Pos = @Pos and Status=1;";
-                var list = await conn.QueryAsync<Banner>(sql, new { Pos = pos });
-                return list?.ToList();
-            }
-        }
-
-        public async Task<bool> InsertAsync(Banner model) {
+        public async Task<bool> InsertAsync(Major model) {
             using (var conn = DapperFactory.GetConnection()) {
                 var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id) });
                 if (fields == null || fields.Count == 0) {
@@ -65,12 +56,12 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
                 model.Status = 1;
 
-                string sql = $"insert into [Banner] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
+                string sql = $"insert into [Major] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
                 return await conn.ExecuteAsync(sql, model) > 0;
             }
         }
 
-        public async Task<bool> UpdateAsync(Banner model) {
+        public async Task<bool> UpdateAsync(Major model) {
             using (var conn = DapperFactory.GetConnection()) {
                 var fields = model.ToFields(removeFields: new List<string>
                 {
@@ -90,14 +81,14 @@ namespace Instart.Repository
 
                 model.ModifyTime = DateTime.Now;
 
-                string sql = $"update [Banner] set {string.Join(",", fieldList)} where Id=@Id;";
+                string sql = $"update [Major] set {string.Join(",", fieldList)} where Id=@Id;";
                 return await conn.ExecuteAsync(sql, model) > 0;
             }
         }
 
         public async Task<bool> DeleteAsync(int id) {
             using (var conn = DapperFactory.GetConnection()) {
-                string sql = "update [Banner] set Status=0,ModifyTime=GETDATE() where Id=@Id;";
+                string sql = "update [Major] set Status=0,ModifyTime=GETDATE() where Id=@Id;";
                 return await conn.ExecuteAsync(sql, new { Id = id }) > 0;
             }
         }

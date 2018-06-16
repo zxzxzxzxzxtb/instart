@@ -39,7 +39,14 @@ namespace Instart.Service
                 throw new ArgumentNullException(nameof(model));
             }
 
-            model.ModifyTime = DateTime.Now;
+            if (string.IsNullOrEmpty(model.Title)) {
+                throw new ArgumentNullException(nameof(model.Title));
+            }
+
+            if (string.IsNullOrEmpty(model.Content)) {
+                throw new ArgumentNullException(nameof(model.Content));
+            }
+            
             return await _articleRepository.InsertAsync(model);
         }
 
@@ -50,12 +57,19 @@ namespace Instart.Service
                 throw new ArgumentNullException(nameof(model));
             }
 
+            if (string.IsNullOrEmpty(model.Title)) {
+                throw new ArgumentNullException(nameof(model.Title));
+            }
+
+            if (string.IsNullOrEmpty(model.Content)) {
+                throw new ArgumentNullException(nameof(model.Content));
+            }
+
             if(model.Id <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(model.Id));
             }
-
-            model.ModifyTime = DateTime.Now;
+            
             return await _articleRepository.UpdateAsync(model);
         }
 
@@ -63,7 +77,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(id));
+                throw new ArgumentException(nameof(id));
             }
 
             return await _articleRepository.DeleteAsync(id);

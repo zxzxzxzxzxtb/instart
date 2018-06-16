@@ -54,9 +54,13 @@
   <ItemGroup>
     <Compile Include="Article.cs" />
     <Compile Include="Banner.cs" />
+    <Compile Include="Student.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Enums\EnumBannerPos.cs" />
+    <Compile Include="Major.cs" />
     <Compile Include="PageModel.cs" />
+    <Compile Include="School.cs" />
+    <Compile Include="Teacher.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
