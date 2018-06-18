@@ -13,7 +13,6 @@ namespace Instart.Web.Areas.Manage.Controllers
     {
         public ActionResult Index() {
             return View();
-
         }
     }
 }
