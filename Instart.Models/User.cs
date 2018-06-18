@@ -25,6 +25,11 @@ namespace Instart.Models
         public string Password { get; set; }
 
         /// <summary>
+        /// 头像
+        /// </summary>
+        public string Avatar { get; set; }
+
+        /// <summary>
         /// 角色
         /// </summary>
         public int Role { get; set; }

@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
 namespace Instart.Web.Areas.Manage.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ManageControllerBase
     {
-        // GET: Manage/Home
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             return View();
         }
     }

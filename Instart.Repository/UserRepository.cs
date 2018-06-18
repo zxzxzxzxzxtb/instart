@@ -27,7 +27,7 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select * from [User] where UserName = @name and Status=1;";
-                return await conn.QuerySingleAsync<User>(sql, new { name = name });
+                return await conn.QueryFirstOrDefaultAsync<User>(sql, new { name = name });
             }
         }
 

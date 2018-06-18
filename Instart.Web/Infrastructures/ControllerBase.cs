@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Instart.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -30,6 +31,20 @@ namespace Instart.Web
                 }
             }
             base.Dispose(disposing);
+        }
+
+        protected ResultBase Success(string msg = null) {
+            return new ResultBase {
+                Success = true,
+                Message = msg
+            };
+        }
+
+        protected ResultBase Error (string msg = null) {
+            return new ResultBase {
+                Success = false,
+                Message = msg
+            };
         }
     }
 }
