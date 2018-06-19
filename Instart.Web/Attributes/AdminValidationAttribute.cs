@@ -18,7 +18,12 @@ namespace Instart.Web.Attributes
                 var cookie = filterContext.HttpContext.Request.Cookies[WebAppSettings.CookieName];
                 if (cookie == null)
                 {
-                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "account", action = "login", area = "manage" }));
+                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
+                    {
+                        controller = "account",
+                        action = "login",
+                        area = "manage"
+                    }));
                     return;
                 }
 
