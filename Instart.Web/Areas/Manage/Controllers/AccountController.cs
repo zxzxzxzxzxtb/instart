@@ -1,4 +1,6 @@
-﻿using Instart.Web.Models;
+﻿using Instart.Common;
+using Instart.Web.Configs;
+using Instart.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +25,8 @@ namespace Instart.Web.Areas.Manage.Controllers
 
         [HttpPost]
         public void Quit() {
-            Session["admin"] = null;
+            Session[WebAppSettings.SessionName] = null;
+            CookieHelper.Clear(WebAppSettings.CookieName);
         }
     }
 }

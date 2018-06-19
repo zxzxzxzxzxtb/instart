@@ -226,7 +226,9 @@
     <Compile Include="Areas\Manage\Controllers\StudentController.cs" />
     <Compile Include="Areas\Manage\Controllers\TeacherController.cs" />
     <Compile Include="Areas\Manage\ManageAreaRegistration.cs" />
+    <Compile Include="Attributes\AdminValidationAttribute.cs" />
     <Compile Include="Attributes\ExceptionAttribute.cs" />
+    <Compile Include="Configs\WebAppSettings.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
