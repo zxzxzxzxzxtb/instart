@@ -10,7 +10,7 @@ namespace Instart.Common
 {
     public class DesHelper
     {
-        static byte[] keyvi = new byte[] { 0x01, 0x02, 0x03, 0x04, 0x05, 0x05, 0x07 };
+        static byte[] keyvi = new byte[] { 0x01, 0x02, 0x03, 0x04, 0x05, 0x05, 0x07, 0x07 };
 
         public static string Encrypt(string normalTxt, string EncryptKey)
         {
