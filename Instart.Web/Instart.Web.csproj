@@ -242,6 +242,8 @@
     </Compile>
     <Compile Include="Infrastructures\ManageControllerBase.cs" />
     <Compile Include="Infrastructures\ControllerBase.cs" />
+    <Compile Include="Models\CookieData.cs" />
+    <Compile Include="Models\LoginUser.cs" />
     <Compile Include="Models\ResultBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

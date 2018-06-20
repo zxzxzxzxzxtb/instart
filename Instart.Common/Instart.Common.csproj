@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CookieHelper.cs" />
+    <Compile Include="DesHelper.cs" />
     <Compile Include="LogHelper.cs" />
     <Compile Include="Md5Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -7,23 +7,12 @@ namespace Instart.Web.Models
 {
     public class ResultBase
     {
-        public bool Success { get; set; }
+        public bool success { get; set; }
 
-        public string Message { get; set; }
+        public string message { get; set; }
 
-        public int ErrorCode { get; set; }
+        public int errorcode { get; set; }
 
-        public object Data { get; set; }
-    }
-
-    public class ResultBase<T> where T : class
-    {
-        public bool Success { get; set; }
-
-        public string Message { get; set; }
-
-        public int ErrorCode { get; set; }
-
-        public T Data { get; set; }
+        public object data { get; set; }
     }
 }

@@ -9,6 +9,14 @@ namespace Instart.Web
 {
     public class ManageControllerBase : Controller
     {
+        public LoginUser LoginUser
+        {
+            get
+            {
+                return CookieData.CurrentUser;
+            }
+        }
+
         public IList<IDisposable> DisposableObjects { get; private set; }
 
         public ManageControllerBase() {
@@ -33,17 +41,19 @@ namespace Instart.Web
             base.Dispose(disposing);
         }
 
-        protected ResultBase Success(string msg = null) {
+        protected ResultBase Success(string msg = null, object data = null) {
             return new ResultBase {
-                Success = true,
-                Message = msg
+                success = true,
+                message = msg,
+                data = data,
             };
         }
 
-        protected ResultBase Error (string msg = null) {
+        protected ResultBase Error (string msg = null, object data = null) {
             return new ResultBase {
-                Success = false,
-                Message = msg
+                success = false,
+                message = msg,
+                data = data
             };
         }
     }

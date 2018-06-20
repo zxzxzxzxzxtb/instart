@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Instart.Web.Configs
+namespace Instart.Web
 {
     public class WebAppSettings
     {
@@ -26,6 +26,28 @@ namespace Instart.Web.Configs
             get
             {
                 return "instart_cookie";
+            }
+        }
+
+        /// <summary>
+        /// 是否开始模式
+        /// </summary>
+        public static bool IsDevelop
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["IsDevelop"].ToBooleanOrDefault(false);
+            }
+        }
+
+        /// <summary>
+        /// DES加密key
+        /// </summary>
+        public static string DesEncryptKey
+        {
+            get
+            {
+                return "we934okx09krefgj@sdlk$sdklwwsggc";
             }
         }
     }
