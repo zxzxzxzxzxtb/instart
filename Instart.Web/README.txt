@@ -5,6 +5,7 @@ CREATE TABLE [dbo].[User] (
     [Id]         INT           IDENTITY (1, 1) NOT NULL,
     [UserName]   NVARCHAR (50) NOT NULL,
     [Password]   NVARCHAR (50) NOT NULL,
+	[NickName]   NVARCHAR (50),
     [Role]       INT           DEFAULT ((0)) NOT NULL,
     [Status]     INT           DEFAULT ((1)) NOT NULL,
     [CreateTime] DATETIME      DEFAULT (getdate()) NOT NULL,

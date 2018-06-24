@@ -2,12 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace Instart.Models
+namespace Instart.Web.Areas.Manage.Models
 {
-    public class Banner
+    public class BannerRequest
     {
         /// <summary>
         /// Id
@@ -43,20 +42,5 @@ namespace Instart.Models
         /// 是否显示
         /// </summary>
         public bool IsShow { get; set; }
-
-        /// <summary>
-        /// 状态，1：正常，0：删除
-        /// </summary>
-        public int Status { get; set; }
-
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        public DateTime CreateTime { get; set; }
-
-        /// <summary>
-        /// 修改时间
-        /// </summary>
-        public DateTime? ModifyTime { get; set; }
     }
 }

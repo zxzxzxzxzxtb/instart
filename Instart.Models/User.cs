@@ -12,7 +12,7 @@ namespace Instart.Models
         /// <summary>
         /// 主键ID
         /// </summary>
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// 用户名
@@ -23,6 +23,11 @@ namespace Instart.Models
         /// 密码
         /// </summary>
         public string Password { get; set; }
+
+        /// <summary>
+        /// 昵称
+        /// </summary>
+        public string NickName { get; set; }
 
         /// <summary>
         /// 头像

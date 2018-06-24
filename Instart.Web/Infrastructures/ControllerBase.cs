@@ -33,17 +33,23 @@ namespace Instart.Web
             base.Dispose(disposing);
         }
 
-        protected ResultBase Success(string msg = null) {
-            return new ResultBase {
-                Success = true,
-                Message = msg
+        protected ResultBase Success(string msg = null, object data = null)
+        {
+            return new ResultBase
+            {
+                success = true,
+                message = msg,
+                data = data,
             };
         }
 
-        protected ResultBase Error (string msg = null) {
-            return new ResultBase {
-                Success = false,
-                Message = msg
+        protected ResultBase Error(string msg = null, object data = null)
+        {
+            return new ResultBase
+            {
+                success = false,
+                message = msg,
+                data = data
             };
         }
     }
