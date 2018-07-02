@@ -30,7 +30,7 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
         
         [HttpPost]
-        public async Task<ResultBase> Insert(BannerRequest request)
+        public async Task<JsonResult> Insert(BannerRequest request)
         {
             try
             {
@@ -43,10 +43,10 @@ namespace Instart.Web.Areas.Manage.Controllers
 
                 var model = request.Mapper<Banner>();
 
-                return new ResultBase
+                return Json(new ResultBase
                 {
                     success = await _bannserService.UpdateAsync(model)
-                };
+                });
             }
             catch(Exception ex)
             {
@@ -56,7 +56,7 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public async Task<ResultBase> Update(BannerRequest request)
+        public async Task<JsonResult> Update(BannerRequest request)
         {
             try
             {
@@ -68,10 +68,10 @@ namespace Instart.Web.Areas.Manage.Controllers
 
                 var model = request.Mapper<Banner>();
 
-                return new ResultBase
+                return Json(new ResultBase
                 {
                     success = await _bannserService.UpdateAsync(model)
-                };
+                });
             }
             catch (Exception ex)
             {

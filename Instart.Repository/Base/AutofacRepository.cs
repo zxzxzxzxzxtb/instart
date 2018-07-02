@@ -32,6 +32,7 @@ namespace Instart.Repository
             builder.RegisterType<MajorRepository>().As<IMajorRepository>().InstancePerLifetimeScope();
             builder.RegisterType<TeacherRepository>().As<ITeacherRepository>().InstancePerLifetimeScope();
             builder.RegisterType<StudentRepository>().As<IStudentRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<BannerRepository>().As<IBannerRepository>().InstancePerLifetimeScope();
             container = builder.Build();
         }
     }

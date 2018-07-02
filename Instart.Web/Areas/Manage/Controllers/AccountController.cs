@@ -27,7 +27,7 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public async Task<ResultBase> Login(string username, string password, bool autoLogin = false)
+        public async Task<JsonResult> Login(string username, string password, bool autoLogin = false)
         {
             if (string.IsNullOrEmpty(username))
             {

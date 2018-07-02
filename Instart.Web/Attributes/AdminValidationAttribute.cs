@@ -17,6 +17,15 @@ namespace Instart.Web.Attributes
         {
             if (WebAppSettings.IsDevelop)
             {
+                var testUser = new LoginUser {
+                    UserId = 10000,
+                    UserName = "test",
+                    NickName = "liufei",
+                    Avatar = "",
+                };
+
+                CookieData.CurrentUser = testUser;
+                filterContext.HttpContext.Session[WebAppSettings.SessionName] = testUser;
                 return;
             }
 

@@ -1,0 +1,74 @@
+﻿
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>instart-登录</title>
+    <link href="~/Content/themes/blueskin/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/signin.css" rel="stylesheet">
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Content/themes/blueskin/js/jquery-2.0.3.min.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <div class="container">
+
+        <form class="form-signin">
+            <h3 class="form-signin-heading">登录</h3>
+            <input type="email" id="txtUserName" class="form-control" placeholder="用户名" required autofocus>
+            <input type="password" id="txtPassword" class="form-control" placeholder="密码" required>
+            <div class="checkbox">
+                <label>
+                    <input id="chkRemember" type="checkbox" value="remember-me" checked="checked"> 3天内自动登录
+                </label>
+            </div>
+            <button id="btnLogin" class="btn btn-lg btn-success btn-block" type="button">登录</button>
+        </form>
+    </div>
+
+    <script>
+        $(function () {
+            $("#btnLogin").click(function () {
+                var username = $("#txtUserName").val();
+                var password = $("#txtPassword").val();
+                var auto = $("#chkRemember").is(":checked");
+                if (username.trim() == "") {
+                    layer.msg("请输入用户名");
+                    return false;
+                }
+                if (password.trim() == "") {
+                    layer.msg("请输入密码");
+                    return false;
+                }
+
+                $.ajax({
+                    type: "post",
+                    url: "@Url.Action("login", "account", new { area = "manage" })",
+                    data: { "username": username,"password":password,"autoLogin":auto },
+                    success: function (slt) {
+                        if (slt && slt.succsss) {
+                            location.href = "/manage/index";
+                        }
+                        else {
+                            layer.msg(slt.message || "登录失败，请重试");
+                        }
+                    }
+                });
+            });
+        })
+    </script>
+</body>
+</html>

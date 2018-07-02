@@ -19,21 +19,28 @@ namespace Instart.Web
 
         public IList<IDisposable> DisposableObjects { get; private set; }
 
-        public ManageControllerBase() {
+        public ManageControllerBase()
+        {
             this.DisposableObjects = new List<IDisposable>();
         }
 
-        protected void AddDisposableObject(object obj) {
+        protected void AddDisposableObject(object obj)
+        {
             var disposable = obj as IDisposable;
-            if (disposable != null) {
+            if (disposable != null)
+            {
                 this.DisposableObjects.Add(disposable);
             }
         }
 
-        protected override void Dispose(bool disposing) {
-            if (disposing) {
-                foreach(IDisposable obj in this.DisposableObjects) {
-                    if(obj != null) {
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                foreach (IDisposable obj in this.DisposableObjects)
+                {
+                    if (obj != null)
+                    {
                         obj.Dispose();
                     }
                 }
@@ -41,19 +48,29 @@ namespace Instart.Web
             base.Dispose(disposing);
         }
 
-        protected ResultBase Success(string msg = null, object data = null) {
-            return new ResultBase {
-                success = true,
-                message = msg,
-                data = data,
+        protected JsonResult Success(string msg = null, object data = null)
+        {
+            return new JsonResult
+            {
+                Data = new ResultBase
+                {
+                    success = true,
+                    message = msg,
+                    data = data
+                }
             };
         }
 
-        protected ResultBase Error (string msg = null, object data = null) {
-            return new ResultBase {
-                success = false,
-                message = msg,
-                data = data
+        protected JsonResult Error(string msg = null, object data = null)
+        {
+            return new JsonResult
+            {
+                Data = new ResultBase
+                {
+                    success = false,
+                    message = msg,
+                    data = data
+                }
             };
         }
     }

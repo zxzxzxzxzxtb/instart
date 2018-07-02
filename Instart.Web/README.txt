@@ -1,5 +1,11 @@
 layui:http://www.layui.com/demo/button.html
 
+iis mimi
+.json       application/x-javascript
+.svg        image/svg+xml
+.woff       application/x-font-woff
+.woff2      application/x-font-woff
+
 数据库创建表sql:
 CREATE TABLE [dbo].[User] (
     [Id]         INT           IDENTITY (1, 1) NOT NULL,

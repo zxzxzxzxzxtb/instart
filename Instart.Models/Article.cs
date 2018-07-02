@@ -87,6 +87,6 @@ namespace Instart.Models
         /// <summary>
         /// 修改时间
         /// </summary>
-        public DateTime? ModifyTime { get; set; }
+        public DateTime ModifyTime { get; set; }
     }
 }
