@@ -1,5 +1,4 @@
-﻿using Instart.Models.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,34 +7,24 @@ using System.Threading.Tasks;
 namespace Instart.Models
 {
     /// <summary>
-    /// 艺术专业
+    /// 学部
     /// </summary>
-    public class Major
+    public class Division
     {
         /// <summary>
         /// Id
         /// </summary>
-        public int Id { get; set; }        
+        public int Id { get; set; }
 
         /// <summary>
-        /// 专业名称
+        /// 学部名称
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 专业介绍
+        /// 学部介绍
         /// </summary>
         public string Introduce { get; set; }
-        
-        /// <summary>
-        /// 就业前景
-        /// </summary>
-        public string Prospect { get; set; }
-
-        /// <summary>
-        /// 专业类型
-        /// </summary>
-        public EnumMajorType Type { get; set; }
 
         /// <summary>
         /// 状态，1：正常，0：删除

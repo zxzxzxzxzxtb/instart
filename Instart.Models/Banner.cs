@@ -30,6 +30,11 @@ namespace Instart.Models
         public string ImageUrl { get; set; }
 
         /// <summary>
+        /// 视频地址
+        /// </summary>
+        public string VideoUrl { get; set; }
+
+        /// <summary>
         /// 轮播图显示位置
         /// </summary>
         public EnumBannerPos Pos { get; set; }
@@ -48,6 +53,11 @@ namespace Instart.Models
         /// 状态，1：正常，0：删除
         /// </summary>
         public int Status { get; set; }
+
+        /// <summary>
+        /// banner类型
+        /// </summary>
+        public EnumBannerType Type { get; set; }
 
         /// <summary>
         /// 创建时间

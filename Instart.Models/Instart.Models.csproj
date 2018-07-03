@@ -54,6 +54,10 @@
   <ItemGroup>
     <Compile Include="Article.cs" />
     <Compile Include="Banner.cs" />
+    <Compile Include="Division.cs" />
+    <Compile Include="Enums\EnumBannerType.cs" />
+    <Compile Include="Enums\EnumMajorType.cs" />
+    <Compile Include="Enums\EnumSchoolType.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Enums\EnumBannerPos.cs" />
