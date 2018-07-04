@@ -2,7 +2,6 @@
 using Instart.Models;
 using Instart.Service;
 using Instart.Service.Base;
-using Instart.Web.Areas.Manage.Models;
 using Instart.Web.Attributes;
 using Instart.Web.Models;
 using System;
@@ -35,19 +34,17 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
         
         [HttpPost]
-        public async Task<JsonResult> Insert(BannerRequest request)
+        public async Task<JsonResult> Insert(Banner model)
         {
             try
             {
-                string msg = this.Validate(request, false);
+                string msg = this.Validate(model, false);
 
                 if (!string.IsNullOrEmpty(msg))
                 {
                     return Error(msg);
                 }
-
-                var model = request.Mapper<Banner>();
-
+                
                 return Json(new ResultBase
                 {
                     success = await _bannserService.UpdateAsync(model)
@@ -61,17 +58,16 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> Update(BannerRequest request)
+        public async Task<JsonResult> Update(Banner model)
         {
             try
             {
-                string msg = this.Validate(request, true);
+                string msg = this.Validate(model, true);
                 if (!string.IsNullOrEmpty(msg))
                 {
                     return Error(msg);
                 }
 
-                var model = request.Mapper<Banner>();
 
                 return Json(new ResultBase
                 {
@@ -86,7 +82,7 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [NonAction]
-        private string Validate(BannerRequest request, bool isUpdate = false)
+        private string Validate(Banner model, bool isUpdate = false)
         {
             if (request == null)
             {

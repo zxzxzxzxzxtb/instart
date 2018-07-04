@@ -240,7 +240,6 @@
     <Compile Include="Areas\Manage\Controllers\TeacherController.cs" />
     <Compile Include="Areas\Manage\Controllers\UserController.cs" />
     <Compile Include="Areas\Manage\ManageAreaRegistration.cs" />
-    <Compile Include="Areas\Manage\Models\BannerRequest.cs" />
     <Compile Include="Attributes\AdminValidationAttribute.cs" />
     <Compile Include="Attributes\ExceptionAttribute.cs" />
     <Compile Include="Configs\WebAppSettings.cs" />
@@ -588,7 +587,9 @@
   <ItemGroup>
     <Content Include="Areas\Manage\Views\User\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Areas\Manage\Models\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Manage\Views\Partner\Index.cshtml" />
   </ItemGroup>
