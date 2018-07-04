@@ -17,14 +17,19 @@ namespace Instart.Models
         public int Id { get; set; }
 
         /// <summary>
+        /// 分部Id
+        /// </summary>
+        public int DivisionId { get; set; }
+
+        /// <summary>
         /// 学校Id
         /// </summary>
         public int SchoolId { get; set; }
 
         /// <summary>
-        /// 学校名称
+        /// 专业Id
         /// </summary>
-        public string SchoolName { get; set; }
+        public int MajorId { get; set; }
 
         /// <summary>
         /// 导师姓名
@@ -37,14 +42,19 @@ namespace Instart.Models
         public string Avatar { get; set; }
 
         /// <summary>
-        /// 导师专业
+        /// 导师毕业学校
         /// </summary>
-        public string Major { get; set; }
+        public string FromSchool { get; set; }
+
+        /// <summary>
+        /// 导师所学专业
+        /// </summary>
+        public string FromMajor { get; set; }
 
         /// <summary>
         /// 擅长课程
         /// </summary>
-        public string FeatureCourse { get; set; }
+        public string FromCourse { get; set; }
 
         /// <summary>
         /// 导师介绍
@@ -52,9 +62,9 @@ namespace Instart.Models
         public string Introduce { get; set; }
 
         /// <summary>
-        /// 导师详情
+        /// 导师作品（json）
         /// </summary>
-        public string Details { get; set; }
+        public string Cases { get; set; }
 
         /// <summary>
         /// 状态，1：正常，0：删除

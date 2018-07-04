@@ -24,9 +24,14 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_bannserService);
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index(int page = 1, string title = null)
         {
-            return View();
+            int pageSize = 10;
+            var list = await _bannserService.GetListAsync(page, pageSize, title);
+            ViewBag.Total = list.Total;
+            ViewBag.PageIndex = page;
+            ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
+            return View(list.Data);
         }
         
         [HttpPost]

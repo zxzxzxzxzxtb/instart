@@ -227,11 +227,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Manage\Controllers\AboutController.cs" />
     <Compile Include="Areas\Manage\Controllers\AccountController.cs" />
-    <Compile Include="Areas\Manage\Controllers\ApplyController.cs" />
+    <Compile Include="Areas\Manage\Controllers\CourseApplyController.cs" />
+    <Compile Include="Areas\Manage\Controllers\DivisionController.cs" />
+    <Compile Include="Areas\Manage\Controllers\SchoolApplyController.cs" />
     <Compile Include="Areas\Manage\Controllers\BannerController.cs" />
     <Compile Include="Areas\Manage\Controllers\CourseController.cs" />
     <Compile Include="Areas\Manage\Controllers\HomeController.cs" />
     <Compile Include="Areas\Manage\Controllers\MajorController.cs" />
+    <Compile Include="Areas\Manage\Controllers\PartnerController.cs" />
     <Compile Include="Areas\Manage\Controllers\SchoolController.cs" />
     <Compile Include="Areas\Manage\Controllers\StudentController.cs" />
     <Compile Include="Areas\Manage\Controllers\TeacherController.cs" />
@@ -253,6 +256,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructures\HtmlHelperExtend.cs" />
     <Compile Include="Infrastructures\ManageControllerBase.cs" />
     <Compile Include="Infrastructures\ControllerBase.cs" />
     <Compile Include="Models\CookieData.cs" />
@@ -574,7 +578,7 @@
     <Content Include="Areas\Manage\Views\Teacher\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Manage\Views\Apply\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\SchoolApply\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\layui\font\iconfont.eot" />
@@ -583,6 +587,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Manage\Views\User\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Partner\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\CourseApply\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Division\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
