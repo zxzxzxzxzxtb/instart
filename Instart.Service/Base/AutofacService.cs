@@ -35,6 +35,7 @@ namespace Instart.Service.Base
             builder.RegisterType<MajorService>().As<IMajorService>().InstancePerLifetimeScope();
             builder.RegisterType<TeacherService>().As<ITeacherService>().InstancePerLifetimeScope();
             builder.RegisterType<StudentService>().As<IStudentService>().InstancePerLifetimeScope();
+            builder.RegisterType<DivisionService>().As<IDivisionService>().InstancePerLifetimeScope();
             container = builder.Build();
         }
     }
