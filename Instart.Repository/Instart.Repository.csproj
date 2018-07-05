@@ -86,11 +86,9 @@
     <Compile Include="Base\IRepository.cs" />
     <Compile Include="Base\RepositoryBase.cs" />
     <Compile Include="CategoryRepository.cs" />
-    <Compile Include="DivisionRepository.cs" />
     <Compile Include="Interfaces\IArticleRepository.cs" />
     <Compile Include="Interfaces\IBannerRepository.cs" />
     <Compile Include="Interfaces\ICategoryRepository.cs" />
-    <Compile Include="Interfaces\IDivisionRepository.cs" />
     <Compile Include="Interfaces\IStudentRepository.cs" />
     <Compile Include="Interfaces\ITeacherRepository.cs" />
     <Compile Include="Interfaces\IMajorRepository.cs" />

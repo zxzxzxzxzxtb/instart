@@ -84,22 +84,22 @@ namespace Instart.Web.Areas.Manage.Controllers
         [NonAction]
         private string Validate(Banner model, bool isUpdate = false)
         {
-            if (model == null)
+            if (request == null)
             {
                 return "参数错误";
             }
 
-            if (isUpdate && model.Id <= 0)
+            if (isUpdate && request.Id <= 0)
             {
                 return "Id不正确";
             }
 
-            if (string.IsNullOrEmpty(model.Title))
+            if (string.IsNullOrEmpty(request.Title))
             {
                 return "标题不能为空";
             }
 
-            if (string.IsNullOrEmpty(model.ImageUrl))
+            if (string.IsNullOrEmpty(request.ImageUrl))
             {
                 return "图片不能为空";
             }

@@ -50,13 +50,11 @@
     <Compile Include="ArticleService.cs" />
     <Compile Include="BannerService.cs" />
     <Compile Include="CategoryService.cs" />
-    <Compile Include="DivisionService.cs" />
     <Compile Include="Interfaces\IArticleService.cs" />
     <Compile Include="Base\AutofacService.cs" />
     <Compile Include="Base\ServiceBase.cs" />
     <Compile Include="Interfaces\ICategoryService.cs" />
     <Compile Include="Interfaces\IBannerService.cs" />
-    <Compile Include="Interfaces\IDivisionService.cs" />
     <Compile Include="Interfaces\IStudentService.cs" />
     <Compile Include="Interfaces\ITeacherService.cs" />
     <Compile Include="Interfaces\IMajorService.cs" />
