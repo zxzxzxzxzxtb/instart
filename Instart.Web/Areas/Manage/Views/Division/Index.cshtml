@@ -31,7 +31,8 @@
                     <td>@item.Introduce</td>
                     <td>@string.Format("{0:yyyy-MM-dd}", item.CreateTime)</td>
                     <td style="width:5%;">
-                        <a data-id="@item.Id" href="javascript:void(0)" class="delete">删除</a>
+                        <a data-id="@item.Id" href="javascript:void(0)" class="update" onclick="update(@item.Id)">修改</a>
+                        <a data-id="@item.Id" href="javascript:void(0)" class="delete" onclick="remove(@item.Id)">删除</a>
                     </td>
                 </tr>
             }
@@ -68,7 +69,8 @@
                     <tr>
                         <td>学部制度：</td>
                         <td>
-                            <input id="txtIntroduce" type="text" class="form-control" />
+                            <script id="editor" type="text/plain" style="width:480px;height:200px;">
+                            </script>
                         </td>
                     </tr>
                 </table>
@@ -83,6 +85,10 @@
 
 @section Bottom{
     <script>
+        var ue = UE.getEditor('editor', {
+            autoHeight: false
+        });
+
         $(function () {
             $('#btnSubmit').click(function () {
                 var name = $('#txtname').val();
@@ -94,7 +100,7 @@
                 $.ajax({
                     type: 'POST',
                     url:  '@Url.Action("insert", "division", new { area="manage"})',
-                    data: { Name: name, Introduce: introduce },
+                    data: { Name: name, Introduce: UE.getEditor('editor') },
                     success: function (slt) {
                         if (slt && slt.success) {
                             location.reload();
@@ -106,6 +112,27 @@
                 });
             });
         });
+
+        function remove(id){
+            if (window.confirm('你确定要删除该学部吗？')) {
+                $.ajax({
+                    type: 'POST',
+                    url:  '@Url.Action("Delete", "division", new { area="manage"})',
+                    data: { Name: name, Introduce: introduce },
+                    success: function (slt) {
+                        if (slt && slt.success) {
+                            location.reload();
+                        }
+                        else {
+                            alert(slt.message || '操作失败，请重试。');
+                        }
+                    }
+                });
+            } else {
+                //alert("取消");
+                return false;
+            }
+        }
     </script>
 }
 

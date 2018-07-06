@@ -59,8 +59,8 @@
                     url: "@Url.Action("login", "account", new { area = "manage" })",
                     data: { "username": username,"password":password,"autoLogin":auto },
                     success: function (slt) {
-                        if (slt && slt.succsss) {
-                            location.href = "/manage/index";
+                        if (slt && slt.success) {
+                            location.href = "/manage/home/index";
                         }
                         else {
                             layer.msg(slt.message || "登录失败，请重试");
