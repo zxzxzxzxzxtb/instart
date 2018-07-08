@@ -13,6 +13,8 @@ namespace Instart.Service
 
         Task<PageModel<Division>> GetListAsync(int pageIndex, int pageSize, string name = null);
 
+        Task<IEnumerable<Division>> GetAllAsync();
+
         Task<bool> InsertAsync(Division model);
 
         Task<bool> UpdateAsync(Division model);

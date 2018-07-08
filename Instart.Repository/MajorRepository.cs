@@ -20,22 +20,23 @@ namespace Instart.Repository
         public async Task<PageModel<Major>> GetListAsync(int pageIndex, int pageSize, string name = null) {
             using (var conn = DapperFactory.GetConnection()) {
                 #region generate condition
-                string where = "where Status=1";
+                string where = "where a.Status=1";
                 if (!string.IsNullOrEmpty(name)) {
-                    where += $" and Name like '%{name}%'";
+                    where += $" and a.Name like '%{name}%'";
                 }
                 #endregion
 
-                string countSql = $"select count(1) from [Major] {where};";
+                string countSql = $"select count(1) from [Major] as a {where};";
                 int total = await conn.ExecuteScalarAsync<int>(countSql);
                 if (total == 0) {
                     return new PageModel<Major>();
                 }
 
-                string sql = $@"select * from (   
-　　　　                            select Id,Name,CreateTime ROW_NUMBER() over (Order by Id desc) as RowNumber from [Major] {where} 
-　　                            ) as b  
-　　                            where RowNumber between {(pageIndex - 1) * pageIndex} and {pageIndex * pageIndex};";
+                string sql = $@"select * from (
+                     select a.*, b.Name as DivisionName, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Major] as a
+                     left join [Division] as b on b.Id = a.DivisionId {where}
+                     ) as c
+                     where RowNumber between {(pageIndex - 1) * pageSize} and {pageIndex * pageSize};";
                 var list = await conn.QueryAsync<Major>(sql);
 
                 return new PageModel<Major> {
@@ -47,7 +48,7 @@ namespace Instart.Repository
 
         public async Task<bool> InsertAsync(Major model) {
             using (var conn = DapperFactory.GetConnection()) {
-                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id) });
+                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id), nameof(model.DivisionName) });
                 if (fields == null || fields.Count == 0) {
                     return false;
                 }
@@ -66,6 +67,7 @@ namespace Instart.Repository
                 var fields = model.ToFields(removeFields: new List<string>
                 {
                     nameof(model.Id),
+                    nameof(model.DivisionName),
                     nameof(model.CreateTime),
                     nameof(model.Status)
                 });

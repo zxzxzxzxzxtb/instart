@@ -41,7 +41,7 @@ namespace Instart.Repository
                 string sql = $@"select * from (
                              select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [Division] {where}
                              ) as b
-                             where RowNumber between {(pageIndex - 1) * pageIndex} and {pageIndex * pageIndex};";
+                             where RowNumber between {(pageIndex - 1) * pageSize + 1} and {pageIndex * pageSize};";
                 var list = await conn.QueryAsync<Division>(sql);
 
                 return new PageModel<Division>
@@ -49,6 +49,19 @@ namespace Instart.Repository
                     Total = total,
                     Data = list?.ToList()
                 };
+            }
+        }
+
+        public async Task<IEnumerable<Division>> GetAllAsync()
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                #region generate condition
+                string where = "where Status=1";
+                #endregion
+
+                string sql = $@"select * from [Division] {where};";
+                return await conn.QueryAsync<Division>(sql);
             }
         }
 

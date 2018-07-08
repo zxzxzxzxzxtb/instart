@@ -2,7 +2,7 @@
 @using Instart.Web.Infrastructures
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "学部管理";
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 
@@ -29,9 +29,10 @@
                     <td style="width:5%;">@item.Id</td>
                     <td>@item.Name</td>
                     <td>@item.Introduce</td>
-                    <td>@string.Format("{0:yyyy-MM-dd}", item.CreateTime)</td>
-                    <td style="width:5%;">
-                        <a data-id="@item.Id" href="javascript:void(0)" class="delete">删除</a>
+                    <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
+                    <td style="width:10%;">
+                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="update(@item.Id, '@item.Name', '@item.Introduce')">修改</a>
+                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="remove(@item.Id)">删除</a>
                     </td>
                 </tr>
             }
@@ -43,7 +44,7 @@
     {
         <div class="pagination">
             <ul class="pl0">
-                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "list", new { area = "manage" })
+                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new { area = "manage" })
             </ul>
         </div>
     }
@@ -58,6 +59,7 @@
                 <h4 class="modal-title" id="myModalLabel">添加学部</h4>
             </div>
             <div class="modal-body">
+                <input type="hidden" id="divisionid" />
                 <table class="table table-nobordered">
                     <tr>
                         <td style="width:80px;">学部名称：</td>
@@ -68,7 +70,8 @@
                     <tr>
                         <td>学部制度：</td>
                         <td>
-                            <input id="txtIntroduce" type="text" class="form-control" />
+                            <script id="editor" type="text/plain" style="width:480px;height:200px;">
+                            </script>
                         </td>
                     </tr>
                 </table>
@@ -83,6 +86,10 @@
 
 @section Bottom{
     <script>
+        var ue = UE.getEditor('editor', {
+            autoHeight: false
+        });
+
         $(function () {
             $('#btnSubmit').click(function () {
                 var name = $('#txtname').val();
@@ -94,7 +101,7 @@
                 $.ajax({
                     type: 'POST',
                     url:  '@Url.Action("insert", "division", new { area="manage"})',
-                    data: { Name: name, Introduce: introduce },
+                    data: { Name: name, Introduce: ue.getContent() },
                     success: function (slt) {
                         if (slt && slt.success) {
                             location.reload();
@@ -106,6 +113,35 @@
                 });
             });
         });
+
+        function update(id, name, introduce) {
+            $("#divisionid").val(id);
+            $("#txtname").val(name);
+            ue.setContent(introduce);
+
+            $("#myModal").modal("show");
+        }
+
+        function remove(id){
+            if (window.confirm('你确定要删除该学部吗？')) {
+                $.ajax({
+                    type: 'POST',
+                    url:  '@Url.Action("delete", "division", new { area="manage"})',
+                    data: { id: id},
+                    success: function (slt) {
+                        if (slt && slt.success) {
+                            location.reload();
+                        }
+                        else {
+                            alert(slt.message || '操作失败，请重试。');
+                        }
+                    }
+                });
+            } else {
+                //alert("取消");
+                return false;
+            }
+        }
     </script>
 }
 

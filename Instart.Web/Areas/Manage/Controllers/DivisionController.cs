@@ -34,6 +34,7 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public async Task<JsonResult> Insert(Division model)
         {
             try
@@ -58,16 +59,11 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public async Task<JsonResult> Update(Division model)
         {
             try
             {
-                string msg = this.Validate(model, true);
-                if (!string.IsNullOrEmpty(msg))
-                {
-                    return Error(msg);
-                }
-
 
                 return Json(new ResultBase
                 {
@@ -77,6 +73,23 @@ namespace Instart.Web.Areas.Manage.Controllers
             catch (Exception ex)
             {
                 LogHelper.Error($"DivisionController.Update异常", ex);
+                return Error(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> Delete(int id)
+        {
+            try
+            {
+                return Json(new ResultBase
+                {
+                    success = await _divisionService.DeleteAsync(id)
+                });
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error($"DivisionController.Delete异常", ex);
                 return Error(ex.Message);
             }
         }
