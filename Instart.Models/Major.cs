@@ -23,6 +23,11 @@ namespace Instart.Models
         public string Name { get; set; }
 
         /// <summary>
+        /// 专业图片
+        /// </summary>
+        public string ImgUrl { get; set; }
+
+        /// <summary>
         /// 专业介绍
         /// </summary>
         public string Introduce { get; set; }
@@ -36,6 +41,16 @@ namespace Instart.Models
         /// 专业类型
         /// </summary>
         public EnumMajorType Type { get; set; }
+
+        /// <summary>
+        /// 所属学部
+        /// </summary>
+        public int DivisionId { get; set; }
+
+        /// <summary>
+        /// 学部名称
+        /// </summary>
+        public int DivisionName { get; set; }
 
         /// <summary>
         /// 状态，1：正常，0：删除

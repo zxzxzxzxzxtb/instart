@@ -2,7 +2,7 @@
 @using Instart.Web.Infrastructures
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "学部管理";
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 
@@ -29,7 +29,7 @@
                     <td style="width:5%;">@item.Id</td>
                     <td>@item.Name</td>
                     <td>@item.Introduce</td>
-                    <td>@string.Format("{0:yyyy-MM-dd}", item.CreateTime)</td>
+                    <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
                     <td style="width:10%;">
                         <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="update(@item.Id, '@item.Name', '@item.Introduce')">修改</a>
                         <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="remove(@item.Id)">删除</a>

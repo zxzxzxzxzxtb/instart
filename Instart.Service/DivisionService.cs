@@ -32,6 +32,11 @@ namespace Instart.Service
             return await _divisionRepository.GetListAsync(pageIndex, pageSize, name);
         }
 
+        public async Task<IEnumerable<Division>> GetAllAsync()
+        {
+            return await _divisionRepository.GetAllAsync();
+        }
+
         public async Task<bool> InsertAsync(Division model)
         {
             if (model == null)
