@@ -243,6 +243,14 @@
     <Compile Include="Attributes\AdminValidationAttribute.cs" />
     <Compile Include="Attributes\ExceptionAttribute.cs" />
     <Compile Include="Configs\WebAppSettings.cs" />
+    <Compile Include="Content\ueditor\net\App_Code\Config.cs" />
+    <Compile Include="Content\ueditor\net\App_Code\ConfigHandler.cs" />
+    <Compile Include="Content\ueditor\net\App_Code\CrawlerHandler.cs" />
+    <Compile Include="Content\ueditor\net\App_Code\Handler.cs" />
+    <Compile Include="Content\ueditor\net\App_Code\ListFileHandler.cs" />
+    <Compile Include="Content\ueditor\net\App_Code\NotSupportedHandler.cs" />
+    <Compile Include="Content\ueditor\net\App_Code\PathFormater.cs" />
+    <Compile Include="Content\ueditor\net\App_Code\UploadHandler.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -477,16 +485,6 @@
     <Content Include="Content\themes\blueskin\js\textarea\jquery.autosize.js" />
     <Content Include="Content\themes\blueskin\js\toastr\toastr.js" />
     <Content Include="Content\themes\blueskin\js\validation\bootstrapValidator.js" />
-    <Content Include="Content\ueditor\asp\action_config.asp" />
-    <Content Include="Content\ueditor\asp\action_crawler.asp" />
-    <Content Include="Content\ueditor\asp\action_list.asp" />
-    <Content Include="Content\ueditor\asp\action_upload.asp" />
-    <Content Include="Content\ueditor\asp\ASPJson.class.asp" />
-    <Content Include="Content\ueditor\asp\config_loader.asp" />
-    <Content Include="Content\ueditor\asp\controller.asp" />
-    <Content Include="Content\ueditor\asp\MultiformProcessor.class.asp" />
-    <Content Include="Content\ueditor\asp\PathFormatter.class.asp" />
-    <Content Include="Content\ueditor\asp\Uploader.Class.asp" />
     <Content Include="Content\ueditor\dialogs\anchor\anchor.html" />
     <Content Include="Content\ueditor\dialogs\attachment\attachment.css" />
     <Content Include="Content\ueditor\dialogs\attachment\attachment.html" />
@@ -649,6 +647,10 @@
     <Content Include="Content\ueditor\lang\zh-cn\images\music.png" />
     <Content Include="Content\ueditor\lang\zh-cn\images\upload.png" />
     <Content Include="Content\ueditor\lang\zh-cn\zh-cn.js" />
+    <Content Include="Content\ueditor\net\Bin\Newtonsoft.Json.dll" />
+    <Content Include="Content\ueditor\net\Bin\Newtonsoft.Json.pdb" />
+    <Content Include="Content\ueditor\net\Bin\Newtonsoft.Json.xml" />
+    <Content Include="Content\ueditor\net\net.sln" />
     <Content Include="Content\ueditor\themes\default\css\ueditor.css" />
     <Content Include="Content\ueditor\themes\default\css\ueditor.min.css" />
     <Content Include="Content\ueditor\themes\default\dialogbase.css" />
@@ -876,8 +878,12 @@
     <Content Include="Areas\Manage\Views\Division\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\ueditor\asp\config.json" />
-    <Content Include="Content\ueditor\asp\README.md" />
+    <Content Include="Content\ueditor\.DS_Store" />
+    <Content Include="Content\ueditor\net\config.json" />
+    <Content Include="Content\ueditor\net\controller.ashx" />
+    <Content Include="Content\ueditor\net\README.md" />
+    <Content Include="Content\ueditor\net\Web.config" />
+    <Content Include="Content\ueditor\third-party\.DS_Store" />
     <Content Include="Content\ueditor\third-party\jquery-1.10.2.min.map" />
     <Content Include="Content\ueditor\third-party\video-js\font\vjs.eot" />
     <Content Include="Content\ueditor\third-party\video-js\font\vjs.ttf" />

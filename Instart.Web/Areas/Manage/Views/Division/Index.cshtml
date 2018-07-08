@@ -30,9 +30,9 @@
                     <td>@item.Name</td>
                     <td>@item.Introduce</td>
                     <td>@string.Format("{0:yyyy-MM-dd}", item.CreateTime)</td>
-                    <td style="width:5%;">
-                        <a data-id="@item.Id" href="javascript:void(0)" class="update" onclick="update(@item.Id)">修改</a>
-                        <a data-id="@item.Id" href="javascript:void(0)" class="delete" onclick="remove(@item.Id)">删除</a>
+                    <td style="width:10%;">
+                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="update(@item.Id, '@item.Name', '@item.Introduce')">修改</a>
+                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="remove(@item.Id)">删除</a>
                     </td>
                 </tr>
             }
@@ -44,7 +44,7 @@
     {
         <div class="pagination">
             <ul class="pl0">
-                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "list", new { area = "manage" })
+                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new { area = "manage" })
             </ul>
         </div>
     }
@@ -59,6 +59,7 @@
                 <h4 class="modal-title" id="myModalLabel">添加学部</h4>
             </div>
             <div class="modal-body">
+                <input type="hidden" id="divisionid" />
                 <table class="table table-nobordered">
                     <tr>
                         <td style="width:80px;">学部名称：</td>
@@ -100,7 +101,7 @@
                 $.ajax({
                     type: 'POST',
                     url:  '@Url.Action("insert", "division", new { area="manage"})',
-                    data: { Name: name, Introduce: UE.getEditor('editor') },
+                    data: { Name: name, Introduce: ue.getContent() },
                     success: function (slt) {
                         if (slt && slt.success) {
                             location.reload();
@@ -113,12 +114,20 @@
             });
         });
 
+        function update(id, name, introduce) {
+            $("#divisionid").val(id);
+            $("#txtname").val(name);
+            ue.setContent(introduce);
+
+            $("#myModal").modal("show");
+        }
+
         function remove(id){
             if (window.confirm('你确定要删除该学部吗？')) {
                 $.ajax({
                     type: 'POST',
-                    url:  '@Url.Action("Delete", "division", new { area="manage"})',
-                    data: { Name: name, Introduce: introduce },
+                    url:  '@Url.Action("delete", "division", new { area="manage"})',
+                    data: { id: id},
                     success: function (slt) {
                         if (slt && slt.success) {
                             location.reload();

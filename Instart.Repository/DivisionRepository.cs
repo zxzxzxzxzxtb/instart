@@ -41,7 +41,7 @@ namespace Instart.Repository
                 string sql = $@"select * from (
                              select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [Division] {where}
                              ) as b
-                             where RowNumber between {(pageIndex - 1) * pageIndex} and {pageIndex * pageIndex};";
+                             where RowNumber between {(pageIndex - 1) * pageSize + 1} and {pageIndex * pageSize};";
                 var list = await conn.QueryAsync<Division>(sql);
 
                 return new PageModel<Division>
