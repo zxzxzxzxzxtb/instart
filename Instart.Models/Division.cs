@@ -22,6 +22,11 @@ namespace Instart.Models
         public string Name { get; set; }
 
         /// <summary>
+        /// 学部英文名称
+        /// </summary>
+        public string EnName { get; set; }
+
+        /// <summary>
         /// 学部介绍
         /// </summary>
         public string Introduce { get; set; }

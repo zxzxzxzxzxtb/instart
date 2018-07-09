@@ -15,6 +15,7 @@
         <tr>
             <th>#</th>
             <th>学部名称</th>
+            <th>英文名称</th>
             <th>学部制度</th>
             <th>创建时间</th>
             <th>操作</th>
@@ -28,10 +29,11 @@
                 <tr>
                     <td style="width:5%;">@item.Id</td>
                     <td>@item.Name</td>
+                    <td>@item.EnName</td>
                     <td>@Html.Raw(item.Introduce)</td>
                     <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
                     <td style="width:10%;">
-                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="update(@item.Id, '@item.Name', '@item.Introduce')">修改</a>
+                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="update(@item.Id, '@item.Name', '@item.EnName', '@item.Introduce')">修改</a>
                         <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="remove(@item.Id)">删除</a>
                     </td>
                 </tr>
@@ -68,6 +70,12 @@
                         </td>
                     </tr>
                     <tr>
+                        <td style="width:80px;">英文名称：</td>
+                        <td>
+                            <input id="txtenname" type="text" class="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
                         <td>学部制度：</td>
                         <td>
                             <script id="editor" type="text/plain" style="width:480px;height:200px;">
@@ -93,6 +101,7 @@
         $(function () {
             $('#btnSubmit').click(function () {
                 var name = $('#txtname').val();
+                var enname = $('#txtenname').val();
                 var introduce = $('#txtIntroduce').val();
                 if (name == '') {
                     alert('请输入学部名称。');
@@ -101,7 +110,7 @@
                 $.ajax({
                     type: 'POST',
                     url:  '@Url.Action("insert", "division", new { area="manage"})',
-                    data: { Name: name, Introduce: ue.getContent() },
+                    data: { Name: name, EnName: enname, Introduce: ue.getContent() },
                     success: function (slt) {
                         if (slt && slt.success) {
                             location.reload();
@@ -114,8 +123,9 @@
             });
         });
 
-        function update(id, name, introduce) {
+        function update(id, name, enname, introduce) {
             $("#divisionid").val(id);
+            $("#txtenname").val(enname);
             $("#txtname").val(name);
             ue.setContent(introduce);
 

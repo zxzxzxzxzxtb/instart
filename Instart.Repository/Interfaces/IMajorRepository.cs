@@ -13,6 +13,8 @@ namespace Instart.Repository
 
         Task<PageModel<Major>> GetListAsync(int pageIndex, int pageSize, string name = null);
 
+        Task<IEnumerable<Major>> GetAllAsync();
+
         Task<bool> InsertAsync(Major model);
 
         Task<bool> UpdateAsync(Major model);

@@ -46,6 +46,19 @@ namespace Instart.Repository
             }
         }
 
+        public async Task<IEnumerable<Major>> GetAllAsync()
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                #region generate condition
+                string where = "where Status=1";
+                #endregion
+
+                string sql = $@"select * from [Major] {where};";
+                return await conn.QueryAsync<Major>(sql);
+            }
+        }
+
         public async Task<bool> InsertAsync(Major model) {
             using (var conn = DapperFactory.GetConnection()) {
                 var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id), nameof(model.DivisionName) });

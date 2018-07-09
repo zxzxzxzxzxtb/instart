@@ -23,11 +23,12 @@ namespace Instart.Web.Areas.Manage.Controllers
         public MajorController()
         {
             base.AddDisposableObject(_majorService);
+            base.AddDisposableObject(_divisionService);
         }
 
         public async Task<ActionResult> Index(int page = 1, string name = null)
         {
-            int pageSize = 2;
+            int pageSize = 10;
             var list = await _majorService.GetListAsync(page, pageSize, name);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;

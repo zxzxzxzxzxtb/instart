@@ -229,6 +229,8 @@
     <Compile Include="Areas\Manage\Controllers\AccountController.cs" />
     <Compile Include="Areas\Manage\Controllers\CourseApplyController.cs" />
     <Compile Include="Areas\Manage\Controllers\DivisionController.cs" />
+    <Compile Include="Areas\Manage\Controllers\CampusController.cs" />
+    <Compile Include="Areas\Manage\Controllers\WorksController.cs" />
     <Compile Include="Areas\Manage\Controllers\SchoolApplyController.cs" />
     <Compile Include="Areas\Manage\Controllers\BannerController.cs" />
     <Compile Include="Areas\Manage\Controllers\CourseController.cs" />
@@ -869,6 +871,7 @@
   <ItemGroup>
     <Folder Include="Areas\Manage\Models\" />
     <Folder Include="Content\images\major\" />
+    <Folder Include="Content\images\works\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Manage\Views\Partner\Index.cshtml" />
@@ -893,6 +896,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Manage\Views\Major\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Campus\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Campus\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Works\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Works\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
