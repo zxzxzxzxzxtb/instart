@@ -868,7 +868,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Manage\Models\" />
-    <Folder Include="Content\images\" />
+    <Folder Include="Content\images\major\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Manage\Views\Partner\Index.cshtml" />
