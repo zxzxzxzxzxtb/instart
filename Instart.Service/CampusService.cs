@@ -23,8 +23,11 @@ namespace Instart.Service
             {
                 throw new ArgumentException(nameof(id));
             }
+            Campus model = await _campusRepository.GetByIdAsync(id);
+            IEnumerable<String> imgs = await _campusRepository.GetImgsByIdAsync(id);
+            model.ImgUrls = imgs;
 
-            return await _campusRepository.GetByIdAsync(id);
+            return model;
         }
 
         public async Task<PageModel<Campus>> GetListAsync(int pageIndex, int pageSize, string name = null)
@@ -80,6 +83,16 @@ namespace Instart.Service
             }
 
             return await _campusRepository.DeleteAsync(id);
+        }
+
+        public async Task<bool> DeleteImgAsync(int id, string imgUrl)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException(nameof(id));
+            }
+
+            return await _campusRepository.DeleteImgAsync(id, imgUrl);
         }
     }
 }
