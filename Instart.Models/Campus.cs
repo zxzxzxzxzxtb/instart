@@ -55,5 +55,10 @@ namespace Instart.Models
         /// 修改时间
         /// </summary>
         public DateTime ModifyTime { get; set; }
+
+        /// <summary>
+        /// 校区图片
+        /// </summary>
+        public IEnumerable<string> ImgUrls { get; set; }
     }
 }

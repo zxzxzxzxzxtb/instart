@@ -51,8 +51,9 @@ namespace Instart.Web.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public async Task<JsonResult> AddOrUpdate(Campus model)
+        public async Task<JsonResult> AddOrUpdate(Campus model, List<HttpPostedFileBase> imgs)
         {
+            int bufferLen = 1024;
             Stream uploadStream = null;
             FileStream fs = null;
             try
@@ -63,30 +64,38 @@ namespace Instart.Web.Areas.Manage.Controllers
                 {
                     return Error(msg);
                 }
-                ////文件上传，一次上传1M的数据，防止出现大文件无法上传
-                //HttpPostedFileBase postFileBase = Request.Files["MajorImage"];
-                //if (postFileBase != null && postFileBase.ContentLength != 0)
-                //{
-                //    uploadStream = postFileBase.InputStream;
-                //    int bufferLen = 1024;
-                //    byte[] buffer = new byte[bufferLen];
-                //    int contentLen = 0;
+                //文件上传，一次上传1M的数据，防止出现大文件无法上传
+                if (imgs != null && imgs.Count != 0)
+                {
+                    if (model.ImgUrls == null)
+                    {
+                        model.ImgUrls = new List<String>();
+                    }
+                    foreach (var img in imgs)
+                    {
+                        if (img != null && img.ContentLength != 0)
+                        {
+                            uploadStream = img.InputStream;
+                            byte[] buffer = new byte[bufferLen];
+                            int contentLen = 0;
 
-                //    string fileName = Path.GetFileName(postFileBase.FileName);
-                //    string baseUrl = Server.MapPath("/");
-                //    string uploadPath = baseUrl + @"\Content\Images\Major\";
-                //    fs = new FileStream(uploadPath + fileName, FileMode.Create, FileAccess.ReadWrite);
+                            string fileName = Path.GetFileName(img.FileName);
+                            string baseUrl = Server.MapPath("/");
+                            string uploadPath = baseUrl + @"\Content\Images\Campus\";
+                            fs = new FileStream(uploadPath + fileName, FileMode.Create, FileAccess.ReadWrite);
 
-                //    while ((contentLen = uploadStream.Read(buffer, 0, bufferLen)) != 0)
-                //    {
-                //        fs.Write(buffer, 0, bufferLen);
-                //        fs.Flush();
-                //    }
+                            while ((contentLen = uploadStream.Read(buffer, 0, bufferLen)) != 0)
+                            {
+                                fs.Write(buffer, 0, bufferLen);
+                                fs.Flush();
+                            }
 
-                //    //保存页面数据，上传的文件只保存路径
-                //    string imgUrl = "/Content/Images/Major/" + fileName;
-                //    model.ImgUrl = imgUrl;
-                //}
+                            //保存页面数据，上传的文件只保存路径
+                            string imgUrl = "/Content/Images/Campus/" + fileName;
+                            (model.ImgUrls as List<string>).Add(imgUrl);
+                        }
+                    }
+                }
                 if (model.Id > 0)
                 {
                     await _campusService.UpdateAsync(model);
@@ -153,6 +162,23 @@ namespace Instart.Web.Areas.Manage.Controllers
             }
 
             return string.Empty;
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> DeleteFile(int id, string imgUrl)
+        {
+            try
+            {
+                return Json(new ResultBase
+                {
+                    success = await _campusService.DeleteImgAsync(id, imgUrl)
+                });
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error($"CampusController.DeleteImg异常", ex);
+                return Error(ex.Message);
+            }
         }
     }
 }
