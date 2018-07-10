@@ -91,11 +91,13 @@
     <Compile Include="Interfaces\IBannerRepository.cs" />
     <Compile Include="Interfaces\ICategoryRepository.cs" />
     <Compile Include="Interfaces\IDivisionRepository.cs" />
+    <Compile Include="Interfaces\IPartnerRepository.cs" />
     <Compile Include="Interfaces\IStudentRepository.cs" />
     <Compile Include="Interfaces\ITeacherRepository.cs" />
     <Compile Include="Interfaces\IMajorRepository.cs" />
     <Compile Include="Interfaces\ISchoolRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
+    <Compile Include="PartnerRepository.cs" />
     <Compile Include="StudentRepository.cs" />
     <Compile Include="TeacherRepository.cs" />
     <Compile Include="MajorRepository.cs" />

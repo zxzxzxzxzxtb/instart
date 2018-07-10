@@ -57,11 +57,13 @@
     <Compile Include="Interfaces\ICategoryService.cs" />
     <Compile Include="Interfaces\IBannerService.cs" />
     <Compile Include="Interfaces\IDivisionService.cs" />
+    <Compile Include="Interfaces\IPartnerService.cs" />
     <Compile Include="Interfaces\IStudentService.cs" />
     <Compile Include="Interfaces\ITeacherService.cs" />
     <Compile Include="Interfaces\IMajorService.cs" />
     <Compile Include="Interfaces\ISchoolService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="PartnerService.cs" />
     <Compile Include="StudentService.cs" />
     <Compile Include="TeacherService.cs" />
     <Compile Include="MajorService.cs" />

@@ -138,6 +138,11 @@ namespace Instart.Models
         public int Status { get; set; }
 
         /// <summary>
+        /// 是否推荐
+        /// </summary>
+        public bool IsRecommend { get; set; }
+
+        /// <summary>
         /// 创建时间
         /// </summary>
         public DateTime CreateTime { get; set; }
@@ -146,5 +151,10 @@ namespace Instart.Models
         /// 修改时间
         /// </summary>
         public DateTime ModifyTime { get; set; }
+
+        /// <summary>
+        /// 奖学金
+        /// </summary>
+        public string Award { get; set; }
     }
 }

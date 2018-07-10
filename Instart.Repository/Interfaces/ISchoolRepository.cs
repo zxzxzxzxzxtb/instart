@@ -18,5 +18,7 @@ namespace Instart.Repository
         Task<bool> UpdateAsync(School model);
 
         Task<bool> DeleteAsync(int id);
+
+        Task<List<School>> GetRecommendListAsync(int topCount);
     }
 }
