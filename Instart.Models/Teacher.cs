@@ -17,9 +17,19 @@ namespace Instart.Models
         public int Id { get; set; }
 
         /// <summary>
-        /// 分部Id
+        /// 学部Id
         /// </summary>
         public int DivisionId { get; set; }
+
+        /// <summary>
+        /// 学部名
+        /// </summary>
+        public string DivisionName { get; set; }
+
+        /// <summary>
+        /// 学部英文名
+        /// </summary>
+        public string DivisionNameEn { get; set; }
 
         /// <summary>
         /// 学校Id
@@ -27,14 +37,39 @@ namespace Instart.Models
         public int SchoolId { get; set; }
 
         /// <summary>
+        /// 学校名称
+        /// </summary>
+        public string SchoolName { get; set; }
+
+        /// <summary>
+        /// 学校英文名
+        /// </summary>
+        public string SchoolNameEn { get; set; }
+
+        /// <summary>
         /// 专业Id
         /// </summary>
         public int MajorId { get; set; }
 
         /// <summary>
+        /// 专业名称
+        /// </summary>
+        public string MajorName { get; set; }
+
+        /// <summary>
+        /// 专业英文名称
+        /// </summary>
+        public string MajorNameEn { get; set; }
+
+        /// <summary>
         /// 导师姓名
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// 导师英文名
+        /// </summary>
+        public string NameEn { get; set; }
 
         /// <summary>
         /// 导师头像
@@ -65,6 +100,11 @@ namespace Instart.Models
         /// 导师作品（json）
         /// </summary>
         public string Cases { get; set; }
+
+        /// <summary>
+        /// 是否推荐
+        /// </summary>
+        public bool IsRecommend { get; set; }
 
         /// <summary>
         /// 状态，1：正常，0：删除

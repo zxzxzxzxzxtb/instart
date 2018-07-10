@@ -63,5 +63,15 @@ namespace Instart.Service
 
             return await _teacherRepository.DeleteAsync(id);
         }
+
+        public async Task<List<Teacher>> GetRecommendListAsync(int topCount)
+        {
+            if(topCount == 0)
+            {
+                return null;
+            }
+
+            return await _teacherRepository.GetRecommendListAsync(topCount);
+        }
     }
 }

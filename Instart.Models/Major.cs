@@ -25,7 +25,7 @@ namespace Instart.Models
         /// <summary>
         /// 专业英文名称
         /// </summary>
-        public string EnName { get; set; }
+        public string NameEn { get; set; }
 
         /// <summary>
         /// 专业图片

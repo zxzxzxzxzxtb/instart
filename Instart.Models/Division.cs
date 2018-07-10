@@ -24,7 +24,7 @@ namespace Instart.Models
         /// <summary>
         /// 学部英文名称
         /// </summary>
-        public string EnName { get; set; }
+        public string NameEn { get; set; }
 
         /// <summary>
         /// 学部介绍
