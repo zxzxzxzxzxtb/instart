@@ -7,7 +7,7 @@
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 
-@using (Ajax.BeginForm("AddOrUpdate", "Major", new { area = "Manage" }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "onSuccess", OnFailure = "onFailure", OnComplete = "onComplete" }, new { enctype = "multipart/form-data", id = "myForm" }))
+@using (Html.BeginForm("AddOrUpdate", "Major", new { area = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "mainForm" }))
 {
 @Html.HiddenFor(m => m.Id)
 <table class="table table-nobordered" style="top: 100px;">
@@ -15,7 +15,10 @@
         <td>专业名称：</td>
         <td>@Html.TextBoxFor(m => m.Name)</td>
     </tr>
-
+    <tr>
+        <td>英文名称：</td>
+        <td>@Html.TextBoxFor(m => m.EnName)</td>
+    </tr>
     <tr>
         <td>专业图片：</td>
         <td><input type="file" name="MajorImage" /></td>
@@ -42,7 +45,7 @@
     </tr>
 
     <tr>
-        <td><input type="submit" class="btn btn-primary" value="提交" /></td>
+        <td><input type="button" class="btn btn-primary" value="提交" onclick="save()" /></td>
     </tr>
 
 </table>
@@ -59,24 +62,17 @@
             autoHeight: false
         });
 
-        $(function () {
-            $('form').ajaxForm({
-                complete: function (xhr) {
-                    alert(xhr.responseText);
+        function save() {
+            $("#mainForm").ajaxSubmit({
+                success: function (slt) {
+                    if (slt && slt.success) {
+                        location.href = '@Url.Action("index", "major", new { area="manage"})';
+                    }
+                    else {
+                        alert(slt.message || '操作失败，请重试。');
+                    }
                 }
             });
-        });
-
-        function onSuccess(a) {
-            alert(a + "success");
-        }
-
-        function onFailure(a) {
-            alert(a + "fail");
-        }
-
-        function onComplete(a) {
-            alert(a + "complete");
         }
 
     </script>

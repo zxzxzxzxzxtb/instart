@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Instart.Models
 {
     /// <summary>
-    /// 艺术专业
+    /// 作品集
     /// </summary>
-    public class Major
+    public class Works
     {
         /// <summary>
         /// Id
@@ -18,44 +18,29 @@ namespace Instart.Models
         public int Id { get; set; }        
 
         /// <summary>
-        /// 专业名称
+        /// 图片名称
         /// </summary>
-        public string Name { get; set; }
+        public string ImgName { get; set; }
 
         /// <summary>
-        /// 专业英文名称
-        /// </summary>
-        public string EnName { get; set; }
-
-        /// <summary>
-        /// 专业图片
+        /// 图片链接
         /// </summary>
         public string ImgUrl { get; set; }
 
         /// <summary>
-        /// 专业介绍
+        /// 描述
         /// </summary>
         public string Introduce { get; set; }
-        
-        /// <summary>
-        /// 就业前景
-        /// </summary>
-        public string Prospect { get; set; }
 
         /// <summary>
-        /// 专业类型
+        /// 所属专业
         /// </summary>
-        public EnumMajorType Type { get; set; }
+        public int MajorId { get; set; }
 
         /// <summary>
-        /// 所属学部
+        /// 专业名称
         /// </summary>
-        public int DivisionId { get; set; }
-
-        /// <summary>
-        /// 学部名称
-        /// </summary>
-        public int DivisionName { get; set; }
+        public string MajorName { get; set; }
 
         /// <summary>
         /// 状态，1：正常，0：删除

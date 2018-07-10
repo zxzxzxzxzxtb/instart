@@ -23,11 +23,12 @@ namespace Instart.Web.Areas.Manage.Controllers
         public MajorController()
         {
             base.AddDisposableObject(_majorService);
+            base.AddDisposableObject(_divisionService);
         }
 
         public async Task<ActionResult> Index(int page = 1, string name = null)
         {
-            int pageSize = 2;
+            int pageSize = 10;
             var list = await _majorService.GetListAsync(page, pageSize, name);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
@@ -78,7 +79,7 @@ namespace Instart.Web.Areas.Manage.Controllers
                 }
                 //文件上传，一次上传1M的数据，防止出现大文件无法上传
                 HttpPostedFileBase postFileBase = Request.Files["MajorImage"];
-                if (postFileBase.ContentLength != 0)
+                if (postFileBase != null && postFileBase.ContentLength != 0)
                 {
                     uploadStream = postFileBase.InputStream;
                     int bufferLen = 1024;
@@ -87,7 +88,7 @@ namespace Instart.Web.Areas.Manage.Controllers
 
                     string fileName = Path.GetFileName(postFileBase.FileName);
                     string baseUrl = Server.MapPath("/");
-                    string uploadPath = baseUrl + @"\Content\Images\";
+                    string uploadPath = baseUrl + @"\Content\Images\Major\";
                     fs = new FileStream(uploadPath + fileName, FileMode.Create, FileAccess.ReadWrite);
 
                     while ((contentLen = uploadStream.Read(buffer, 0, bufferLen)) != 0)
@@ -97,7 +98,7 @@ namespace Instart.Web.Areas.Manage.Controllers
                     }
 
                     //保存页面数据，上传的文件只保存路径
-                    string imgUrl = "/Content/Images/" + fileName;
+                    string imgUrl = "/Content/Images/Major/" + fileName;
                     model.ImgUrl = imgUrl;
                 }
                 if (model.Id > 0)
@@ -115,7 +116,6 @@ namespace Instart.Web.Areas.Manage.Controllers
             }
             finally
             {
-                Console.Write("hello撒大大");
                 if (null != fs)
                 {
                     fs.Close();

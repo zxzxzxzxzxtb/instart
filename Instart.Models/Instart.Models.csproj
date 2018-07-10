@@ -55,10 +55,12 @@
     <Compile Include="Article.cs" />
     <Compile Include="Banner.cs" />
     <Compile Include="Course.cs" />
+    <Compile Include="Campus.cs" />
     <Compile Include="Division.cs" />
     <Compile Include="Enums\EnumBannerType.cs" />
     <Compile Include="Enums\EnumMajorType.cs" />
     <Compile Include="Enums\EnumSchoolType.cs" />
+    <Compile Include="Works.cs" />
     <Compile Include="Partner.cs" />
     <Compile Include="CourseApply.cs" />
     <Compile Include="SchoolApply.cs" />

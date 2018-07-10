@@ -28,6 +28,11 @@ namespace Instart.Service
             return await _majorRepository.GetListAsync(pageIndex, pageSize, name);
         }
 
+        public async Task<IEnumerable<Major>> GetAllAsync()
+        {
+            return await _majorRepository.GetAllAsync();
+        }
+
         public async Task<bool> InsertAsync(Major model) {
             if (model == null) {
                 throw new ArgumentNullException(nameof(model));

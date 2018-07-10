@@ -1,0 +1,63 @@
+﻿@using Instart.Models
+@using Instart.Web.Infrastructures
+@model Instart.Models.Campus
+
+@{
+    ViewBag.Title = "编辑校区";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("AddOrUpdate", "Campus", new { area = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "mainForm" }))
+{
+@Html.HiddenFor(m => m.Id)
+<table class="table table-nobordered" style="top: 100px;">
+    <tr>
+        <td>校区名称：</td>
+        <td>@Html.TextBoxFor(m => m.Name)</td>
+    </tr>
+    <tr>
+        <td>英文名称：</td>
+        <td>@Html.TextBoxFor(m => m.EnName)</td>
+    </tr>
+    <tr>
+        <td>地址：</td>
+        <td>@Html.TextBoxFor(m => m.Address)</td>
+    </tr>
+    <tr>
+        <td>电话：</td>
+        <td>@Html.TextBoxFor(m => m.Phone)</td>
+    </tr>
+    <tr>
+        <td>文字描述：</td>
+        <td>@Html.TextAreaFor(m => m.Introduce, new { style = "width: 600px;height: 200px;" })</td>
+    </tr>
+    <tr>
+        <td><input type="button" class="btn btn-primary" value="提交" onclick="save()" /></td>
+    </tr>
+
+</table>
+}
+
+
+@section Bottom{
+    <script>
+        var introduce = UE.getEditor('Introduce', {
+            autoHeight: false
+        });
+
+        function save() {
+            $("#mainForm").ajaxSubmit({
+                success: function (slt) {
+                    if (slt && slt.success) {
+                        location.href = '@Url.Action("index", "campus", new { area="manage"})';
+                    }
+                    else {
+                        alert(slt.message || '操作失败，请重试。');
+                    }
+                }
+            });
+        }
+
+    </script>
+}
+
