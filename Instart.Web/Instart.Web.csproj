@@ -898,6 +898,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Manage\Models\" />
+    <Folder Include="Content\images\campus\" />
     <Folder Include="Content\images\major\" />
     <Folder Include="Content\images\works\" />
   </ItemGroup>

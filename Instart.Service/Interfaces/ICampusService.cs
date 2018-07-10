@@ -20,5 +20,7 @@ namespace Instart.Service
         Task<bool> UpdateAsync(Campus model);
 
         Task<bool> DeleteAsync(int id);
+
+        Task<bool> DeleteImgAsync(int id, string imgUrl);
     }
 }
