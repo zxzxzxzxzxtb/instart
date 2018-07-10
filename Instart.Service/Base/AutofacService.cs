@@ -38,6 +38,7 @@ namespace Instart.Service.Base
             builder.RegisterType<DivisionService>().As<IDivisionService>().InstancePerLifetimeScope();
             builder.RegisterType<CampusService>().As<ICampusService>().InstancePerLifetimeScope();
             builder.RegisterType<WorksService>().As<IWorksService>().InstancePerLifetimeScope();
+            builder.RegisterType<PartnerService>().As<IPartnerService>().InstancePerLifetimeScope();
             container = builder.Build();
         }
     }

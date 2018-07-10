@@ -12,15 +12,16 @@ namespace Instart.Web.Controllers
 {
     public class HomeController : ControllerBase
     {
-        IUserService _userService = AutofacService.Resolve<IUserService>();
+        IPartnerService _partnerService = AutofacService.Resolve<IPartnerService>();
+        ISchoolService _schoolService = AutofacService.Resolve<ISchoolService>();
 
         public HomeController() {
-            this.AddDisposableObject(_userService);
+            this.AddDisposableObject(_partnerService);
         }
 
         public async Task<ActionResult> Index() {
-            var user = await _userService.GetByNameAsync("admin");
-            var list = await _userService.GetListAsync(1, 10);
+            ViewBag.PartnerList = (await _partnerService.GetListAsync(14)) ?? new List<Instart.Models.Partner>();
+            ViewBag.SchoolList = (await _schoolService.GetRecommendListAsync(10)) ?? new List<Instart.Models.School>();
             return View();
         }
     }

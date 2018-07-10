@@ -36,6 +36,7 @@ namespace Instart.Repository
             builder.RegisterType<DivisionRepository>().As<IDivisionRepository>().InstancePerLifetimeScope();
             builder.RegisterType<CampusRepository>().As<ICampusRepository>().InstancePerLifetimeScope();
             builder.RegisterType<WorksRepository>().As<IWorksRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<PartnerRepository>().As<IPartnerRepository>().InstancePerLifetimeScope();
             container = builder.Build();
         }
     }
