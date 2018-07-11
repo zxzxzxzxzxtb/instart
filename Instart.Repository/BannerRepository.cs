@@ -101,5 +101,14 @@ namespace Instart.Repository
                 return await conn.ExecuteAsync(sql, new { Id = id }) > 0;
             }
         }
+
+        public async Task<List<Banner>> GetBannerListByPosAsync(EnumBannerPos pos, int topCount)
+        {
+            using(var conn = DapperFactory.GetConnection())
+            {
+                string sql = $"select top {topCount} Id,Title,Type,ImageUrl,VideoUrl,Link from Banner where Pos=@Pos and IsShow=1 and Status=1 order by GroupIndex;";
+                return (await conn.QueryAsync<Banner>(sql, new { Pos = pos }))?.ToList();
+            }
+        }
     }
 }

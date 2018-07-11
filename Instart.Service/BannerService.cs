@@ -69,5 +69,15 @@ namespace Instart.Service
 
             return await _bannerRepository.DeleteAsync(id);
         }
+
+        public async Task<List<Banner>> GetBannerListByPosAsync(EnumBannerPos pos, int topCount = 20)
+        {
+            if(topCount == 0)
+            {
+                return null;
+            }
+
+            return await _bannerRepository.GetBannerListByPosAsync(pos, topCount);
+        }
     }
 }

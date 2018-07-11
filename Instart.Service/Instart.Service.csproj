@@ -51,6 +51,7 @@
     <Compile Include="BannerService.cs" />
     <Compile Include="CategoryService.cs" />
     <Compile Include="CampusService.cs" />
+    <Compile Include="CourseService.cs" />
     <Compile Include="DivisionService.cs" />
     <Compile Include="Interfaces\IArticleService.cs" />
     <Compile Include="Base\AutofacService.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Interfaces\ICategoryService.cs" />
     <Compile Include="Interfaces\IBannerService.cs" />
     <Compile Include="Interfaces\ICampusService.cs" />
+    <Compile Include="Interfaces\ICourseService.cs" />
     <Compile Include="Interfaces\IDivisionService.cs" />
     <Compile Include="Interfaces\IWorksService.cs" />
     <Compile Include="Interfaces\IPartnerService.cs" />

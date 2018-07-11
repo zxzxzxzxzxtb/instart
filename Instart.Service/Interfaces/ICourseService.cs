@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Instart.Repository
+namespace Instart.Service
 {
-    public interface ICourseRepository
+    public interface ICourseService
     {
         Task<List<Course>> GetRecommendListAsync(int topCount);
     }

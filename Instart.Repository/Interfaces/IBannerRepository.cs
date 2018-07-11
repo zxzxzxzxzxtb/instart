@@ -21,5 +21,7 @@ namespace Instart.Repository
         Task<bool> UpdateAsync(Banner model);
 
         Task<bool> DeleteAsync(int id);
+
+        Task<List<Banner>> GetBannerListByPosAsync(EnumBannerPos pos, int topCount);
     }
 }

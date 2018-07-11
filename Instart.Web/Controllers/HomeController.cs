@@ -16,6 +16,8 @@ namespace Instart.Web.Controllers
         ISchoolService _schoolService = AutofacService.Resolve<ISchoolService>();
         ITeacherService _teacherService = AutofacService.Resolve<ITeacherService>();
         IStudentService _studentService = AutofacService.Resolve<IStudentService>();
+        ICourseService _courseService = AutofacService.Resolve<ICourseService>();
+        IBannerService _bannerService = AutofacService.Resolve<IBannerService>();
 
         public HomeController() {
             this.AddDisposableObject(_partnerService);
@@ -27,6 +29,8 @@ namespace Instart.Web.Controllers
             ViewBag.SchoolList = (await _schoolService.GetRecommendListAsync(10)) ?? new List<Instart.Models.School>();
             ViewBag.TeacherList = (await _teacherService.GetRecommendListAsync(8)) ?? new List<Instart.Models.Teacher>();
             ViewBag.StudentList = (await _studentService.GetRecommendListAsync(8)) ?? new List<Instart.Models.Student>();
+            ViewBag.CourseList = (await _courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();
+            ViewBag.BannerList = (await _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Index)) ?? new List<Instart.Models.Banner>();
             return View();
         }
     }
