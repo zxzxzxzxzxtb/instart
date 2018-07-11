@@ -225,10 +225,9 @@
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Manage\Controllers\AboutController.cs" />
     <Compile Include="Areas\Manage\Controllers\AccountController.cs" />
     <Compile Include="Areas\Manage\Controllers\CourseApplyController.cs" />
-    <Compile Include="Areas\Manage\Controllers\AboutInstartController.cs" />
+    <Compile Include="Areas\Manage\Controllers\AboutController.cs" />
     <Compile Include="Areas\Manage\Controllers\DivisionController.cs" />
     <Compile Include="Areas\Manage\Controllers\CampusController.cs" />
     <Compile Include="Areas\Manage\Controllers\WorksController.cs" />
@@ -808,9 +807,6 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Manage\Views\About\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -941,7 +937,7 @@
     <Content Include="Areas\Manage\Views\Works\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Manage\Views\AboutInstart\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\About\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

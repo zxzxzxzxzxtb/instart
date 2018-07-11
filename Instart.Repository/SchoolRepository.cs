@@ -33,7 +33,7 @@ namespace Instart.Repository
                 }
 
                 string sql = $@"select * from (   
-　　　　                            select Id,Name,NameEn,Logo,Country,Category,Address,Cost,Picture,FeatureMajor,ApplyDifficulty,TuoFu,YaSi,Yan,SAT,CreateTime ROW_NUMBER() over (Order by Id desc) as RowNumber from [School] {where} 
+　　　　                            select Id,Name,NameEn,Logo,Country,Category,Address,Fee,Avatar,RecommendMajor,Difficulty,TuoFu,YaSi,Yan,SAT,CreateTime ROW_NUMBER() over (Order by Id desc) as RowNumber from [School] {where} 
 　　                            ) as b  
 　　                            where RowNumber between {(pageIndex - 1) * pageIndex} and {pageIndex * pageIndex};";
                 var list = await conn.QueryAsync<School>(sql);
