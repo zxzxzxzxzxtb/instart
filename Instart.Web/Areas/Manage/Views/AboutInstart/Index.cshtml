@@ -1,0 +1,97 @@
+﻿@using Instart.Models
+@using Instart.Web.Infrastructures
+@model Instart.Models.AboutInstart
+
+@{
+    ViewBag.Title = "关于一沙";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("AddOrUpdate", "AboutInstart", new { area = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "mainForm" }))
+{
+<table class="table table-nobordered" style="top: 100px;">
+    <tr>
+        <td>团队视频：</td>
+        <td><input type="file" name="InstartVideo" /></td>
+    </tr>
+    <tr>
+        <td>关于一沙：</td>
+        <td>@Html.TextAreaFor(m => m.Introduce, new { style = "width: 600px;height: 200px;" })</td>
+    </tr>
+    <tr>
+        <td>Pre To Pro：</td>
+        <td>@Html.TextAreaFor(m => m.PreToPro, new { style = "width: 600px;height: 200px;" })</td>
+    </tr>
+    <tr>
+        <td>跨学科教学：</td>
+        <td>@Html.TextAreaFor(m => m.PassLearning, new { style = "width: 600px;height: 200px;" })</td>
+    </tr>
+    <tr>
+        <td>WorkShop：</td>
+        <td>@Html.TextAreaFor(m => m.WorkShop, new { style = "width: 600px;height: 200px;" })</td>
+    </tr>
+    <tr>
+        <td>24小时工作室：</td>
+        <td>@Html.TextAreaFor(m => m.Studio, new { style = "width: 600px;height: 200px;" })</td>
+    </tr>
+    <tr>
+        <td>实习推荐：</td>
+        <td>@Html.TextAreaFor(m => m.Recommand, new { style = "width: 600px;height: 200px;" })</td>
+    </tr>
+    <tr>
+        <td>驻地项目：</td>
+        <td>@Html.TextAreaFor(m => m.Programs, new { style = "width: 600px;height: 200px;" })</td>
+    </tr>
+    <tr>
+        <td><input type="button" class="btn btn-primary" value="保存" onclick="save()" /></td>
+    </tr>
+</table>
+}
+
+
+@section Bottom{
+    <script>
+        var introduce = UE.getEditor('Introduce', {
+            autoHeight: false
+        });
+
+        var preToPro = UE.getEditor('PreToPro', {
+            autoHeight: false
+        });
+
+        var passLearning = UE.getEditor('PassLearning', {
+            autoHeight: false
+        });
+
+        var workShop = UE.getEditor('WorkShop', {
+            autoHeight: false
+        });
+
+        var studio = UE.getEditor('Studio', {
+            autoHeight: false
+        });
+
+        var recommand = UE.getEditor('Recommand', {
+            autoHeight: false
+        });
+
+        var programs = UE.getEditor('Programs', {
+            autoHeight: false
+        });
+
+        function save() {
+            $("#mainForm").ajaxSubmit({
+                success: function (slt) {
+                    if (slt && slt.success) {
+                        alert('保存成功。');
+                    }
+                    else {
+                        alert(slt.message || '操作失败，请重试。');
+                    }
+                }
+            });
+        }
+
+    </script>
+}
+
