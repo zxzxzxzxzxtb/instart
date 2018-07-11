@@ -87,11 +87,13 @@
     <Compile Include="Base\RepositoryBase.cs" />
     <Compile Include="CampusRepository.cs" />
     <Compile Include="CategoryRepository.cs" />
+    <Compile Include="CourseRepository.cs" />
     <Compile Include="DivisionRepository.cs" />
     <Compile Include="Interfaces\IArticleRepository.cs" />
     <Compile Include="Interfaces\IBannerRepository.cs" />
     <Compile Include="Interfaces\ICampusRepository.cs" />
     <Compile Include="Interfaces\ICategoryRepository.cs" />
+    <Compile Include="Interfaces\ICourseRepository.cs" />
     <Compile Include="Interfaces\IDivisionRepository.cs" />
     <Compile Include="Interfaces\IWorksRepository.cs" />
     <Compile Include="Interfaces\IPartnerRepository.cs" />

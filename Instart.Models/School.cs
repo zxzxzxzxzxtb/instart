@@ -155,6 +155,6 @@ namespace Instart.Models
         /// <summary>
         /// 奖学金
         /// </summary>
-        public string Award { get; set; }
+        public string Scholarship { get; set; }
     }
 }

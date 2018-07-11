@@ -22,6 +22,21 @@ namespace Instart.Models
         public string Name { get; set; }
 
         /// <summary>
+        /// 课程英文名
+        /// </summary>
+        public string NameEn { get; set; }
+
+        /// <summary>
+        /// 课程封面
+        /// </summary>
+        public string Picture { get; set; }
+
+        /// <summary>
+        /// 课程介绍
+        /// </summary>
+        public string Introduce { get; set; }
+
+        /// <summary>
         /// 争对人群
         /// </summary>
         public string ForPeople { get; set; }
@@ -40,5 +55,10 @@ namespace Instart.Models
         /// 修改时间
         /// </summary>
         public DateTime ModifyTime { get; set; }
+
+        /// <summary>
+        /// 是否推荐
+        /// </summary>
+        public bool IsRecommend { get; set; }
     }
 }

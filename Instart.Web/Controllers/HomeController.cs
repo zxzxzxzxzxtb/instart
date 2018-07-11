@@ -15,6 +15,7 @@ namespace Instart.Web.Controllers
         IPartnerService _partnerService = AutofacService.Resolve<IPartnerService>();
         ISchoolService _schoolService = AutofacService.Resolve<ISchoolService>();
         ITeacherService _teacherService = AutofacService.Resolve<ITeacherService>();
+        IStudentService _studentService = AutofacService.Resolve<IStudentService>();
 
         public HomeController() {
             this.AddDisposableObject(_partnerService);
@@ -25,6 +26,7 @@ namespace Instart.Web.Controllers
             ViewBag.PartnerList = (await _partnerService.GetListAsync(14)) ?? new List<Instart.Models.Partner>();
             ViewBag.SchoolList = (await _schoolService.GetRecommendListAsync(10)) ?? new List<Instart.Models.School>();
             ViewBag.TeacherList = (await _teacherService.GetRecommendListAsync(8)) ?? new List<Instart.Models.Teacher>();
+            ViewBag.StudentList = (await _studentService.GetRecommendListAsync(8)) ?? new List<Instart.Models.Student>();
             return View();
         }
     }

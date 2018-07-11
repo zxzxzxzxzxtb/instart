@@ -22,91 +22,24 @@
 <div class="maincont">
     <!--成功-->
     <div class="title">
-        <h2>成功</h2>
+        <h2>成功学员</h2>
         <a href="#" class="more">查看全部&gt;&gt;</a>
     </div>
     <div class="success-people com-cont">
         <ul>
-            <li>
-                <div class="peoplecont">
-                    <div class="top"><a href="#"><i></i><img src="/content/images/lingshi/1.jpg" alt="" /></a></div>
-                    <dl>
-                        <dt><a href="#">Sheng Bing</a></dt>
-                        <dd class="pe1">录取专业：奢侈品管理</dd>
-                        <dd class="pe2">offer：ESC Toulouse 图卢兹高等商业学校、INSEEC英赛克高等商学院 </dd>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                <div class="peoplecont">
-                    <div class="top"><a href="#"><i></i><img src="/content/images/lingshi/7.jpg" alt="" /></a></div>
-                    <dl>
-                        <dt><a href="#">Sheng Bing</a></dt>
-                        <dd class="pe1">录取专业：奢侈品管理</dd>
-                        <dd class="pe2">offer：ESC Toulouse 图卢兹高等商业学校、INSEEC英赛克高等商学院 </dd>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                <div class="peoplecont">
-                    <div class="top"><a href="#"><i></i><img src="/content/images/lingshi/3.jpg" alt="" /></a></div>
-                    <dl>
-                        <dt><a href="#">Sheng Bing</a></dt>
-                        <dd class="pe1">录取专业：奢侈品管理</dd>
-                        <dd class="pe2">offer：ESC Toulouse 图卢兹高等商业学校、INSEEC英赛克高等商学院 </dd>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                <div class="peoplecont">
-                    <div class="top"><a href="#"><i></i><img src="/content/images/lingshi/1.jpg" alt="" /></a></div>
-                    <dl>
-                        <dt><a href="#">Sheng Bing</a></dt>
-                        <dd class="pe1">录取专业：奢侈品管理</dd>
-                        <dd class="pe2">offer：ESC Toulouse 图卢兹高等商业学校、INSEEC英赛克高等商学院 </dd>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                <div class="peoplecont">
-                    <div class="top"><a href="#"><i></i><img src="/content/images/lingshi/1.jpg" alt="" /></a></div>
-                    <dl>
-                        <dt><a href="#">Sheng Bing</a></dt>
-                        <dd class="pe1">录取专业：奢侈品管理</dd>
-                        <dd class="pe2">offer：ESC Toulouse 图卢兹高等商业学校、INSEEC英赛克高等商学院 </dd>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                <div class="peoplecont">
-                    <div class="top"><a href="#"><i></i><img src="/content/images/lingshi/2.jpg" alt="" /></a></div>
-                    <dl>
-                        <dt><a href="#">Sheng Bing</a></dt>
-                        <dd class="pe1">录取专业：奢侈品管理</dd>
-                        <dd class="pe2">offer：ESC Toulouse 图卢兹高等商业学校、INSEEC英赛克高等商学院 </dd>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                <div class="peoplecont">
-                    <div class="top"><a href="#"><i></i><img src="/content/images/lingshi/3.jpg" alt="" /></a></div>
-                    <dl>
-                        <dt><a href="#">Sheng Bing</a></dt>
-                        <dd class="pe1">录取专业：奢侈品管理</dd>
-                        <dd class="pe2">offer：ESC Toulouse 图卢兹高等商业学校、INSEEC英赛克高等商学院 </dd>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                <div class="peoplecont">
-                    <div class="top"><a href="#"><i></i><img src="/content/images/lingshi/1.jpg" alt="" /></a></div>
-                    <dl>
-                        <dt><a href="#">Sheng Bing</a></dt>
-                        <dd class="pe1">录取专业：奢侈品管理</dd>
-                        <dd class="pe2">offer：ESC Toulouse 图卢兹高等商业学校、INSEEC英赛克高等商学院 </dd>
-                    </dl>
-                </div>
-            </li>
+            @foreach (Student item in ViewBag.StudentList)
+            {
+                <li>
+                    <div class="peoplecont">
+                        <div class="top"><a href="#"><i></i><img src="@item.Avatar" alt="" /></a></div>
+                        <dl>
+                            <dt><a href="#">@item.NameEn</a></dt>
+                            <dd class="pe1">录取专业：@item.MajorName</dd>
+                            <dd class="pe2">offer：@item.SchoolName </dd>
+                        </dl>
+                    </div>
+                </li>
+            }
         </ul>
     </div>
     <!--艺术导师-->
@@ -122,12 +55,12 @@
                     <div class="teacher-cont">
                         <div class="top"><a href="#"><i></i><img src="@item.Avatar" alt="@item.Name" /></a></div>
                         <dl>
-                            <dt><a href="#">@item.Name @item.NameEn</a></dt>
+                            <dt><a href="#">@(item.Name) @(item.NameEn)</a></dt>
                             <dd class="teac-m">
                                 <p><span>@item.SchoolName</span><small>@item.SchoolNameEn</small></p>
                                 <p><span>@item.MajorName</span><small>@item.MajorNameEn</small></p>
                             </dd>
-                            <dd class="teac-b">@item.DivisionName @item.DivisionNameEn</dd>
+                            <dd class="teac-b">@(item.DivisionName) @(item.DivisionNameEn)</dd>
                         </dl>
                     </div>
                 </li>
@@ -159,7 +92,7 @@
                             <div class="s-name-right"><a href="#"><img src="/content/images/lingshi/ucl.jpg" alt="" /></a></div>
                         </div>
                         <div class="yuanxiao">
-                            <p><span><i class="glaxfont">国家:</i> @item.Country</span><span><i class="glaxfont">留学预算:</i> @item.Fee</span><span><i class="glaxfont">平均奖学金:</i> @item.Award</span></p>
+                            <p><span><i class="glaxfont">国家:</i> @item.Country</span><span><i class="glaxfont">留学预算:</i> @item.Fee</span><span><i class="glaxfont">平均奖学金:</i> @item.Scholarship</span></p>
                             <p><span><i class="glaxfont">申请截止日期:</i> 早申: 11月11日</span><span>常规: 11月11日</span></p>
                             <p><span><i class="glaxfont">语言要求:</i> 本科: 托福92 / 雅思7.0</span><span>硕士: 托福92 / 雅思7.0</span></p>
                             <p><span><i class="glaxfont">优势专业:</i> 工业设计</span><span>工程创新</span><span>平面设计</span></p>

@@ -97,7 +97,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = $"select top {topCount} Id,Name,NameEn,Difficult,Avatar,Country,Fee,Award from [School] where Status=1 and IsRecommend = 1 order by Id desc;";
+                string sql = $"select top {topCount} Id,Name,NameEn,Difficult,Avatar,Country,Fee,Scholarship from [School] where Status=1 and IsRecommend = 1 order by Id desc;";
                 return (await conn.QueryAsync<School>(sql, null))?.ToList();
             }
         }

@@ -22,6 +22,11 @@ namespace Instart.Models
         public string Name { get; set; }
 
         /// <summary>
+        /// 英文名
+        /// </summary>
+        public string NameEn { get; set; }
+
+        /// <summary>
         /// 照片
         /// </summary>
         public string Avatar { get; set; }
@@ -32,14 +37,29 @@ namespace Instart.Models
         public int SchoolId { get; set; }
 
         /// <summary>
+        /// 录取学校名称
+        /// </summary>
+        public string SchoolName { get; set; }
+
+        /// <summary>
         /// 录取专业Id
         /// </summary>
         public int MajorId { get; set; }
 
         /// <summary>
+        /// 录取专业名称
+        /// </summary>
+        public string MajorName { get; set; }
+
+        /// <summary>
         /// 导师Id
         /// </summary>
         public int TeacherId { get; set; }
+
+        /// <summary>
+        /// 录取专业名称
+        /// </summary>
+        public string TeacherName { get; set; }
 
         /// <summary>
         /// 奖学金
@@ -75,5 +95,10 @@ namespace Instart.Models
         /// 修改时间
         /// </summary>
         public DateTime ModifyTime { get; set; }
+
+        /// <summary>
+        ///是否推荐 
+        /// </summary>
+        public bool IsRecommend { get; set; }
     }
 }

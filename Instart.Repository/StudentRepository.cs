@@ -92,5 +92,18 @@ namespace Instart.Repository
                 return await conn.ExecuteAsync(sql, new { Id = id }) > 0;
             }
         }
+
+        public async Task<List<Student>> GetRecommendListAsync(int topCount)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = $@"select t.Id,t.Name,t.NameEn,t.Avatar,t.SchoolId,s.Name as SchoolName,t.MajorId,m.Name as MajorName from Teacher t
+                                left join School s on t.SchoolId = s.Id
+                                left join Major m on t.MajorId = m.Id
+                                where t.Status=1 and t.IsRecommend=1
+                                order by t.Id Desc;";
+                return (await conn.QueryAsync<Student>(sql, null))?.ToList();
+            }
+        }
     }
 }
