@@ -29,11 +29,11 @@
                 <tr>
                     <td style="width:5%;">@item.Id</td>
                     <td>@item.Name</td>
-                    <td>@item.EnName</td>
+                    <td>@item.NameEn</td>
                     <td>@Html.Raw(item.Introduce)</td>
                     <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
                     <td style="width:10%;">
-                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="update(@item.Id, '@item.Name', '@item.EnName', '@item.Introduce')">修改</a>
+                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="update(@item.Id, '@item.Name', '@item.NameEn', '@item.Introduce')">修改</a>
                         <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="remove(@item.Id)">删除</a>
                     </td>
                 </tr>
@@ -110,7 +110,7 @@
                 $.ajax({
                     type: 'POST',
                     url:  '@Url.Action("insert", "division", new { area="manage"})',
-                    data: { Name: name, EnName: enname, Introduce: ue.getContent() },
+                    data: { Name: name, NameEn: enname, Introduce: ue.getContent() },
                     success: function (slt) {
                         if (slt && slt.success) {
                             location.reload();

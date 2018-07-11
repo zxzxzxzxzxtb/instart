@@ -41,18 +41,18 @@
                 foreach (var item in Model.ImgUrls)
                 {
                     <div>
-                        <span>@item</span> <a href="javascript:void(0)" onclick="deleteFile(this, '@item')">[删除]</a>
+                        <span>@item</span> <a href="javascript:void(0)" class="btn btn-primary" onclick="deleteFile(this, '@item')">删除</a>
                     </div>
                 }
             }
             <div>
-            <a href="javascript:void(0)" id="imgs" onclick="addFile('imgs')">点击添加文件</a>
+            <a href="javascript:void(0)" id="imgs" class="btn btn-primary" onclick="addFile('imgs')">点击添加文件</a>
             </div>
             <div id="_containerimgs"></div>
         </td>
     </tr>
     <tr>
-        <td><input type="button" class="btn btn-primary" value="提交" onclick="save()" /></td>
+        <td><input type="button" class="btn btn-primary" value="保存" onclick="save()" /></td>
     </tr>
 
 </table>
@@ -79,16 +79,18 @@
         }
 
         function addFile(flag) {
-            var div = $("<div></div>");
+            var div = $("<div style='width:100%;'></div>");
             var f = $("<input/>");
             f.attr("type", "file");
             f.attr("name", flag);
-            f.attr("size", "50");
             div.append(f);
-            var d = $("<input type='button' onclick=\"deteFile(this, '" + flag + "')\" value='删除'/>");
+            var d = $("<input type='button'/>");
+            d.attr("class", "btn btn-primary");
+            d.attr("onclick", "deteFile(this, '" + flag + "')");
+            d.attr("value", "删除");
             div.append(d);
             $("#_container" + flag).append(div);
-            var a = $("#a" + flag);
+            var a = $("#" + flag);
             if (a.text() == "点击添加文件") {
                 a.text("继续添加文件");
             }

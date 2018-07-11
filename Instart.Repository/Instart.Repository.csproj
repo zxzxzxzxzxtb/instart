@@ -85,12 +85,14 @@
     <Compile Include="Base\InstartDbContext.cs" />
     <Compile Include="Base\IRepository.cs" />
     <Compile Include="Base\RepositoryBase.cs" />
+    <Compile Include="AboutInstartRepository.cs" />
     <Compile Include="CampusRepository.cs" />
     <Compile Include="CategoryRepository.cs" />
     <Compile Include="CourseRepository.cs" />
     <Compile Include="DivisionRepository.cs" />
     <Compile Include="Interfaces\IArticleRepository.cs" />
     <Compile Include="Interfaces\IBannerRepository.cs" />
+    <Compile Include="Interfaces\IAboutInstartRepository.cs" />
     <Compile Include="Interfaces\ICampusRepository.cs" />
     <Compile Include="Interfaces\ICategoryRepository.cs" />
     <Compile Include="Interfaces\ICourseRepository.cs" />
