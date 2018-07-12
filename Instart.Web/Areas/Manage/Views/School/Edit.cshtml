@@ -1,0 +1,131 @@
+﻿@using Instart.Models
+@model Instart.Models.School
+
+@{
+    ViewBag.Title = "学校设置";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li><a href="/manage/school">学校管理</a></li>
+    <li class="active">@ViewBag.Action</li>
+</ol>
+
+<form class="form-horizontal edit-container-width">
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">学校名称：</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="Name" value="@Model.Name">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">英文名：</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="NameEn" value="@Model.NameEn">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">学校类型：</label>
+        <div class="col-sm-10">
+            <select name="Type" class="form-control">
+                <option value="0">公共艺术类</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">国家：</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="Country" value="@Model.Country">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">地址：</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="Address" value="@Model.Address">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">网址：</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="WebSite" value="@Model.WebSite">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">学费：</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="Fee" value="@Model.Fee">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">奖学金：</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="Scholarship" value="@Model.Scholarship">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">申请难度：</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="Difficult" value="@Model.Difficult">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">推荐专业：</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="RecommendMajor" value="@Model.RecommendMajor">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">学校简介：</label>
+        <div class="col-sm-10">
+            <textarea name="Introduce" rows="10" class="form-control">@Model.Introduce</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">学校图片：</label>
+        <div class="col-sm-10">
+            <img src="@Model.Avatar" style="width:80%;height:200px;border:1px solid #eee;" />
+            <input type="hidden" name="Avatar" value="@Model.Avatar" />
+            <a href="#" class="btn-link" style="position:relative;top:90px;">点击上传</a>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Logo：</label>
+        <div class="col-sm-10">
+            <img src="@Model.Logo" style="width:100px;height:100px;border:1px solid #eee;" />
+            <input type="hidden" name="Logo" value="@Model.Logo" />
+            <a href="#" class="btn-link" style="position:relative;top:40px;">点击上传</a>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+                <label>
+                    <input name="Recommend" type="checkbox"> 推荐首页
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success">提交</button>
+        </div>
+    </div>
+</form>
+
+
+

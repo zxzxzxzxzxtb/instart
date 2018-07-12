@@ -1,4 +1,5 @@
 ﻿using Instart.Common;
+using Instart.Models;
 using Instart.Service;
 using Instart.Service.Base;
 using Instart.Web.Attributes;
@@ -31,6 +32,22 @@ namespace Instart.Web.Areas.Manage.Controllers
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
             ViewBag.Keyword = keyword;
             return View(list.Data);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Edit(int id = 0)
+        {
+            School model = new School();
+            string action = "添加学校"; 
+
+            if(id > 0)
+            {
+                model = await _schoolService.GetByIdAsync(id);
+                action = "修改学校";
+            }
+
+            ViewBag.Action = action;
+            return View(model);
         }
 
         [HttpPost]

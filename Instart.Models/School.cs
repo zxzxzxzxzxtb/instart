@@ -18,12 +18,12 @@ namespace Instart.Models
         public int Id { get; set; }
 
         /// <summary>
-        /// 名称
+        /// 名称--
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 英文名称
+        /// 英文名称--
         /// </summary>
         public string NameEn { get; set; }
 
@@ -33,7 +33,7 @@ namespace Instart.Models
         public string Logo { get; set; }
 
         /// <summary>
-        /// 学费
+        /// 学费--
         /// </summary>
         public string Fee { get; set; }
 
@@ -58,17 +58,17 @@ namespace Instart.Models
         public string SAT { get; set; }
 
         /// <summary>
-        /// 推荐专业
+        /// 推荐专业--
         /// </summary>
         public string RecommendMajor { get; set; }
 
         /// <summary>
-        /// 学校类型
+        /// 学校类型--
         /// </summary>
         public EnumSchoolType Type { get; set; }
 
         /// <summary>
-        /// 地址
+        /// 地址--
         /// </summary>
         public string Address { get; set; }
 
@@ -78,12 +78,12 @@ namespace Instart.Models
         public string Avatar { get; set; }
 
         /// <summary>
-        /// 申请难度
+        /// 申请难度--
         /// </summary>
         public string Difficult { get; set; }
 
         /// <summary>
-        /// 学校介绍
+        /// 学校介绍--
         /// </summary>
         public string Introduce { get; set; }
 
@@ -113,14 +113,14 @@ namespace Instart.Models
         public string Impress { get; set; }
 
         /// <summary>
-        /// 国家
+        /// 国家--
         /// </summary>
-        public string Country { get; set; }        
+        public string Country { get; set; }       
 
         /// <summary>
-        /// 网址
+        /// 网址--
         /// </summary>
-        public string WebSite { get; set; }        
+        public string WebSite { get; set; }     
 
         /// <summary>
         /// 申请开始日期
@@ -153,7 +153,7 @@ namespace Instart.Models
         public DateTime ModifyTime { get; set; }
 
         /// <summary>
-        /// 奖学金
+        /// 奖学金--
         /// </summary>
         public string Scholarship { get; set; }
     }

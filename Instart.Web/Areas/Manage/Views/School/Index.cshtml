@@ -6,6 +6,9 @@
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 
+<ol class="breadcrumb">
+    <li><a href="#">学校管理</a></li>
+</ol>
 
 <div>
     <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
@@ -14,7 +17,7 @@
             <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="学校名称" style="width:300px;">
         </div>
         <button type="submit" class="btn btn-warning">查询</button>
-        <button type="button" class="btn btn-success" onclick="add()">添加</button>
+        <a href="/manage/school/edit" class="btn btn-success">添加</a>
     </form>
 </div>
 <table class="table table-bordered table-striped" style="margin-top:15px;">
