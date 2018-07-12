@@ -244,6 +244,7 @@
     <Compile Include="Areas\Manage\ManageAreaRegistration.cs" />
     <Compile Include="Attributes\AdminValidationAttribute.cs" />
     <Compile Include="Attributes\ExceptionAttribute.cs" />
+    <Compile Include="Attributes\RepeatRequestLimitAttribute.cs" />
     <Compile Include="Configs\WebAppSettings.cs" />
     <Compile Include="Content\ueditor\net\App_Code\Config.cs" />
     <Compile Include="Content\ueditor\net\App_Code\ConfigHandler.cs" />
