@@ -25,7 +25,7 @@ namespace Instart.Web.Controllers
         }
 
         public async Task<ActionResult> Index() {
-            ViewBag.PartnerList = (await _partnerService.GetListAsync(14)) ?? new List<Instart.Models.Partner>();
+            ViewBag.PartnerList = (await _partnerService.GetRecommendListAsync(14)) ?? new List<Instart.Models.Partner>();
             ViewBag.SchoolList = (await _schoolService.GetRecommendListAsync(10)) ?? new List<Instart.Models.School>();
             ViewBag.TeacherList = (await _teacherService.GetRecommendListAsync(8)) ?? new List<Instart.Models.Teacher>();
             ViewBag.StudentList = (await _studentService.GetRecommendListAsync(8)) ?? new List<Instart.Models.Student>();

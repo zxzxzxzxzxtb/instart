@@ -1,0 +1,50 @@
+﻿@using Instart.Models
+@using Instart.Web.Infrastructures
+@model Instart.Models.Partner
+
+@{
+    ViewBag.Title = "编辑合作伙伴";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("AddOrUpdate", "Partner", new { area = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "mainForm" }))
+{
+@Html.HiddenFor(m => m.Id)
+<table class="table table-nobordered" style="top: 100px;">
+    <tr>
+        <td>名称：</td>
+        <td>@Html.TextBoxFor(m => m.Name)</td>
+    </tr>
+    <tr>
+        <td>LOGO：</td>
+        <td><input type="file" name="ImageUrl" id="ImageUrl" /></td>
+    </tr>
+    <tr>
+        <td>链接：</td>
+        <td>@Html.TextBoxFor(m => m.Link)</td>
+    </tr>
+    <tr>
+        <td><input type="button" class="btn btn-primary" value="保存" onclick="save()" /></td>
+    </tr>
+
+</table>
+}
+
+@section Bottom{
+    <script>
+        function save() {
+            $("#mainForm").ajaxSubmit({
+                success: function (slt) {
+                    if (slt && slt.success) {
+                        location.href = '@Url.Action("index", "partner", new { area="manage"})';
+                    }
+                    else {
+                        alert(slt.message || '操作失败，请重试。');
+                    }
+                }
+            });
+        }
+
+    </script>
+}
+

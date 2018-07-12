@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contact.cs" />
     <Compile Include="Article.cs" />
     <Compile Include="Banner.cs" />
     <Compile Include="AoubtInstart.cs" />
