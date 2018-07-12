@@ -47,6 +47,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContactService.cs" />
     <Compile Include="ArticleService.cs" />
     <Compile Include="BannerService.cs" />
     <Compile Include="CategoryService.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="CourseService.cs" />
     <Compile Include="AboutInstartService.cs" />
     <Compile Include="DivisionService.cs" />
+    <Compile Include="Interfaces\IContactService.cs" />
     <Compile Include="Interfaces\IArticleService.cs" />
     <Compile Include="Base\AutofacService.cs" />
     <Compile Include="Base\ServiceBase.cs" />

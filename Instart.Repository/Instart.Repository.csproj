@@ -74,6 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContactRepository.cs" />
     <Compile Include="ArticleRepository.cs" />
     <Compile Include="BannerRepository.cs" />
     <Compile Include="Base\AppSettings.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="CategoryRepository.cs" />
     <Compile Include="CourseRepository.cs" />
     <Compile Include="DivisionRepository.cs" />
+    <Compile Include="Interfaces\IContactRepository.cs" />
     <Compile Include="Interfaces\IArticleRepository.cs" />
     <Compile Include="Interfaces\IBannerRepository.cs" />
     <Compile Include="Interfaces\IAboutInstartRepository.cs" />

@@ -59,13 +59,18 @@ namespace Instart.Repository
 
         public async Task<bool> UpdateAsync(Works model) {
             using (var conn = DapperFactory.GetConnection()) {
-                var fields = model.ToFields(removeFields: new List<string>
+                List<string> removeFields = new List<string>
                 {
                     nameof(model.Id),
                     nameof(model.MajorName),
                     nameof(model.CreateTime),
                     nameof(model.Status)
-                });
+                };
+                if (String.IsNullOrEmpty(model.ImgUrl))
+                {
+                    removeFields.Add(nameof(model.ImgUrl));
+                }
+                var fields = model.ToFields(removeFields: removeFields);
 
                 if (fields == null || fields.Count == 0) {
                     return false;

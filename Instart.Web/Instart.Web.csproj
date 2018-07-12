@@ -225,6 +225,7 @@
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Manage\Controllers\ContactController.cs" />
     <Compile Include="Areas\Manage\Controllers\AccountController.cs" />
     <Compile Include="Areas\Manage\Controllers\CourseApplyController.cs" />
     <Compile Include="Areas\Manage\Controllers\AboutController.cs" />
@@ -897,7 +898,9 @@
   <ItemGroup>
     <Folder Include="Areas\Manage\Models\" />
     <Folder Include="Content\images\campus\" />
+    <Folder Include="Content\images\contact\" />
     <Folder Include="Content\images\major\" />
+    <Folder Include="Content\images\partner\" />
     <Folder Include="Content\images\works\" />
     <Folder Include="Content\videos\aboutinstart\" />
   </ItemGroup>
@@ -939,6 +942,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Manage\Views\About\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Partner\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Contact\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
