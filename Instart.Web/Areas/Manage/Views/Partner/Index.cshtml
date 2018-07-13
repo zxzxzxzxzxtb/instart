@@ -2,13 +2,19 @@
 @using Instart.Web.Infrastructures
 
 @{
-    ViewBag.Title = "合作伙伴管理";
+    ViewBag.Title = "合作伙伴";
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 
+<ol class="breadcrumb">
+    <li><a href="#">合作伙伴</a></li>
+</ol>
+
 <div>
     <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
-    <button type="button" class="btn btn-primary" onclick="add()">添加</button>
+    <form method="post" action="" target="_self" class="form-inline">
+        <a href="/manage/partner/edit" class="btn btn-success">添加</a>
+    </form>
 </div>
 <table class="table table-bordered table-striped" style="margin-top:15px;">
     <thead>
@@ -54,33 +60,23 @@
 
 @section Bottom{
     <script>
-        function add() {
-            location.href = '@Url.Action("edit", "partner", new { area="manage"})';
-        }
-
         function update(id) {
             location.href = '@Url.Action("edit", "partner", new { area="manage" })' + "?id=" + id;
         }
 
-        function remove(id){
-            if (window.confirm('你确定要删除该合作伙伴吗？')) {
-                $.ajax({
-                    type: 'POST',
-                    url:  '@Url.Action("delete", "partner", new { area="manage"})',
-                    data: { id: id},
-                    success: function (slt) {
-                        if (slt && slt.success) {
-                            location.reload();
-                        }
-                        else {
-                            alert(slt.message || '操作失败，请重试。');
-                        }
+        function remove(id) {
+            layer.confirm('确定删除该合作伙伴?', function (index) {
+                $.post('/manage/partner/delete', { id: id }, function (slt) {
+                    if (slt && slt.success) {
+                        location.reload();
+                    }
+                    else {
+                        layer.msg(slt.message || '操作失败，请重试');
                     }
                 });
-            } else {
-                //alert("取消");
-                return false;
-            }
+
+                layer.close(index);
+            }); 
         }
     </script>
 }

@@ -6,9 +6,19 @@
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 
+<ol class="breadcrumb">
+    <li><a href="#">学部管理</a></li>
+</ol>
+
 <div>
     <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">添加</button>
+    <form method="post" action="" target="_self" class="form-inline">
+        <div class="form-group">
+            <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="学部名称" style="width:300px;">
+        </div>
+        <button type="submit" class="btn btn-warning">查询</button>
+        <a href="/manage/division/edit" class="btn btn-success">添加</a>
+    </form>
 </div>
 <table class="table table-bordered table-striped" style="margin-top:15px;">
     <thead>
@@ -16,7 +26,6 @@
             <th>#</th>
             <th>学部名称</th>
             <th>英文名称</th>
-            <th>学部制度</th>
             <th>创建时间</th>
             <th>操作</th>
         </tr>
@@ -30,10 +39,9 @@
                     <td style="width:5%;">@item.Id</td>
                     <td>@item.Name</td>
                     <td>@item.NameEn</td>
-                    <td>@Html.Raw(item.Introduce)</td>
                     <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
                     <td style="width:10%;">
-                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="update(@item.Id, '@item.Name', '@item.NameEn', '@item.Introduce')">修改</a>
+                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="update(@item.Id)">修改</a>
                         <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="remove(@item.Id)">删除</a>
                     </td>
                 </tr>
@@ -52,105 +60,25 @@
     }
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">编辑</h4>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="divisionid" />
-                <table class="table table-nobordered">
-                    <tr>
-                        <td style="width:80px;">学部名称：</td>
-                        <td>
-                            <input id="txtname" type="text" class="form-control" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width:80px;">英文名称：</td>
-                        <td>
-                            <input id="txtenname" type="text" class="form-control" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>学部制度：</td>
-                        <td>
-                            <script id="editor" type="text/plain" style="width:480px;height:200px;">
-                            </script>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button id="btnSubmit" type="button" class="btn btn-primary">提交</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 @section Bottom{
     <script>
-        var ue = UE.getEditor('editor', {
-            autoHeight: false
-        });
-
-        $(function () {
-            $('#btnSubmit').click(function () {
-                var name = $('#txtname').val();
-                var enname = $('#txtenname').val();
-                var introduce = $('#txtIntroduce').val();
-                if (name == '') {
-                    alert('请输入学部名称。');
-                    return false;
-                }
-                $.ajax({
-                    type: 'POST',
-                    url:  '@Url.Action("insert", "division", new { area="manage"})',
-                    data: { Name: name, NameEn: enname, Introduce: ue.getContent() },
-                    success: function (slt) {
-                        if (slt && slt.success) {
-                            location.reload();
-                        }
-                        else {
-                            alert(slt.message || '操作失败，请重试。');
-                        }
-                    }
-                });
-            });
-        });
-
-        function update(id, name, enname, introduce) {
-            $("#divisionid").val(id);
-            $("#txtenname").val(enname);
-            $("#txtname").val(name);
-            ue.setContent(introduce);
-
-            $("#myModal").modal("show");
+        function update(id) {
+            location.href = '@Url.Action("edit", "division", new { area="manage" })' + "?id=" + id;
         }
 
-        function remove(id){
-            if (window.confirm('你确定要删除该学部吗？')) {
-                $.ajax({
-                    type: 'POST',
-                    url:  '@Url.Action("delete", "division", new { area="manage"})',
-                    data: { id: id},
-                    success: function (slt) {
-                        if (slt && slt.success) {
-                            location.reload();
-                        }
-                        else {
-                            alert(slt.message || '操作失败，请重试。');
-                        }
+        function remove(id) {
+            layer.confirm('确定删除该学部?', function (index) {
+                $.post('/manage/division/delete', { id: id }, function (slt) {
+                    if (slt && slt.success) {
+                        location.reload();
+                    }
+                    else {
+                        layer.msg(slt.message || '操作失败，请重试');
                     }
                 });
-            } else {
-                //alert("取消");
-                return false;
-            }
+
+                layer.close(index);
+            });          
         }
     </script>
 }

@@ -34,18 +34,17 @@ namespace Instart.Web.Areas.Manage.Controllers
             return View(list.Data);
         }
 
-        public async Task<ActionResult> Edit()
+        public async Task<ActionResult> Edit(int id = 0)
         {
-            int id = Request.QueryString["id"].ToInt32();
-            Partner model;
+            Partner model = new Partner();
+            string action = "添加合作伙伴";
+
             if (id > 0)
             {
                 model = await _partnerService.GetByIdAsync(id);
+                action = "修改合作伙伴";
             }
-            else
-            {
-                model = new Partner();
-            }
+            ViewBag.Action = action;
             return View(model);
         }
 

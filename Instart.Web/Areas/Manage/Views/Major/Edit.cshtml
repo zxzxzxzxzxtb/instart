@@ -3,56 +3,72 @@
 @model Instart.Models.Major
 
 @{
-    ViewBag.Title = "编辑专业";
+    ViewBag.Title = "专业设置";
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("AddOrUpdate", "Major", new { area = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "mainForm" }))
+<ol class="breadcrumb">
+    <li><a href="/manage/major">专业管理</a></li>
+    <li class="active">@ViewBag.Action</li>
+</ol>
+
+@using (Html.BeginForm("AddOrUpdate", "Major", new { area = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "mainForm", @class = "form-horizontal edit-container-width" }))
 {
-@Html.HiddenFor(m => m.Id)
-<table class="table table-nobordered" style="top: 100px;">
-    <tr>
-        <td>专业名称：</td>
-        <td>@Html.TextBoxFor(m => m.Name)</td>
-    </tr>
-    <tr>
-        <td>英文名称：</td>
-        <td>@Html.TextBoxFor(m => m.NameEn)</td>
-    </tr>
-    <tr>
-        <td>专业图片：</td>
-        <td><input type="file" name="MajorImage" /></td>
-        @if (!String.IsNullOrEmpty(Model.ImgUrl))
-        {
-            <td><img src="@Model.ImgUrl" alt="" width="100" height="100" /></td>
-        }
-    </tr>
+    @Html.HiddenFor(m => m.Id)
+    <div class="form-group">
+        <label class="col-sm-2 control-label">专业名称：</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>
 
-    <tr>
-        <td>专业描述：</td>
-        <td>@Html.TextAreaFor(m => m.Introduce, new { style = "width: 600px;height: 200px;" })</td>
-    </tr>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">英文名：</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.NameEn, new { @class = "form-control" })
+        </div>
+    </div>
 
-    <tr>
-        <td>就业前景：</td>
-        <td>@Html.TextAreaFor(m => m.Prospect, new { style = "width: 600px;height: 200px;" })</td>
-    </tr>
-    <tr>
-        <!--下拉列表框,数据由后台初始化-->
-        <td>专业类型：</td>
-        <td>@Html.DropDownListFor(m => m.Type, @ViewBag.typeList as IEnumerable<SelectListItem>)</td>
-    </tr>
-    <tr>
-        <!--下拉列表框,数据由后台初始化-->
-        <td>所属学部：</td>
-        <td>@Html.DropDownListFor(m => m.DivisionId, @ViewBag.divisionList as IEnumerable<SelectListItem>)</td>
-    </tr>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">专业图片：</label>
+        <div class="col-sm-10">
+            <input type="file" id="MajorImage" name="MajorImage" />
+        </div>
+    </div>
 
-    <tr>
-        <td><input type="button" class="btn btn-primary" value="保存" onclick="save()" /></td>
-    </tr>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">专业描述：</label>
+        <div class="col-sm-10">
+            <textarea name="Introduce" id="Introduce" rows="10">@Model.Introduce</textarea>
+        </div>
+    </div>
 
-</table>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">就业前景：</label>
+        <div class="col-sm-10">
+            <textarea name="Prospect" id="Prospect" rows="10">@Model.Prospect</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">专业类型：</label>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(m => m.Type, @ViewBag.typeList as IEnumerable<SelectListItem>)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">所属学部：</label>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(m => m.DivisionId, @ViewBag.divisionList as IEnumerable<SelectListItem>)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <input type="button" class="btn btn-primary" value="提交" onclick="save()" />
+        </div>
+    </div>
 }
 
 
