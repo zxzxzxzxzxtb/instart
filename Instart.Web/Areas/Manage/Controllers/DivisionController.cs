@@ -23,19 +23,35 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_divisionService);
         }
 
-        public async Task<ActionResult> Index(int page = 1, string name = null)
+        public async Task<ActionResult> Index(int page = 1, string keyword = null)
         {
             int pageSize = 10;
-            var list = await _divisionService.GetListAsync(page, pageSize, name);
+            var list = await _divisionService.GetListAsync(page, pageSize, keyword);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
+            ViewBag.Keyword = keyword;
             return View(list.Data);
+        }
+
+        public async Task<ActionResult> Edit(int id = 0)
+        {
+            Division model = new Division();
+            string action = "添加学部";
+
+            if (id > 0)
+            {
+                model = await _divisionService.GetByIdAsync(id);
+                action = "修改学部";
+            }
+
+            ViewBag.Action = action;
+            return View(model);
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public async Task<JsonResult> Insert(Division model)
+        public async Task<JsonResult> AddOrUpdate(Division model, List<HttpPostedFileBase> imgs)
         {
             try
             {
@@ -46,33 +62,24 @@ namespace Instart.Web.Areas.Manage.Controllers
                     return Error(msg);
                 }
 
-                return Json(new ResultBase
+                if (model.Id > 0)
                 {
-                    success = await _divisionService.InsertAsync(model)
-                });
+                    return Json(new ResultBase
+                    {
+                        success = await _divisionService.UpdateAsync(model)
+                    });
+                }
+                else
+                {
+                    return Json(new ResultBase
+                    {
+                        success = await _divisionService.InsertAsync(model)
+                    });
+                }
             }
             catch (Exception ex)
             {
-                LogHelper.Error($"DivisionController.Insert异常", ex);
-                return Error(ex.Message);
-            }
-        }
-
-        [HttpPost]
-        [ValidateInput(false)]
-        public async Task<JsonResult> Update(Division model)
-        {
-            try
-            {
-
-                return Json(new ResultBase
-                {
-                    success = await _divisionService.UpdateAsync(model)
-                });
-            }
-            catch (Exception ex)
-            {
-                LogHelper.Error($"DivisionController.Update异常", ex);
+                LogHelper.Error($"DivisionController.设置异常", ex);
                 return Error(ex.Message);
             }
         }

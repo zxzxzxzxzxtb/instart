@@ -26,28 +26,29 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_divisionService);
         }
 
-        public async Task<ActionResult> Index(int page = 1, string name = null)
+        public async Task<ActionResult> Index(int page = 1, string keyword = null)
         {
             int pageSize = 10;
-            var list = await _majorService.GetListAsync(page, pageSize, name);
+            var list = await _majorService.GetListAsync(page, pageSize, keyword);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
+            ViewBag.Keyword = keyword;
             return View(list.Data);
         }
 
-        public async Task<ActionResult> Edit()
+        public async Task<ActionResult> Edit(int id = 0)
         {
-            int id = Request.QueryString["id"].ToInt32();
-            Major model;
+            Major model = new Major();
+            string action = "添加专业";
+
             if (id > 0)
             {
                 model = await _majorService.GetByIdAsync(id);
+                action = "修改专业";
             }
-            else
-            {
-                model = new Major();
-            }
+
+            ViewBag.Action = action;
             List<SelectListItem> typeList = new List<SelectListItem>();
             typeList.Add(new SelectListItem { Text = "本科", Value = "0" });
             typeList.Add(new SelectListItem { Text = "研究生", Value = "1" });

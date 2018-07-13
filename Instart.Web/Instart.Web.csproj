@@ -952,6 +952,9 @@
   <ItemGroup>
     <Content Include="Areas\Manage\Views\School\Edit.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Division\Edit.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
