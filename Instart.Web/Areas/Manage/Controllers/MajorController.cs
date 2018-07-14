@@ -66,70 +66,42 @@ namespace Instart.Web.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public async Task<JsonResult> AddOrUpdate(Major model)
+        public async Task<JsonResult> Set(Major model)
         {
-            Stream uploadStream = null;
-            FileStream fs = null;
-            try
+            if (model == null)
             {
-                string msg = this.Validate(model, false);
+                return Error("参数错误。");
+            }
 
-                if (!string.IsNullOrEmpty(msg))
-                {
-                    return Error(msg);
-                }
-                //文件上传，一次上传1M的数据，防止出现大文件无法上传
-                HttpPostedFileBase postFileBase = Request.Files["MajorImage"];
-                if (postFileBase != null && postFileBase.ContentLength != 0)
-                {
-                    uploadStream = postFileBase.InputStream;
-                    int bufferLen = 1024;
-                    byte[] buffer = new byte[bufferLen];
-                    int contentLen = 0;
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("专业名称不能为空。");
+            }
 
-                    string fileName = Path.GetFileName(postFileBase.FileName);
-                    string baseUrl = Server.MapPath("/");
-                    string uploadPath = baseUrl + @"\Content\Images\Major\";
-                    fs = new FileStream(uploadPath + fileName, FileMode.Create, FileAccess.ReadWrite);
+            model.Name = model.Name.Trim();
 
-                    while ((contentLen = uploadStream.Read(buffer, 0, bufferLen)) != 0)
-                    {
-                        fs.Write(buffer, 0, bufferLen);
-                        fs.Flush();
-                    }
+            var fileMajor = Request.Files["fileMajor"];
 
-                    //保存页面数据，上传的文件只保存路径
-                    string imgUrl = "/Content/Images/Major/" + fileName;
-                    model.ImgUrl = imgUrl;
-                }
-                if (model.Id > 0)
+            if (fileMajor != null)
+            {
+                string uploadResult = UploadHelper.Process(fileMajor.FileName, fileMajor.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
                 {
-                    await _majorService.UpdateAsync(model);
-                }
-                else
-                {
-                    await _majorService.InsertAsync(model);
+                    model.ImgUrl = uploadResult;
                 }
             }
-            catch (Exception ex)
+            var result = new ResultBase();
+
+            if (model.Id > 0)
             {
-                ex.StackTrace.ToString();
+                result.success = await _majorService.UpdateAsync(model);
             }
-            finally
+            else
             {
-                if (null != fs)
-                {
-                    fs.Close();
-                }
-                if (null != uploadStream)
-                {
-                    uploadStream.Close();
-                }
+                result.success = await _majorService.InsertAsync(model);
             }
-            return Json(new ResultBase
-            {
-                success = true
-            });
+
+            return Json(result);
         }
 
         [HttpPost]
@@ -147,27 +119,6 @@ namespace Instart.Web.Areas.Manage.Controllers
                 LogHelper.Error($"MajorController.Delete异常", ex);
                 return Error(ex.Message);
             }
-        }
-
-        [NonAction]
-        private string Validate(Major model, bool isUpdate = false)
-        {
-            if (model == null)
-            {
-                return "参数错误。";
-            }
-
-            if (isUpdate && model.Id <= 0)
-            {
-                return "Id不正确。";
-            }
-
-            if (string.IsNullOrEmpty(model.Name))
-            {
-                return "专业名称不能为空。";
-            }
-
-            return string.Empty;
         }
     }
 }

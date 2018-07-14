@@ -13,7 +13,12 @@
 <div>
     <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
     <form method="post" action="" target="_self" class="form-inline">
-        <a href="/manage/partner/edit" class="btn btn-success">添加</a>
+        <div class="form-group">
+            <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="合作伙伴名称" style="width:300px;">
+        </div>
+        <button type="submit" class="btn btn-success">查询</button>
+        <a href="/manage/partner" class="btn btn-default">全部</a>
+        <a href="/manage/partner/edit" class="btn btn-default">添加</a>
     </form>
 </div>
 <table class="table table-bordered table-striped" style="margin-top:15px;">
@@ -71,7 +76,7 @@
                         location.reload();
                     }
                     else {
-                        layer.msg(slt.message || '操作失败，请重试');
+                        layer.msg(slt.message || '操作失败，请重试。');
                     }
                 });
 

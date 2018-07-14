@@ -43,6 +43,11 @@ namespace Instart.Models
         public string Prospect { get; set; }
 
         /// <summary>
+        /// 申请要求
+        /// </summary>
+        public string Apply { get; set; }
+
+        /// <summary>
         /// 专业类型
         /// </summary>
         public EnumMajorType Type { get; set; }

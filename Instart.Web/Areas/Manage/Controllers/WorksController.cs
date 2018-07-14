@@ -36,18 +36,18 @@ namespace Instart.Web.Areas.Manage.Controllers
             return View(list.Data);
         }
 
-        public async Task<ActionResult> Edit()
+        public async Task<ActionResult> Edit(int id = 0)
         {
-            int id = Request.QueryString["id"].ToInt32();
-            Works model;
+            Works model = new Works();
+            string action = "添加作品";
+
             if (id > 0)
             {
                 model = await _worksService.GetByIdAsync(id);
+                action = "修改作品";
             }
-            else
-            {
-                model = new Works();
-            }
+            ViewBag.Action = action;
+
             List<SelectListItem> majorList = new List<SelectListItem>();
             IEnumerable<Major> majors = await _majorService.GetAllAsync();
             foreach (var item in majors)
@@ -60,67 +60,40 @@ namespace Instart.Web.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public async Task<JsonResult> AddOrUpdate(Works model)
+        public async Task<JsonResult> Set(Works model)
         {
-            Stream uploadStream = null;
-            FileStream fs = null;
-            try
+            if (model == null)
             {
-                //文件上传，一次上传1M的数据，防止出现大文件无法上传
-                HttpPostedFileBase postFileBase = Request.Files["WorksImage"];
-                if (postFileBase == null || postFileBase.ContentLength == 0)
-                {
-                    return Error("作品不能为空。");
-                }
+                return Error("参数错误。");
+            }
 
-                uploadStream = postFileBase.InputStream;
-                int bufferLen = 1024;
-                byte[] buffer = new byte[bufferLen];
-                int contentLen = 0;
+            var fileWorks = Request.Files["fileWorks"];
 
-                string fileName = Path.GetFileName(postFileBase.FileName);
-                string baseUrl = Server.MapPath("/");
-                string uploadPath = baseUrl + @"\Content\Images\Works\";
-                fs = new FileStream(uploadPath + fileName, FileMode.Create, FileAccess.ReadWrite);
-
-                while ((contentLen = uploadStream.Read(buffer, 0, bufferLen)) != 0)
+            if (fileWorks != null)
+            {
+                string uploadResult = UploadHelper.Process(fileWorks.FileName, fileWorks.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
                 {
-                    fs.Write(buffer, 0, bufferLen);
-                    fs.Flush();
-                }
-
-                //保存页面数据，上传的文件只保存路径
-                string imgUrl = "/Content/Images/Works/" + fileName;
-                model.ImgName = fileName;
-                model.ImgUrl = imgUrl;
-                if (model.Id > 0)
-                {
-                    await _worksService.UpdateAsync(model);
-                }
-                else
-                {
-                    await _worksService.InsertAsync(model);
+                    model.ImgUrl = uploadResult;
+                    model.ImgName = fileWorks.FileName;
                 }
             }
-            catch (Exception ex)
+            if (String.IsNullOrEmpty(model.ImgUrl))
             {
-                ex.StackTrace.ToString();
+                return Error("作品图片不能为空。");
             }
-            finally
+            var result = new ResultBase();
+
+            if (model.Id > 0)
             {
-                if (null != fs)
-                {
-                    fs.Close();
-                }
-                if (null != uploadStream)
-                {
-                    uploadStream.Close();
-                }
+                result.success = await _worksService.UpdateAsync(model);
             }
-            return Json(new ResultBase
+            else
             {
-                success = true
-            });
+                result.success = await _worksService.InsertAsync(model);
+            }
+
+            return Json(result);
         }
 
         [HttpPost]

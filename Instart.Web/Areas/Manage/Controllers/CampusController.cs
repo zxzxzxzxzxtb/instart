@@ -51,80 +51,31 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        [ValidateInput(false)]
-        public async Task<JsonResult> AddOrUpdate(Campus model, List<HttpPostedFileBase> imgs)
+        public async Task<JsonResult> Set(Campus model, List<HttpPostedFileBase> imgs)
         {
-            int bufferLen = 1024;
-            Stream uploadStream = null;
-            FileStream fs = null;
-            try
+            if (model == null)
             {
-                string msg = this.Validate(model, false);
-
-                if (!string.IsNullOrEmpty(msg))
-                {
-                    return Error(msg);
-                }
-                //文件上传，一次上传1M的数据，防止出现大文件无法上传
-                if (imgs != null && imgs.Count != 0)
-                {
-                    if (model.ImgUrls == null)
-                    {
-                        model.ImgUrls = new List<String>();
-                    }
-                    foreach (var img in imgs)
-                    {
-                        if (img != null && img.ContentLength != 0)
-                        {
-                            uploadStream = img.InputStream;
-                            byte[] buffer = new byte[bufferLen];
-                            int contentLen = 0;
-
-                            string fileName = Path.GetFileName(img.FileName);
-                            string baseUrl = Server.MapPath("/");
-                            string uploadPath = baseUrl + @"\Content\Images\Campus\";
-                            fs = new FileStream(uploadPath + fileName, FileMode.Create, FileAccess.ReadWrite);
-
-                            while ((contentLen = uploadStream.Read(buffer, 0, bufferLen)) != 0)
-                            {
-                                fs.Write(buffer, 0, bufferLen);
-                                fs.Flush();
-                            }
-
-                            //保存页面数据，上传的文件只保存路径
-                            string imgUrl = "/Content/Images/Campus/" + fileName;
-                            (model.ImgUrls as List<string>).Add(imgUrl);
-                        }
-                    }
-                }
-                if (model.Id > 0)
-                {
-                    await _campusService.UpdateAsync(model);
-                }
-                else
-                {
-                    await _campusService.InsertAsync(model);
-                }
+                return Error("参数错误。");
             }
-            catch (Exception ex)
+
+            if (string.IsNullOrEmpty(model.Name))
             {
-                ex.StackTrace.ToString();
+                return Error("校区名称不能为空。");
             }
-            finally
+
+            model.Name = model.Name.Trim();
+            var result = new ResultBase();
+
+            if (model.Id > 0)
             {
-                if (null != fs)
-                {
-                    fs.Close();
-                }
-                if (null != uploadStream)
-                {
-                    uploadStream.Close();
-                }
+                result.success = await _campusService.UpdateAsync(model);
             }
-            return Json(new ResultBase
+            else
             {
-                success = true
-            });
+                result.success = await _campusService.InsertAsync(model);
+            }
+
+            return Json(result);
         }
 
         [HttpPost]
@@ -144,35 +95,46 @@ namespace Instart.Web.Areas.Manage.Controllers
             }
         }
 
-        [NonAction]
-        private string Validate(Campus model, bool isUpdate = false)
+        public async Task<ActionResult> ImgIndex(int campusId)
         {
-            if (model == null)
-            {
-                return "参数错误。";
-            }
-
-            if (isUpdate && model.Id <= 0)
-            {
-                return "Id不正确。";
-            }
-
-            if (string.IsNullOrEmpty(model.Name))
-            {
-                return "校区名称不能为空。";
-            }
-
-            return string.Empty;
+            ViewBag.CampusId = campusId;
+            ViewBag.ImgList = await _campusService.GetImgsByCampusIdAsync(campusId);
+            return View();
         }
 
         [HttpPost]
-        public async Task<JsonResult> DeleteFile(int id, string imgUrl)
+        public async Task<JsonResult> SetImg(CampusImg model)
+        {
+            if (model == null)
+            {
+                return Error("参数错误。");
+            }
+            var campusImg = Request.Files["campusImg"];
+
+            if (campusImg == null)
+            {
+                return Error("请选择图片。");
+            }
+            string uploadResult = UploadHelper.Process(campusImg.FileName, campusImg.InputStream);
+            if (!string.IsNullOrEmpty(uploadResult))
+            {
+                model.ImgUrl = uploadResult;
+            }
+
+            var result = new ResultBase();
+            result.success = await _campusService.InsertImgAsync(model);
+
+            return Json(result);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> DeleteImg(int id)
         {
             try
             {
                 return Json(new ResultBase
                 {
-                    success = await _campusService.DeleteImgAsync(id, imgUrl)
+                    success = await _campusService.DeleteImgAsync(id)
                 });
             }
             catch (Exception ex)

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Instart.Models
 {
     /// <summary>
-    /// 校区
+    /// 校区图片
     /// </summary>
-    public class Campus
+    public class CampusImg
     {
         /// <summary>
         /// Id
@@ -17,29 +17,14 @@ namespace Instart.Models
         public int Id { get; set; }
 
         /// <summary>
-        /// 校区名称
+        /// 校区Id
         /// </summary>
-        public string Name { get; set; }
+        public int CampusId { get; set; }
 
         /// <summary>
-        /// 英文名称
+        /// 图片路径
         /// </summary>
-        public string EnName { get; set; }
-
-        /// <summary>
-        /// 地址
-        /// </summary>
-        public string Address { get; set; }
-
-        /// <summary>
-        /// 电话
-        /// </summary>
-        public string Phone { get; set; }
-
-        /// <summary>
-        /// 文字介绍
-        /// </summary>
-        public string Introduce { get; set; }
+        public string ImgUrl { get; set; }
 
         /// <summary>
         /// 状态，1：正常，0：删除

@@ -36,7 +36,7 @@ namespace Instart.Repository
                      select a.*, b.Name as DivisionName, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Major] as a
                      left join [Division] as b on b.Id = a.DivisionId {where}
                      ) as c
-                     where RowNumber {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
+                     where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
                 var list = await conn.QueryAsync<Major>(sql);
 
                 return new PageModel<Major> {

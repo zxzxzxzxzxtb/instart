@@ -11,6 +11,10 @@ namespace Instart.Models
     /// </summary>
     public class AboutInstart
     {
+        /// <summary>
+        /// 视频封面路径
+        /// </summary>
+        public string ImgUrl { get; set; }
 
         /// <summary>
         /// 视频介绍路径
