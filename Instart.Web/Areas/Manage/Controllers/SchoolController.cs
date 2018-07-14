@@ -38,9 +38,9 @@ namespace Instart.Web.Areas.Manage.Controllers
         public async Task<ActionResult> Edit(int id = 0)
         {
             School model = new School();
-            string action = "添加学校"; 
+            string action = "添加学校";
 
-            if(id > 0)
+            if (id > 0)
             {
                 model = await _schoolService.GetByIdAsync(id);
                 action = "修改学校";
@@ -51,9 +51,60 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        public async Task<JsonResult> Set(School model)
+        {
+            if (model == null)
+            {
+                return Error("参数错误");
+            }
+
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("学校名称不能为空");
+            }
+
+            model.Name = model.Name.Trim();
+
+            var avatarFile = Request.Files["fileAvatar"];
+            var logoFile = Request.Files["fileLogo"];
+
+            if (avatarFile != null)
+            {
+                string uploadResult = UploadHelper.Process(avatarFile.FileName, avatarFile.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
+                {
+                    model.Avatar = uploadResult;
+                }
+            }
+
+            if (logoFile != null)
+            {
+                string uploadResult = UploadHelper.Process(logoFile.FileName, logoFile.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
+                {
+                    model.Logo = uploadResult;
+                }
+            }
+
+            var result = new ResultBase();
+
+            if (model.Id > 0)
+            {
+                result.success = await _schoolService.UpdateAsync(model);
+            }
+            else
+            {
+                result.success = await _schoolService.InsertAsync(model);
+            }
+
+            return Json(result);
+        }
+
+
+        [HttpPost]
         public async Task<JsonResult> Delete(int id)
         {
-            if(id <= 0)
+            if (id <= 0)
             {
                 return Error("id错误");
             }
@@ -68,6 +119,28 @@ namespace Instart.Web.Areas.Manage.Controllers
             catch (Exception ex)
             {
                 LogHelper.Error($"SchoolController.Delete异常", ex);
+                return Error(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> SetRecommend(int id, bool isRecommend)
+        {
+            if (id <= 0)
+            {
+                return Error("id错误");
+            }
+
+            try
+            {
+                return Json(new ResultBase
+                {
+                    success = await _schoolService.SetRecommend(id, isRecommend)
+                });
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error($"SchoolController.SetRecommend异常", ex);
                 return Error(ex.Message);
             }
         }

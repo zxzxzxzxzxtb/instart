@@ -32,10 +32,8 @@ namespace Instart.Repository
                     return new PageModel<School>();
                 }
 
-                string sql = $@"select * from (   
-　　　　                            select Id,Name,NameEn,Logo,Country,Category,Address,Fee,Avatar,RecommendMajor,Difficulty,TuoFu,YaSi,Yan,SAT,CreateTime ROW_NUMBER() over (Order by Id desc) as RowNumber from [School] {where} 
-　　                            ) as b  
-　　                            where RowNumber between {(pageIndex - 1) * pageIndex} and {pageIndex * pageIndex};";
+                string sql = $@"select * from ( select Id,Name,NameEn,Logo,Country,[Type],Address,Fee,Avatar,RecommendMajor,Difficult,TuoFu,YaSi,Yan,SAT,CreateTime,IsRecommend, ROW_NUMBER() over (Order by Id desc) as RowNumber from [School] {where} ) as b  
+                                where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
                 var list = await conn.QueryAsync<School>(sql);
 
                 return new PageModel<School> {
@@ -99,6 +97,15 @@ namespace Instart.Repository
             {
                 string sql = $"select top {topCount} Id,Name,NameEn,Difficult,Avatar,Country,Fee,Scholarship from [School] where Status=1 and IsRecommend = 1 order by Id desc;";
                 return (await conn.QueryAsync<School>(sql, null))?.ToList();
+            }
+        }
+
+        public async Task<bool> SetRecommend(int id, bool isRecommend)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = $"update [School] set IsRecommend=@IsRecommend where Id=@Id;";
+                return await conn.ExecuteAsync(sql, new { IsRecommend =isRecommend, Id = id}) > 0;
             }
         }
     }

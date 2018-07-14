@@ -12,12 +12,13 @@
 
 <div>
     <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
-    <form method="post" action="" target="_self" class="form-inline" >
+    <form method="post" action="" target="_self" class="form-inline">
         <div class="form-group">
             <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="学校名称" style="width:300px;">
         </div>
-        <button type="submit" class="btn btn-warning">查询</button>
-        <a href="/manage/school/edit" class="btn btn-success">添加</a>
+        <button type="submit" class="btn btn-success">查询</button>
+        <a href="/manage/school" class="btn btn-default">全部</a>
+        <a href="/manage/school/edit" class="btn btn-default">添加</a>
     </form>
 </div>
 <table class="table table-bordered table-striped" style="margin-top:15px;">
@@ -29,6 +30,7 @@
             <th>学费</th>
             <th>申请难度</th>
             <th>创建时间</th>
+            <th>推荐</th>
             <th>操作</th>
         </tr>
     </thead>
@@ -45,10 +47,20 @@
                     <td>@item.Fee</td>
                     <td>@item.Difficult</td>
                     <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
-                    <td style="width:10%;">
+                    <td>
+                        @if (item.IsRecommend)
+                        {
+                            <input class="chkRecommend" type="checkbox" checked="checked" data-id="@item.Id" />
+                        }
+                        else
+                        {
+                            <input class="chkRecommend" type="checkbox" data-id="@item.Id" /> 
+                        }
+                    </td>
+                    <td style="width:20%;">
                         <a href="/school/detail/@item.Id" target="_blank">详情</a>
-                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="update(@item.Id)">修改</a>
-                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="remove(@item.Id)">删除</a>
+                        <a data-id="@item.Id" href="/manage/school/edit/@item.Id">修改</a>
+                        <a data-id="@item.Id" href="javascript:void(0)" onclick="remove(@item.Id)">删除</a>
                     </td>
                 </tr>
             }
@@ -57,6 +69,22 @@
 </table>
 
 <script>
+    $(function () {
+        $(".chkRecommend").click(function () {
+            var checked = $(this).is(":checked");
+            var id = $(this).attr("data-id");
+
+            $.post('/manage/school/setrecommend', { id: id, isRecommend: checked }, function (slt) {
+                if (slt && slt.success) {
+                    layer.msg(checked ? '推荐成功' : '取消推荐成功');
+                }
+                else {
+                    layer.msg(slt.message || '操作失败，请重试');
+                }
+            }); 
+        });
+    });
+
     function remove(schoolId) {
         if (schoolId == 0) {
             return;

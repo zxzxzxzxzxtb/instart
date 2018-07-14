@@ -31,7 +31,7 @@ namespace Instart.Repository
 
                 string sql = $@"select * from (select a.*, b.Name as MajorName, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Works] as a 
                     left join [Major] as b on b.Id = a.MajorId {where}) as c 
-                    where RowNumber between {(pageIndex - 1) * pageSize} and {pageIndex * pageSize};";
+                    where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
                 var list = await conn.QueryAsync<Works>(sql);
 
                 return new PageModel<Works> {

@@ -42,7 +42,7 @@ namespace Instart.Repository
                     return new PageModel<User>();
                 }
                 
-                string sql = $@"select * from (select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [User] where Status=1) as b where RowNumber between {(pageIndex - 1) * pageIndex} and {pageIndex * pageIndex};";
+                string sql = $@"select * from (select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [User] where Status=1) as b where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
                 var list = await conn.QueryAsync<User>(sql);
 
                 return new PageModel<User>

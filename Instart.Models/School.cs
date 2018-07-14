@@ -28,7 +28,7 @@ namespace Instart.Models
         public string NameEn { get; set; }
 
         /// <summary>
-        /// LOGO
+        /// LOGO--
         /// </summary>
         public string Logo { get; set; }
 
@@ -73,7 +73,7 @@ namespace Instart.Models
         public string Address { get; set; }
 
         /// <summary>
-        /// 学校图片
+        /// 学校图片--
         /// </summary>
         public string Avatar { get; set; }
 

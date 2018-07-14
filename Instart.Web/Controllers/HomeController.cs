@@ -22,6 +22,10 @@ namespace Instart.Web.Controllers
         public HomeController() {
             this.AddDisposableObject(_partnerService);
             this.AddDisposableObject(_schoolService);
+            this.AddDisposableObject(_teacherService);
+            this.AddDisposableObject(_studentService);
+            this.AddDisposableObject(_courseService);
+            this.AddDisposableObject(_bannerService);
         }
 
         public async Task<ActionResult> Index() {

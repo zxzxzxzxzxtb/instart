@@ -300,8 +300,10 @@
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\qcord.png" />
     <Content Include="Content\images\star.png" />
+    <Content Include="Content\images\default_school.jpg" />
     <Content Include="Content\images\top-icon.png" />
     <Content Include="Content\jquery.form.js" />
+    <Content Include="Content\js\admin.js" />
     <Content Include="Content\js\banner.js" />
     <Content Include="Content\js\index.js" />
     <Content Include="Content\js\jquery-1.11.3.min.js" />
@@ -954,6 +956,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Manage\Views\Division\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\School\Detail.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

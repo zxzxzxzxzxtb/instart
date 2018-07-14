@@ -35,7 +35,7 @@ namespace Instart.Repository
                 string sql = $@"select * from (   
 　　　　                            select Id,Name,CreateTime ROW_NUMBER() over (Order by Id desc) as RowNumber from [Teacher] {where} 
 　　                            ) as b  
-　　                            where RowNumber between {(pageIndex - 1) * pageIndex} and {pageIndex * pageIndex};";
+　　                            where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
                 var list = await conn.QueryAsync<Teacher>(sql);
 
                 return new PageModel<Teacher> {
