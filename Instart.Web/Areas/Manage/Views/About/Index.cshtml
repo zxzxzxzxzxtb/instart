@@ -7,54 +7,90 @@
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("AddOrUpdate", "About", new { area = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "mainForm" }))
+<ol class="breadcrumb">
+    <li><a href="/manage/major">关于一沙</a></li>
+    <li class="active">@ViewBag.Action</li>
+</ol>
+
+@using (Html.BeginForm("Set", "About", new { area = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "mainForm", @class = "form-horizontal edit-container-width" }))
 {
-<table class="table table-nobordered" style="top: 100px;">
-    <tr>
-        <td>团队视频：</td>
-        <td><input type="file" name="InstartVideo" /></td>
-    </tr>
-    <tr>
-        <td>关于一沙：</td>
-        <td>@Html.TextAreaFor(m => m.Introduce, new { style = "width: 600px;height: 200px;" })</td>
-    </tr>
-    <tr>
-        <td>Pre To Pro：</td>
-        <td>@Html.TextAreaFor(m => m.PreToPro, new { style = "width: 600px;height: 200px;" })</td>
-    </tr>
-    <tr>
-        <td>跨学科教学：</td>
-        <td>@Html.TextAreaFor(m => m.PassLearning, new { style = "width: 600px;height: 200px;" })</td>
-    </tr>
-    <tr>
-        <td>WorkShop：</td>
-        <td>@Html.TextAreaFor(m => m.WorkShop, new { style = "width: 600px;height: 200px;" })</td>
-    </tr>
-    <tr>
-        <td>24小时工作室：</td>
-        <td>@Html.TextAreaFor(m => m.Studio, new { style = "width: 600px;height: 200px;" })</td>
-    </tr>
-    <tr>
-        <td>实习推荐：</td>
-        <td>@Html.TextAreaFor(m => m.Recommand, new { style = "width: 600px;height: 200px;" })</td>
-    </tr>
-    <tr>
-        <td>驻地项目：</td>
-        <td>@Html.TextAreaFor(m => m.Programs, new { style = "width: 600px;height: 200px;" })</td>
-    </tr>
-    <tr>
-        <td><input type="button" class="btn btn-primary" value="保存" onclick="save()" /></td>
-    </tr>
-</table>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">视频封面：</label>
+        <div class="col-sm-10">
+            <img src="@Model.ImgUrl" id="imgPreview" style="width:80%;height:200px;border:1px solid #eee;" />
+            <input type="hidden" name="ImgUrl" value="@Model.ImgUrl" />
+            <a href="javascript:void(0)" onclick="$('#fileImg').click()" class="btn-link" style="position:relative;top:90px;">点击上传</a>
+            <input type='file' id='fileImg' name='fileImg' style='display:none;'>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">团队视频：</label>
+        <div class="col-sm-10">
+            <input type="hidden" name="VideoUrl" value="@Model.VideoUrl" />
+            <input type='file' id='fileVideo' name='fileVideo'>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">关于一沙：</label>
+        <div class="col-sm-10">
+            <textarea name="Introduce" rows="10" class="form-control">@Model.Introduce</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Pre To Pro：</label>
+        <div class="col-sm-10">
+            <textarea name="PreToPro" id="PreToPro" rows="10">@Model.PreToPro</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">跨学科教学：</label>
+        <div class="col-sm-10">
+            <textarea name="PassLearning" id="PassLearning" rows="10">@Model.PassLearning</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">WorkShop：</label>
+        <div class="col-sm-10">
+            <textarea name="WorkShop" id="WorkShop" rows="10">@Model.WorkShop</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">24小时工作室：</label>
+        <div class="col-sm-10">
+            <textarea name="Studio" id="Studio" rows="10">@Model.Studio</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">实习推荐：</label>
+        <div class="col-sm-10">
+            <textarea name="Recommand" id="Recommand" rows="10">@Model.Recommand</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">驻地项目：</label>
+        <div class="col-sm-10">
+            <textarea name="Programs" id="Programs" rows="10">@Model.Programs</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <input type="button" class="btn btn-primary" value="提交" onclick="save()" />
+        </div>
+    </div>
 }
 
 
 @section Bottom{
     <script>
-        var introduce = UE.getEditor('Introduce', {
-            autoHeight: false
-        });
-
         var preToPro = UE.getEditor('PreToPro', {
             autoHeight: false
         });
@@ -83,14 +119,18 @@
             $("#mainForm").ajaxSubmit({
                 success: function (slt) {
                     if (slt && slt.success) {
-                        alert('保存成功。');
+                        layer.msg('保存成功。');
                     }
                     else {
-                        alert(slt.message || '操作失败，请重试。');
+                        layer.msg(slt.message || '操作失败，请重试。');
                     }
                 }
             });
         }
+
+        $('#fileImg').change(function () {
+            imagePreview(this.files[0], $("#imgPreview"));
+        });
 
     </script>
 }

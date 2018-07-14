@@ -16,8 +16,9 @@
         <div class="form-group">
             <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="校区名称" style="width:300px;">
         </div>
-        <button type="submit" class="btn btn-warning">查询</button>
-        <a href="/manage/campus/edit" class="btn btn-success">添加</a>
+        <button type="submit" class="btn btn-success">查询</button>
+        <a href="/manage/campus" class="btn btn-default">全部</a>
+        <a href="/manage/campus/edit" class="btn btn-default">添加</a>
     </form>
 </div>
 <table class="table table-bordered table-striped" style="margin-top:15px;">
@@ -36,17 +37,18 @@
         {
             foreach (Campus item in Model)
             {
-                <tr>
-                    <td style="width:5%;">@item.Id</td>
-                    <td>@item.Name</td>
-                    <td>@Html.Raw(item.Address)</td>
-                    <td>@Html.Raw(item.Phone)</td>
-                    <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
-                    <td style="width:10%;">
-                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="update(@item.Id)">修改</a>
-                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="remove(@item.Id)">删除</a>
-                    </td>
-                </tr>
+        <tr>
+            <td style="width:5%;">@item.Id</td>
+            <td>@item.Name</td>
+            <td>@Html.Raw(item.Address)</td>
+            <td>@Html.Raw(item.Phone)</td>
+            <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
+            <td style="width:20%;">
+                <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="update(@item.Id)">修改</a>
+                <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="remove(@item.Id)">删除</a>
+                <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="setImgs(@item.Id)">校区图片</a>
+            </td>
+        </tr>
             }
         }
     </tbody>
@@ -66,6 +68,10 @@
     <script>
         function update(id) {
             location.href = '@Url.Action("edit", "campus", new { area="manage" })' + "?id=" + id;
+        }
+
+        function setImgs(id) {
+            location.href = '@Url.Action("imgindex", "campus", new { area="manage" })' + "?campusId=" + id;
         }
 
         function remove(id) {

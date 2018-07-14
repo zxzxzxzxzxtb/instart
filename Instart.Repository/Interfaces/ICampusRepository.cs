@@ -11,8 +11,6 @@ namespace Instart.Repository
     {
         Task<Campus> GetByIdAsync(int id);
 
-        Task<IEnumerable<string>> GetImgsByIdAsync(int id);
-
         Task<PageModel<Campus>> GetListAsync(int pageIndex, int pageSize, string name = null);
 
         Task<IEnumerable<Campus>> GetAllAsync();
@@ -23,6 +21,10 @@ namespace Instart.Repository
 
         Task<bool> DeleteAsync(int id);
 
-        Task<bool> DeleteImgAsync(int id, string imgUrl);
+        Task<IEnumerable<CampusImg>> GetImgsByCampusIdAsync(int campusId);
+
+        Task<bool> InsertImgAsync(CampusImg model);
+
+        Task<bool> DeleteImgAsync(int id);
     }
 }
