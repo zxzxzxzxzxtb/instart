@@ -318,3 +318,7 @@ body {
 .edit-container-width {
     width: 600px !important;
 }
+
+.panel-height{
+    height:310px !important;
+}

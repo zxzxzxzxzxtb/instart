@@ -79,5 +79,14 @@ namespace Instart.Repository
                 return await conn.ExecuteAsync(sql, new { Id = id }) > 0;
             }
         }
+
+        public async Task<List<CourseApply>> GetTopListAsync(int topCount)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = $"select top {topCount} * from CourseApply order by Id Desc;";
+                return (await conn.QueryAsync<CourseApply>(sql, null))?.ToList();
+            }
+        }
     }
 }

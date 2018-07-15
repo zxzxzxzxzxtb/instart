@@ -57,5 +57,15 @@ namespace Instart.Service
 
             return await _schoolApplyRepository.SetAcceptAsync(id);
         }
+
+        public async Task<List<SchoolApply>> GetTopListAsync(int topCount)
+        {
+            if(topCount == 0)
+            {
+                return null;
+            }
+
+            return await _schoolApplyRepository.GetTopListAsync(topCount);
+        }
     }
 }

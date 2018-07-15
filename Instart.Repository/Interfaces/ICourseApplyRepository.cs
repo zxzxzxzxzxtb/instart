@@ -18,5 +18,7 @@ namespace Instart.Repository
 
         Task<bool> InsertAsync(CourseApply model);
 
+        Task<List<CourseApply>> GetTopListAsync(int topCount);
+
     }
 }

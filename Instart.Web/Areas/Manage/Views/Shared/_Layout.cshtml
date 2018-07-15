@@ -35,12 +35,20 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">
-                    <span class="span-username">管理后台</span>
+                    <span class="span-username">Instart管理后台</span>
                 </a>
             </div>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/" target="_blank">网站首页</a></li>
-                <li><a href="javascript:void(0)" class="quit">退出</a></li>
+                <li><a href="/" target="_blank">网站首页</a></li>                
+                <li class="dropdown">
+                    @*<img src="@Instart.Web.Models.CookieData.CurrentUser.Avatar" style="width:16px;height:16px;border-radius:50%;" />*@
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> @(Instart.Web.Models.CookieData.CurrentUser.UserName) <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">基础设置</a></li>
+                        <li><a href="#">修改密码</a></li>
+                        <li><a href="javascript:void(0)" class="quit">退出</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </nav>
@@ -96,8 +104,9 @@
         var $lis = $(".nav-sidebar").children("li");
         $.each($lis, function () {
             var nav = $(this).attr("data-flag");
-            //var arr = href.split('/');
-            if (href.indexOf(nav) > 0) {
+            var arr = href.toLocaleLowerCase().split('/');
+            var len = arr.length;
+            if (arr[len - 1] == nav || arr[len - 2] == nav) {
                 $(this).addClass("active");
                 isIndex = false;
                 return false;
