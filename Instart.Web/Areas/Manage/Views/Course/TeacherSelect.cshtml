@@ -1,0 +1,117 @@
+﻿@using Instart.Models
+@{
+    ViewBag.Title = "授课导师";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .w_con_left {
+        width: 100%;
+        height: auto;
+        float: left;
+        margin: 0px;
+    }
+
+    .w_ico {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: auto;
+        margin-top: 10px;
+    }
+
+        .w_ico li {
+            float: left;
+            width: 250px;
+            list-style: none;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+            .w_ico li img {
+                width: 200px;
+                height: 200px;
+                position: relative;
+                top: 5px;
+                border: none;
+            }
+
+            .w_ico li p {
+                margin-top: 10px;
+            }
+</style>
+
+<ol class="breadcrumb">
+    <li><a href="/manage/course">课程管理</a></li>
+    <li class="active">授课导师</li>
+</ol>
+
+<div class="checkbox">
+    <label>
+        <input type="checkbox" name="chkAll" id="chkAll" />全选
+    </label>
+    <a class="btn btn-default" style="margin-left:10px;" onclick="save()">保存</a>
+</div>
+<input type="hidden" id="courseId" name="courseId" value="@ViewBag.CourseId" />
+<div class="w_con_left">
+    <ul class="w_ico">
+        @if (ViewBag.TeacherList != null)
+        {
+            foreach (Teacher item in ViewBag.TeacherList)
+            {
+                <li class="icoli">
+                    <img src="@item.Avatar" style="width:100px;height:100px;border:1px solid #eee;" /><p>
+                        <div class="checkbox">
+                            <label>
+                                @if (item.IsSelected)
+                                {
+                                    <input type="checkbox" name="chkTeacher" checked="checked" data-id="@item.Id" />@item.Name
+                                }
+                                else
+                                {
+                                    <input type="checkbox" name="chkTeacher" data-id="@item.Id" />@item.Name
+                                }
+                            </label>
+                        </div>
+                    </p>
+                </li>
+            }
+        }
+    </ul>
+</div>
+@section Bottom{
+    <script>
+        $(function () {
+            $("#chkAll").click(function () {
+                var checked = $(this).is(":checked");
+                if (checked) {
+                    $("input[name='chkTeacher']").each(function () {
+                        $(this).prop("checked", "checked");
+                    })
+                }
+                else {
+                    $("input[name='chkTeacher']").each(function () {
+                        $(this).prop("checked", "");
+                    })
+                }
+            });
+        })
+
+        function save() {
+            var teacherIds = [];
+            $("input[name='chkTeacher']").each(function () {
+                if ($(this).is(":checked")) {
+                    teacherIds.push($(this).attr("data-id"));
+                }
+            })
+            $.post('/manage/course/setteachers', { 'courseId': $("#courseId").val(), 'teacherIds': teacherIds.join(',') }, function (slt) {
+                if (slt && slt.success) {
+                    layer.msg('保存成功。');
+                }
+                else {
+                    layer.msg(slt.message || '操作失败，请重试。');
+                }
+            });
+        }
+    </script>
+}
+

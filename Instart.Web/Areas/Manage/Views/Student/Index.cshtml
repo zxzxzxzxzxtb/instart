@@ -26,7 +26,7 @@
         <tr>
             <th>#</th>
             <th>学员名称</th>
-            <th>院校背景</th>
+            <th>头像</th>
             <th>OFFER</th>
             <th>录取专业</th>
             <th>创建时间</th>
@@ -42,7 +42,9 @@
                 <tr>
                     <td style="width:5%;">@item.Id</td>
                     <td>@item.Name</td>
-                    <td>@item.Background</td>
+                    <td>
+                        <img src="@item.Avatar" style="width:150px;height:100px" alt="" />
+                    </td>
                     <td>@item.SchoolName</td>
                     <td>@item.MajorName</td>
                     <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
@@ -57,8 +59,8 @@
                         }
                     </td>
                     <td style="width:10%;">
-                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="update(@item.Id)">修改</a>
-                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="remove(@item.Id)">删除</a>
+                        <a data-id="@item.Id" href="javascript:void(0)" onclick="update(@item.Id)">修改</a>
+                        <a data-id="@item.Id" href="javascript:void(0)" onclick="remove(@item.Id)">删除</a>
                     </td>
                 </tr>
             }

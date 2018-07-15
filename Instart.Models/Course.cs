@@ -60,5 +60,10 @@ namespace Instart.Models
         /// 是否推荐
         /// </summary>
         public bool IsRecommend { get; set; }
+
+        /// <summary>
+        /// 是否被选中
+        /// </summary>
+        public bool IsSelected { get; set; }
     }
 }

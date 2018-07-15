@@ -43,10 +43,10 @@
             <td>@Html.Raw(item.Address)</td>
             <td>@Html.Raw(item.Phone)</td>
             <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
-            <td style="width:20%;">
-                <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="update(@item.Id)">修改</a>
-                <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="remove(@item.Id)">删除</a>
-                <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="setImgs(@item.Id)">校区图片</a>
+            <td style="width:15%;">
+                <a data-id="@item.Id" href="javascript:void(0)" onclick="update(@item.Id)">修改</a>
+                <a data-id="@item.Id" href="javascript:void(0)" onclick="remove(@item.Id)">删除</a>
+                <a data-id="@item.Id" href="javascript:void(0)" onclick="setImgs(@item.Id)">校区图片</a>
             </td>
         </tr>
             }

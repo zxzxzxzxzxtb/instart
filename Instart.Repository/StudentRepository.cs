@@ -103,9 +103,12 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = $@"select t.* from Student t
-                                where t.Status=1 and t.IsRecommend=1
-                                order by t.Id Desc;";
+                string sql = $@"select top {topCount} t.*, b.Name as MajorName, c.Name as TeacherName, e.Name as SchoolName from Student t 
+                     left join [Major] as b on b.Id = t.MajorId 
+                     left join [Teacher] as c on c.Id = t.TeacherId 
+                     left join [School] as e on e.Id = t.SchoolId
+                     where t.Status=1 and t.IsRecommend=1
+                     order by t.Id Desc;";
                 return (await conn.QueryAsync<Student>(sql, null))?.ToList();
             }
         }

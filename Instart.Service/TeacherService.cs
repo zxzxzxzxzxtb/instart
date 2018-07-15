@@ -28,6 +28,11 @@ namespace Instart.Service
             return await _teacherRepository.GetListAsync(pageIndex, pageSize, name);
         }
 
+        public async Task<IEnumerable<Teacher>> GetAllAsync()
+        {
+            return await _teacherRepository.GetAllAsync();
+        }
+
         public async Task<bool> InsertAsync(Teacher model) {
             if (model == null) {
                 throw new ArgumentNullException(nameof(model));
@@ -72,6 +77,26 @@ namespace Instart.Service
             }
 
             return await _teacherRepository.GetRecommendListAsync(topCount);
+        }
+
+        public Task<bool> SetRecommendAsync(int id, bool isRecommend)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException(nameof(id));
+            }
+
+            return _teacherRepository.SetRecommend(id, isRecommend);
+        }
+
+        public async Task<IEnumerable<int>> GetCoursesByIdAsync(int id)
+        {
+            return await _teacherRepository.GetCoursesByIdAsync(id);
+        }
+
+        public async Task<bool> SetCourses(int teacherId, string courseIds)
+        {
+            return await _teacherRepository.SetCourses(teacherId, courseIds);
         }
     }
 }

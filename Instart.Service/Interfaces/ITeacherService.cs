@@ -13,6 +13,8 @@ namespace Instart.Service
 
         Task<PageModel<Teacher>> GetListAsync(int pageIndex, int pageSize, string name = null);
 
+        Task<IEnumerable<Teacher>> GetAllAsync();
+
         Task<bool> InsertAsync(Teacher model);
 
         Task<bool> UpdateAsync(Teacher model);
@@ -20,5 +22,11 @@ namespace Instart.Service
         Task<bool> DeleteAsync(int id);
 
         Task<List<Teacher>> GetRecommendListAsync(int topCount);
+
+        Task<bool> SetRecommendAsync(int id, bool isRecommend);
+
+        Task<IEnumerable<int>> GetCoursesByIdAsync(int id);
+
+        Task<bool> SetCourses(int teacherId, string courseIds);
     }
 }
