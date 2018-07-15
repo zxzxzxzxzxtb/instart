@@ -45,5 +45,15 @@ namespace Instart.Models
         /// 申请时间
         /// </summary>
         public DateTime CreateTime { get; set; }
+
+        /// <summary>
+        /// 是否沟通受理
+        /// </summary>
+        public bool IsAccept { get; set; }
+
+        /// <summary>
+        /// 受理时间
+        /// </summary>
+        public DateTime? AcceptTime { get; set; }
     }
 }

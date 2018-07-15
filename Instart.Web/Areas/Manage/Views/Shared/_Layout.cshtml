@@ -96,6 +96,7 @@
         var $lis = $(".nav-sidebar").children("li");
         $.each($lis, function () {
             var nav = $(this).attr("data-flag");
+            //var arr = href.split('/');
             if (href.indexOf(nav) > 0) {
                 $(this).addClass("active");
                 isIndex = false;
