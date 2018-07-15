@@ -20,23 +20,26 @@ namespace Instart.Repository
         public async Task<PageModel<Student>> GetListAsync(int pageIndex, int pageSize, string name = null) {
             using (var conn = DapperFactory.GetConnection()) {
                 #region generate condition
-                string where = "where Status=1";
+                string where = "where a.Status=1";
                 if (!string.IsNullOrEmpty(name)) {
-                    where += $" and Name like '%{name}%'";
+                    where += $" and a.Name like '%{name}%'";
                 }
                 #endregion
 
-                string countSql = $"select count(1) from [Student] {where};";
+                string countSql = $"select count(1) from [Student] as a {where};";
                 int total = await conn.ExecuteScalarAsync<int>(countSql);
                 if (total == 0) {
                     return new PageModel<Student>();
                 }
 
-                string sql = $@"select * from (   
-　　　　                            select Id,Name,CreateTime ROW_NUMBER() over (Order by Id desc) as RowNumber from [Student] {where} 
-　　                            ) as b  
-　　                            where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
-                var list = await conn.QueryAsync<Student>(sql);
+                string sql = $@"select * from (
+                     select a.*, b.Name as MajorName, c.Name as TeacherName, e.Name as SchoolName, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Student] as a
+                     left join [Major] as b on b.Id = a.MajorId 
+                     left join [Teacher] as c on c.Id = a.TeacherId 
+                     left join [School] as e on e.Id = a.SchoolId {where}
+                     ) as d
+                     where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
+                var list = await conn.QueryAsync<Student>(sql.Trim());
 
                 return new PageModel<Student> {
                     Total = total,
@@ -47,7 +50,7 @@ namespace Instart.Repository
 
         public async Task<bool> InsertAsync(Student model) {
             using (var conn = DapperFactory.GetConnection()) {
-                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id) });
+                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id), nameof(model.SchoolName), nameof(model.MajorName), nameof(model.TeacherName) });
                 if (fields == null || fields.Count == 0) {
                     return false;
                 }
@@ -67,7 +70,10 @@ namespace Instart.Repository
                 {
                     nameof(model.Id),
                     nameof(model.CreateTime),
-                    nameof(model.Status)
+                    nameof(model.Status),
+                    nameof(model.MajorName),
+                    nameof(model.TeacherName),
+                    nameof(model.SchoolName)
                 });
 
                 if (fields == null || fields.Count == 0) {
@@ -97,12 +103,19 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = $@"select t.Id,t.Name,t.NameEn,t.Avatar,t.SchoolId,s.Name as SchoolName,t.MajorId,m.Name as MajorName from Teacher t
-                                left join School s on t.SchoolId = s.Id
-                                left join Major m on t.MajorId = m.Id
+                string sql = $@"select t.* from Student t
                                 where t.Status=1 and t.IsRecommend=1
                                 order by t.Id Desc;";
                 return (await conn.QueryAsync<Student>(sql, null))?.ToList();
+            }
+        }
+
+        public async Task<bool> SetRecommend(int id, bool isRecommend)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = $"update [Student] set IsRecommend=@IsRecommend where Id=@Id;";
+                return await conn.ExecuteAsync(sql, new { IsRecommend = isRecommend, Id = id }) > 0;
             }
         }
     }

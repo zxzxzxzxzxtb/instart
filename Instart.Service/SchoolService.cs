@@ -32,6 +32,11 @@ namespace Instart.Service
             return await _schoolRepository.GetListAsync(pageIndex, pageSize, name);
         }
 
+        public async Task<IEnumerable<School>> GetAllAsync()
+        {
+            return await _schoolRepository.GetAllAsync();
+        }
+
         public async Task<bool> InsertAsync(School model)
         {
             if (model == null)

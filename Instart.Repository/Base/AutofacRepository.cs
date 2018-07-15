@@ -40,6 +40,7 @@ namespace Instart.Repository
             builder.RegisterType<CourseRepository>().As<ICourseRepository>().InstancePerLifetimeScope();
             builder.RegisterType<AboutInstartRepository>().As<IAboutInstartRepository>().InstancePerLifetimeScope();
             builder.RegisterType<ContactRepository>().As<IContactRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<StarStudentRepository>().As<IStarStudentRepository>().InstancePerLifetimeScope();
             builder.RegisterType<CourseApplyRepository>().As<ICourseApplyRepository>().InstancePerLifetimeScope();
             builder.RegisterType<SchoolApplyRepository>().As<ISchoolApplyRepository>().InstancePerLifetimeScope();
             container = builder.Build();
