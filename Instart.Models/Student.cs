@@ -32,12 +32,17 @@ namespace Instart.Models
         public string Avatar { get; set; }
 
         /// <summary>
-        /// 录取学校Id
+        /// 背景院校
+        /// </summary>
+        public string Background { get; set; }
+
+        /// <summary>
+        /// 录取院校Id
         /// </summary>
         public int SchoolId { get; set; }
 
         /// <summary>
-        /// 录取学校名称
+        /// 录取院校名称
         /// </summary>
         public string SchoolName { get; set; }
 
@@ -62,24 +67,24 @@ namespace Instart.Models
         public string TeacherName { get; set; }
 
         /// <summary>
-        /// 奖学金
+        /// 学员介绍
         /// </summary>
-        public decimal Scholarship { get; set; }
+        public string Introduce { get; set; }
 
         /// <summary>
-        /// Offer图片地址
+        /// 视频标题
         /// </summary>
-        public string OfferImageUrl { get; set; }
+        public string Title { get; set; }
 
         /// <summary>
-        /// 作品集（json）
+        /// 封面图片
         /// </summary>
-        public string Portfolio { get; set; }
+        public string ImgUrl { get; set; }
 
         /// <summary>
-        /// 导师评语
+        /// 视频链接
         /// </summary>
-        public string TeacherComment { get; set; }
+        public string VideoUrl { get; set; }
 
         /// <summary>
         /// 状态，1：正常，0：删除

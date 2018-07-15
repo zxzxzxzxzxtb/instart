@@ -51,7 +51,7 @@ namespace Instart.Common
             }
             else if (IsVideo(ext))
             {
-                pathName = Path.Combine(s_videoDirectory, newFileName);
+                pathName = Path.Combine(s_physicVideoDirectory, newFileName);
             }
 
             if (string.IsNullOrEmpty(pathName))

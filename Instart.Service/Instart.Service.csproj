@@ -65,6 +65,7 @@
     <Compile Include="Interfaces\ICourseService.cs" />
     <Compile Include="Interfaces\IAboutInstartService.cs" />
     <Compile Include="Interfaces\IDivisionService.cs" />
+    <Compile Include="Interfaces\IStarStudentService.cs" />
     <Compile Include="Interfaces\IWorksService.cs" />
     <Compile Include="Interfaces\IPartnerService.cs" />
     <Compile Include="Interfaces\IStudentService.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Interfaces\IMajorService.cs" />
     <Compile Include="Interfaces\ISchoolService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="StarStudentService.cs" />
     <Compile Include="WorksService.cs" />
     <Compile Include="PartnerService.cs" />
     <Compile Include="StudentService.cs" />
