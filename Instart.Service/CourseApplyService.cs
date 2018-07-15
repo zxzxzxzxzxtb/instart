@@ -28,6 +28,16 @@ namespace Instart.Service
             return await _courseApplyRepository.GetListAsync(pageIndex, pageSize, courseName, accept);
         }
 
+        public async Task<List<CourseApply>> GetTopListAsync(int topCount)
+        {
+            if(topCount == 0)
+            {
+                return null;
+            }
+
+            return await _courseApplyRepository.GetTopListAsync(topCount);
+        }
+
         public async Task<bool> InsertAsync(CourseApply model)
         {
             if(model == null)

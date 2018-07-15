@@ -4,5 +4,119 @@
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 
-<h2>控制台</h2>
+<div class="container-fluid" style="padding:0;">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">常用功能</h3>
+                        </div>
+                        <div class="panel-body panel-height">
+                            Panel content
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">数据统计</h3>
+                        </div>
+                        <div class="panel-body panel-height">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <span class="badge">14</span>
+                                    学校数量
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">8</span>
+                                    导师数量
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">10</span>
+                                    学员数量
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">13</span>
+                                    专业数量
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">24</span>
+                                    课程数量
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">23</span>
+                                    学校申请
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">96</span>
+                                    课程申请
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a href="/manage/schoolapply" style="float:right;">全部</a>
+                            <h3 class="panel-title">最近学校申请</h3>
+                        </div>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>申请人</th>
+                                <th>学校</th>
+                                <th>申请时间</th>
+                            </tr>
+                            @foreach (Instart.Models.SchoolApply item in ViewBag.SchoolApplyList)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.SchoolName</td>
+                                    <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a href="/manage/courseapply" style="float:right;">全部</a>
+                            <h3 class="panel-title">最近课程申请</h3>
+                        </div>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>申请人</th>
+                                <th>课程</th>
+                                <th>申请时间</th>
+                            </tr>
+                            @foreach (Instart.Models.CourseApply item in ViewBag.CourseApplyList)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.CourseName</td>
+                                    <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">操作日志</h3>
+                </div>
+                <div class="panel-body">
+                    Panel content
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 

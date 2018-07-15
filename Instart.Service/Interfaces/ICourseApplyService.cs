@@ -17,5 +17,7 @@ namespace Instart.Service
         Task<bool> SetAcceptAsync(int id);
 
         Task<bool> InsertAsync(CourseApply model);
+
+        Task<List<CourseApply>> GetTopListAsync(int topCount);
     }
 }
