@@ -28,7 +28,7 @@ namespace Instart.Repository
                 string where = "where 1=1 ";
                 if (!string.IsNullOrEmpty(courseName))
                 {
-                    where += $" and CourseName = '{courseName}'";
+                    where += $" and CourseName like '%{courseName}%'";
                 }
                 if(accept != EnumAccept.All)
                 {
