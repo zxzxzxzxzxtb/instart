@@ -231,6 +231,7 @@
     <Compile Include="Areas\Manage\Controllers\AboutController.cs" />
     <Compile Include="Areas\Manage\Controllers\DivisionController.cs" />
     <Compile Include="Areas\Manage\Controllers\CampusController.cs" />
+    <Compile Include="Areas\Manage\Controllers\StarStudentController.cs" />
     <Compile Include="Areas\Manage\Controllers\WorksController.cs" />
     <Compile Include="Areas\Manage\Controllers\SchoolApplyController.cs" />
     <Compile Include="Areas\Manage\Controllers\BannerController.cs" />
@@ -961,6 +962,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Manage\Views\Banner\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\StarStudent\Edit.cshtml" />
+    <Content Include="Areas\Manage\Views\StarStudent\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Student\Edit.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

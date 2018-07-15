@@ -73,5 +73,10 @@ namespace Instart.Service
 
             return await _studentRepository.GetRecommendListAsync(topCount);
         }
+
+        public async Task<bool> SetRecommend(int id, bool isRecommend)
+        {
+            return await _studentRepository.SetRecommend(id, isRecommend);
+        }
     }
 }
