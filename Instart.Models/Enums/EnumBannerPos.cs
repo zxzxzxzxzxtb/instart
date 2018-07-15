@@ -16,11 +16,11 @@ namespace Instart.Models.Enums
         /// 首页
         /// </summary>
         [Description("首页")]
-        Index = 1,
+        Index = 0,
         /// <summary>
         /// 课程管理
         /// </summary>
         [Description("课程管理")]
-        Course = 2,
+        Course = 1,
     }
 }

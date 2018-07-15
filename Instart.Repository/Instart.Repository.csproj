@@ -91,6 +91,7 @@
     <Compile Include="CampusRepository.cs" />
     <Compile Include="CategoryRepository.cs" />
     <Compile Include="Interfaces\ISchoolApplyRepository.cs" />
+    <Compile Include="Interfaces\IStatisticsRepository.cs" />
     <Compile Include="SchoolApplyRepository.cs" />
     <Compile Include="CourseApplyRepository.cs" />
     <Compile Include="CourseRepository.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Interfaces\ISchoolRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="StarStudentRepository.cs" />
+    <Compile Include="StatisticsRepository.cs" />
     <Compile Include="WorksRepository.cs" />
     <Compile Include="PartnerRepository.cs" />
     <Compile Include="StudentRepository.cs" />

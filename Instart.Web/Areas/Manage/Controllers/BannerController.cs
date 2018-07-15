@@ -1,5 +1,6 @@
 ﻿using Instart.Common;
 using Instart.Models;
+using Instart.Models.Enums;
 using Instart.Service;
 using Instart.Service.Base;
 using Instart.Web.Attributes;
@@ -47,6 +48,8 @@ namespace Instart.Web.Areas.Manage.Controllers
             }
 
             ViewBag.Action = action;
+            ViewBag.TypeList = EnumberHelper.EnumToList<EnumBannerType>();
+            ViewBag.PosList = EnumberHelper.EnumToList<EnumBannerPos>();
             return View(model);
         }
 

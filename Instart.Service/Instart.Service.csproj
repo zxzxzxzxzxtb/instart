@@ -47,6 +47,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IStatisticsService.cs" />
     <Compile Include="SchoolApplyService.cs" />
     <Compile Include="Interfaces\ISchoolApplyService.cs" />
     <Compile Include="Interfaces\ICourseApplyService.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Interfaces\ISchoolService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="StarStudentService.cs" />
+    <Compile Include="StatisticsService.cs" />
     <Compile Include="WorksService.cs" />
     <Compile Include="PartnerService.cs" />
     <Compile Include="StudentService.cs" />

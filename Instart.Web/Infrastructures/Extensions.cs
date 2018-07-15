@@ -1,9 +1,13 @@
-﻿using System;
+﻿using Instart.Common;
+using Instart.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Instart.Web.Infrastructures
 {
@@ -23,6 +27,24 @@ namespace Instart.Web.Infrastructures
                 }
             }
             return en.ToString();
+        }
+
+        public static MvcHtmlString SelectForEnum<TEnum>(this HtmlHelper helper, string id, string name, string @class)
+        {
+            var list = EnumberHelper.EnumToList<TEnum>();
+
+            var sb = new StringBuilder();
+
+            sb.Append($"<select id=\"{id}\" name=\"{name}\" class=\"{@class}\">");
+
+            foreach(var item in list)
+            {
+                sb.Append($"<option value=\"{item.EnumValue}\">{item.Description}</option>");
+            }
+
+            sb.Append("</select>");
+
+            return new MvcHtmlString(sb.ToString());
         }
     }
 }
