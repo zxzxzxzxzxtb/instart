@@ -16,7 +16,7 @@ namespace Instart.Web.Areas.Manage.Controllers
     [AdminValidation]
     public class SchoolApplyController : ManageControllerBase
     {
-        ICourseApplyService _schoolApplyService = AutofacService.Resolve<ICourseApplyService>();
+        ISchoolApplyService _schoolApplyService = AutofacService.Resolve<ISchoolApplyService>();
 
         public SchoolApplyController()
         {
