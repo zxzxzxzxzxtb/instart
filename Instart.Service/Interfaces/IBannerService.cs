@@ -23,5 +23,7 @@ namespace Instart.Service
         Task<bool> DeleteAsync(int id);
 
         Task<List<Banner>> GetBannerListByPosAsync(EnumBannerPos pos, int topCount = 20);
+
+        Task<bool> SetShowAsync(int id, bool isShow);
     }
 }

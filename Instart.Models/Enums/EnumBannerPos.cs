@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,12 @@ namespace Instart.Models.Enums
         /// <summary>
         /// 首页
         /// </summary>
+        [Description("首页")]
         Index = 1,
+        /// <summary>
+        /// 课程管理
+        /// </summary>
+        [Description("课程管理")]
+        Course = 2,
     }
 }

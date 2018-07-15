@@ -100,7 +100,7 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<bool> SetRecommend(int id, bool isRecommend)
+        public async Task<bool> SetRecommendAsync(int id, bool isRecommend)
         {
             using (var conn = DapperFactory.GetConnection())
             {

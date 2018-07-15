@@ -21,6 +21,6 @@ namespace Instart.Service
 
         Task<List<School>> GetRecommendListAsync(int topCount);
 
-        Task<bool> SetRecommend(int id, bool isRecommend);
+        Task<bool> SetRecommendAsync(int id, bool isRecommend);
     }
 }

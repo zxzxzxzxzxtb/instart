@@ -6,9 +6,20 @@
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 
+<ol class="breadcrumb">
+    <li><a href="#">轮播管理</a></li>
+</ol>
+
 <div>
     <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">添加</button>
+    <form method="post" action="" target="_self" class="form-inline">
+        <div class="form-group">
+            <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="标题" style="width:300px;">
+        </div>
+        <button type="submit" class="btn btn-success">查询</button>
+        <a href="/manage/banner" class="btn btn-default">全部</a>
+        <a href="/manage/banner/edit" class="btn btn-default">添加</a>
+    </form>
 </div>
 <table class="table table-bordered table-striped" style="margin-top:15px;">
     <thead>
@@ -16,7 +27,11 @@
             <th>#</th>
             <th>标题</th>
             <th>图片</th>
-            <th>视频</th>
+            <th>链接</th>
+            <th>类型</th>
+            <th>位置</th>
+            <th>排序</th>
+            <th>显示</th>
             <th>时间</th>
             <th>操作</th>
         </tr>
@@ -29,10 +44,26 @@
                 <tr>
                     <td style="width:5%;">@item.Id</td>
                     <td>@item.Title</td>
-                    <td>@item.ImageUrl</td>
-                    <td>@item.VideoUrl</td>
-                    <td>@string.Format("{0:yyyy-MM-dd}", item.CreateTime)</td>
-                    <td style="width:5%;">
+                    <td>
+                        <img src="@item.ImageUrl" style="width:150px;height:100px" alt="" />
+                    </td>
+                    <td><a href="@item.Link" target="_blank">@item.Link </a> </td>
+                    <td>@item.Type.GetDescription()</td>
+                    <td>@item.Pos.GetDescription()</td>
+                    <td>@item.GroupIndex</td>
+                    <td>
+                        @if (item.IsShow)
+                        {
+                            <input class="chkShow" type="checkbox" checked="checked" data-id="@item.Id" />
+                        }
+                        else
+                        {
+                            <input class="chkShow" type="checkbox" data-id="@item.Id" />
+                        }
+                    </td>
+                    <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
+                    <td style="width:15%;">
+                        <a href="/manage/banner/edit/@item.Id">编辑</a>
                         <a data-id="@item.Id" href="javascript:void(0)" class="delete">删除</a>
                     </td>
                 </tr>
@@ -51,63 +82,43 @@
     }
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">添加Banner</h4>
-            </div>
-            <div class="modal-body">
-                <table class="table table-nobordered">
-                    <tr>
-                        <td style="width:80px;">标题：</td>
-                        <td>
-                            <input id="txtTitle" type="text" class="form-control" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>跳转链接：</td>
-                        <td>
-                            <input id="txtLink" type="text" class="form-control" />
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button id="btnSubmit" type="button" class="btn btn-primary">提交</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 @section Bottom{
     <script>
         $(function () {
-            $('#btnSubmit').click(function () {
-                var title = $('#txtTitle').val();
-                var link = $('#txtLink').val();
-                if (intime == '') {
-                    alert('标题不能为空！');
-                    return false;
+            $(".chkShow").click(function () {
+                var checked = $(this).is(":checked");
+                var id = $(this).attr("data-id");
+
+                $.post('/manage/banner/setshow', { id: id, isShow: checked }, function (slt) {
+                    if (slt && slt.success) {
+                        layer.msg('设置成功');
+                    }
+                    else {
+                        layer.msg(slt.message || '操作失败，请重试');
+                    }
+                });
+            });
+
+            $(".delete").click(function () {
+                var bannerId = $(this).attr("data-id");
+                if (bannerId == 0) {
+                    return;
                 }
-                $.ajax({
-                    type: 'POST',
-                    url:  '@Url.Action("insert", "banner", new { area="manage"})',
-                    data: {Intime:intime,Content:content},
-                    success: function (slt) {
+
+                layer.confirm('确定删除该轮播?', function (index) {
+                    $.post('/manage/banner/delete', { id: bannerId }, function (slt) {
                         if (slt && slt.success) {
                             location.reload();
                         }
                         else {
-                            alert(slt.message || '操作失败，请重试！');
+                            layer.msg(slt.message || '操作失败，请重试');
                         }
-                    }
-                });
+                    });
+
+                    layer.close(index);
+                }); 
             });
-        });
+        });        
     </script>
 }
 

@@ -32,79 +32,120 @@ namespace Instart.Web.Areas.Manage.Controllers
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
             return View(list.Data);
         }
-        
-        [HttpPost]
-        public async Task<JsonResult> Insert(Banner model)
-        {
-            try
-            {
-                string msg = this.Validate(model, false);
 
-                if (!string.IsNullOrEmpty(msg))
-                {
-                    return Error(msg);
-                }
-                
-                return Json(new ResultBase
-                {
-                    success = await _bannserService.UpdateAsync(model)
-                });
-            }
-            catch(Exception ex)
+        [HttpGet]
+        public async Task<ActionResult> Edit(int id = 0)
+        {
+            Banner model = new Banner();
+            string action = "添加轮播";
+
+            if (id > 0)
             {
-                LogHelper.Error($"BannerController.Insert异常", ex);
-                return Error(ex.Message);
+                model = await _bannserService.GetByIdAsync(id);
+                action = "修改轮播";
             }
+
+            ViewBag.Action = action;
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<JsonResult> Update(Banner model)
-        {
-            try
-            {
-                string msg = this.Validate(model, true);
-                if (!string.IsNullOrEmpty(msg))
-                {
-                    return Error(msg);
-                }
-
-
-                return Json(new ResultBase
-                {
-                    success = await _bannserService.UpdateAsync(model)
-                });
-            }
-            catch (Exception ex)
-            {
-                LogHelper.Error($"BannerController.Update异常", ex);
-                return Error(ex.Message);
-            }
-        }
-
-        [NonAction]
-        private string Validate(Banner model, bool isUpdate = false)
+        public async Task<JsonResult> Set(Banner model)
         {
             if (model == null)
             {
-                return "参数错误";
-            }
-
-            if (isUpdate && model.Id <= 0)
-            {
-                return "Id不正确";
+                return Error("参数错误");
             }
 
             if (string.IsNullOrEmpty(model.Title))
             {
-                return "标题不能为空";
+                return Error("标题不能为空");
             }
 
-            if (string.IsNullOrEmpty(model.ImageUrl))
+            if(string.IsNullOrEmpty(model.ImageUrl) && Request.Files["fileImage"] == null)
             {
-                return "图片不能为空";
+                return Error("图片不能为空");
             }
 
-            return string.Empty;
+            model.Title = model.Title.Trim();
+
+            var imageFile = Request.Files["fileImage"];
+            var videoFile = Request.Files["fileVideo"];
+
+            if (imageFile != null)
+            {
+                string uploadResult = UploadHelper.Process(imageFile.FileName, imageFile.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
+                {
+                    model.ImageUrl = uploadResult;
+                }
+            }
+
+            if (videoFile != null)
+            {
+                string uploadResult = UploadHelper.Process(videoFile.FileName, videoFile.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
+                {
+                    model.VideoUrl = uploadResult;
+                }
+            }
+
+            var result = new ResultBase();
+
+            if (model.Id > 0)
+            {
+                result.success = await _bannserService.UpdateAsync(model);
+            }
+            else
+            {
+                result.success = await _bannserService.InsertAsync(model);
+            }
+
+            return Json(result);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> Delete(int id)
+        {
+            if (id <= 0)
+            {
+                return Error("id错误");
+            }
+
+            try
+            {
+                return Json(new ResultBase
+                {
+                    success = await _bannserService.DeleteAsync(id)
+                });
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error($"BannerController.Delete异常", ex);
+                return Error(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> SetShow(int id, bool isShow)
+        {
+            if (id <= 0)
+            {
+                return Error("id错误");
+            }
+
+            try
+            {
+                return Json(new ResultBase
+                {
+                    success = await _bannserService.SetShowAsync(id, isShow)
+                });
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error($"SchoolController.SetShow异常", ex);
+                return Error(ex.Message);
+            }
         }
     }
 }

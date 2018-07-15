@@ -86,14 +86,14 @@ namespace Instart.Service
             return await _schoolRepository.GetRecommendListAsync(topCount);
         }
 
-        public Task<bool> SetRecommend(int id, bool isRecommend)
+        public Task<bool> SetRecommendAsync(int id, bool isRecommend)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return _schoolRepository.SetRecommend(id, isRecommend);
+            return _schoolRepository.SetRecommendAsync(id, isRecommend);
         }
     }
 }

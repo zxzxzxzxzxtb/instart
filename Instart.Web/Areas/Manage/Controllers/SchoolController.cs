@@ -135,7 +135,7 @@ namespace Instart.Web.Areas.Manage.Controllers
             {
                 return Json(new ResultBase
                 {
-                    success = await _schoolService.SetRecommend(id, isRecommend)
+                    success = await _schoolService.SetRecommendAsync(id, isRecommend)
                 });
             }
             catch (Exception ex)
