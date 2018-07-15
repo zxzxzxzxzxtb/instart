@@ -32,65 +32,31 @@ namespace Instart.Web.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public async Task<JsonResult> AddOrUpdate(Contact model)
+        public async Task<JsonResult> Set(Contact model)
         {
-            Stream uploadStream = null;
-            FileStream fs = null;
-            try
+            var fileQrcode = Request.Files["fileQrcode"];
+
+            if (fileQrcode != null)
             {
-                //文件上传，一次上传1M的数据，防止出现大文件无法上传
-                HttpPostedFileBase postFileBase = Request.Files["InstartVideo"];
-                if (postFileBase != null && postFileBase.ContentLength != 0)
+                string uploadResult = UploadHelper.Process(fileQrcode.FileName, fileQrcode.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
                 {
-                    uploadStream = postFileBase.InputStream;
-                    int bufferLen = 1024;
-                    byte[] buffer = new byte[bufferLen];
-                    int contentLen = 0;
-
-                    string fileName = Path.GetFileName(postFileBase.FileName);
-                    string baseUrl = Server.MapPath("/");
-                    string uploadPath = baseUrl + @"\Content\Images\Contact\";
-                    fs = new FileStream(uploadPath + fileName, FileMode.Create, FileAccess.ReadWrite);
-
-                    while ((contentLen = uploadStream.Read(buffer, 0, bufferLen)) != 0)
-                    {
-                        fs.Write(buffer, 0, bufferLen);
-                        fs.Flush();
-                    }
-
-                    //保存页面数据，上传的文件只保存路径
-                    string qrcodeUrl = "/Content/Images/Contact/" + fileName;
-                    model.Qrcode = qrcodeUrl;
-                }
-                int count = await _contactService.GetCountAsync();
-                if (count > 0)
-                {
-                    await _contactService.UpdateAsync(model);
-                }
-                else
-                {
-                    await _contactService.InsertAsync(model);
+                    model.Qrcode = uploadResult;
                 }
             }
-            catch (Exception ex)
+            var result = new ResultBase();
+
+            int count = await _contactService.GetCountAsync();
+            if (count > 0)
             {
-                ex.StackTrace.ToString();
+                result.success = await _contactService.UpdateAsync(model);
             }
-            finally
+            else
             {
-                if (null != fs)
-                {
-                    fs.Close();
-                }
-                if (null != uploadStream)
-                {
-                    uploadStream.Close();
-                }
+                result.success = await _contactService.InsertAsync(model);
             }
-            return Json(new ResultBase
-            {
-                success = true
-            });
+
+            return Json(result);
         }
     }
 }

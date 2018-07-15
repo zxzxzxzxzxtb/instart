@@ -24,13 +24,14 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_partnerService);
         }
 
-        public async Task<ActionResult> Index(int page = 1, string name = null)
+        public async Task<ActionResult> Index(int page = 1, string keyword = null)
         {
             int pageSize = 10;
-            var list = await _partnerService.GetListAsync(page, pageSize, name);
+            var list = await _partnerService.GetListAsync(page, pageSize, keyword);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
+            ViewBag.Keyword = keyword;
             return View(list.Data);
         }
 
@@ -50,70 +51,42 @@ namespace Instart.Web.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public async Task<JsonResult> AddOrUpdate(Partner model)
+        public async Task<JsonResult> Set(Partner model)
         {
-            Stream uploadStream = null;
-            FileStream fs = null;
-            try
+            if (model == null)
             {
-                string msg = this.Validate(model, false);
+                return Error("参数错误。");
+            }
 
-                if (!string.IsNullOrEmpty(msg))
-                {
-                    return Error(msg);
-                }
-                //文件上传，一次上传1M的数据，防止出现大文件无法上传
-                HttpPostedFileBase postFileBase = Request.Files["ImageUrl"];
-                if (postFileBase != null && postFileBase.ContentLength != 0)
-                {
-                    uploadStream = postFileBase.InputStream;
-                    int bufferLen = 1024;
-                    byte[] buffer = new byte[bufferLen];
-                    int contentLen = 0;
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("合作伙伴名称不能为空。");
+            }
 
-                    string fileName = Path.GetFileName(postFileBase.FileName);
-                    string baseUrl = Server.MapPath("/");
-                    string uploadPath = baseUrl + @"\Content\Images\Partner\";
-                    fs = new FileStream(uploadPath + fileName, FileMode.Create, FileAccess.ReadWrite);
+            model.Name = model.Name.Trim();
 
-                    while ((contentLen = uploadStream.Read(buffer, 0, bufferLen)) != 0)
-                    {
-                        fs.Write(buffer, 0, bufferLen);
-                        fs.Flush();
-                    }
+            var filePartner = Request.Files["filePartner"];
 
-                    //保存页面数据，上传的文件只保存路径
-                    string imgUrl = "/Content/Images/Partner/" + fileName;
-                    model.ImageUrl = imgUrl;
-                }
-                if (model.Id > 0)
+            if (filePartner != null)
+            {
+                string uploadResult = UploadHelper.Process(filePartner.FileName, filePartner.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
                 {
-                    await _partnerService.UpdateAsync(model);
-                }
-                else
-                {
-                    await _partnerService.InsertAsync(model);
+                    model.ImageUrl = uploadResult;
                 }
             }
-            catch (Exception ex)
+            var result = new ResultBase();
+
+            if (model.Id > 0)
             {
-                ex.StackTrace.ToString();
+                result.success = await _partnerService.UpdateAsync(model);
             }
-            finally
+            else
             {
-                if (null != fs)
-                {
-                    fs.Close();
-                }
-                if (null != uploadStream)
-                {
-                    uploadStream.Close();
-                }
+                result.success = await _partnerService.InsertAsync(model);
             }
-            return Json(new ResultBase
-            {
-                success = true
-            });
+
+            return Json(result);
         }
 
         [HttpPost]
@@ -131,27 +104,6 @@ namespace Instart.Web.Areas.Manage.Controllers
                 LogHelper.Error($"PartnerController.Delete异常", ex);
                 return Error(ex.Message);
             }
-        }
-
-        [NonAction]
-        private string Validate(Partner model, bool isUpdate = false)
-        {
-            if (model == null)
-            {
-                return "参数错误。";
-            }
-
-            if (isUpdate && model.Id <= 0)
-            {
-                return "Id不正确。";
-            }
-
-            if (string.IsNullOrEmpty(model.Name))
-            {
-                return "名称不能为空。";
-            }
-
-            return string.Empty;
         }
     }
 }

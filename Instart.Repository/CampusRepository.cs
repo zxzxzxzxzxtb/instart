@@ -20,15 +20,6 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<IEnumerable<string>> GetImgsByIdAsync(int id)
-        {
-            using (var conn = DapperFactory.GetConnection())
-            {
-                string sql = "select ImgUrl from [CampusImg] where Id = @Id;";
-                return await conn.QueryAsync<string>(sql, new { Id = id });
-            }
-        }
-
         public async Task<PageModel<Campus>> GetListAsync(int pageIndex, int pageSize, string name = null)
         {
             using (var conn = DapperFactory.GetConnection())
@@ -77,13 +68,9 @@ namespace Instart.Repository
 
         public async Task<bool> InsertAsync(Campus model)
         {
-            var result = 0;
-            var id = 0;
             using (var conn = DapperFactory.GetConnection())
             {
-                conn.Open();
-                var tran = conn.BeginTransaction();
-                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id), nameof(model.ImgUrls) });
+                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id) });
                 if (fields == null || fields.Count == 0)
                 {
                     return false;
@@ -93,50 +80,22 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
                 model.Status = 1;
 
-                string sql = $"insert into [Campus] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});SELECT CAST(SCOPE_IDENTITY() AS BIGINT) AS [Id] ";
-
-                var insertImg = @" INSERT INTO [CampusImg] ([Id],[Imgurl]) VALUES(@Id,@ImgUrl)";
-                try
-                {
-
-                    id = await conn.ExecuteScalarAsync<int>(sql, model, tran);
-                    if (model.ImgUrls != null)
-                    {
-                        foreach (var item in model.ImgUrls)
-                        {
-                            result = await conn.ExecuteAsync(insertImg, new { Id = id, ImgUrl = item }, tran);
-                        }
-                    }
-                    tran.Commit();
-                }
-                catch (SqlException ex)
-                {
-                    tran.Rollback();
-                    return false;
-                }
-                catch (Exception ex)
-                {
-                    tran.Rollback();
-                    return false;
-                }
-            }//end using
-            return result > 0;
+                string sql = $"insert into [Campus] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
+                return await conn.ExecuteAsync(sql, model) > 0;
+            }
         }
 
         public async Task<bool> UpdateAsync(Campus model)
         {
-            var result = 0;
             using (var conn = DapperFactory.GetConnection())
             {
-                conn.Open();
-                var tran = conn.BeginTransaction();
-                var fields = model.ToFields(removeFields: new List<string>
+                List<string> removeFields = new List<string>
                 {
                     nameof(model.Id),
                     nameof(model.CreateTime),
-                    nameof(model.Status),
-                    nameof(model.ImgUrls)
-                });
+                    nameof(model.Status)
+                };
+                var fields = model.ToFields(removeFields: removeFields);
 
                 if (fields == null || fields.Count == 0)
                 {
@@ -151,34 +110,9 @@ namespace Instart.Repository
 
                 model.ModifyTime = DateTime.Now;
 
-                string sql = $"update [Campus] set {string.Join(",", fieldList)} where Id=@Id";
-
-                var insertImg = @" INSERT INTO [CampusImg] ([Id],[Imgurl]) VALUES(@Id,@ImgUrl)";
-                try
-                {
-
-                    result = await conn.ExecuteAsync(sql, model, tran);
-                    if (model.ImgUrls != null)
-                    {
-                        foreach (var item in model.ImgUrls)
-                        {
-                            result = await conn.ExecuteAsync(insertImg, new { Id = model.Id, ImgUrl = item }, tran);
-                        }
-                    }
-                    tran.Commit();
-                }
-                catch (SqlException ex)
-                {
-                    tran.Rollback();
-                    return false;
-                }
-                catch (Exception ex)
-                {
-                    tran.Rollback();
-                    return false;
-                }
-            }//end using
-            return result > 0;
+                string sql = $"update [Campus] set {string.Join(",", fieldList)} where Id=@Id;";
+                return await conn.ExecuteAsync(sql, model) > 0;
+            }
         }
 
         public async Task<bool> DeleteAsync(int id)
@@ -190,12 +124,44 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<bool> DeleteImgAsync(int id, string imgUrl)
+        public async Task<IEnumerable<CampusImg>> GetImgsByCampusIdAsync(int campusId)
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = "delete from [CampusImg] where Id=@Id and ImgUrl=@ImgUrl;";
-                return await conn.ExecuteAsync(sql, new { Id = id, ImgUrl = imgUrl }) > 0;
+                #region generate condition
+                string where = $"where Status=1 and CampusId = {campusId}";
+                #endregion
+
+                string sql = $@"select * from [CampusImg] {where};";
+                return await conn.QueryAsync<CampusImg>(sql);
+            }
+        }
+
+        public async Task<bool> InsertImgAsync(CampusImg model)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id) });
+                if (fields == null || fields.Count == 0)
+                {
+                    return false;
+                }
+
+                model.CreateTime = DateTime.Now;
+                model.ModifyTime = DateTime.Now;
+                model.Status = 1;
+
+                string sql = $"insert into [CampusImg] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
+                return await conn.ExecuteAsync(sql, model) > 0;
+            }
+        }
+
+        public async Task<bool> DeleteImgAsync(int id)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = "update [CampusImg] set Status=0,ModifyTime=GETDATE() where Id=@Id;";
+                return await conn.ExecuteAsync(sql, new { Id = id }) > 0;
             }
         }
     }

@@ -6,17 +6,21 @@
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 
+<ol class="breadcrumb">
+    <li><a href="#">作品管理</a></li>
+</ol>
+
 <div>
     <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
-    <button type="button" class="btn btn-primary" onclick="add()">添加</button>
+    <form method="post" action="" target="_self" class="form-inline">
+        <a href="/manage/works/edit" class="btn btn-success">添加</a>
+    </form>
 </div>
 <table class="table table-bordered table-striped" style="margin-top:15px;">
     <thead>
         <tr>
             <th>#</th>
             <th>图片名称</th>
-            <th>图片</th>
-            <th>描述</th>
             <th>所属专业</th>
             <th>创建时间</th>
             <th>操作</th>
@@ -30,8 +34,6 @@
                 <tr>
                     <td style="width:5%;">@item.Id</td>
                     <td>@item.ImgName</td>
-                    <td>@Html.Raw(item.Introduce)</td>
-                    <td>@Html.Raw(item.Introduce)</td>
                     <td>@item.MajorName</td>
                     <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
                     <td style="width:10%;">
@@ -56,33 +58,23 @@
 
 @section Bottom{
     <script>
-        function add() {
-            location.href = '@Url.Action("edit", "works", new { area="manage"})';
-        }
-
         function update(id) {
             location.href = '@Url.Action("edit", "works", new { area="manage" })' + "?id=" + id;
         }
 
-        function remove(id){
-            if (window.confirm('你确定要删除该作品吗？')) {
-                $.ajax({
-                    type: 'POST',
-                    url:  '@Url.Action("delete", "works", new { area="manage"})',
-                    data: { id: id},
-                    success: function (slt) {
-                        if (slt && slt.success) {
-                            location.reload();
-                        }
-                        else {
-                            alert(slt.message || '操作失败，请重试。');
-                        }
+        function remove(id) {
+            layer.confirm('确定删除该作品?', function (index) {
+                $.post('/manage/works/delete', { id: id }, function (slt) {
+                    if (slt && slt.success) {
+                        location.reload();
+                    }
+                    else {
+                        layer.msg(slt.message || '操作失败，请重试');
                     }
                 });
-            } else {
-                //alert("取消");
-                return false;
-            }
+
+                layer.close(index);
+            });
         }
     </script>
 }

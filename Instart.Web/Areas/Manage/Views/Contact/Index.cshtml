@@ -7,43 +7,68 @@
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("AddOrUpdate", "Contact", new { area = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "mainForm" }))
+<ol class="breadcrumb">
+    <li><a href="#">联系我们</a></li>
+</ol>
+
+@using (Html.BeginForm("Set", "Contact", new { area = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "mainForm", @class = "form-horizontal edit-container-width" }))
 {
-<table class="table table-nobordered" style="top: 100px;">
-    <tr>
-        <td>电话号码：</td>
-        <td>@Html.TextBoxFor(m => m.Phone)</td>
-    </tr>
-    <tr>
-        <td>Ins：</td>
-        <td>@Html.TextBoxFor(m => m.Ins)</td>
-    </tr>
-    <tr>
-        <td>微博：</td>
-        <td>@Html.TextBoxFor(m => m.Blog)</td>
-    </tr>
-    <tr>
-        <td>商务合作：</td>
-        <td>@Html.TextBoxFor(m => m.Cooperation)</td>
-    </tr>
-    <tr>
-        <td>二维码：</td>
-        <td><input type="file" name="Qrcode" /></td>
-    </tr>
-    <tr>
-        <td>招贤纳士：</td>
-        <td>@Html.TextAreaFor(m => m.Recruit, new { style = "width: 600px;height: 400px;" })</td>
-    </tr>
-    <tr>
-        <td><input type="button" class="btn btn-primary" value="保存" onclick="save()" /></td>
-    </tr>
-</table>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">电话号码：</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Ins：</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Ins, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">微博：</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Blog, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">商务合作：</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Cooperation, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">二维码：</label>
+        <div class="col-sm-10">
+            <img src="@Model.Qrcode" id="qrcodePreview" style="width:80%;height:200px;border:1px solid #eee;" />
+            <input type="hidden" name="Qrcode" value="@Model.Qrcode" />
+            <a href="javascript:void(0)" onclick="$('#fileQrcode').click()" class="btn-link" style="position:relative;top:90px;">点击上传</a>
+            <input type='file' id='fileQrcode' name='fileQrcode' style='display:none;'>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">招贤纳士：</label>
+        <div class="col-sm-10">
+            <textarea name="Recruit" id="Recruit" rows="10">@Model.Recruit</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <input type="button" class="btn btn-primary" value="提交" onclick="save()" />
+        </div>
+    </div>
 }
 
 
 @section Bottom{
     <script>
-        var introduce = UE.getEditor('Recruit', {
+        var recruit = UE.getEditor('Recruit', {
             autoHeight: false
         });
 
@@ -51,14 +76,18 @@
             $("#mainForm").ajaxSubmit({
                 success: function (slt) {
                     if (slt && slt.success) {
-                        alert('保存成功。');
+                        layer.msg('保存成功。');
                     }
                     else {
-                        alert(slt.message || '操作失败，请重试。');
+                        layer.msg(slt.message || '操作失败，请重试。');
                     }
                 }
             });
         }
+
+        $('#fileQrcode').change(function () {
+            imagePreview(this.files[0], $("#qrcodePreview"));
+        });
 
     </script>
 }

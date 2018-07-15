@@ -900,11 +900,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Manage\Models\" />
-    <Folder Include="Content\images\campus\" />
-    <Folder Include="Content\images\contact\" />
-    <Folder Include="Content\images\major\" />
-    <Folder Include="Content\images\partner\" />
-    <Folder Include="Content\images\works\" />
     <Folder Include="Content\videos\aboutinstart\" />
   </ItemGroup>
   <ItemGroup>
@@ -960,6 +955,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\School\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Campus\ImgIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Manage\Views\Banner\Edit.cshtml" />
