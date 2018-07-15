@@ -47,11 +47,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SchoolApplyService.cs" />
+    <Compile Include="Interfaces\ISchoolApplyService.cs" />
+    <Compile Include="Interfaces\ICourseApplyService.cs" />
     <Compile Include="ContactService.cs" />
     <Compile Include="ArticleService.cs" />
     <Compile Include="BannerService.cs" />
     <Compile Include="CategoryService.cs" />
     <Compile Include="CampusService.cs" />
+    <Compile Include="CourseApplyService.cs" />
     <Compile Include="CourseService.cs" />
     <Compile Include="AboutInstartService.cs" />
     <Compile Include="DivisionService.cs" />

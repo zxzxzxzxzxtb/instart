@@ -74,6 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ICourseApplyRepository.cs" />
     <Compile Include="ContactRepository.cs" />
     <Compile Include="ArticleRepository.cs" />
     <Compile Include="BannerRepository.cs" />
@@ -89,6 +90,9 @@
     <Compile Include="AboutInstartRepository.cs" />
     <Compile Include="CampusRepository.cs" />
     <Compile Include="CategoryRepository.cs" />
+    <Compile Include="Interfaces\ISchoolApplyRepository.cs" />
+    <Compile Include="SchoolApplyRepository.cs" />
+    <Compile Include="CourseApplyRepository.cs" />
     <Compile Include="CourseRepository.cs" />
     <Compile Include="DivisionRepository.cs" />
     <Compile Include="Interfaces\IContactRepository.cs" />

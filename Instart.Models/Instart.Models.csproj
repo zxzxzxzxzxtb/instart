@@ -60,6 +60,7 @@
     <Compile Include="Course.cs" />
     <Compile Include="Campus.cs" />
     <Compile Include="Division.cs" />
+    <Compile Include="Enums\EnumAccept.cs" />
     <Compile Include="Enums\EnumBannerType.cs" />
     <Compile Include="Enums\EnumMajorType.cs" />
     <Compile Include="Enums\EnumSchoolType.cs" />
