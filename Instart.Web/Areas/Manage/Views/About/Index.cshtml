@@ -8,8 +8,7 @@
 }
 
 <ol class="breadcrumb">
-    <li><a href="/manage/major">关于一沙</a></li>
-    <li class="active">@ViewBag.Action</li>
+    <li><a href="/manage/about">关于一沙</a></li>
 </ol>
 
 @using (Html.BeginForm("Set", "About", new { area = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "mainForm", @class = "form-horizontal edit-container-width" }))
@@ -83,7 +82,7 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <input type="button" class="btn btn-primary" value="提交" onclick="save()" />
+            <input type="button" class="btn btn-primary" value="保存" onclick="save()" />
         </div>
     </div>
 }

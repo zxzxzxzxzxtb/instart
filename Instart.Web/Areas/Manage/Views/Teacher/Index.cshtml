@@ -1,8 +1,114 @@
-﻿
+﻿@using Instart.Models
+@using Instart.Web.Infrastructures
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "艺术导师";
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 
-<h2>导师管理</h2>
+<ol class="breadcrumb">
+    <li><a href="#">艺术导师</a></li>
+</ol>
+
+<div>
+    <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
+    <form method="post" action="" target="_self" class="form-inline">
+        <div class="form-group">
+            <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="导师名称" style="width:300px;">
+        </div>
+        <button type="submit" class="btn btn-success">查询</button>
+        <a href="/manage/teacher" class="btn btn-default">全部</a>
+        <a href="/manage/teacher/edit" class="btn btn-default">添加</a>
+    </form>
+</div>
+<table class="table table-bordered table-striped" style="margin-top:15px;">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>导师名称</th>
+            <th>头像</th>
+            <th>导师荣誉</th>
+            <th>创建时间</th>
+            <th>推荐首页</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (Teacher item in Model)
+            {
+                <tr>
+                    <td style="width:5%;">@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>
+                        <img src="@item.Avatar" style="width:150px;height:100px" alt="" />
+                    </td>
+                    <td>@item.Introduce</td>
+                    <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
+                    <td>
+                        @if (item.IsRecommend)
+                        {
+                            <input class="chkRecommend" type="checkbox" checked="checked" data-id="@item.Id" />
+                        }
+                        else
+                        {
+                            <input class="chkRecommend" type="checkbox" data-id="@item.Id" />
+                        }
+                    </td>
+                    <td style="width:15%;">
+                        <a href="/manage/teacher/edit/@item.Id">编辑</a>
+                        <a data-id="@item.Id" href="javascript:void(0)" onclick="remove(@item.Id)">删除</a>
+                        <a href="/manage/teacher/courseselect/@item.Id">教授课程</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<div class="row page-center">
+    @if (ViewBag.TotalPages > 1)
+    {
+        <div class="pagination">
+            <ul class="pl0">
+                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new { area = "manage" })
+            </ul>
+        </div>
+    }
+</div>
+
+@section Bottom{
+    <script>
+        $(function () {
+            $(".chkRecommend").click(function () {
+                var checked = $(this).is(":checked");
+                var id = $(this).attr("data-id");
+
+                $.post('/manage/teacher/setrecommend', { id: id, isRecommend: checked }, function (slt) {
+                    if (slt && slt.success) {
+                        layer.msg(checked ? '推荐成功' : '取消推荐成功');
+                    }
+                    else {
+                        layer.msg(slt.message || '操作失败，请重试');
+                    }
+                });
+            });
+        });
+
+        function remove(id) {
+            layer.confirm('确定删除该导师?', function (index) {
+                $.post('/manage/teacher/delete', { id: id }, function (slt) {
+                    if (slt && slt.success) {
+                        location.reload();
+                    }
+                    else {
+                        layer.msg(slt.message || '操作失败，请重试。');
+                    }
+                });
+
+                layer.close(index);
+            });
+        }
+    </script>
+}
 

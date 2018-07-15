@@ -16,8 +16,8 @@
         <div class="form-group">
             <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="学部名称" style="width:300px;">
         </div>
-        <button type="submit" class="btn btn-warning">查询</button>
-        <a href="/manage/division/edit" class="btn btn-success">添加</a>
+        <button type="submit" class="btn btn-success">查询</button>
+        <a href="/manage/division/edit" class="btn btn-default">添加</a>
     </form>
 </div>
 <table class="table table-bordered table-striped" style="margin-top:15px;">
@@ -41,8 +41,8 @@
                     <td>@item.NameEn</td>
                     <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
                     <td style="width:10%;">
-                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="update(@item.Id)">修改</a>
-                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="remove(@item.Id)">删除</a>
+                        <a data-id="@item.Id" href="javascript:void(0)" onclick="update(@item.Id)">修改</a>
+                        <a data-id="@item.Id" href="javascript:void(0)" onclick="remove(@item.Id)">删除</a>
                     </td>
                 </tr>
             }

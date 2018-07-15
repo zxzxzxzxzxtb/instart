@@ -77,29 +77,9 @@ namespace Instart.Models
         public string Avatar { get; set; }
 
         /// <summary>
-        /// 导师毕业学校
-        /// </summary>
-        public string FromSchool { get; set; }
-
-        /// <summary>
-        /// 导师所学专业
-        /// </summary>
-        public string FromMajor { get; set; }
-
-        /// <summary>
-        /// 擅长课程
-        /// </summary>
-        public string FromCourse { get; set; }
-
-        /// <summary>
         /// 导师介绍
         /// </summary>
         public string Introduce { get; set; }
-
-        /// <summary>
-        /// 导师作品（json）
-        /// </summary>
-        public string Cases { get; set; }
 
         /// <summary>
         /// 是否推荐
@@ -120,5 +100,10 @@ namespace Instart.Models
         /// 修改时间
         /// </summary>
         public DateTime ModifyTime { get; set; }
+
+        /// <summary>
+        /// 是否被选中
+        /// </summary>
+        public bool IsSelected { get; set; }
     }
 }

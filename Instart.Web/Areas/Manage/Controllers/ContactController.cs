@@ -26,8 +26,9 @@ namespace Instart.Web.Areas.Manage.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var list = await _contactService.GetInfoAsync();
-            return View(list);
+            Contact model = await _contactService.GetInfoAsync();
+            if (model == null) model = new Contact();
+            return View(model);
         }
 
         [HttpPost]

@@ -26,8 +26,9 @@ namespace Instart.Web.Areas.Manage.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var list = await _aboutInstartService.GetInfoAsync();
-            return View(list);
+            AboutInstart model = await _aboutInstartService.GetInfoAsync();
+            if (model == null) model = new AboutInstart();
+            return View(model);
         }
 
         [HttpPost]
