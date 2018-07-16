@@ -40,7 +40,9 @@
                 <tr>
                     <td style="width:5%;">@item.Id</td>
                     <td>@item.Name</td>
-                    <td>@item.ImageUrl</td>
+                    <td>
+                        <img src="@item.ImageUrl" style="width:150px;height:100px" alt="" />
+                    </td>
                     <td>@item.Link</td>
                     <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
                     <td style="width:10%;">

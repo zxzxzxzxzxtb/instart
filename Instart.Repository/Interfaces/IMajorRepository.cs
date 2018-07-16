@@ -11,7 +11,7 @@ namespace Instart.Repository
     {
         Task<Major> GetByIdAsync(int id);        
 
-        Task<PageModel<Major>> GetListAsync(int pageIndex, int pageSize, string name = null);
+        Task<PageModel<Major>> GetListAsync(int pageIndex, int pageSize, int division = -1, string name = null);
 
         Task<IEnumerable<Major>> GetAllAsync();
 

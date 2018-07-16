@@ -31,24 +31,24 @@ namespace Instart.Web.Areas.Manage.Controllers
         {
             if (string.IsNullOrEmpty(username))
             {
-                return Error("用户名不能为空");
+                return Error("用户名不能为空。");
             }
 
             if (string.IsNullOrEmpty(password))
             {
-                return Error("密码不能为空");
+                return Error("密码不能为空。");
             }
 
             var user = await _userService.GetByNameAsync(username.Trim());
 
             if(user == null)
             {
-                return Error("用户不存在");
+                return Error("用户不存在。");
             }
 
             if(Md5Helper.Encrypt(password) != user.Password.Trim())
             {
-                return Error("密码错误");
+                return Error("密码错误。");
             }
 
             var loginUser = new LoginUser

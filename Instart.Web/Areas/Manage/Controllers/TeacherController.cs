@@ -32,14 +32,17 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_majorService);
         }
 
-        public async Task<ActionResult> Index(int page = 1, string keyword = null)
+        public async Task<ActionResult> Index(int page = 1, int division = -1, string keyword = null)
         {
             int pageSize = 10;
-            var list = await _teacherService.GetListAsync(page, pageSize, keyword);
+            var list = await _teacherService.GetListAsync(page, pageSize, division, keyword);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
             ViewBag.Keyword = keyword;
+
+            ViewBag.divisionList = await _divisionService.GetAllAsync();
+            ViewBag.division = division;
             return View(list.Data);
         }
 

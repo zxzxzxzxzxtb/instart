@@ -47,6 +47,11 @@ namespace Instart.Models
         public string SchoolName { get; set; }
 
         /// <summary>
+        /// 录取院校英文名称
+        /// </summary>
+        public string SchoolNameEn { get; set; }
+
+        /// <summary>
         /// 录取专业Id
         /// </summary>
         public int MajorId { get; set; }
@@ -57,14 +62,24 @@ namespace Instart.Models
         public string MajorName { get; set; }
 
         /// <summary>
+        /// 录取专业英文名称
+        /// </summary>
+        public string MajorNameEn { get; set; }
+
+        /// <summary>
         /// 导师Id
         /// </summary>
         public int TeacherId { get; set; }
 
         /// <summary>
-        /// 录取专业名称
+        /// 导师名称
         /// </summary>
         public string TeacherName { get; set; }
+
+        /// <summary>
+        /// 导师英文名称
+        /// </summary>
+        public string TeacherNameEn { get; set; }
 
         /// <summary>
         /// 学员介绍

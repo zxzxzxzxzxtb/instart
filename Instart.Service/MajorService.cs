@@ -24,8 +24,8 @@ namespace Instart.Service
             return await _majorRepository.GetByIdAsync(id);
         }
 
-        public async Task<PageModel<Major>> GetListAsync(int pageIndex, int pageSize, string name = null) {
-            return await _majorRepository.GetListAsync(pageIndex, pageSize, name);
+        public async Task<PageModel<Major>> GetListAsync(int pageIndex, int pageSize, int division = -1, string name = null) {
+            return await _majorRepository.GetListAsync(pageIndex, pageSize, division, name);
         }
 
         public async Task<IEnumerable<Major>> GetAllAsync()

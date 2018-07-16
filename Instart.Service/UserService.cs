@@ -81,12 +81,7 @@ namespace Instart.Service
                 throw new ArgumentNullException(nameof(model.UserName));
             }
 
-            if (string.IsNullOrEmpty(model.Password))
-            {
-                throw new ArgumentNullException(nameof(model.Password));
-            }
-
-            model.Password = Md5Helper.Encrypt(model.Password);
+            model.Password = Md5Helper.Encrypt(model.UserName);
             model.CreateTime = DateTime.Now;
             model.ModifyTime = DateTime.Now;
 

@@ -1,8 +1,12 @@
-﻿using Instart.Web.Attributes;
+﻿using Instart.Common;
+using Instart.Models;
+using Instart.Service;
+using Instart.Service.Base;
+using Instart.Web.Attributes;
+using Instart.Web.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Instart.Web.Areas.Manage.Controllers
@@ -10,9 +14,68 @@ namespace Instart.Web.Areas.Manage.Controllers
     [AdminValidation]
     public class UserController : ManageControllerBase
     {
-        public ActionResult Index()
+        IUserService _userService = AutofacService.Resolve<IUserService>();
+
+        public UserController()
         {
-            return View();
+            base.AddDisposableObject(_userService);
+        }
+
+        public async Task<ActionResult> Index(int page = 1)
+        {
+            int pageSize = 10;
+            var list = await _userService.GetListAsync(page, pageSize);
+            ViewBag.Total = list.Total;
+            ViewBag.PageIndex = page;
+            ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
+            return View(list.Data);
+        }
+
+        public ActionResult Add()
+        {
+            User model = new User();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> Set(User model)
+        {
+            if (model == null)
+            {
+                return Error("参数错误。");
+            }
+
+            var fileAvatar = Request.Files["fileAvatar"];
+
+            if (fileAvatar != null)
+            {
+                string uploadResult = UploadHelper.Process(fileAvatar.FileName, fileAvatar.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
+                {
+                    model.Avatar = uploadResult;
+                }
+            }
+            var result = new ResultBase();
+            result.success = await _userService.InsertAsync(model);
+
+            return Json(result);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> Delete(int id)
+        {
+            try
+            {
+                return Json(new ResultBase
+                {
+                    success = await _userService.DeleteAsync(id)
+                });
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error($"UserController.Delete异常", ex);
+                return Error(ex.Message);
+            }
         }
     }
 }

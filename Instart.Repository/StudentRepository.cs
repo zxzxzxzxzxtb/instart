@@ -33,7 +33,8 @@ namespace Instart.Repository
                 }
 
                 string sql = $@"select * from (
-                     select a.*, b.Name as MajorName, c.Name as TeacherName, e.Name as SchoolName, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Student] as a
+                     select a.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, c.NameEn as TeacherNameEn, 
+                     e.Name as SchoolName, e.NameEn as SchoolNameEn, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Student] as a
                      left join [Major] as b on b.Id = a.MajorId 
                      left join [Teacher] as c on c.Id = a.TeacherId 
                      left join [School] as e on e.Id = a.SchoolId {where}
@@ -50,7 +51,8 @@ namespace Instart.Repository
 
         public async Task<bool> InsertAsync(Student model) {
             using (var conn = DapperFactory.GetConnection()) {
-                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id), nameof(model.SchoolName), nameof(model.MajorName), nameof(model.TeacherName) });
+                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id), nameof(model.SchoolName), nameof(model.SchoolNameEn),
+                    nameof(model.MajorName), nameof(model.MajorNameEn), nameof(model.TeacherName), nameof(model.TeacherNameEn) });
                 if (fields == null || fields.Count == 0) {
                     return false;
                 }
@@ -72,8 +74,11 @@ namespace Instart.Repository
                     nameof(model.CreateTime),
                     nameof(model.Status),
                     nameof(model.MajorName),
+                    nameof(model.MajorNameEn),
                     nameof(model.TeacherName),
-                    nameof(model.SchoolName)
+                    nameof(model.TeacherNameEn),
+                    nameof(model.SchoolName),
+                    nameof(model.SchoolNameEn)
                 });
 
                 if (fields == null || fields.Count == 0) {
@@ -103,7 +108,8 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = $@"select top {topCount} t.*, b.Name as MajorName, c.Name as TeacherName, e.Name as SchoolName from Student t 
+                string sql = $@"select top {topCount} t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
+                     c.NameEn as TeacherNameEn, e.Name as SchoolName, e.NameEn as SchoolNameEn from Student t 
                      left join [Major] as b on b.Id = t.MajorId 
                      left join [Teacher] as c on c.Id = t.TeacherId 
                      left join [School] as e on e.Id = t.SchoolId

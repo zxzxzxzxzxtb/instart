@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Instart.Repository;
 using Instart.Models;
-using System.Data.SqlClient;
 using Dapper;
-using System.Linq.Expressions;
 
 namespace Instart.Repository
 {
