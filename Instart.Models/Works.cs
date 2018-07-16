@@ -18,9 +18,9 @@ namespace Instart.Models
         public int Id { get; set; }        
 
         /// <summary>
-        /// 图片名称
+        /// 作品名称
         /// </summary>
-        public string ImgName { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// 图片链接

@@ -20,7 +20,8 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>图片名称</th>
+            <th>作品名称</th>
+            <th>作品</th>
             <th>所属专业</th>
             <th>创建时间</th>
             <th>操作</th>
@@ -33,7 +34,10 @@
             {
                 <tr>
                     <td style="width:5%;">@item.Id</td>
-                    <td>@item.ImgName</td>
+                    <td>@item.Name</td>
+                    <td>
+                        <img src="@item.ImgUrl" style="width:150px;height:100px" alt="" />
+                    </td>
                     <td>@item.MajorName</td>
                     <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
                     <td style="width:10%;">

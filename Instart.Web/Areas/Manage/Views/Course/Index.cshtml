@@ -28,7 +28,6 @@
             <th>#</th>
             <th>课程名称</th>
             <th>主题图片</th>
-            <th>针对人群</th>
             <th>创建时间</th>
             <th>推荐首页</th>
             <th>操作</th>
@@ -45,7 +44,6 @@
                     <td>
                         <img src="@item.Picture" style="width:150px;height:100px" alt="" />
                     </td>
-                    <td>@item.ForPeople</td>
                     <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
                     <td>
                         @if (item.IsRecommend)

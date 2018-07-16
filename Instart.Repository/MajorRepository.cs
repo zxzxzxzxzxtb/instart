@@ -17,12 +17,16 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<PageModel<Major>> GetListAsync(int pageIndex, int pageSize, string name = null) {
+        public async Task<PageModel<Major>> GetListAsync(int pageIndex, int pageSize, int division = -1, string name = null) {
             using (var conn = DapperFactory.GetConnection()) {
                 #region generate condition
                 string where = "where a.Status=1";
                 if (!string.IsNullOrEmpty(name)) {
                     where += $" and a.Name like '%{name}%'";
+                }
+                if (division != -1)
+                {
+                    where += $" and a.DivisionId = {division}";
                 }
                 #endregion
 

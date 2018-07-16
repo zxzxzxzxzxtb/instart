@@ -75,7 +75,6 @@ namespace Instart.Web.Areas.Manage.Controllers
                 if (!string.IsNullOrEmpty(uploadResult))
                 {
                     model.ImgUrl = uploadResult;
-                    model.ImgName = fileWorks.FileName;
                 }
             }
             if (String.IsNullOrEmpty(model.ImgUrl))

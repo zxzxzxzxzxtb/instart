@@ -14,6 +14,18 @@
     <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
     <form method="post" action="" target="_self" class="form-inline">
         <div class="form-group">
+            <select id="selDivision" name="division" class="form-control" style="width:100px;">
+                <option value="-1">全部</option>
+                @if (ViewBag.divisionList != null)
+                {
+                    foreach (Division item in ViewBag.divisionList)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="form-group">
             <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="导师名称" style="width:300px;">
         </div>
         <button type="submit" class="btn btn-success">查询</button>
@@ -27,7 +39,7 @@
             <th>#</th>
             <th>导师名称</th>
             <th>头像</th>
-            <th>导师荣誉</th>
+            <th>所属学部</th>
             <th>创建时间</th>
             <th>推荐首页</th>
             <th>操作</th>
@@ -44,7 +56,7 @@
                     <td>
                         <img src="@item.Avatar" style="width:150px;height:100px" alt="" />
                     </td>
-                    <td>@item.Introduce</td>
+                    <td>@item.DivisionName</td>
                     <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
                     <td>
                         @if (item.IsRecommend)
@@ -79,6 +91,10 @@
 
 @section Bottom{
     <script>
+        $(function () {
+            $("#selDivision").val("@ViewBag.division");
+        })
+
         $(function () {
             $(".chkRecommend").click(function () {
                 var checked = $(this).is(":checked");

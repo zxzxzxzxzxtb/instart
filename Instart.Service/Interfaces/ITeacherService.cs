@@ -11,7 +11,7 @@ namespace Instart.Service
     {
         Task<Teacher> GetByIdAsync(int id);
 
-        Task<PageModel<Teacher>> GetListAsync(int pageIndex, int pageSize, string name = null);
+        Task<PageModel<Teacher>> GetListAsync(int pageIndex, int pageSize, int division = -1, string name = null);
 
         Task<IEnumerable<Teacher>> GetAllAsync();
 

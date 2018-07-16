@@ -33,8 +33,8 @@ namespace Instart.Service
                 throw new ArgumentNullException(nameof(model));
             }
 
-            if (string.IsNullOrEmpty(model.ImgName)) {
-                throw new ArgumentNullException(nameof(model.ImgName));
+            if (string.IsNullOrEmpty(model.Name)) {
+                throw new ArgumentNullException(nameof(model.Name));
             }
 
             return await _worksRepository.InsertAsync(model);
@@ -45,8 +45,8 @@ namespace Instart.Service
                 throw new ArgumentNullException(nameof(model));
             }
 
-            if (string.IsNullOrEmpty(model.ImgName)) {
-                throw new ArgumentNullException(nameof(model.ImgName));
+            if (string.IsNullOrEmpty(model.Name)) {
+                throw new ArgumentNullException(nameof(model.Name));
             }
 
             if (model.Id <= 0) {
