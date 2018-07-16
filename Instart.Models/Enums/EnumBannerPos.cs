@@ -18,9 +18,14 @@ namespace Instart.Models.Enums
         [Description("首页")]
         Index = 0,
         /// <summary>
-        /// 课程管理
+        /// 艺术课程
         /// </summary>
-        [Description("课程管理")]
+        [Description("艺术课程")]
         Course = 1,
+        /// <summary>
+        /// 艺术导师
+        /// </summary>
+        [Description("艺术导师")]
+        Teacher = 2,
     }
 }

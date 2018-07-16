@@ -98,5 +98,15 @@ namespace Instart.Service
         {
             return await _teacherRepository.SetCourses(teacherId, courseIds);
         }
+
+        public async Task<PageModel<Teacher>> GetListByDivsionAsync(int divisionId, int pageIndex, int pageSize)
+        {
+            if(divisionId <= 0)
+            {
+                throw new ArgumentException(nameof(divisionId));
+            }
+
+            return await _teacherRepository.GetListByDivsionAsync(divisionId, pageIndex, pageSize);
+        }
     }
 }

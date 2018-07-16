@@ -191,5 +191,36 @@ namespace Instart.Repository
             }//end using
             return result > 0;
         }
+
+        public async Task<PageModel<Teacher>> GetListByDivsionAsync(int divisionId, int pageIndex, int pageSize)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string countSql = $"select count(1) from [Teacher] where DivisionId={divisionId} and Status=1;";
+
+                int total = await conn.ExecuteScalarAsync<int>(countSql);
+                if (total == 0)
+                {
+                    return new PageModel<Teacher>();
+                }
+
+                string sql = $@"select * from (select t.Id,t.Name,t.NameEn,t.Avatar,s.Name as SchoolName,s.NameEn as SchoolNameEn,
+                                m.Name as MajorName,m.NameEn as MajorNameEn,d.Name as DivisionName,d.NameEn as DivisionNameEn, ROW_NUMBER() over (Order by t.Id desc) as RowNumber from Teacher t
+                                left join School s on t.SchoolId = s.Id
+                                left join Major m on t.MajorId = m.Id
+                                left join Division d on t.DivisionId = d.Id
+                                where t.DivisionId = @DivisionId and t.Status = 1 
+                                order by t.Id desc) as b 
+                                where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
+
+                PageModel<Teacher> result = new PageModel<Teacher>
+                {
+                    Total = total,
+                    Data = (await conn.QueryAsync<Teacher>(sql, new { DivisionId = divisionId }))?.ToList()
+                };
+
+                return result;
+            }
+        }
     }
 }

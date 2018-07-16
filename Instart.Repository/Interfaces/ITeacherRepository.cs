@@ -28,5 +28,7 @@ namespace Instart.Repository
         Task<IEnumerable<int>> GetCoursesByIdAsync(int id);
 
         Task<bool> SetCourses(int teacherId, string courseIds);
+
+        Task<PageModel<Teacher>> GetListByDivsionAsync(int divisionId, int pageIndex, int pageSize);
     }
 }
