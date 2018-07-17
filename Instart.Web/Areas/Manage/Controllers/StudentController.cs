@@ -18,6 +18,7 @@ namespace Instart.Web.Areas.Manage.Controllers
     {
         IStudentService _studentService = AutofacService.Resolve<IStudentService>();
         ISchoolService _schoolService = AutofacService.Resolve<ISchoolService>();
+        ITeacherService _teacherService = AutofacService.Resolve<ITeacherService>();
         IMajorService _majorService = AutofacService.Resolve<IMajorService>();
 
         public StudentController()
@@ -59,8 +60,11 @@ namespace Instart.Web.Areas.Manage.Controllers
             ViewBag.SchoolList = schoolList;
 
             List<SelectListItem> teacherList = new List<SelectListItem>();
-            teacherList.Add(new SelectListItem { Text = "Tony", Value = "1" });
-            teacherList.Add(new SelectListItem { Text = "lili", Value = "2" });
+            IEnumerable<Teacher> teachers = await _teacherService.GetAllAsync();
+            foreach (var item in teachers)
+            {
+                teacherList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
+            }
             ViewBag.TeacherList = teacherList;
 
             List<SelectListItem> majorList = new List<SelectListItem>();
