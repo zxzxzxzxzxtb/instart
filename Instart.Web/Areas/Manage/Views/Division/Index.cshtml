@@ -26,6 +26,7 @@
             <th>#</th>
             <th>学部名称</th>
             <th>英文名称</th>
+            <th>排列顺序</th>
             <th>创建时间</th>
             <th>操作</th>
         </tr>
@@ -39,6 +40,7 @@
                     <td style="width:5%;">@item.Id</td>
                     <td>@item.Name</td>
                     <td>@item.NameEn</td>
+                    <td>@item.GroupIndex</td>
                     <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
                     <td style="width:10%;">
                         <a data-id="@item.Id" href="javascript:void(0)" onclick="update(@item.Id)">修改</a>
@@ -78,7 +80,7 @@
                 });
 
                 layer.close(index);
-            });          
+            });
         }
     </script>
 }

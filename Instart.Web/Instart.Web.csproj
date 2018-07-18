@@ -294,6 +294,8 @@
     <Content Include="Content\images\lingshi\11.jpg" />
     <Content Include="Content\images\lingshi\12.jpg" />
     <Content Include="Content\images\lingshi\13.jpg" />
+    <Content Include="Content\images\lingshi\14.jpg" />
+    <Content Include="Content\images\lingshi\15.jpg" />
     <Content Include="Content\images\lingshi\2.jpg" />
     <Content Include="Content\images\lingshi\3.jpg" />
     <Content Include="Content\images\lingshi\4.jpg" />
@@ -302,6 +304,8 @@
     <Content Include="Content\images\lingshi\7.jpg" />
     <Content Include="Content\images\lingshi\8.jpg" />
     <Content Include="Content\images\lingshi\9.jpg" />
+    <Content Include="Content\images\lingshi\dabaner.jpg" />
+    <Content Include="Content\images\lingshi\schollbg.jpg" />
     <Content Include="Content\images\lingshi\ucl.jpg" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\qcord.png" />
@@ -313,6 +317,7 @@
     <Content Include="Content\js\banner.js" />
     <Content Include="Content\js\index.js" />
     <Content Include="Content\js\jquery-1.11.3.min.js" />
+    <Content Include="Content\js\jquery.SuperSlide.2.1.1.js" />
     <Content Include="Content\js\PIE.htc" />
     <Content Include="Content\js\rem.js" />
     <Content Include="Content\js\remH.js" />
