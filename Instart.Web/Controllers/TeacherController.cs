@@ -25,7 +25,7 @@ namespace Instart.Web.Controllers
             this.AddDisposableObject(_bannerService);
         }
 
-        public async Task<ActionResult> Index(int divisionId)
+        public async Task<ActionResult> Index(int divisionId = 0)
         {
             var divisionList = await _divisionService.GetAllAsync();
             if (divisionList == null || divisionList.Count() == 0)
@@ -65,6 +65,7 @@ namespace Instart.Web.Controllers
                 throw new Exception("导师不存在");
             }
 
+            ViewBag.BannerList = (await _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Teacher)) ?? new List<Instart.Models.Banner>();
             return View(teacher);
         }
     }

@@ -29,7 +29,6 @@ index.init();
 $(window).scroll(function(){
    var tophere=$(".toprel")
    var scrT=$(window).scrollTop();
-   console.log(scrT)
    if(scrT>0){
        tophere.addClass("topfix")
    }

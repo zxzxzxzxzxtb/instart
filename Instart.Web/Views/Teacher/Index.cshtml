@@ -1,8 +1,87 @@
-﻿
+﻿@using Instart.Models
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "艺术导师";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+
+<!--banner展示图-->
+<div class="banner">
+    <ul class="lubo_box">
+        @foreach (Banner item in ViewBag.BannerList)
+        {
+            if (item.Type == Instart.Models.Enums.EnumBannerType.Image)
+            {
+                <li><a style="background:url(@item.ImageUrl) center top no-repeat"></a></li>
+            }
+            else if (item.Type == Instart.Models.Enums.EnumBannerType.Video)
+            {
+                <li style=" opacity: 1;filter:alpha(opacity=100);">
+                    <a href="" style="background:url(@item.ImageUrl) center top no-repeat">
+                        <video autoplay="autoplay" muted="muted" loop="loop" poster="https://storage.googleapis.com/tate-digital/videos/winifred-knights/the-deluge.jpg" title="">
+                            <source class="video--mp4" src="@item.VideoUrl" type="video/mp4">
+                        </video>
+                    </a>
+                </li>
+            }
+        }
+    </ul>
+    <ul class="cir_box" style="left: 50%; margin-left: -40px; bottom: 3%;"><li style="" value="0" class=""></li><li style="" value="1" class="cir_on"></li></ul><div class="lubo_btn"></div>
+</div>
+
+
+<div class="maincont">
+    <!--文章列表-->
+    <div class="pagemeun">
+        @foreach (Division item in ViewBag.DivisionList)
+        {
+            if (item.Id == ViewBag.DivisionId)
+            {
+                <p class="active"><a href="/teacher/@item.Id">@item.Name</a></p>
+            }
+            else
+            {
+                <p><a href="/teacher/@item.Id">@item.Name</a></p>
+            }
+        }
+    </div>
+
+    <div class="neilist">
+        <div class="teacher com-cont noborder">
+            <ul>
+                @foreach (Teacher item in ViewBag.TeacherList)
+                {
+                    <li>
+                        <div class="teacher-cont">
+                            <div class="top"><a href="/teacher/details/@item.Id"><i style="opacity: 0;"></i><img src="@item.Avatar" alt="@item.Name"></a></div>
+                            <dl>
+                                <dt><a href="#">@(item.Name) @(item.NameEn)</a></dt>
+                                <dd class="teac-m">
+                                    <p><span>@item.SchoolName</span><small>@item.SchoolNameEn</small></p>
+                                    <p><span>@item.MajorName</span><small>@item.MajorNameEn</small></p>
+                                </dd>
+                                <dd class="teac-b">@(item.DivisionName) @(item.DivisionNameEn)</dd>
+                            </dl>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        @if (ViewBag.TotalPages > 0)
+        {
+            <div class="pagelist">
+                <ul>
+                    <li class="pre"><a href="#">上一页</a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                         <li><a href="#">@i</a></li>
+                    }
+                    <li class="next"><a href="#">下一页</a></li>
+                </ul>
+            </div>
+        }
+    </div>
+</div>
 

@@ -204,7 +204,7 @@ namespace Instart.Repository
                     return new PageModel<Teacher>();
                 }
 
-                string sql = $@"select * from (select t.Id,t.Name,t.NameEn,t.Avatar,s.Name as SchoolName,s.NameEn as SchoolNameEn,
+                string sql = $@"select * from (select TOP (100) PERCENT t.Id,t.Name,t.NameEn,t.Avatar,s.Name as SchoolName,s.NameEn as SchoolNameEn,
                                 m.Name as MajorName,m.NameEn as MajorNameEn,d.Name as DivisionName,d.NameEn as DivisionNameEn, ROW_NUMBER() over (Order by t.Id desc) as RowNumber from Teacher t
                                 left join School s on t.SchoolId = s.Id
                                 left join Major m on t.MajorId = m.Id
