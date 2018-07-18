@@ -22,5 +22,9 @@ namespace Instart.Repository
         Task<List<Student>> GetRecommendListAsync(int topCount);
 
         Task<bool> SetRecommend(int id, bool isRecommend);
+
+        Task<IEnumerable<Student>> GetAllAsync();
+
+        Task<IEnumerable<Student>> GetStarStudentsAsync();
     }
 }

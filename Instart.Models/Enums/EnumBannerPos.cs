@@ -22,5 +22,10 @@ namespace Instart.Models.Enums
         /// </summary>
         [Description("课程管理")]
         Course = 1,
+        /// <summary>
+        /// 成功学员
+        /// </summary>
+        [Description("成功学员")]
+        Student = 2,
     }
 }
