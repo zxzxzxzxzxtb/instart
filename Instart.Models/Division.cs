@@ -32,6 +32,11 @@ namespace Instart.Models
         public string Introduce { get; set; }
 
         /// <summary>
+        /// 排序
+        /// </summary>
+        public int GroupIndex { get; set; }
+
+        /// <summary>
         /// 状态，1：正常，0：删除
         /// </summary>
         public int Status { get; set; }

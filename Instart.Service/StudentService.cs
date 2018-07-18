@@ -28,6 +28,16 @@ namespace Instart.Service
             return await _studentRepository.GetListAsync(pageIndex, pageSize, name);
         }
 
+        public async Task<IEnumerable<Student>> GetAllAsync()
+        {
+            return await _studentRepository.GetAllAsync();
+        }
+
+        public async Task<IEnumerable<Student>> GetStarStudentsAsync()
+        {
+            return await _studentRepository.GetStarStudentsAsync();
+        }
+
         public async Task<bool> InsertAsync(Student model) {
             if (model == null) {
                 throw new ArgumentNullException(nameof(model));

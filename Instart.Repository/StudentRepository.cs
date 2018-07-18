@@ -49,6 +49,32 @@ namespace Instart.Repository
             }
         }
 
+        public async Task<IEnumerable<Student>> GetAllAsync()
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                #region generate condition
+                string where = "where Status=1";
+                #endregion
+
+                string sql = $@"select * from [Student] {where};";
+                return await conn.QueryAsync<Student>(sql);
+            }
+        }
+
+        public async Task<IEnumerable<Student>> GetStarStudentsAsync()
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                #region generate condition
+                string where = "where Status=1 and ImgUrl is not null and VideoUrl is not null";
+                #endregion
+
+                string sql = $@"select * from [Student] {where};";
+                return await conn.QueryAsync<Student>(sql);
+            }
+        }
+
         public async Task<bool> InsertAsync(Student model) {
             using (var conn = DapperFactory.GetConnection()) {
                 var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id), nameof(model.SchoolName), nameof(model.SchoolNameEn),
