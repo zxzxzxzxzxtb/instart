@@ -58,7 +58,7 @@ namespace Instart.Repository
 
         public async Task<bool> InsertAsync(School model) {
             using (var conn = DapperFactory.GetConnection()) {
-                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id) });
+                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id), nameof(model.AcceptRate) });
                 if (fields == null || fields.Count == 0) {
                     return false;
                 }
@@ -78,7 +78,8 @@ namespace Instart.Repository
                 {
                     nameof(model.Id),
                     nameof(model.CreateTime),
-                    nameof(model.Status)
+                    nameof(model.Status),
+                    nameof(model.AcceptRate)
                 });
 
                 if (fields == null || fields.Count == 0) {

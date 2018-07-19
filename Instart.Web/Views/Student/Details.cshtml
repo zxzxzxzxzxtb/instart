@@ -1,0 +1,88 @@
+﻿@using Instart.Models
+@model Instart.Models.Student
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--banner展示图-->
+<div class="neibanner">
+    <img src="@Model.ImgUrl" alt="" />
+    <p>@Model.Title</p>
+</div>
+<div class="maincont">
+    <div class="xuetop overflow">
+        <div class="xue-left fl">
+            <div class="xue-img">
+                <dl>
+                    <dt><img src="@Model.Avatar" alt="" /></dt>
+                    <dd><span>学部：设计创新 INNOVATION</span></dd>
+                </dl>
+            </div>
+        </div>
+        <div class="xue-right fr">
+            <div class="mee-info">
+                <div class="stel"><a href="#">TA的课程</a></div>
+                <dl class="mee-info-top">
+                    <dt>学员档案</dt>
+                    <dd><em>姓名: </em><span>@Model.Name</span></dd>
+                    <dd><em>院校背景: </em><span><a href="#">@Model.Background</a></span></dd>
+                    <dd><em>OFFER: </em><span><a href="#">@Model.SchoolName</a></span></dd>
+                </dl>
+                <dl class="mee-info-bottom">
+                    <dt>学员介绍</dt>
+                    <dd>@Model.Introduce</dd>
+                </dl>
+                <div class="xue-img-p overflow">
+                    <p><img src="@Model.Avatar" alt="" /></p>
+                    <p><img src="@Model.Avatar" alt="" /></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--成功学员-->
+    <div class="title">
+        <h2>成功学员</h2>
+    </div>
+    <div class="chenggong padding30">
+        <div class="success-people com-cont noborder bd">
+            <ul>
+                @if (ViewBag.StudentList != null)
+                {
+                    foreach (Student item in ViewBag.StudentList)
+                    {
+                        <li>
+                            <div class="peoplecont">
+                                <div class="top"><a href="/student/details/@item.Id"><i></i><img src="@item.Avatar" alt="" /></a></div>
+                                <dl>
+                                    <dt><a href="#">@item.Name</a></dt>
+                                    <dd class="pe1">录取专业：@item.MajorName</dd>
+                                    <dd class="pe2">offer：@item.SchoolName </dd>
+                                </dl>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="hd mar-top">
+            <a class="prev"></a>
+            <ul></ul>
+            <a class="next"></a>
+        </div>
+    </div>
+</div>
+@section Bottom{
+    <script src="/content/js/remH.js" type="text/javascript"></script>
+    <script src="/content/js/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="/content/js/index.js" type="text/javascript"></script>
+    <script src="/content/js/banner.js" type="text/javascript"></script>
+    <script src="/content/js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    $(".banner").lubo({});
+    $(".interlist").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: true, vis: 2, trigger: "click" });
+    $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false, scroll: 2, vis: 4 });
+    $(".toegeven").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false, vis: 2 });
+    </script>
+}
+

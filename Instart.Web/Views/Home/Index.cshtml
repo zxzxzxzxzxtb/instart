@@ -16,7 +16,7 @@
             {
                 <li style=" opacity: 1;filter:alpha(opacity=100);">
                     <a href="" style="background:url(@item.ImageUrl) center top no-repeat">
-                        <video autoplay="autoplay" muted="muted" loop="loop" poster="https://storage.googleapis.com/tate-digital/videos/winifred-knights/the-deluge.jpg" title="">
+                        <video autoplay="autoplay" muted="muted" loop="loop" poster="@item.ImageUrl" title="">
                             <source class="video--mp4" src="@item.VideoUrl" type="video/mp4">
                         </video>
                     </a>
@@ -39,7 +39,7 @@
                     <div class="peoplecont">
                         <div class="top"><a href="#"><i></i><img src="@item.Avatar" alt="" /></a></div>
                         <dl>
-                            <dt><a href="#">@item.NameEn</a></dt>
+                            <dt><a href="#">@item.Name</a></dt>
                             <dd class="pe1">录取专业：@item.MajorName</dd>
                             <dd class="pe2">offer：@item.SchoolName </dd>
                         </dl>
