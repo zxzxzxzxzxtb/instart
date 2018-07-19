@@ -12,7 +12,11 @@ namespace Instart.Repository
     {
         public async Task<Student> GetByIdAsync(int id) {
             using (var conn = DapperFactory.GetConnection()) {
-                string sql = "select * from [Student] where Id = @Id and Status=1;";
+                string sql = $@"select t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
+                     c.NameEn as TeacherNameEn, e.Name as SchoolName, e.NameEn as SchoolNameEn from Student t 
+                     left join [Major] as b on b.Id = t.MajorId 
+                     left join [Teacher] as c on c.Id = t.TeacherId 
+                     left join [School] as e on e.Id = t.SchoolId where t.Id = @Id and t.Status=1;";
                 return await conn.QueryFirstOrDefaultAsync<Student>(sql, new { Id = id });
             }
         }
@@ -54,10 +58,14 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection())
             {
                 #region generate condition
-                string where = "where Status=1";
+                string where = "where t.Status=1";
                 #endregion
 
-                string sql = $@"select * from [Student] {where};";
+                string sql = $@"select t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
+                     c.NameEn as TeacherNameEn, e.Name as SchoolName, e.NameEn as SchoolNameEn from Student t 
+                     left join [Major] as b on b.Id = t.MajorId 
+                     left join [Teacher] as c on c.Id = t.TeacherId 
+                     left join [School] as e on e.Id = t.SchoolId {where} order by t.Id;";
                 return await conn.QueryAsync<Student>(sql);
             }
         }

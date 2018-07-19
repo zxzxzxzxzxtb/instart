@@ -17,7 +17,7 @@
             {
                 <li style=" opacity: 1;filter:alpha(opacity=100);">
                     <a href="" style="background:url(@item.ImageUrl) center top no-repeat">
-                        <video autoplay="autoplay" muted="muted" loop="loop" poster="https://storage.googleapis.com/tate-digital/videos/winifred-knights/the-deluge.jpg" title="">
+                        <video autoplay="autoplay" muted="muted" loop="loop" poster="@item.ImageUrl" title="">
                             <source class="video--mp4" src="@item.VideoUrl" type="video/mp4">
                         </video>
                     </a>
@@ -66,14 +66,14 @@
     <div class="chenggong">
         <div class="success-people com-cont noborder bd">
             <div class="ulWrap">
-                <ul>
-                    @if (ViewBag.StudentList != null)
-                    {
-                        foreach (Student item in ViewBag.StudentList)
+                @foreach (List<Student> list in ViewBag.StudentMap)
+                {
+                    <ul>
+                        @foreach (Student item in list)
                         {
                             <li>
                                 <div class="peoplecont">
-                                    <div class="top"><a href="#"><i></i><img src="@item.Avatar" alt="" /></a></div>
+                                    <div class="top"><a href="/student/details/@item.Id"><i></i><img src="@item.Avatar" alt="" /></a></div>
                                     <dl>
                                         <dt><a href="#">@item.Name</a></dt>
                                         <dd class="pe1">录取专业：@item.MajorName</dd>
@@ -82,8 +82,8 @@
                                 </div>
                             </li>
                         }
-                    }
-                </ul>
+                    </ul>
+                }
             </div>
         </div>
         <div class="hd mar-top">
@@ -99,10 +99,10 @@
     <div class="toegeven">
         <div class="caselist com-cont bd">
             <div class="ulWrap">
-                <ul>
-                    @if (ViewBag.SchoolList != null)
-                    {
-                        foreach (School item in ViewBag.SchoolList)
+                @foreach (List<School> list in ViewBag.SchoolMap)
+                {
+                    <ul>
+                        @foreach (School item in list)
                         {
                             <li>
                                 <div class="case-cont">
@@ -110,14 +110,14 @@
                                     <dl>
                                         <a href="#">
                                             <dt>@item.Name</dt>
-                                            <dd>录取比例：90%</dd>
+                                            <dd>录取比例：@(item.AcceptRate + "%")</dd>
                                         </a>
                                     </dl>
                                 </div>
                             </li>
                         }
-                    }
-                </ul>
+                    </ul>
+                }
             </div>
         </div>
         <div class="hd mar-top">
@@ -148,4 +148,17 @@
         </ul>
     </div>
 </div>
+@section Bottom{
+    <script src="/content/js/remH.js" type="text/javascript"></script>
+    <script src="/content/js/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="/content/js/index.js" type="text/javascript"></script>
+    <script src="/content/js/banner.js" type="text/javascript"></script>
+    <script src="/content/js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(".banner").lubo({});
+        $(".interlist").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: true, vis: 2, trigger: "click" });
+        $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false, scroll: 2, vis: 4 });
+        $(".toegeven").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false, vis: 2 });
+    </script>
+}
 
