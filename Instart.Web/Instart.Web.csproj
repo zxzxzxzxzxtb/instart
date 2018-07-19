@@ -318,6 +318,7 @@
     <Content Include="Content\js\index.js" />
     <Content Include="Content\js\jquery-1.11.3.min.js" />
     <Content Include="Content\js\jquery.SuperSlide.2.1.1.js" />
+    <Content Include="Content\js\pager.js" />
     <Content Include="Content\js\PIE.htc" />
     <Content Include="Content\js\rem.js" />
     <Content Include="Content\js\remH.js" />

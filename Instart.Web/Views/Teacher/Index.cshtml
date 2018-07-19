@@ -37,51 +37,67 @@
         {
             if (item.Id == ViewBag.DivisionId)
             {
-                <p class="active"><a href="/teacher/@item.Id">@item.Name</a></p>
+                <p class="active"><a href="/teacher/index/@item.Id">@item.Name</a></p>
             }
             else
             {
-                <p><a href="/teacher/@item.Id">@item.Name</a></p>
+                <p><a href="/teacher/index/@item.Id">@item.Name</a></p>
             }
         }
     </div>
 
     <div class="neilist">
-        <div class="teacher com-cont noborder">
-            <ul>
-                @foreach (Teacher item in ViewBag.TeacherList)
-                {
-                    <li>
-                        <div class="teacher-cont">
-                            <div class="top"><a href="/teacher/details/@item.Id"><i style="opacity: 0;"></i><img src="@item.Avatar" alt="@item.Name"></a></div>
-                            <dl>
-                                <dt><a href="#">@(item.Name) @(item.NameEn)</a></dt>
-                                <dd class="teac-m">
-                                    <p><span>@item.SchoolName</span><small>@item.SchoolNameEn</small></p>
-                                    <p><span>@item.MajorName</span><small>@item.MajorNameEn</small></p>
-                                </dd>
-                                <dd class="teac-b">@(item.DivisionName) @(item.DivisionNameEn)</dd>
-                            </dl>
-                        </div>
-                    </li>
-                }
-            </ul>
-        </div>
-
-        @if (ViewBag.TotalPages > 0)
-        {
-            <div class="pagelist">
-                <ul>
-                    <li class="pre"><a href="#">上一页</a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
-                    {
-                         <li><a href="#">@i</a></li>
-                    }
-                    <li class="next"><a href="#">下一页</a></li>
-                </ul>
-            </div>
-        }
+        <div class="teacher com-cont noborder"></div>
+        <div class="pagelist"></div>
     </div>
 </div>
+
+@section Bottom{
+    <script type="text/javascript">
+
+        $(function () {
+            getData(1);
+            $('.pagelist').on('click', 'li a', function () {
+                var rel = $(this).attr("rel");
+                if (rel) {
+                    getData(rel);
+                }
+            });
+        });
+
+        function getData(page) {
+            $.ajax({
+                url: '/teacher/getteacherlist',
+                type: 'POST',
+                data: { divisionId: "@ViewBag.DivisionId", pageIndex: page },
+                success: function (slt) {
+                    var html = '<ul>';
+                    if (slt.data.list != null) {
+                        for (var index in slt.data.list) {
+                            var item = slt.data.list[index];
+                            html += '<li><div class="teacher-cont">';
+                            html += '<div class="top"><a href="/teacher/details/' + item.Id + '"><i></i><img src="' + item.Avatar + '" alt="' + item.Name + '" /></a></div>';
+                            html += '<dl>';
+                            html += '<dt><a href="/teacher/details/' + item.Id + '">' + item.Name + " " + (item.NameEn || '') + '</a></dt>';
+                            html += '<dd class="teac-m">';
+                            html += '<p><span>' + item.SchoolName + '</span><small>' + (item.SchoolNameEn || '') + '</small></p>';
+                            html += '<p><span>' + item.MajorName + '</span><small>' + (item.MajorNameEn || '') + '</small></p>';
+                            html += '</dd>';
+                            html += '<dd class="teac-b">' + item.DivisionName + " " + (item.DivisionNameEn || '') + '</dd>';
+                            html += '</dl>';
+                            html += '</div></li>';
+                        }
+                    }
+                    html += '</ul>';
+                    $('.teacher').html(html);
+                    getPageBar(page, slt.data.totalPage, $('.pagelist'));
+                },
+                error: function () {
+                    layer.msg("数据加载失败");
+                }
+            });
+        }
+    </script>
+
+}
 
