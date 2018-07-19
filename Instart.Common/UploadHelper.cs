@@ -70,8 +70,18 @@ namespace Instart.Common
                     fs.Flush();
                 }
             }
-
-            return Path.Combine(s_imageDirectory, newFileName);
+            if (IsImage(ext))
+            {
+                return Path.Combine(s_imageDirectory, newFileName);
+            }
+            else if (IsVideo(ext))
+            {
+                return Path.Combine(s_videoDirectory, newFileName);
+            }
+            else
+            {
+                return Path.Combine(s_imageDirectory, newFileName);
+            }
         }
 
         public static bool IsImage(string ext)

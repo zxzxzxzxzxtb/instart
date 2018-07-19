@@ -31,6 +31,6 @@ namespace Instart.Models.Enums
         /// 成功学员
         /// </summary>
         [Description("成功学员")]
-        Student = 2,
+        Student = 3,
     }
 }

@@ -156,5 +156,10 @@ namespace Instart.Models
         /// 奖学金--
         /// </summary>
         public string Scholarship { get; set; }
+
+        /// <summary>
+        /// 录取比例
+        /// </summary>
+        public String AcceptRate { get; set; }
     }
 }
