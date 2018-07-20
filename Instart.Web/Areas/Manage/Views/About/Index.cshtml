@@ -14,8 +14,8 @@
 @using (Html.BeginForm("Set", "About", new { area = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "mainForm", @class = "form-horizontal edit-container-width" }))
 {
     <div class="form-group">
-        <label class="col-sm-2 control-label">视频封面：</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 control-label">视频封面：</label>
+        <div class="col-sm-9">
             <img src="@Model.ImgUrl" id="imgPreview" style="width:80%;height:200px;border:1px solid #eee;" />
             <input type="hidden" name="ImgUrl" value="@Model.ImgUrl" />
             <a href="javascript:void(0)" onclick="$('#fileImg').click()" class="btn-link" style="position:relative;top:90px;">点击上传</a>
@@ -24,64 +24,64 @@
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">团队视频：</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 control-label">团队视频：</label>
+        <div class="col-sm-9">
             <input type="hidden" name="VideoUrl" value="@Model.VideoUrl" />
             <input type='file' id='fileVideo' name='fileVideo'>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">关于一沙：</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 control-label">关于一沙：</label>
+        <div class="col-sm-9">
             <textarea name="Introduce" rows="10" class="form-control">@Model.Introduce</textarea>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">Pre To Pro：</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 control-label">Pre To Pro：</label>
+        <div class="col-sm-9">
             <textarea name="PreToPro" id="PreToPro" rows="10">@Model.PreToPro</textarea>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">跨学科教学：</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 control-label">跨学科教学：</label>
+        <div class="col-sm-9">
             <textarea name="PassLearning" id="PassLearning" rows="10">@Model.PassLearning</textarea>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">WorkShop：</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 control-label">WorkShop：</label>
+        <div class="col-sm-9">
             <textarea name="WorkShop" id="WorkShop" rows="10">@Model.WorkShop</textarea>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">24小时工作室：</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 control-label">24小时工作室：</label>
+        <div class="col-sm-9">
             <textarea name="Studio" id="Studio" rows="10">@Model.Studio</textarea>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">实习推荐：</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 control-label">实习推荐：</label>
+        <div class="col-sm-9">
             <textarea name="Recommand" id="Recommand" rows="10">@Model.Recommand</textarea>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">驻地项目：</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 control-label">驻地项目：</label>
+        <div class="col-sm-9">
             <textarea name="Programs" id="Programs" rows="10">@Model.Programs</textarea>
         </div>
     </div>
 
     <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
+        <div class="col-sm-offset-3 col-sm-10">
             <input type="button" class="btn btn-primary" value="保存" onclick="save()" />
         </div>
     </div>

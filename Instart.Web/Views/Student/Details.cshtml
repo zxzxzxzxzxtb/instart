@@ -7,7 +7,18 @@
 
 <!--banner展示图-->
 <div class="neibanner">
-    <img src="@Model.ImgUrl" alt="" />
+    @if (!String.IsNullOrEmpty(Model.BannerVideo))
+    {
+        <a href="" style="background:url(@Model.BannerImg) center top no-repeat;width:100%;">
+            <video autoplay="autoplay" muted="muted" loop="loop" poster="@Model.BannerImg" title="" style="width:100%;">
+                <source class="video--mp4" src="@Model.BannerVideo" type="video/mp4">
+            </video>
+        </a>
+    }
+    else
+    {
+        <img src="@Model.BannerImg" alt="" />
+    }
     <p>@Model.Title</p>
 </div>
 <div class="maincont">
@@ -16,7 +27,7 @@
             <div class="xue-img">
                 <dl>
                     <dt><img src="@Model.Avatar" alt="" /></dt>
-                    <dd><span>学部：设计创新 INNOVATION</span></dd>
+                    <dd><span>学部：@Model.DivisionName @Model.DivisionNameEn</span></dd>
                 </dl>
             </div>
         </div>
@@ -31,12 +42,8 @@
                 </dl>
                 <dl class="mee-info-bottom">
                     <dt>学员介绍</dt>
-                    <dd>@Model.Introduce</dd>
+                    <dd>@Html.Raw(Model.Introduce)</dd>
                 </dl>
-                <div class="xue-img-p overflow">
-                    <p><img src="@Model.Avatar" alt="" /></p>
-                    <p><img src="@Model.Avatar" alt="" /></p>
-                </div>
             </div>
         </div>
     </div>
@@ -46,24 +53,26 @@
     </div>
     <div class="chenggong padding30">
         <div class="success-people com-cont noborder bd">
-            <ul>
+            <div class="ulWrap">
                 @if (ViewBag.StudentList != null)
                 {
                     foreach (Student item in ViewBag.StudentList)
                     {
-                        <li>
-                            <div class="peoplecont">
-                                <div class="top"><a href="/student/details/@item.Id"><i></i><img src="@item.Avatar" alt="" /></a></div>
-                                <dl>
-                                    <dt><a href="#">@item.Name</a></dt>
-                                    <dd class="pe1">录取专业：@item.MajorName</dd>
-                                    <dd class="pe2">offer：@item.SchoolName </dd>
-                                </dl>
-                            </div>
-                        </li>
+                        <ul>
+                            <li>
+                                <div class="peoplecont">
+                                    <div class="top"><a href="/student/details/@item.Id"><i></i><img src="@item.Avatar" alt="" /></a></div>
+                                    <dl>
+                                        <dt><a href="#">@item.Name</a></dt>
+                                        <dd class="pe1">录取专业：@item.MajorName</dd>
+                                        <dd class="pe2">offer：@item.SchoolName </dd>
+                                    </dl>
+                                </div>
+                            </li>
+                        </ul>
                     }
                 }
-            </ul>
+            </div>
         </div>
         <div class="hd mar-top">
             <a class="prev"></a>
@@ -79,10 +88,10 @@
     <script src="/content/js/banner.js" type="text/javascript"></script>
     <script src="/content/js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
     <script type="text/javascript">
-    $(".banner").lubo({});
-    $(".interlist").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: true, vis: 2, trigger: "click" });
-    $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false, scroll: 2, vis: 4 });
-    $(".toegeven").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false, vis: 2 });
+        $(".banner").lubo({});
+        $(".interlist").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: true, vis: 2, trigger: "click" });
+        $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false, scroll: 2, vis: 4 });
+        $(".toegeven").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false, vis: 2 });
     </script>
 }
 

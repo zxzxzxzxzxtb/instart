@@ -20,20 +20,24 @@ namespace Instart.Web.Areas.Manage.Controllers
         ISchoolService _schoolService = AutofacService.Resolve<ISchoolService>();
         ITeacherService _teacherService = AutofacService.Resolve<ITeacherService>();
         IMajorService _majorService = AutofacService.Resolve<IMajorService>();
+        IDivisionService _divisionService = AutofacService.Resolve<IDivisionService>();
 
         public StudentController()
         {
             base.AddDisposableObject(_studentService);
         }
 
-        public async Task<ActionResult> Index(int page = 1, string keyword = null)
+        public async Task<ActionResult> Index(int page = 1, int division = -1, string keyword = null)
         {
             int pageSize = 10;
-            var list = await _studentService.GetListAsync(page, pageSize, keyword);
+            var list = await _studentService.GetListAsync(page, pageSize, division, keyword);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
             ViewBag.Keyword = keyword;
+
+            ViewBag.divisionList = await _divisionService.GetAllAsync();
+            ViewBag.division = division;
             return View(list.Data);
         }
 
@@ -74,6 +78,14 @@ namespace Instart.Web.Areas.Manage.Controllers
                 majorList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
             }
             ViewBag.MajorList = majorList;
+
+            List<SelectListItem> divisionList = new List<SelectListItem>();
+            IEnumerable<Division> divisions = await _divisionService.GetAllAsync();
+            foreach (var item in divisions)
+            {
+                divisionList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
+            }
+            ViewBag.DivisionList = divisionList;
             return View(model);
         }
 
@@ -101,6 +113,26 @@ namespace Instart.Web.Areas.Manage.Controllers
                 if (!string.IsNullOrEmpty(uploadResult))
                 {
                     model.Avatar = uploadResult;
+                }
+            }
+
+            var bannerImgFile = Request.Files["fileBannerImg"];
+            if (bannerImgFile != null)
+            {
+                string uploadResult = UploadHelper.Process(bannerImgFile.FileName, bannerImgFile.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
+                {
+                    model.BannerImg = uploadResult;
+                }
+            }
+
+            var bannerVideoFile = Request.Files["fileBannerVideo"];
+            if (bannerVideoFile != null)
+            {
+                string uploadResult = UploadHelper.Process(bannerVideoFile.FileName, bannerVideoFile.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
+                {
+                    model.BannerVideo = uploadResult;
                 }
             }
 

@@ -11,7 +11,7 @@ namespace Instart.Repository
     {
         Task<Student> GetByIdAsync(int id);        
 
-        Task<PageModel<Student>> GetListAsync(int pageIndex, int pageSize, string name = null);
+        Task<PageModel<Student>> GetListAsync(int pageIndex, int pageSize, int division = -1, string name = null);
 
         Task<bool> InsertAsync(Student model);
 
