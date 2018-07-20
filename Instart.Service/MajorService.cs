@@ -68,5 +68,15 @@ namespace Instart.Service
 
             return await _majorRepository.DeleteAsync(id);
         }
+
+        public async Task<PageModel<Major>> GetListByDivsionAsync(int divisionId, int pageIndex, int pageSize)
+        {
+            if(divisionId <= 0)
+            {
+                throw new ArgumentException(nameof(Major));
+            }
+
+            return await _majorRepository.GetListByDivsionAsync(divisionId, pageIndex, pageSize);
+        }
     }
 }

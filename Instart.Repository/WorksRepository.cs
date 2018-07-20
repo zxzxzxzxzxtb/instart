@@ -41,6 +41,15 @@ namespace Instart.Repository
             }
         }
 
+        public async Task<List<Works>> GetListByMajorIdAsync(int majorId, int topCount)
+        {
+            using(var conn = DapperFactory.GetConnection())
+            {
+                string sql = $"select top {topCount} Id,Name,ImgUrl,Introduce,CreateTime from Works where MajorId=@MajorId and Status=1 order by Id desc";
+                return (await conn.QueryAsync<Works>(sql,new { MajorId = majorId}))?.ToList();
+            }
+        }
+
         public async Task<bool> InsertAsync(Works model) {
             using (var conn = DapperFactory.GetConnection()) {
                 var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id), nameof(model.MajorName) });

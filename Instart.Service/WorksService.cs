@@ -12,56 +12,79 @@ namespace Instart.Service
     {
         IWorksRepository _worksRepository = AutofacRepository.Resolve<IWorksRepository>();
 
-        public WorksService() {
+        public WorksService()
+        {
             base.AddDisposableObject(_worksRepository);
         }
 
-        public async Task<Works> GetByIdAsync(int id) {
-            if (id <= 0) {
+        public async Task<Works> GetByIdAsync(int id)
+        {
+            if (id <= 0)
+            {
                 throw new ArgumentException(nameof(id));
             }
 
             return await _worksRepository.GetByIdAsync(id);
         }
 
-        public async Task<PageModel<Works>> GetListAsync(int pageIndex, int pageSize, string name = null) {
+        public async Task<PageModel<Works>> GetListAsync(int pageIndex, int pageSize, string name = null)
+        {
             return await _worksRepository.GetListAsync(pageIndex, pageSize, name);
         }
 
-        public async Task<bool> InsertAsync(Works model) {
-            if (model == null) {
+        public async Task<bool> InsertAsync(Works model)
+        {
+            if (model == null)
+            {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            if (string.IsNullOrEmpty(model.Name)) {
+            if (string.IsNullOrEmpty(model.Name))
+            {
                 throw new ArgumentNullException(nameof(model.Name));
             }
 
             return await _worksRepository.InsertAsync(model);
         }
 
-        public async Task<bool> UpdateAsync(Works model) {
-            if (model == null) {
+        public async Task<bool> UpdateAsync(Works model)
+        {
+            if (model == null)
+            {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            if (string.IsNullOrEmpty(model.Name)) {
+            if (string.IsNullOrEmpty(model.Name))
+            {
                 throw new ArgumentNullException(nameof(model.Name));
             }
 
-            if (model.Id <= 0) {
+            if (model.Id <= 0)
+            {
                 throw new ArgumentException(nameof(model.Id));
             }
 
             return await _worksRepository.UpdateAsync(model);
         }
 
-        public async Task<bool> DeleteAsync(int id) {
-            if (id <= 0) {
+        public async Task<bool> DeleteAsync(int id)
+        {
+            if (id <= 0)
+            {
                 throw new ArgumentException(nameof(id));
             }
 
             return await _worksRepository.DeleteAsync(id);
+        }
+
+        public async Task<List<Works>> GetListByMajorIdAsync(int majorId, int topCount)
+        {
+            if (majorId <= 0)
+            {
+                throw new ArgumentException(nameof(majorId));
+            }
+
+            return await _worksRepository.GetListByMajorIdAsync(majorId, topCount);
         }
     }
 }
