@@ -20,5 +20,7 @@ namespace Instart.Repository
         Task<bool> UpdateAsync(Major model);
 
         Task<bool> DeleteAsync(int id);
+
+        Task<PageModel<Major>> GetListByDivsionAsync(int divisionId, int pageIndex, int pageSize);
     }
 }

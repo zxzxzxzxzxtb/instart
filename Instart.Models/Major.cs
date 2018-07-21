@@ -63,6 +63,11 @@ namespace Instart.Models
         public string DivisionName { get; set; }
 
         /// <summary>
+        /// 学部英文名称
+        /// </summary>
+        public string DivisionNameEn { get; set; }
+
+        /// <summary>
         /// 状态，1：正常，0：删除
         /// </summary>
         public int Status { get; set; }

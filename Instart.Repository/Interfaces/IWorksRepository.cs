@@ -18,5 +18,7 @@ namespace Instart.Repository
         Task<bool> UpdateAsync(Works model);
 
         Task<bool> DeleteAsync(int id);
+
+        Task<List<Works>> GetListByMajorIdAsync(int majorId, int topCount);
     }
 }
