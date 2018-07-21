@@ -32,7 +32,7 @@ namespace Instart.Repository
                     return new PageModel<School>();
                 }
 
-                string sql = $@"select * from ( select Id,Name,NameEn,Logo,Country,[Type],Address,Fee,Avatar,RecommendMajor,Difficult,TuoFu,YaSi,Yan,SAT,CreateTime,IsRecommend, ROW_NUMBER() over (Order by Id desc) as RowNumber from [School] {where} ) as b  
+                string sql = $@"select * from ( select Id,Name,NameEn,Logo,Country,[Type],Address,Fee,Avatar,RecommendMajor,Difficult,TuoFu,YaSi,Yan,SAT,CreateTime,IsRecommend,IsHot, ROW_NUMBER() over (Order by Id desc) as RowNumber from [School] {where} ) as b  
                                 where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
                 var list = await conn.QueryAsync<School>(sql);
 
@@ -58,7 +58,8 @@ namespace Instart.Repository
 
         public async Task<bool> InsertAsync(School model) {
             using (var conn = DapperFactory.GetConnection()) {
-                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id), nameof(model.AcceptRate) });
+                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id), nameof(model.AcceptRate),
+                    nameof(model.IsRecommend), nameof(model.IsHot) });
                 if (fields == null || fields.Count == 0) {
                     return false;
                 }
@@ -79,7 +80,9 @@ namespace Instart.Repository
                     nameof(model.Id),
                     nameof(model.CreateTime),
                     nameof(model.Status),
-                    nameof(model.AcceptRate)
+                    nameof(model.AcceptRate),
+                    nameof(model.IsRecommend),
+                    nameof(model.IsHot)
                 });
 
                 if (fields == null || fields.Count == 0) {
@@ -120,6 +123,67 @@ namespace Instart.Repository
             {
                 string sql = $"update [School] set IsRecommend=@IsRecommend where Id=@Id;";
                 return await conn.ExecuteAsync(sql, new { IsRecommend =isRecommend, Id = id}) > 0;
+            }
+        }
+
+        public async Task<List<School>> GetHotListAsync(int topCount)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = $"select top {topCount} Id,Name,NameEn,Difficult,Avatar,Country,Fee,Scholarship from [School] where Status=1 and IsHot = 1 order by Id desc;";
+                return (await conn.QueryAsync<School>(sql, null))?.ToList();
+            }
+        }
+
+        public async Task<bool> SetHotAsync(int id, bool isHot)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = $"update [School] set isHot=@isHot where Id=@Id;";
+                return await conn.ExecuteAsync(sql, new { isHot = isHot, Id = id }) > 0;
+            }
+        }
+
+        public async Task<PageModel<School>> GetListAsync(int pageIndex, int pageSize, string name = null, int country = -1, int major = -1)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                #region generate condition
+                string where = "where Status=1";
+                if (!string.IsNullOrEmpty(name))
+                {
+                    where += $" and Name like '%{name}%'";
+                }
+                if (country != -1)
+                {
+                    where += $" and Country = {country}";
+                }
+                //if (major != -1)
+                //{
+                //    where += $" and Country = {country}";
+                //}
+                #endregion
+
+                string countSql = $"select count(1) from [School] {where};";
+                int total = await conn.ExecuteScalarAsync<int>(countSql);
+                if (total == 0)
+                {
+                    return new PageModel<School>
+                    {
+                        Total = 0,
+                        Data = new List<School>()
+                    };
+                }
+
+                string sql = $@"select * from ( select Id,Name,NameEn,Logo,Country,[Type],Address,Fee,Avatar,RecommendMajor,Difficult,TuoFu,YaSi,Yan,SAT,CreateTime,IsRecommend,IsHot, ROW_NUMBER() over (Order by Id desc) as RowNumber from [School] {where} ) as b  
+                                where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
+                var list = await conn.QueryAsync<School>(sql);
+
+                return new PageModel<School>
+                {
+                    Total = total,
+                    Data = list?.ToList()
+                };
             }
         }
     }

@@ -144,5 +144,27 @@ namespace Instart.Web.Areas.Manage.Controllers
                 return Error(ex.Message);
             }
         }
+
+        [HttpPost]
+        public async Task<JsonResult> SetHot(int id, bool isHot)
+        {
+            if (id <= 0)
+            {
+                return Error("id错误");
+            }
+
+            try
+            {
+                return Json(new ResultBase
+                {
+                    success = await _schoolService.SetHotAsync(id, isHot)
+                });
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error($"SchoolController.SetHot异常", ex);
+                return Error(ex.Message);
+            }
+        }
     }
 }

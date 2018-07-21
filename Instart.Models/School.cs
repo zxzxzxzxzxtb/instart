@@ -65,7 +65,7 @@ namespace Instart.Models
         /// <summary>
         /// 学校类型--
         /// </summary>
-        public EnumSchoolType Type { get; set; }
+        public int Type { get; set; }
 
         /// <summary>
         /// 地址--
@@ -115,7 +115,7 @@ namespace Instart.Models
         /// <summary>
         /// 国家--
         /// </summary>
-        public string Country { get; set; }       
+        public EnumCountry Country { get; set; }       
 
         /// <summary>
         /// 网址--
@@ -161,5 +161,10 @@ namespace Instart.Models
         /// 录取比例
         /// </summary>
         public String AcceptRate { get; set; }
+
+        /// <summary>
+        /// 是否热搜
+        /// </summary>
+        public bool IsHot { get; set; }
     }
 }

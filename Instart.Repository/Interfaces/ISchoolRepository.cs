@@ -24,5 +24,11 @@ namespace Instart.Repository
         Task<List<School>> GetRecommendListAsync(int topCount);
 
         Task<bool> SetRecommendAsync(int id, bool isRecommend);
+
+        Task<List<School>> GetHotListAsync(int topCount);
+
+        Task<bool> SetHotAsync(int id, bool isHot);
+
+        Task<PageModel<School>> GetListAsync(int pageIndex, int pageSize, string name = null, int country = -1, int major = -1);
     }
 }

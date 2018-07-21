@@ -2,12 +2,12 @@
 @using Instart.Web.Infrastructures
 
 @{
-    ViewBag.Title = "学校管理";
+    ViewBag.Title = "艺术院校";
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 
 <ol class="breadcrumb">
-    <li><a href="#">学校管理</a></li>
+    <li><a href="#">艺术院校</a></li>
 </ol>
 
 <div>
@@ -26,11 +26,11 @@
         <tr>
             <th>#</th>
             <th>学校名称</th>
-            <th>国家</th>
             <th>学费</th>
             <th>申请难度</th>
             <th>创建时间</th>
             <th>推荐首页</th>
+            <th>热门搜索</th>
             <th>操作</th>
         </tr>
     </thead>
@@ -43,7 +43,6 @@
                     <td style="width:5%;">@item.Id</td>
 
                     <td>@item.Name</td>
-                    <td>@item.Country</td>
                     <td>@item.Fee</td>
                     <td>@item.Difficult</td>
                     <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
@@ -54,7 +53,17 @@
                         }
                         else
                         {
-                            <input class="chkRecommend" type="checkbox" data-id="@item.Id" /> 
+                            <input class="chkRecommend" type="checkbox" data-id="@item.Id" />
+                        }
+                    </td>
+                    <td>
+                        @if (item.IsHot)
+                        {
+                            <input class="chkHot" type="checkbox" checked="checked" data-id="@item.Id" />
+                        }
+                        else
+                        {
+                            <input class="chkHot" type="checkbox" data-id="@item.Id" />
                         }
                     </td>
                     <td style="width:20%;">
@@ -81,14 +90,28 @@
                 else {
                     layer.msg(slt.message || '操作失败，请重试');
                 }
-            }); 
+            });
+        });
+
+        $(".chkHot").click(function () {
+            var checked = $(this).is(":checked");
+            var id = $(this).attr("data-id");
+
+            $.post('/manage/school/sethot', { id: id, isHot: checked }, function (slt) {
+                if (slt && slt.success) {
+                    layer.msg(checked ? '设置热搜成功' : '取消热搜成功');
+                }
+                else {
+                    layer.msg(slt.message || '操作失败，请重试');
+                }
+            });
         });
     });
 
     function remove(schoolId) {
         if (schoolId == 0) {
             return;
-        }      
+        }
 
         layer.confirm('确定删除该学校?', function (index) {
             $.post('/manage/school/delete', { id: schoolId }, function (slt) {
@@ -101,7 +124,7 @@
             });
 
             layer.close(index);
-        });          
+        });
     }
 </script>
 

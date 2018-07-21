@@ -122,7 +122,7 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = $"select top {topCount} Id,Title,Type,ImageUrl,VideoUrl,Link from Banner where Pos=@Pos and IsShow=1 and Status=1 order by GroupIndex;";
-                return (await conn.QueryAsync<Banner>(sql, new { Pos = pos }))?.ToList();
+                return (await conn.QueryAsync<Banner>(sql, new { Pos = pos.ToInt32() }))?.ToList();
             }
         }
 

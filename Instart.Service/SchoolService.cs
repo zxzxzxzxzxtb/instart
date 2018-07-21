@@ -100,5 +100,30 @@ namespace Instart.Service
 
             return _schoolRepository.SetRecommendAsync(id, isRecommend);
         }
+
+        public async Task<List<School>> GetHotListAsync(int topCount)
+        {
+            if (topCount == 0)
+            {
+                return null;
+            }
+
+            return await _schoolRepository.GetHotListAsync(topCount);
+        }
+
+        public Task<bool> SetHotAsync(int id, bool isHot)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException(nameof(id));
+            }
+
+            return _schoolRepository.SetHotAsync(id, isHot);
+        }
+
+        public async Task<PageModel<School>> GetListAsync(int pageIndex, int pageSize, string name = null, int country = -1, int major = -1)
+        {
+            return await _schoolRepository.GetListAsync(pageIndex, pageSize, name, country, major);
+        }
     }
 }
