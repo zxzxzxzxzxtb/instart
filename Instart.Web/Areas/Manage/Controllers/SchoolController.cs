@@ -38,12 +38,12 @@ namespace Instart.Web.Areas.Manage.Controllers
         public async Task<ActionResult> Edit(int id = 0)
         {
             School model = new School();
-            string action = "添加学校";
+            string action = "添加院校";
 
             if (id > 0)
             {
                 model = await _schoolService.GetByIdAsync(id);
-                action = "修改学校";
+                action = "修改院校";
             }
 
             ViewBag.Action = action;
@@ -51,6 +51,7 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public async Task<JsonResult> Set(School model)
         {
             if (model == null)
@@ -60,13 +61,14 @@ namespace Instart.Web.Areas.Manage.Controllers
 
             if (string.IsNullOrEmpty(model.Name))
             {
-                return Error("学校名称不能为空");
+                return Error("院校名称不能为空");
             }
 
             model.Name = model.Name.Trim();
 
             var avatarFile = Request.Files["fileAvatar"];
             var logoFile = Request.Files["fileLogo"];
+            var bannerFile = Request.Files["fileBanner"];
 
             if (avatarFile != null)
             {
@@ -83,6 +85,15 @@ namespace Instart.Web.Areas.Manage.Controllers
                 if (!string.IsNullOrEmpty(uploadResult))
                 {
                     model.Logo = uploadResult;
+                }
+            }
+
+            if (bannerFile != null)
+            {
+                string uploadResult = UploadHelper.Process(bannerFile.FileName, bannerFile.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
+                {
+                    model.BannerImg = uploadResult;
                 }
             }
 

@@ -176,5 +176,20 @@ namespace Instart.Models
         /// 语言要求
         /// </summary>
         public string Language { get; set; }
+
+        /// <summary>
+        /// 学费明细
+        /// </summary>
+        public string Moneys { get; set; }
+
+        /// <summary>
+        /// 建校时间
+        /// </summary>
+        public string CreateYear { get; set; }
+
+        /// <summary>
+        /// Banner图片
+        /// </summary>
+        public string BannerImg { get; set; }
     }
 }

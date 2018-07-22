@@ -145,5 +145,10 @@ namespace Instart.Models
         ///是否推荐 
         /// </summary>
         public bool IsRecommend { get; set; }
+
+        /// <summary>
+        /// 座右铭
+        /// </summary>
+        public string Motto { get; set; }
     }
 }

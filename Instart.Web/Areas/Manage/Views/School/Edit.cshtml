@@ -109,6 +109,20 @@
     </div>
 
     <div class="form-group">
+        <label class="col-sm-3 control-label">建校时间：</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" name="CreateYear" value="@Model.CreateYear">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">知名校友：</label>
+        <div class="col-sm-9">
+            <textarea name="OldBoy" rows="10" class="form-control">@Model.OldBoy</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
         <label class="col-sm-3 control-label">学校简介：</label>
         <div class="col-sm-9">
             <textarea name="Introduce" rows="10" class="form-control">@Model.Introduce</textarea>
@@ -136,6 +150,30 @@
     </div>
 
     <div class="form-group">
+        <label class="col-sm-3 control-label">Banner：</label>
+        <div class="col-sm-9">
+            <img src="@Model.BannerImg" id="bannerPreview" style="width:80%;height:100px;border:1px solid #eee;" />
+            <input type="hidden" name="Logo" value="@Model.BannerImg" />
+            <a href="javascript:void(0)" onclick="$('#fileBanner').click()" class="btn-link" style="position:relative;top:40px;">点击上传</a>
+            <input type="file" id="fileBanner" name="fileBanner" style="display:none;">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">申请要求：</label>
+        <div class="col-sm-9">
+            <textarea name="ApplyCondition" id="ApplyCondition" rows="10">@Model.ApplyCondition</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">学费明细：</label>
+        <div class="col-sm-9">
+            <textarea name="Moneys" id="Moneys" rows="10">@Model.Moneys</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-sm-offset-2 col-sm-9">
             <button id="btnSubmit" type="button" class="btn btn-success">提交</button>
         </div>
@@ -144,10 +182,18 @@
 
 <script>
     $(function () {
+        var applyCondition = UE.getEditor('ApplyCondition', {
+            autoHeight: false
+        });
+
+        var moneys = UE.getEditor('Moneys', {
+            autoHeight: false
+        });
+
         $("#btnSubmit").click(function () {
             var name = $("input[name='Name']").val();
             if (name == '') {
-                layer.msg('学校名称不能为空');
+                layer.msg('院校名称不能为空');
                 return;
             }
 
@@ -178,6 +224,10 @@
 
         $('#fileLogo').change(function () {
             imagePreview(this.files[0], $("#logoPreview"));
+        });
+
+        $('#fileBanner').change(function () {
+            imagePreview(this.files[0], $("#bannerPreview"));
         });
     });   
 </script>

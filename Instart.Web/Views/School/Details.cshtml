@@ -7,7 +7,7 @@
 
 <!--banner展示图-->
 <div class="banner-img">
-    <div class="neitu"><img src="@Model.Avatar" alt="" /></div>
+    <div class="neitu"><img src="@Model.BannerImg" alt="" /></div>
     <div class="ban-collage">
         <div class="s-name">
             <div class="s-name-left">
@@ -38,7 +38,7 @@
                 <p><span><i class="glaxfont">优势专业:</i> @Model.RecommendMajor</span></p>
             </div>
             <div class="coll-info detton">
-                <p><span><i class="glaxfont">学校性质:</i> @(Model.Type == 0 ? "公立" : "私立")</span><span><i class="glaxfont">建校时间:</i>1826年</span></p>
+                <p><span><i class="glaxfont">学校性质:</i> @(Model.Type == 0 ? "公立" : "私立")</span><span><i class="glaxfont">建校时间:</i>@Model.CreateYear</span></p>
                 <p><span><i class="glaxfont">学校地址:</i> @Model.Address</span></p>
                 <p><span><i class="glaxfont">学校网址:</i> @Model.WebSite</span></p>
                 <p><span><i class="glaxfont">知名校友:</i> @Model.OldBoy</span></p>
@@ -246,17 +246,7 @@
             <div class="coll-right fr">
                 <div class="c-title">学费明细</div>
                 <div class="monys">
-                    <p>学费——$45,080</p>
-                    <br />
-                    <p>杂费——$926</p>
-                    <br />
-                    <p>书本费——$1,581</p>
-                    <br />
-                    <p>通勤费——$1,344</p>
-                    <br />
-                    <p>住宿费——17,235</p>
-                    <br />
-                    <p>总预算——$66,166</p>
+                    @Html.Raw(Model.Moneys)
                 </div>
             </div>
         </div>
@@ -271,7 +261,7 @@
             {
                 <li>
                     <div class="peoplecont">
-                        <div class="top"><a href="#"><i></i><span>“以前我没有什么座右铭，来到rosso我的座右铭就是成为我老师gala最棒最骄傲的未来”</span><img src="@item.Avatar" alt="" /></a></div>
+                        <div class="top"><a href="#"><i></i><span>@item.Motto</span><img src="@item.Avatar" alt="" /></a></div>
                         <dl>
                             <dt><a href="#">@item.Name</a></dt>
                             <dd class="pe1">录取专业：@item.MajorName</dd>
