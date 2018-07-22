@@ -309,6 +309,9 @@
     <Content Include="Content\images\lingshi\ucl.jpg" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\qcord.png" />
+    <Content Include="Content\images\star-half.png" />
+    <Content Include="Content\images\star-off.png" />
+    <Content Include="Content\images\star-on.png" />
     <Content Include="Content\images\star.png" />
     <Content Include="Content\images\default_school.jpg" />
     <Content Include="Content\images\top-icon.png" />
@@ -317,6 +320,7 @@
     <Content Include="Content\js\banner.js" />
     <Content Include="Content\js\index.js" />
     <Content Include="Content\js\jquery-1.11.3.min.js" />
+    <Content Include="Content\js\jquery.raty.js" />
     <Content Include="Content\js\jquery.SuperSlide.2.1.1.js" />
     <Content Include="Content\js\pager.js" />
     <Content Include="Content\js\PIE.htc" />
@@ -1000,7 +1004,7 @@
     <Content Include="Areas\Manage\Views\Division\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\School\Detail.cshtml" />
+    <Content Include="Views\School\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Manage\Views\Campus\ImgIndex.cshtml" />

@@ -66,7 +66,7 @@
 .teacher-cont dd.teac-b,.list-cont dd.teac-b{ height:38px; line-height:38px; padding:0 15px; text-align:left; color:#666;-webkit-transition:0.3s all; transition:0.3s all;}
 .teacher-cont dd.teac-b:before,.list-cont dd.teac-b:before{ content:""; display:inline-block; width:8px; height:8px; border-radius:50%; background:#ff0000; margin-right:6px;}
 .teacher-cont dd.teac-b:hover,.list-cont dd.teac-b:hover{ color:#0100fe; -webkit-transform:translateX(10px); transform:translateX(10px)}
-.school li{ margin-bottom:30px;}
+.school li{ width:33.33%;margin-bottom:30px;}
 .s-name{ padding:15px;background:#f2f2f2; overflow:hidden; border-left:1px dotted #bfbfbf; border-right:1px dotted #bfbfbf;}
 .yuanxiao{ border:1px dotted #bfbfbf; height:110px; border-top:0; border-radius:0 0 5px 5px; overflow:hidden; padding:15px; line-height:16px;}
 .yuanxiao p{ margin-bottom:5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; height:16px;}

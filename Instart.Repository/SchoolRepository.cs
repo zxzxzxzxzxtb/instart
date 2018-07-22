@@ -32,7 +32,7 @@ namespace Instart.Repository
                     return new PageModel<School>();
                 }
 
-                string sql = $@"select * from ( select Id,Name,NameEn,Logo,Country,[Type],Address,Fee,Avatar,RecommendMajor,Difficult,TuoFu,YaSi,Yan,SAT,CreateTime,IsRecommend,IsHot, ROW_NUMBER() over (Order by Id desc) as RowNumber from [School] {where} ) as b  
+                string sql = $@"select * from ( select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [School] {where} ) as b  
                                 where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
                 var list = await conn.QueryAsync<School>(sql);
 
@@ -112,7 +112,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = $"select top {topCount} Id,Name,NameEn,Difficult,Avatar,Country,Fee,Scholarship from [School] where Status=1 and IsRecommend = 1 order by Id desc;";
+                string sql = $"select top {topCount} Id,Name,NameEn,Difficult,Avatar,Country,Fee,Scholarship,LimitDate,Language from [School] where Status=1 and IsRecommend = 1 order by Id desc;";
                 return (await conn.QueryAsync<School>(sql, null))?.ToList();
             }
         }
@@ -130,7 +130,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = $"select top {topCount} Id,Name,NameEn,Difficult,Avatar,Country,Fee,Scholarship from [School] where Status=1 and IsHot = 1 order by Id desc;";
+                string sql = $"select top {topCount} Id,Name,NameEn,Difficult,Avatar,Country,Fee,Scholarship,LimitDate,Language from [School] where Status=1 and IsHot = 1 order by Id desc;";
                 return (await conn.QueryAsync<School>(sql, null))?.ToList();
             }
         }
@@ -175,7 +175,7 @@ namespace Instart.Repository
                     };
                 }
 
-                string sql = $@"select * from ( select Id,Name,NameEn,Logo,Country,[Type],Address,Fee,Avatar,RecommendMajor,Difficult,TuoFu,YaSi,Yan,SAT,CreateTime,IsRecommend,IsHot, ROW_NUMBER() over (Order by Id desc) as RowNumber from [School] {where} ) as b  
+                string sql = $@"select * from ( select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [School] {where} ) as b  
                                 where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
                 var list = await conn.QueryAsync<School>(sql);
 

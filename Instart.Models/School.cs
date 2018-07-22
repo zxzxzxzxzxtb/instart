@@ -166,5 +166,15 @@ namespace Instart.Models
         /// 是否热搜
         /// </summary>
         public bool IsHot { get; set; }
+
+        /// <summary>
+        /// 申请截止日期
+        /// </summary>
+        public string LimitDate { get; set; }
+
+        /// <summary>
+        /// 语言要求
+        /// </summary>
+        public string Language { get; set; }
     }
 }

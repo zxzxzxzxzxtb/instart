@@ -28,7 +28,8 @@ namespace Instart.Web.Controllers
             this.AddDisposableObject(_courseService);
         }
 
-        public async Task<ActionResult> Index() {
+        public async Task<ActionResult> Index()
+        {
 
             //热门搜索
             IEnumerable<School> hotList = (await _schoolService.GetHotListAsync(4)) ?? new List<School>();
@@ -40,7 +41,7 @@ namespace Instart.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> GetSchoolList(int pageIndex, int pageSize = 8, string keyword = null, int country = -1, int major = -1)
+        public async Task<JsonResult> GetSchoolList(int pageIndex, int pageSize = 6, string keyword = null, int country = -1, int major = -1)
         {
             PageModel<School> schoolList = await _schoolService.GetListAsync(pageIndex, pageSize, keyword, country, major);
             IEnumerable<Student> studentList = (await _studentService.GetAllAsync()) ?? new List<Student>();
@@ -60,7 +61,6 @@ namespace Instart.Web.Controllers
                 if (schoolList.Total > 0)
                 {
                     decimal rate = count.ToDecimal() / schoolList.Total.ToDecimal();
-                    Console.Write(rate);
                     school.AcceptRate = (rate * 100).ToString("f2");
                 }
             }
@@ -73,20 +73,40 @@ namespace Instart.Web.Controllers
             });
         }
 
-        public async Task<ActionResult> Detail(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            if(id == 0)
+            if (id == 0)
             {
-                throw new Exception("学校不存在");
+                throw new Exception("艺术院校不存在。");
             }
 
             var school = await _schoolService.GetByIdAsync(id);
 
-            if(school == null)
+            if (school == null)
             {
-                throw new Exception("学校不存在");
+                throw new Exception("艺术院校不存在。");
             }
 
+            IEnumerable<School> schoolList = (await _schoolService.GetAllAsync()) ?? new List<School>();
+            IEnumerable<Student> studentList = (await _studentService.GetAllAsync()) ?? new List<Student>();
+            List<Student> schoolStudents = new List<Student>();
+            int count = 0;
+            foreach (Student student in studentList)
+            {
+                if (student.SchoolId == school.Id)
+                {
+                    schoolStudents.Add(student);
+                    count++;
+                }
+            }
+            school.AcceptRate = "0";
+            if (schoolList.Count() > 0)
+            {
+                decimal rate = count.ToDecimal() / schoolList.Count().ToDecimal();
+                school.AcceptRate = (rate * 100).ToString("f2");
+            }
+            ViewBag.SchoolStudents = schoolStudents;
+            ViewBag.CourseList = (await _courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();//推荐课程
             return View(school);
         }
     }

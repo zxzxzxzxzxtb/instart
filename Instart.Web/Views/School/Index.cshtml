@@ -88,6 +88,7 @@
     </div>
 </div>
 @section Bottom{
+    <script src="~/content/js/jquery.raty.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             getData(1);
@@ -97,6 +98,26 @@
                     getData(rel);
                 }
             });
+
+            //国家
+            var country = $("#country").val();
+            switch (country) {
+                case '0':
+                    $("#countrySpan").text("英国");
+                    break;
+                case '1':
+                    $("#countrySpan").text("美国");
+                    break;
+                case '2':
+                    $("#countrySpan").text("欧洲");
+                    break;
+                case '3':
+                    $("#countrySpan").text("亚洲");
+                    break;
+                case '9':
+                    $("#countrySpan").text("其他");
+                    break;
+            }
         });
 
         function getData(page, keyword, country, major) {
@@ -109,16 +130,35 @@
                     if (slt.data.list != null) {
                         for (var index in slt.data.list) {
                             var item = slt.data.list[index];
+                            var country = "";
+                            switch (item.Country) {
+                                case '0':
+                                    country = "英国";
+                                    break;
+                                case '1':
+                                    country = "美国";
+                                    break;
+                                case '2':
+                                    country = "欧洲";
+                                    break;
+                                case '3':
+                                    country = "亚洲";
+                                    break;
+                                case '9':
+                                    country = "其他";
+                                    break;
+                            }
                             html += '<li><div class="school-cont">';
-                            html += '<div class="top"><a href="#"><i></i><img src="' + item.Avatar + '" alt="" /></a></div>';
+                            html += '<div class="top"><a href="/school/details/' + item.Id + '"><i></i><img src="' + item.Avatar + '" alt="" /></a></div>';
                             html += '<div class="s-name"><div class="s-name-left"><dl>';
                             html += '<dt>' + item.Name + '</dt><dd>' + item.NameEn + '</dd><p><span class="glaxfont">申请难度：</span>' + item.Difficult + '</p>';
-                            html += '<p><span class="glaxfont">录取比例：</span>' + item.AcceptRate + '"%"</p></dl></div>';
-                            html += '<div class="s-name-right"><a href="#"><img src="' + item.Logo + '" alt="" /></a></div></div>';
+                            html += '<p><div class="stars" style="width:100%" flag="' + item.Difficult+'"></div></p>';
+                            html += '<p><span class="glaxfont">录取比例：</span>' + item.AcceptRate + '%</p></dl></div>';
+                            html += '<div class="s-name-right"><a href="/school/details/' + item.Id + '"><img src="' + item.Logo + '" alt="" /></a></div></div>';
                             html += '<div class="yuanxiao">';
-                            html += '<p><i class="glaxfont">留学预算:</i>' + item.Fee + '</span><span><i class="glaxfont">平均奖学金:</i>' + item.Scholarship + '</span></p>';
-                            html += '<p><span><i class="glaxfont">申请截止日期:</i> 早申: 11月11日</span><span>常规: 11月11日</span></p>';
-                            html += '<p><span><i class="glaxfont">语言要求:</i> 本科: 托福92 / 雅思7.0<span><span>硕士: 托福92 / 雅思7.0</span></p>';
+                            html += '<p><span><i class="glaxfont">国家:</i> ' + country + '</span><i class="glaxfont">留学预算:</i>' + item.Fee + '</span><span><i class="glaxfont"> &nbsp;平均奖学金:</i>' + item.Scholarship + '</span></p>';
+                            html += '<p><span><i class="glaxfont">申请截止日期:</i> ' + item.LimitDate + '</p>';
+                            html += '<p><span><i class="glaxfont">语言要求:</i> ' + item.Language + '</p>';
                             html += '<p><span><i class="glaxfont">优势专业:</i> ' + item.RecommendMajor + '</span></p>';
                             html += '<div class="morea"><a href="/school/details/' + item.Id + '">院校详情</a></div>';
                             html += '</div>';
@@ -128,6 +168,22 @@
                     html += '</ul>';
                     $('.school').html(html);
                     getPageBar(page, slt.data.totalPage, $('.pagelist'));
+
+                    //申请难度特效
+                    $('.stars').each(function (i, n) {
+                        $(this).raty({
+                            number: 5, //多少个星星设置
+                            score: $(this).attr('flag'),
+                            targetType: 'number', //类型选择，number是数字值，hint，是设置的数组值
+                            path: 'content/images',
+                            size: 24,
+                            starHalf: 'star-half.png',
+                            starOff: 'star-off.png',
+                            starOn: 'star-on.png',
+                            precision: true, //是否包含小数
+                            readOnly: true
+                        });
+                    });
                 },
                 error: function () {
                     layer.msg("数据加载失败。");
@@ -140,7 +196,7 @@
             getData(1, keyword);
         }
 
-        function searchCountry(country){
+        function searchCountry(country) {
             var keyword = $("#keyword").val();
             getData(1, keyword, country);
         }
