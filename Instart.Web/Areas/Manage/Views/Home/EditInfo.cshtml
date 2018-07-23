@@ -52,7 +52,7 @@
             $("#mainForm").ajaxSubmit({
                 success: function (slt) {
                     if (slt && slt.success) {
-                        location.href = '@Url.Action("index", "user", new { area="manage"})';
+                        location.href = '@Url.Action("index", "home", new { area="manage"})';
                     }
                     else {
                         alert(slt.message || '操作失败，请重试。');
