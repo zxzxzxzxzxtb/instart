@@ -1049,6 +1049,12 @@
   <ItemGroup>
     <Content Include="Views\Major\Details.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\School\MajorSelect.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Home\EditInfo.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

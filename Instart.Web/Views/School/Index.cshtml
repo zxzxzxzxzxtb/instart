@@ -57,7 +57,13 @@
         </dl>
         <dl>
             <dt>专业：</dt>
-            <dd><a href="#">全部</a><a href="#">室内设计</a><a href="#">服装设计</a><a href="#">建筑设计</a><a href="#">平面设计</a><a href="#">工业设计</a><a href="#">纯艺术类</a></dd>
+            <dd>
+                <a href="#" onclick="searchMajor(-1)">全部</a>
+                @foreach (Major item in ViewBag.MajorList)
+                {
+                    <a href="#" onclick="searchMajor(@item.Id)">@item.Name</a>
+                }
+            </dd>
         </dl>
     </div>
     <!--院校情况-->
@@ -199,6 +205,11 @@
         function searchCountry(country) {
             var keyword = $("#keyword").val();
             getData(1, keyword, country);
+        }
+
+        function searchMajor(major) {
+            var keyword = $("#keyword").val();
+            getData(1, keyword, -1, major);
         }
     </script>
 }

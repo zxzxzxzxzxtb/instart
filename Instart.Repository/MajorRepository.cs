@@ -74,7 +74,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id), nameof(model.DivisionName) });
+                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id), nameof(model.DivisionName), nameof(model.DivisionNameEn), nameof(model.IsSelected), nameof(model.SchoolInfo) });
                 if (fields == null || fields.Count == 0)
                 {
                     return false;
@@ -98,7 +98,10 @@ namespace Instart.Repository
                     nameof(model.Id),
                     nameof(model.DivisionName),
                     nameof(model.CreateTime),
-                    nameof(model.Status)
+                    nameof(model.Status),
+                    nameof(model.DivisionNameEn),
+                    nameof(model.IsSelected),
+                    nameof(model.SchoolInfo)
                 };
                 if (String.IsNullOrEmpty(model.ImgUrl))
                 {

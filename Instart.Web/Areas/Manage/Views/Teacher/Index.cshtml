@@ -70,9 +70,9 @@
                     </td>
                     <td style="width:15%;">
                         <a href="/teacher/details/@item.Id" target="_blank">详情</a>
-                        <a href="/manage/teacher/edit/@item.Id">编辑</a>
+                        <a href="javascript:void(0)" onclick="update(@item.Id)">修改</a>
                         <a data-id="@item.Id" href="javascript:void(0)" onclick="remove(@item.Id)">删除</a>
-                        <a href="/manage/teacher/courseselect/@item.Id">教授课程</a>
+                        <a href="javascript:void(0)" onclick="setcourse(@item.Id)">教授课程</a>
                     </td>
                 </tr>
             }
@@ -110,6 +110,10 @@
             });
         });
 
+        function update(id) {
+            location.href = '@Url.Action("edit", "teacher", new { area="manage" })' + "?id=" + id;
+        }
+
         function remove(id) {
             layer.confirm('确定删除该导师?', function (index) {
                 $.post('/manage/teacher/delete', { id: id }, function (slt) {
@@ -123,6 +127,10 @@
 
                 layer.close(index);
             });
+        }
+
+        function setcourse(id) {
+            location.href = '@Url.Action("courseselect", "teacher", new { area="manage" })' + "?id=" + id;
         }
     </script>
 }

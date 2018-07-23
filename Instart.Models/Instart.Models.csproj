@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="CourseInfo.cs" />
     <Compile Include="Enums\EnumCountry.cs" />
+    <Compile Include="SchoolMajor.cs" />
     <Compile Include="Statistics.cs" />
     <Compile Include="StarStudent.cs" />
     <Compile Include="CampusImg.cs" />
