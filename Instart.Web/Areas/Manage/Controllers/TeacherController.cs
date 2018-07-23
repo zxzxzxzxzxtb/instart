@@ -179,8 +179,16 @@ namespace Instart.Web.Areas.Manage.Controllers
                     }
                 }
             }
+
+            var teacher = await _teacherService.GetByIdAsync(id);
+            if(teacher == null)
+            {
+                throw new Exception("导师不存在");
+            }
+
             ViewBag.CourseList = courseList;
             ViewBag.TeacherId = id;
+            ViewBag.TeacherName = teacher.Name;
             return View();
         }
 
