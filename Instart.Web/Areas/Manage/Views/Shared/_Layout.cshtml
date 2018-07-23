@@ -42,7 +42,7 @@
                 <li><a href="/" target="_blank">网站首页</a></li>                
                 <li class="dropdown">
                     @*<img src="@Instart.Web.Models.CookieData.CurrentUser.Avatar" style="width:16px;height:16px;border-radius:50%;" />*@
-                    @*<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> @(Instart.Web.Models.CookieData.CurrentUser.UserName) <span class="caret"></span></a>*@
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> @(Instart.Web.Models.CookieData.CurrentUser?.UserName) <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">基础设置</a></li>
                         <li><a href="#">修改密码</a></li>
