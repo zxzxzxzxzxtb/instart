@@ -21,12 +21,16 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<PageModel<Student>> GetListAsync(int pageIndex, int pageSize, string name = null) {
+        public async Task<PageModel<Student>> GetListAsync(int pageIndex, int pageSize, int division = -1, string name = null) {
             using (var conn = DapperFactory.GetConnection()) {
                 #region generate condition
                 string where = "where a.Status=1";
                 if (!string.IsNullOrEmpty(name)) {
                     where += $" and a.Name like '%{name}%'";
+                }
+                if (division != -1)
+                {
+                    where += $" and a.DivisionId = {division}";
                 }
                 #endregion
 
@@ -38,10 +42,11 @@ namespace Instart.Repository
 
                 string sql = $@"select * from (
                      select a.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, c.NameEn as TeacherNameEn, 
-                     e.Name as SchoolName, e.NameEn as SchoolNameEn, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Student] as a
+                     e.Name as SchoolName, e.NameEn as SchoolNameEn, f.Name as DivisionName, f.NameEn as DivisionNameEn, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Student] as a
                      left join [Major] as b on b.Id = a.MajorId 
                      left join [Teacher] as c on c.Id = a.TeacherId 
-                     left join [School] as e on e.Id = a.SchoolId {where}
+                     left join [School] as e on e.Id = a.SchoolId
+                     left join [Division] as f on f.Id = a.DivisionId {where}
                      ) as d
                      where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
                 var list = await conn.QueryAsync<Student>(sql.Trim());
@@ -62,10 +67,11 @@ namespace Instart.Repository
                 #endregion
 
                 string sql = $@"select t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
-                     c.NameEn as TeacherNameEn, e.Name as SchoolName, e.NameEn as SchoolNameEn from Student t 
+                     c.NameEn as TeacherNameEn, e.Name as SchoolName, e.NameEn as SchoolNameEn, f.Name as DivisionName, f.NameEn as DivisionNameEn from Student t 
                      left join [Major] as b on b.Id = t.MajorId 
                      left join [Teacher] as c on c.Id = t.TeacherId 
-                     left join [School] as e on e.Id = t.SchoolId {where} order by t.Id;";
+                     left join [School] as e on e.Id = t.SchoolId
+                     left join [Division] as f on f.Id = t.DivisionId {where} order by t.Id;";
                 return await conn.QueryAsync<Student>(sql);
             }
         }
@@ -86,7 +92,8 @@ namespace Instart.Repository
         public async Task<bool> InsertAsync(Student model) {
             using (var conn = DapperFactory.GetConnection()) {
                 var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id), nameof(model.SchoolName), nameof(model.SchoolNameEn),
-                    nameof(model.MajorName), nameof(model.MajorNameEn), nameof(model.TeacherName), nameof(model.TeacherNameEn) });
+                    nameof(model.MajorName), nameof(model.MajorNameEn), nameof(model.TeacherName), nameof(model.TeacherNameEn),
+                    nameof(model.DivisionName), nameof(model.DivisionNameEn), nameof(model.IsRecommend)});
                 if (fields == null || fields.Count == 0) {
                     return false;
                 }
@@ -112,7 +119,10 @@ namespace Instart.Repository
                     nameof(model.TeacherName),
                     nameof(model.TeacherNameEn),
                     nameof(model.SchoolName),
-                    nameof(model.SchoolNameEn)
+                    nameof(model.SchoolNameEn),
+                    nameof(model.DivisionName),
+                    nameof(model.DivisionNameEn),
+                    nameof(model.IsRecommend)
                 });
 
                 if (fields == null || fields.Count == 0) {
@@ -143,10 +153,11 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = $@"select top {topCount} t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
-                     c.NameEn as TeacherNameEn, e.Name as SchoolName, e.NameEn as SchoolNameEn from Student t 
+                     c.NameEn as TeacherNameEn, e.Name as SchoolName, e.NameEn as SchoolNameEn, f.Name as DivisionName, f.NameEn as DivisionNameEn from Student t 
                      left join [Major] as b on b.Id = t.MajorId 
                      left join [Teacher] as c on c.Id = t.TeacherId 
                      left join [School] as e on e.Id = t.SchoolId
+                     left join [Division] as f on f.Id = t.DivisionId
                      where t.Status=1 and t.IsRecommend=1
                      order by t.Id Desc;";
                 return (await conn.QueryAsync<Student>(sql, null))?.ToList();

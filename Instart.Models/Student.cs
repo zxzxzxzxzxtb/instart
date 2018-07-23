@@ -102,6 +102,31 @@ namespace Instart.Models
         public string VideoUrl { get; set; }
 
         /// <summary>
+        /// Banner图片
+        /// </summary>
+        public string BannerImg { get; set; }
+
+        /// <summary>
+        /// Banner视频
+        /// </summary>
+        public string BannerVideo { get; set; }
+
+        /// <summary>
+        /// 所属学部
+        /// </summary>
+        public int DivisionId { get; set; }
+
+        /// <summary>
+        /// 学部名称
+        /// </summary>
+        public string DivisionName { get; set; }
+
+        /// <summary>
+        /// 学部英文名称
+        /// </summary>
+        public string DivisionNameEn { get; set; }
+
+        /// <summary>
         /// 状态，1：正常，0：删除
         /// </summary>
         public int Status { get; set; }
@@ -120,5 +145,10 @@ namespace Instart.Models
         ///是否推荐 
         /// </summary>
         public bool IsRecommend { get; set; }
+
+        /// <summary>
+        /// 座右铭
+        /// </summary>
+        public string Motto { get; set; }
     }
 }

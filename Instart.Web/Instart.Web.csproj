@@ -309,6 +309,9 @@
     <Content Include="Content\images\lingshi\ucl.jpg" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\qcord.png" />
+    <Content Include="Content\images\star-half.png" />
+    <Content Include="Content\images\star-off.png" />
+    <Content Include="Content\images\star-on.png" />
     <Content Include="Content\images\star.png" />
     <Content Include="Content\images\default_school.jpg" />
     <Content Include="Content\images\top-icon.png" />
@@ -317,6 +320,7 @@
     <Content Include="Content\js\banner.js" />
     <Content Include="Content\js\index.js" />
     <Content Include="Content\js\jquery-1.11.3.min.js" />
+    <Content Include="Content\js\jquery.raty.js" />
     <Content Include="Content\js\jquery.SuperSlide.2.1.1.js" />
     <Content Include="Content\js\pager.js" />
     <Content Include="Content\js\PIE.htc" />
@@ -802,6 +806,42 @@
     <Content Include="Content\ueditor\ueditor.config.js" />
     <Content Include="Content\ueditor\ueditor.parse.js" />
     <Content Include="Content\ueditor\ueditor.parse.min.js" />
+    <Content Include="Content\upload\images\20180714140347767.jpg" />
+    <Content Include="Content\upload\images\20180714141942404.jpg" />
+    <Content Include="Content\upload\images\20180714142013397.jpg" />
+    <Content Include="Content\upload\images\20180714142204553.jpg" />
+    <Content Include="Content\upload\images\20180714142207808.jpg" />
+    <Content Include="Content\upload\images\20180715130000261.jpg" />
+    <Content Include="Content\upload\images\20180715131957389.jpg" />
+    <Content Include="Content\upload\images\20180715131957391.jpg" />
+    <Content Include="Content\upload\images\20180715133943775.jpg" />
+    <Content Include="Content\upload\images\20180716224201597.png" />
+    <Content Include="Content\upload\images\20180716225631357.jpg" />
+    <Content Include="Content\upload\images\20180716225645456.jpg" />
+    <Content Include="Content\upload\images\20180717204951352.png" />
+    <Content Include="Content\upload\images\20180717211705606.jpg" />
+    <Content Include="Content\upload\images\20180717211705688.jpg" />
+    <Content Include="Content\upload\images\20180717211939883.jpg" />
+    <Content Include="Content\upload\images\20180717212840329.jpg" />
+    <Content Include="Content\upload\images\20180719183925684.jpg" />
+    <Content Include="Content\upload\images\20180719183946311.jpg" />
+    <Content Include="Content\upload\images\20180719211534205.jpg" />
+    <Content Include="Content\upload\images\20180719211801869.jpg" />
+    <Content Include="Content\upload\images\20180719211841275.jpg" />
+    <Content Include="Content\upload\images\20180719212932866.jpg" />
+    <Content Include="Content\upload\images\20180719212932868.jpg" />
+    <Content Include="Content\upload\images\20180719213034118.jpg" />
+    <Content Include="Content\upload\images\20180719213034144.jpg" />
+    <Content Include="Content\upload\images\20180719214154569.jpg" />
+    <Content Include="Content\upload\images\20180719214227421.jpg" />
+    <Content Include="Content\upload\images\20180719214227445.jpg" />
+    <Content Include="Content\upload\images\20180719225029792.jpg" />
+    <Content Include="Content\upload\images\20180719225050681.jpg" />
+    <Content Include="Content\upload\images\20180719225112100.jpg" />
+    <Content Include="Content\upload\videos\20180719184348808.mp4" />
+    <Content Include="Content\upload\videos\20180719211841277.mp4" />
+    <Content Include="Content\upload\videos\20180719214154571.mp4" />
+    <Content Include="Content\upload\videos\20180719214227448.mp4" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="README.txt" />
@@ -964,7 +1004,7 @@
     <Content Include="Areas\Manage\Views\Division\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\School\Detail.cshtml" />
+    <Content Include="Views\School\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Manage\Views\Campus\ImgIndex.cshtml" />
