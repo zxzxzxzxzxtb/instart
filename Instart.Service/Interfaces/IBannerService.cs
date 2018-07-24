@@ -14,7 +14,7 @@ namespace Instart.Service
 
         Task<List<Banner>> GetListByPosAsync(EnumBannerPos pos = EnumBannerPos.Index);
 
-        Task<PageModel<Banner>> GetListAsync(int pageIndex, int pageSize, string title = null);
+        Task<PageModel<Banner>> GetListAsync(int pageIndex, int pageSize, string title = null, int pos = 1, int type = -1);
 
         Task<bool> InsertAsync(Banner model);
 
