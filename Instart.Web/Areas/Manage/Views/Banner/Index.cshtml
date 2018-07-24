@@ -14,6 +14,24 @@
     <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
     <form method="post" action="" target="_self" class="form-inline">
         <div class="form-group">
+            <select id="selPos" name="Pos" class="form-control">
+                <option value="-1">全部</option>
+                @foreach (Instart.Common.EnumberEntity item in ViewBag.PosList)
+                {
+                    <option value="@item.EnumValue">@item.Description</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <select id="selType" name="Type" class="form-control">
+                <option value="-1">全部</option>
+                @foreach (Instart.Common.EnumberEntity item in ViewBag.TypeList)
+                {
+                    <option value="@item.EnumValue">@item.Description</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
             <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="标题" style="width:300px;">
         </div>
         <button type="submit" class="btn btn-success">查询</button>
@@ -48,7 +66,9 @@
                         <img src="@item.ImageUrl" style="width:150px;height:100px" alt="" />
                     </td>
                     <td><a href="@item.Link" target="_blank">@item.Link </a> </td>
-                    <td>@item.Type.GetDescription()</td>
+                    <td>
+                        @item.Type.GetDescription()                        
+                    </td>
                     <td>@item.Pos.GetDescription()</td>
                     <td>@item.GroupIndex</td>
                     <td>
@@ -65,6 +85,10 @@
                     <td style="width:15%;">
                         <a href="/manage/banner/edit/@item.Id">编辑</a>
                         <a data-id="@item.Id" href="javascript:void(0)" class="delete">删除</a>
+                        @if (item.Type == Instart.Models.Enums.EnumBannerType.Video)
+                        {
+                            <a class="video-play" href="javascript:void(0)" data-video="@item.VideoUrl">播放</a>
+                        }
                     </td>
                 </tr>
             }
@@ -76,10 +100,24 @@
     {
         <div class="pagination">
             <ul class="pl0">
-                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "list", new { area = "manage" })
+                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new { area = "manage",keyword = ViewBag.Keyword,pos=ViewBag.Pos,type=ViewBag.Type })
             </ul>
         </div>
     }
+</div>
+
+<div id="videoModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">视频预览</h4>
+            </div>
+            <div class="modal-body">
+                <video class="video-container" src="/i/movie.ogg" style="width:100%;height:400px;" controls="controls"></video>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Bottom{
@@ -118,6 +156,20 @@
                     layer.close(index);
                 }); 
             });
+
+            $(".video-play").click(function () {
+                var src = $(this).attr("data-video");
+                if (src == "") {
+                    layer.msg("视频地址为空");
+                    return;
+                }
+
+                $(".video-container").attr("src", src);
+                $("#videoModal").modal("show");                
+            });
+
+            $("#selType").val("@(ViewBag.Type)");
+            $("#selPos").val("@(ViewBag.Pos)");
         });        
     </script>
 }

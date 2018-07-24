@@ -22,7 +22,6 @@
             <th>#</th>
             <th>用户名称</th>
             <th>昵称</th>
-            <th>头像</th>
             <th>创建时间</th>
             <th>操作</th>
         </tr>
@@ -36,9 +35,6 @@
                     <td style="width:5%;">@item.Id</td>
                     <td>@item.UserName</td>
                     <td>@item.NickName</td>
-                    <td>
-                        <img src="@item.Avatar" style="width:100px;height:100px" alt="" />
-                    </td>
                     <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
                     <td style="width:10%;">
                         <a data-id="@item.Id" href="javascript:void(0)" onclick="remove(@item.Id)">删除</a>

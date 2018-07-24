@@ -231,6 +231,7 @@
     <Compile Include="Areas\Manage\Controllers\AboutController.cs" />
     <Compile Include="Areas\Manage\Controllers\DivisionController.cs" />
     <Compile Include="Areas\Manage\Controllers\CampusController.cs" />
+    <Compile Include="Areas\Manage\Controllers\LogController.cs" />
     <Compile Include="Areas\Manage\Controllers\StarStudentController.cs" />
     <Compile Include="Areas\Manage\Controllers\WorksController.cs" />
     <Compile Include="Areas\Manage\Controllers\SchoolApplyController.cs" />
@@ -951,6 +952,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Manage\Models\" />
+    <Folder Include="Areas\Manage\Views\Log\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Manage\Views\Partner\Index.cshtml" />

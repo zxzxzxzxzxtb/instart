@@ -29,9 +29,9 @@ namespace Instart.Service
             return await _bannerRepository.GetByIdAsync(id);
         }
 
-        public async Task<PageModel<Banner>> GetListAsync(int pageIndex, int pageSize, string title = null)
+        public async Task<PageModel<Banner>> GetListAsync(int pageIndex, int pageSize, string title = null, int pos = 1, int type = -1)
         {
-            return await _bannerRepository.GetListAsync(pageIndex, pageSize, title);
+            return await _bannerRepository.GetListAsync(pageIndex, pageSize, title, pos, type);
         }
 
         public async Task<List<Banner>> GetListByPosAsync(EnumBannerPos pos = EnumBannerPos.Index)

@@ -41,7 +41,7 @@
                     <td style="width:5%;">@item.Id</td>
                     <td>@item.Name</td>
                     <td>
-                        <img src="@item.ImageUrl" style="width:150px;height:100px" alt="" />
+                        <img src="@item.ImageUrl" style="width:100px;height:100px" alt="" />
                     </td>
                     <td>@item.Link</td>
                     <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
@@ -59,7 +59,7 @@
     {
         <div class="pagination">
             <ul class="pl0">
-                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new { area = "manage" })
+                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new { area = "manage",keyword= ViewBag.Keyword })
             </ul>
         </div>
     }

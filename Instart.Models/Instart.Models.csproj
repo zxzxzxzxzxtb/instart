@@ -54,7 +54,12 @@
   <ItemGroup>
     <Compile Include="CourseInfo.cs" />
     <Compile Include="Enums\EnumCountry.cs" />
+<<<<<<< HEAD
     <Compile Include="SchoolMajor.cs" />
+=======
+    <Compile Include="Enums\EnumOperType.cs" />
+    <Compile Include="Log.cs" />
+>>>>>>> 913b68f9c982528dc423e1a3943af248d51f475b
     <Compile Include="Statistics.cs" />
     <Compile Include="StarStudent.cs" />
     <Compile Include="CampusImg.cs" />

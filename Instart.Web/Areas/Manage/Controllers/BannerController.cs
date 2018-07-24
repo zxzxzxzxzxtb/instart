@@ -24,14 +24,21 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_bannserService);
         }
 
-        public async Task<ActionResult> Index(int page = 1, string keyword = null)
+        public async Task<ActionResult> Index(int page = 1, string keyword = null, int pos = -1, int type = -1 )
         {
             int pageSize = 10;
-            var list = await _bannserService.GetListAsync(page, pageSize, keyword);
+            var list = await _bannserService.GetListAsync(page, pageSize, keyword, pos, type);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
             ViewBag.Keyword = keyword;
+
+            ViewBag.TypeList = EnumberHelper.EnumToList<EnumBannerType>();
+            ViewBag.PosList = EnumberHelper.EnumToList<EnumBannerPos>();
+
+            ViewBag.Type = type;
+            ViewBag.Pos = pos;
+
             return View(list.Data);
         }
 

@@ -71,7 +71,7 @@
     {
         <div class="pagination">
             <ul class="pl0">
-                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "list", new { area = "manage" })
+                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "list", new { area = "manage", keyword = ViewBag.Keyword, accept = ViewBag.Accept })
             </ul>
         </div>
     }

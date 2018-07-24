@@ -78,6 +78,19 @@
     </tbody>
 </table>
 
+<div class="row page-center">
+    @if (ViewBag.TotalPages > 1)
+    {
+        <div class="pagination">
+            <ul class="pl0">
+                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new { area = "manage", keyword = ViewBag.Keyword })
+            </ul>
+        </div>
+    }
+</div>
+
+<iframe id="id_iframe" name="9/." style="display:none;"></iframe>
+
 <script>
     $(function () {
         $(".chkRecommend").click(function () {
@@ -187,16 +200,4 @@
 
 
 
-<div class="row page-center">
-    @if (ViewBag.TotalPages > 1)
-    {
-        <div class="pagination">
-            <ul class="pl0">
-                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new { area = "manage" })
-            </ul>
-        </div>
-    }
-</div>
-
-<iframe id="id_iframe" name="9/." style="display:none;"></iframe>
 

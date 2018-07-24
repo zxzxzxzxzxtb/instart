@@ -20,7 +20,7 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<PageModel<Banner>> GetListAsync(int pageIndex, int pageSize, string title = null)
+        public async Task<PageModel<Banner>> GetListAsync(int pageIndex, int pageSize, string title = null, int pos = 1, int type = -1)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -29,6 +29,14 @@ namespace Instart.Repository
                 if (!string.IsNullOrEmpty(title))
                 {
                     where += $" and Title like '%{title}%'";
+                }
+                if(pos > -1)
+                {
+                    where += $" and Pos = {pos}";
+                }
+                if(type > -1)
+                {
+                    where += $" and [Type]={type}";
                 }
                 #endregion
 

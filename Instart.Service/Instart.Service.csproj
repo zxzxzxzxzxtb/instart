@@ -47,7 +47,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ILogService.cs" />
     <Compile Include="Interfaces\IStatisticsService.cs" />
+    <Compile Include="LogService.cs" />
     <Compile Include="SchoolApplyService.cs" />
     <Compile Include="Interfaces\ISchoolApplyService.cs" />
     <Compile Include="Interfaces\ICourseApplyService.cs" />
