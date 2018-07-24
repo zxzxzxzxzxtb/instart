@@ -67,11 +67,12 @@
                     <li data-flag="schoolapply"><a href="/manage/schoolapply">学校申请</a></li>
                     <li data-flag="courseapply"><a href="/manage/courseapply">课程申请</a></li>
                     <li data-flag="partner"><a href="/manage/partner">合作伙伴</a></li>
-                    <li data-flag="about"><a href="/manage/about">关于instart</a></li>
                     <li data-flag="campus"><a href="/manage/campus">校区管理</a></li>
                     <li data-flag="works"><a href="/manage/works">作品管理</a></li>
                     <li data-flag="contact"><a href="/manage/contact">联系我们</a></li>
                     <li data-flag="user"><a href="/manage/user">用户管理</a></li>
+                    <li data-flag="log"><a href="/manage/log">操作日志</a></li>
+                    <li data-flag="about"><a href="/manage/about">关于instart</a></li>
                 </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-top:75px;">
@@ -104,7 +105,9 @@
         var $lis = $(".nav-sidebar").children("li");
         $.each($lis, function () {
             var nav = $(this).attr("data-flag");
-            var arr = href.toLocaleLowerCase().split('/');
+            href = href.toLocaleLowerCase().replace(/\?.+/, '');
+            console.log(href);
+            var arr = href.split('/');
             var len = arr.length;
             if (( len >= 1 && arr[len - 1] == nav ) || (len >= 2 && arr[len - 2] == nav ) || ( len >= 3 && arr[len - 3] == nav)) {
                 $(this).addClass("active");

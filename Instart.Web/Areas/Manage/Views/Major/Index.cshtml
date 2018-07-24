@@ -70,7 +70,7 @@
     {
         <div class="pagination">
             <ul class="pl0">
-                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new { area = "manage" })
+                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new { area = "manage", keyword = ViewBag.Keyword,division= ViewBag.division })
             </ul>
         </div>
     }

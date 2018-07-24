@@ -90,8 +90,10 @@
     <Compile Include="AboutInstartRepository.cs" />
     <Compile Include="CampusRepository.cs" />
     <Compile Include="CategoryRepository.cs" />
+    <Compile Include="Interfaces\ILogRepository.cs" />
     <Compile Include="Interfaces\ISchoolApplyRepository.cs" />
     <Compile Include="Interfaces\IStatisticsRepository.cs" />
+    <Compile Include="LogRepository.cs" />
     <Compile Include="SchoolApplyRepository.cs" />
     <Compile Include="CourseApplyRepository.cs" />
     <Compile Include="CourseRepository.cs" />
