@@ -52,7 +52,7 @@
                 <tr>
                     <td style="width:5%;">@item.Id</td>
                     <td>@item.Name</td>
-                    <td>@(item.Type.ToInt32() == 0 ? "本科" : "研究生")</td>
+                    <td>@item.Type.GetDescription()</td>
                     <td>@item.DivisionName</td>
                     <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
                     <td style="width:10%;">

@@ -106,7 +106,7 @@
             var nav = $(this).attr("data-flag");
             var arr = href.toLocaleLowerCase().split('/');
             var len = arr.length;
-            if (arr[len - 1] == nav || arr[len - 2] == nav) {
+            if (( len >= 1 && arr[len - 1] == nav ) || (len >= 2 && arr[len - 2] == nav ) || ( len >= 3 && arr[len - 3] == nav)) {
                 $(this).addClass("active");
                 isIndex = false;
                 return false;

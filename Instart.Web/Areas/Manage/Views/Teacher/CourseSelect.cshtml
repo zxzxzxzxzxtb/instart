@@ -3,6 +3,7 @@
     ViewBag.Title = "教授课程";
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
+@section Head{
 <style type="text/css">
     .w_con_left {
         width: 100%;
@@ -19,38 +20,42 @@
         margin-top: 10px;
     }
 
-    .w_ico li {
-        float: left;
-        width: 250px;
-        list-style: none;
-        text-align: center;
-        margin-bottom: 20px;
-    }
+        .w_ico li {
+            float: left;
+            margin-right: 50px;
+            list-style: none;
+            text-align: center;
+            margin-bottom: 10px;
+            max-width:100px;
+        }
 
-    .w_ico li img {
-        width: 200px;
-        height: 200px;
-        position: relative;
-        top: 5px;
-        border: none;
-    }
+            .w_ico li img {
+                width: 200px;
+                height: 200px;
+                position: relative;
+                top: 5px;
+                border: none;
+                border-radius: 5px;
+            }
 
-    .w_ico li p {
-        margin-top: 10px;
-    }
+            .w_ico li p {
+                margin-top: 10px;
+            }
 </style>
+    }
 
 <ol class="breadcrumb">
     <li><a href="/manage/teacher">艺术导师</a></li>
-    <li class="active">教授课程</li>
+    <li class="active">@ViewBag.TeacherName - 选择课程</li>
 </ol>
 
 <div class="checkbox">
-    <label>
+    <label style="float:right;">
         <input type="checkbox" name="chkAll" id="chkAll" />全选
     </label>
-    <a class="btn btn-default" style="margin-left:10px;" onclick="save()">保存</a>
+    <a class="btn btn-primary" style="float:left;" onclick="save()">保存</a>
 </div>
+
 <input type="hidden" id="teacherId" name="teacherId" value="@ViewBag.TeacherId" />
 <div class="w_con_left">
     <ul class="w_ico">
@@ -105,7 +110,7 @@
             })
             $.post('/manage/teacher/setcourses', { 'teacherId': $("#teacherId").val(), 'courseIds': courseIds.join(',') }, function (slt) {
                 if (slt && slt.success) {
-                    layer.msg('保存成功。');
+                    layer.msg('保存成功');
                 }
                 else {
                     layer.msg(slt.message || '操作失败，请重试。');
