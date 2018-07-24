@@ -41,13 +41,25 @@ namespace Instart.Web.Areas.Manage.Controllers
             if (Session[WebAppSettings.SessionName] != null)
             {
                 LoginUser user = (LoginUser)Session[WebAppSettings.SessionName];
-                model = (await _userService.GetByNameAsync(user.UserName.Trim())) ?? new Instart.Models.User();
+                model = (await _userService.GetByIdAsync(user.UserId)) ?? new Instart.Models.User();
             }
             else
             {
                 model = new Instart.Models.User();
             }
             return View(model);
+        }
+
+        public async Task<ActionResult> UpdatePwd()
+        {
+            int id = 0;
+            if (Session[WebAppSettings.SessionName] != null)
+            {
+                LoginUser user = (LoginUser)Session[WebAppSettings.SessionName];
+                id = user.UserId;
+            }
+            ViewBag.Id = id;
+            return View();
         }
     }
 }

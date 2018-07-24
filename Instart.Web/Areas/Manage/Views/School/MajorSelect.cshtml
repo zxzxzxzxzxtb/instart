@@ -33,6 +33,7 @@
                 position: relative;
                 top: 5px;
                 border: none;
+                border-radius: 5px;
             }
 
             .w_ico li p {
@@ -42,18 +43,18 @@
 
 <ol class="breadcrumb">
     <li><a href="/manage/school">艺术院校</a></li>
-    <li class="active">专业设置</li>
+    <li class="active">@ViewBag.SchoolName - 专业设置</li>
 </ol>
 
 <input type="hidden" id="schoolId" name="schoolId" value="@ViewBag.SchoolId" />
 <div>
-    <a class="btn btn-default" style="margin-left:10px;" onclick="save()">保存</a>
+    <a class="btn btn-primary" style="margin-left:10px;" onclick="save()">保存</a>
 </div>
-<div style="margin-bottom:10px;margin-top:10px;">
-    <span style="margin-left: 10px">本科专业：</span>
-    <label>
+<div class="checkbox">
+    <label style="float:right;">
         <input type="checkbox" name="chkAllBk" id="chkAllBk" />全选
     </label>
+    <span class="label label-info" style="margin-left:10px;float:left;font-size:14px;">本科专业</span>
 </div>
 <div class="w_con_left">
     <ul class="w_ico">
@@ -79,11 +80,11 @@
         }
     </ul>
 </div>
-<div style="margin-bottom:10px;margin-top:10px;">
-    <span style="margin-left: 10px">研究生专业：</span>
-    <label>
+<div class="checkbox">
+    <label style="float:right;">
         <input type="checkbox" name="chkAllYjs" id="chkAllYjs" />全选
     </label>
+    <span class="label label-info" style="margin-left:10px;float:left;font-size:14px;">研究生专业</span>
 </div>
 <div class="w_con_left">
     <ul class="w_ico">

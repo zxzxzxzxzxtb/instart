@@ -8,7 +8,8 @@
 }
 
 <ol class="breadcrumb">
-    <li><a href="#">基础设置</a></li>
+    <li><a href="/manage/home">控制台</a></li>
+    <li class="active">基础设置</li>
 </ol>
 
 @using (Html.BeginForm("Set", "User", new { area = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "mainForm", @class = "form-horizontal edit-container-width" }))
@@ -52,10 +53,10 @@
             $("#mainForm").ajaxSubmit({
                 success: function (slt) {
                     if (slt && slt.success) {
-                        location.href = '@Url.Action("index", "home", new { area="manage"})';
+                        layer.msg('设置成功');
                     }
                     else {
-                        alert(slt.message || '操作失败，请重试。');
+                        layer.msg(slt.message || '操作失败，请重试');
                     }
                 }
             });

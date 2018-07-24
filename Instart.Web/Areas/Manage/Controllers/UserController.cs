@@ -42,7 +42,7 @@ namespace Instart.Web.Areas.Manage.Controllers
         {
             if (model == null)
             {
-                return Error("参数错误。");
+                return Error("参数错误");
             }
 
             var fileAvatar = Request.Files["fileAvatar"];
@@ -56,7 +56,14 @@ namespace Instart.Web.Areas.Manage.Controllers
                 }
             }
             var result = new ResultBase();
-            result.success = await _userService.InsertAsync(model);
+            if (model.Id > 0)
+            {
+                result.success = await _userService.UpdateAsync(model);
+            }
+            else
+            {
+                result.success = await _userService.InsertAsync(model);
+            }
 
             return Json(result);
         }
@@ -76,6 +83,21 @@ namespace Instart.Web.Areas.Manage.Controllers
                 LogHelper.Error($"UserController.Delete异常", ex);
                 return Error(ex.Message);
             }
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UpdatePassword(int userId, string oldPwd, string newPwd)
+        {
+            User user = await _userService.GetByIdAsync(userId);
+            if (user == null || Md5Helper.Encrypt(oldPwd) != user.Password)
+            {
+                return Error("旧密码错误");
+            }
+
+            return Json(new ResultBase
+            {
+                success = await _userService.UpdatePasswordAsync(userId, newPwd)
+            });
         }
     }
 }

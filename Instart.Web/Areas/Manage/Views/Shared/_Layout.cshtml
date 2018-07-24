@@ -45,7 +45,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> @(Instart.Web.Models.CookieData.CurrentUser?.UserName) <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="/manage/home/editinfo">基础设置</a></li>
-                        <li><a href="#">修改密码</a></li>
+                        <li><a href="/manage/home/updatepwd">修改密码</a></li>
                         <li><a href="javascript:void(0)" class="quit">退出</a></li>
                     </ul>
                 </li>
@@ -91,7 +91,7 @@
                 type: "post",
                 url: "@Url.Action("quit", "account", new { area="manage"})",
                 success: function () {
-                    location.reload();
+                    location.href = '@Url.Action("login", "account", new { area="manage" })';
                 }
             });
         });

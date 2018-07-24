@@ -208,9 +208,15 @@ namespace Instart.Web.Areas.Manage.Controllers
                     majorYjsList.Add(major);
                 }
             }
+            var school = await _schoolService.GetByIdAsync(id);
+            if (school == null)
+            {
+                throw new Exception("艺术院校不存在");
+            }
             ViewBag.MajorBkList = majorBkList;
             ViewBag.MajorYjsList = majorYjsList;
             ViewBag.SchoolId = id;
+            ViewBag.SchoolName = school.Name;
             return View();
         }
 

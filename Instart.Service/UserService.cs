@@ -87,5 +87,20 @@ namespace Instart.Service
 
             return await _userRepository.InsertAsync(model);
         }
+
+        public async Task<bool> UpdateAsync(User model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            if (string.IsNullOrEmpty(model.UserName))
+            {
+                throw new ArgumentNullException(nameof(model.UserName));
+            }
+
+            return await _userRepository.UpdateAsync(model);
+        }
     }
 }
