@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Instart.Models;
+using Instart.Service;
+using Instart.Service.Base;
 
 namespace Instart.Web.Controllers
 {
@@ -12,9 +15,28 @@ namespace Instart.Web.Controllers
     /// </summary>
     public class AboutController : ControllerBase
     {
-        public async Task<ActionResult> Index() {
-            await Task.Delay(1);
-            return View();
+        IAboutInstartService _aboutService = AutofacService.Resolve<IAboutInstartService>();
+        IBannerService _bannerService = AutofacService.Resolve<IBannerService>();
+        ICourseService _courseService = AutofacService.Resolve<ICourseService>();
+
+        public AboutController()
+        {
+            this.AddDisposableObject(_aboutService);
+            this.AddDisposableObject(_bannerService);
+            this.AddDisposableObject(_courseService);
+        }
+
+        public async Task<ActionResult> Index()
+        {
+            AboutInstart model = (await _aboutService.GetInfoAsync()) ?? new AboutInstart();
+            ViewBag.CourseList = (await _courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();
+            List<Banner> bannerList = await _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Student);
+            ViewBag.BannerUrl = "";
+            if (bannerList != null && bannerList.Count() > 0)
+            {
+                ViewBag.BannerUrl = bannerList[0].ImageUrl;
+            }
+            return View(model);
         }
     }
 }

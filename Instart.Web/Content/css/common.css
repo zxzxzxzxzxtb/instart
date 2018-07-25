@@ -17,3 +17,4 @@ table{ width: 100%; border-collapse:separate;border-spacing:0;clear:both}
 .glaxfont{ color:#808080}
 .overflow{ overflow:hidden;}
 .padding30{ padding-bottom:30px;}
+.relative{ position:relative}

@@ -27,6 +27,16 @@ namespace Instart.Models
         public string Introduce { get; set; }
 
         /// <summary>
+        /// 一沙团队
+        /// </summary>
+        public string Team { get; set; }
+
+        /// <summary>
+        /// 一沙发展
+        /// </summary>
+        public string Develop { get; set; }
+
+        /// <summary>
         /// pre to pro
         /// </summary>
         public string PreToPro { get; set; }

@@ -37,5 +37,15 @@ namespace Instart.Models.Enums
         /// </summary>
         [Description("艺术院校")]
         School = 4,
+        /// <summary>
+        /// 艺术专业
+        /// </summary>
+        [Description("艺术专业")]
+        Major = 5,
+        /// <summary>
+        /// 关于Instart
+        /// </summary>
+        [Description("关于Instart")]
+        About = 6,
     }
 }

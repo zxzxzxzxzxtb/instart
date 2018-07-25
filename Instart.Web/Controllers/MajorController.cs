@@ -43,7 +43,7 @@ namespace Instart.Web.Controllers
 
             ViewBag.DivisionList = divisionList;
             ViewBag.DivisionId = id;
-            ViewBag.BannerList = (await _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Teacher)) ?? new List<Instart.Models.Banner>();
+            ViewBag.BannerList = (await _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Major)) ?? new List<Instart.Models.Banner>();
             return View();
         }
 
