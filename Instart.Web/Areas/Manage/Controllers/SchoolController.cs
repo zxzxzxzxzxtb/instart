@@ -17,10 +17,12 @@ namespace Instart.Web.Areas.Manage.Controllers
     public class SchoolController : ManageControllerBase
     {
         ISchoolService _schoolService = AutofacService.Resolve<ISchoolService>();
+        IMajorService _majorService = AutofacService.Resolve<IMajorService>();
 
         public SchoolController()
         {
             base.AddDisposableObject(_schoolService);
+            base.AddDisposableObject(_majorService);
         }
 
         public async Task<ActionResult> Index(int page = 1, string keyword = null)
@@ -174,6 +176,63 @@ namespace Instart.Web.Areas.Manage.Controllers
             catch (Exception ex)
             {
                 LogHelper.Error($"SchoolController.SetHot异常", ex);
+                return Error(ex.Message);
+            }
+        }
+
+        public async Task<ActionResult> MajorSelect(int id = 0)
+        {
+            IEnumerable<Major> majorList = (await _majorService.GetAllAsync()) ?? new List<Major>();
+            IEnumerable<SchoolMajor> selectedList = (await _schoolService.GetMajorsByIdAsync(id)) ?? new List<SchoolMajor>();
+            List<Major> majorBkList = new List<Major>();
+            List<Major> majorYjsList = new List<Major>();
+            foreach (var major in majorList)
+            {
+                major.IsSelected = false;
+                foreach (var item in selectedList)
+                {
+                    if (item.MajorId == major.Id)
+                    {
+                        major.IsSelected = true;
+                        major.SchoolInfo = item.Introduce;
+                        break;
+                    }
+                }
+
+                if (major.Type == Instart.Models.Enums.EnumMajorType.BengKe)
+                {
+                    majorBkList.Add(major);
+                }
+                else if (major.Type == Instart.Models.Enums.EnumMajorType.YanJiuSheng)
+                {
+                    majorYjsList.Add(major);
+                }
+            }
+            var school = await _schoolService.GetByIdAsync(id);
+            if (school == null)
+            {
+                throw new Exception("艺术院校不存在");
+            }
+            ViewBag.MajorBkList = majorBkList;
+            ViewBag.MajorYjsList = majorYjsList;
+            ViewBag.SchoolId = id;
+            ViewBag.SchoolName = school.Name;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> SetMajors(int schoolId, string majorIds, string introduces)
+        {
+            try
+            {
+                return Json(new ResultBase
+                {
+                    success = await _schoolService.SetMajors(schoolId, majorIds, introduces)
+                });
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error($"SchoolController.SetMajors异常", ex);
                 return Error(ex.Message);
             }
         }

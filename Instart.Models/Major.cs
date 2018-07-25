@@ -81,5 +81,15 @@ namespace Instart.Models
         /// 修改时间
         /// </summary>
         public DateTime ModifyTime { get; set; }
+
+        /// <summary>
+        /// 被艺术院校选中
+        /// </summary>
+        public bool IsSelected { get; set; }
+
+        /// <summary>
+        /// 院校专业简介
+        /// </summary>
+        public string SchoolInfo { get; set; }
     }
 }

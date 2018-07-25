@@ -125,5 +125,15 @@ namespace Instart.Service
         {
             return await _schoolRepository.GetListAsync(pageIndex, pageSize, name, country, major);
         }
+
+        public async Task<IEnumerable<SchoolMajor>> GetMajorsByIdAsync(int id)
+        {
+            return await _schoolRepository.GetMajorsByIdAsync(id);
+        }
+
+        public async Task<bool> SetMajors(int schoolId, string majorIds, string introduces)
+        {
+            return await _schoolRepository.SetMajors(schoolId, majorIds, introduces);
+        }
     }
 }

@@ -67,9 +67,10 @@
                         }
                     </td>
                     <td style="width:20%;">
-                        <a href="/school/detail/@item.Id" target="_blank">详情</a>
-                        <a data-id="@item.Id" href="/manage/school/edit/@item.Id">修改</a>
+                        <a href="/school/details/@item.Id" target="_blank">详情</a>
+                        <a data-id="@item.Id" href="javascript:void(0)" onclick="update(@item.Id)">修改</a>
                         <a data-id="@item.Id" href="javascript:void(0)" onclick="remove(@item.Id)">删除</a>
+                        <a data-id="@item.Id" href="javascript:void(0)" onclick="setmajor(@item.Id)">专业设置</a>
                     </td>
                 </tr>
             }
@@ -121,6 +122,10 @@
         });
     });
 
+    function update(id) {
+        location.href = '@Url.Action("edit", "school", new { area="manage" })' + "?id=" + id;
+    }
+
     function remove(schoolId) {
         if (schoolId == 0) {
             return;
@@ -138,6 +143,10 @@
 
             layer.close(index);
         });
+    }
+
+    function setmajor(id) {
+        location.href = '@Url.Action("majorselect", "school", new { area="manage" })' + "?id=" + id;
     }
 </script>
 

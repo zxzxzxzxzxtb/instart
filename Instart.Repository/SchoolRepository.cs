@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Instart.Models;
 using Dapper;
+using System.Data.SqlClient;
 
 namespace Instart.Repository
 {
@@ -149,22 +150,22 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection())
             {
                 #region generate condition
-                string where = "where Status=1";
+                string where = "where k.Status=1";
                 if (!string.IsNullOrEmpty(name))
                 {
-                    where += $" and Name like '%{name}%'";
+                    where += $" and k.Name like '%{name}%'";
                 }
                 if (country != -1)
                 {
-                    where += $" and Country = {country}";
+                    where += $" and k.Country = {country}";
                 }
-                //if (major != -1)
-                //{
-                //    where += $" and Country = {country}";
-                //}
+                if (major != -1)
+                {
+                    where += $" and exists (select * from [SchoolMajor] as a where a.SchoolId = k.Id and a.MajorId = { major })";
+                }
                 #endregion
 
-                string countSql = $"select count(1) from [School] {where};";
+                string countSql = $"select count(1) from [School] as k {where};";
                 int total = await conn.ExecuteScalarAsync<int>(countSql);
                 if (total == 0)
                 {
@@ -175,7 +176,7 @@ namespace Instart.Repository
                     };
                 }
 
-                string sql = $@"select * from ( select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [School] {where} ) as b  
+                string sql = $@"select * from ( select k.*, ROW_NUMBER() over (Order by k.Id desc) as RowNumber from [School] as k {where} ) as b  
                                 where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
                 var list = await conn.QueryAsync<School>(sql);
 
@@ -185,6 +186,57 @@ namespace Instart.Repository
                     Data = list?.ToList()
                 };
             }
+        }
+
+        public async Task<IEnumerable<SchoolMajor>> GetMajorsByIdAsync(int id)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = $"select s.SchoolId, s.MajorId, s.Introduce, m.Name as MajorName, m.Type from [SchoolMajor] as s left join [Major] as m on m.Id = s.MajorId where s.SchoolId={id};";
+                return await conn.QueryAsync<SchoolMajor>(sql); ;
+            }
+        }
+
+        public async Task<bool> SetMajors(int schoolId, string majorIds, string introduces)
+        {
+            var result = 0;
+            using (var conn = DapperFactory.GetConnection())
+            {
+                conn.Open();
+                var tran = conn.BeginTransaction();
+
+                string sql = $"delete from [SchoolMajor] where SchoolId = @SchoolId; ";
+
+                var insertImg = @" INSERT INTO [SchoolMajor] ([MajorId],[SchoolId],[Introduce]) VALUES(@MajorId,@SchoolId,@Introduce)";
+                try
+                {
+
+                    result = await conn.ExecuteAsync(sql, new { SchoolId = schoolId }, tran);
+                    if (!String.IsNullOrEmpty(majorIds))
+                    {
+                        string[] ids = majorIds.Split(',');
+                        string[] introducearr = introduces.Split('|');
+                        for (int i = 0; i < ids.Length; i++)
+                        {
+                            result = await conn.ExecuteAsync(insertImg, new { SchoolId = schoolId, MajorId = ids[i], Introduce = introducearr[i] }, tran);
+                        }
+                    }
+                    tran.Commit();
+                }
+                catch (SqlException ex)
+                {
+                    result = 0;
+                    tran.Rollback();
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    result = 0;
+                    tran.Rollback();
+                    return false;
+                }
+            }//end using
+            return result > 0;
         }
     }
 }

@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "修改密码";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li><a href="/manage/home">控制台</a></li>
+    <li class="active">修改密码</li>
+</ol>
+
+@using (Html.BeginForm("UpdatePassword", "User", new { area = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "mainForm", @class = "form-horizontal edit-container-width" }))
+{
+    <input type="hidden" name="userId" value="@ViewBag.Id" />
+    <div class="form-group">
+        <label class="col-sm-2 control-label">旧密码：</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="oldPwd" id="oldPwd" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">新密码：</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="newPwd" id="newPwd" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">确认密码：</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="confirmPwd" id="confirmPwd" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <input type="button" class="btn btn-primary" value="提交" onclick="save()" />
+        </div>
+    </div>
+}
+
+
+@section Bottom{
+    <script>
+        function save() {
+            var oldPwd = $("#oldPwd").val();
+            var newPwd = $("#newPwd").val();
+            var confirmPwd = $("#confirmPwd").val();
+            if (oldPwd === "") {
+                layer.msg("请输入旧密码");
+                return false;
+            }
+            if (newPwd === "") {
+                layer.msg("请输入新密码");
+                return false;
+            }
+            if (confirmPwd != newPwd) {
+                layer.msg("确认密码与新密码不一致");
+                return false;
+            }
+            $("#mainForm").ajaxSubmit({
+                success: function (slt) {
+                    if (slt && slt.success) {
+                        layer.msg('修改成功');
+                    }
+                    else {
+                        layer.msg(slt.message || '操作失败，请重试');
+                    }
+                }
+            });
+        }
+
+        /*
+        *重置文本框
+        */
+        function reset(){
+            $(":password").val("");
+        }
+    </script>
+}
+

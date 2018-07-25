@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="CourseInfo.cs" />
     <Compile Include="Enums\EnumCountry.cs" />
+    <Compile Include="SchoolMajor.cs" />
     <Compile Include="Enums\EnumOperType.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Statistics.cs" />

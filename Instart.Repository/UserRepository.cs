@@ -69,6 +69,36 @@ namespace Instart.Repository
             }
         }
 
+        public async Task<bool> UpdateAsync(User model)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                var fields = model.ToFields(removeFields: new List<string>
+                {
+                    nameof(model.Id),
+                    nameof(model.CreateTime),
+                    nameof(model.Status),
+                    nameof(model.Password)
+                });
+
+                if (fields == null || fields.Count == 0)
+                {
+                    return false;
+                }
+
+                var fieldList = new List<string>();
+                foreach (var field in fields)
+                {
+                    fieldList.Add($"{field}=@{field}");
+                }
+
+                model.ModifyTime = DateTime.Now;
+
+                string sql = $"update [User] set {string.Join(",", fieldList)} where Id=@Id;";
+                return await conn.ExecuteAsync(sql, model) > 0;
+            }
+        }
+
         public async Task<bool> UpdatePasswordAsync(int id, string password)
         {
             using (var conn = DapperFactory.GetConnection())

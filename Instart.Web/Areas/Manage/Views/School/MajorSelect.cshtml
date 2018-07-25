@@ -1,0 +1,171 @@
+﻿@using Instart.Models
+@{
+    ViewBag.Title = "专业设置";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .w_con_left {
+        width: 100%;
+        height: auto;
+        float: left;
+        margin: 0px;
+    }
+
+    .w_ico {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: auto;
+        margin-top: 10px;
+    }
+
+        .w_ico li {
+            float: left;
+            width: 250px;
+            list-style: none;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+            .w_ico li img {
+                width: 200px;
+                height: 200px;
+                position: relative;
+                top: 5px;
+                border: none;
+                border-radius: 5px;
+            }
+
+            .w_ico li p {
+                margin-top: 10px;
+            }
+</style>
+
+<ol class="breadcrumb">
+    <li><a href="/manage/school">艺术院校</a></li>
+    <li class="active">@ViewBag.SchoolName - 专业设置</li>
+</ol>
+
+<input type="hidden" id="schoolId" name="schoolId" value="@ViewBag.SchoolId" />
+<div>
+    <a class="btn btn-primary" style="margin-left:10px;" onclick="save()">保存</a>
+</div>
+<div class="checkbox">
+    <label style="float:right;">
+        <input type="checkbox" name="chkAllBk" id="chkAllBk" />全选
+    </label>
+    <span class="label label-info" style="margin-left:10px;float:left;font-size:14px;">本科专业</span>
+</div>
+<div class="w_con_left">
+    <ul class="w_ico">
+        @foreach (Major item in ViewBag.MajorBkList)
+        {
+            <li class="icoli">
+                <img src="@item.ImgUrl" style="width:150px;height:150px;border:1px solid #eee;" /><p>
+                    <div class="checkbox">
+                        <label>
+                            @if (item.IsSelected)
+                            {
+                                <input type="checkbox" name="chkMajorBk" checked="checked" data-id="@item.Id" />@item.Name
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="chkMajorBk" data-id="@item.Id" />@item.Name
+                            }
+                        </label>
+                    </div>
+                </p>
+                <textarea id="@("taIntroduce" + item.Id)" rows="8" style="width: 150px;" placeholder="专业简介">@item.SchoolInfo</textarea>
+            </li>
+        }
+    </ul>
+</div>
+<div class="checkbox">
+    <label style="float:right;">
+        <input type="checkbox" name="chkAllYjs" id="chkAllYjs" />全选
+    </label>
+    <span class="label label-info" style="margin-left:10px;float:left;font-size:14px;">研究生专业</span>
+</div>
+<div class="w_con_left">
+    <ul class="w_ico">
+        @foreach (Major item in ViewBag.MajorYjsList)
+        {
+            <li class="icoli">
+                <img src="@item.ImgUrl" style="width:150px;height:150px;border:1px solid #eee;" /><p>
+                    <div class="checkbox">
+                        <label>
+                            @if (item.IsSelected)
+                            {
+                                <input type="checkbox" name="chkMajorYjs" checked="checked" data-id="@item.Id" />@item.Name
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="chkMajorYjs" data-id="@item.Id" />@item.Name
+                            }
+                        </label>
+                    </div>
+                </p>
+                <textarea id="@("taIntroduce" + item.Id)" rows="8" style="width: 150px;" placeholder="专业简介">@item.SchoolInfo</textarea>
+            </li>
+        }
+    </ul>
+</div>
+@section Bottom{
+    <script>
+        $(function () {
+            $("#chkAllBk").click(function () {
+                var checked = $(this).is(":checked");
+                if (checked) {
+                    $("input[name='chkMajorBk']").each(function () {
+                        $(this).prop("checked", "checked");
+                    })
+                }
+                else {
+                    $("input[name='chkMajorBk']").each(function () {
+                        $(this).prop("checked", "");
+                    })
+                }
+            });
+
+            $("#chkAllYjs").click(function () {
+                var checked = $(this).is(":checked");
+                if (checked) {
+                    $("input[name='chkMajorYjs']").each(function () {
+                        $(this).prop("checked", "checked");
+                    })
+                }
+                else {
+                    $("input[name='chkMajorYjs']").each(function () {
+                        $(this).prop("checked", "");
+                    })
+                }
+            });
+        })
+
+        function save() {
+            var majorIds = [];
+            var majorIntroduces = [];
+            $("input[name='chkMajorBk']").each(function () {
+                if ($(this).is(":checked")) {
+                    majorIds.push($(this).attr("data-id"));
+                    majorIntroduces.push($("#taIntroduce" + $(this).attr("data-id")).val());
+                }
+            })
+            $("input[name='chkMajorYjs']").each(function () {
+                if ($(this).is(":checked")) {
+                    majorIds.push($(this).attr("data-id"));
+                    majorIntroduces.push($("#taIntroduce" + $(this).attr("data-id")).val());
+                }
+            })
+            $.post('/manage/school/setmajors', { 'schoolId': $("#schoolId").val(), 'majorIds': majorIds.join(','), 'introduces': majorIntroduces.join('|') }, function (slt) {
+                if (slt && slt.success) {
+                    layer.msg('保存成功。');
+                }
+                else {
+                    layer.msg(slt.message || '操作失败，请重试。');
+                }
+            });
+        }
+    </script>
+}
+

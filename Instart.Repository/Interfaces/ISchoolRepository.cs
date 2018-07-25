@@ -30,5 +30,9 @@ namespace Instart.Repository
         Task<bool> SetHotAsync(int id, bool isHot);
 
         Task<PageModel<School>> GetListAsync(int pageIndex, int pageSize, string name = null, int country = -1, int major = -1);
+
+        Task<IEnumerable<SchoolMajor>> GetMajorsByIdAsync(int id);
+
+        Task<bool> SetMajors(int schoolId, string majorIds, string introduces);
     }
 }
