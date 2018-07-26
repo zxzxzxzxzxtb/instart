@@ -26,5 +26,9 @@ namespace Instart.Repository
         Task<IEnumerable<Student>> GetAllAsync();
 
         Task<IEnumerable<Student>> GetStarStudentsAsync();
+
+        Task<IEnumerable<int>> GetCoursesByIdAsync(int id);
+
+        Task<bool> SetCourses(int studentId, string courseIds);
     }
 }

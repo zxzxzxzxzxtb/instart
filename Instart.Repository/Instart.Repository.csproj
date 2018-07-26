@@ -74,6 +74,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RecruitRepository.cs" />
+    <Compile Include="Interfaces\IRecruitRepository.cs" />
     <Compile Include="Interfaces\ICourseApplyRepository.cs" />
     <Compile Include="ContactRepository.cs" />
     <Compile Include="ArticleRepository.cs" />

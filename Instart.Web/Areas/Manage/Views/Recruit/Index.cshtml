@@ -1,0 +1,67 @@
+﻿@using Instart.Models
+@using Instart.Web.Infrastructures
+@model Instart.Models.Recruit
+
+@{
+    ViewBag.Title = "招贤纳士";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li><a href="#">招贤纳士</a></li>
+</ol>
+
+@using (Html.BeginForm("Set", "Recruit", new { area = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "mainForm", @class = "form-horizontal edit-container-width" }))
+{
+    <div class="form-group">
+        <label class="col-sm-2 control-label">加入我们：</label>
+        <div class="col-sm-10">
+            <textarea name="JoinUs" id="JoinUs" rows="10">@Model.JoinUs</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">在聘职位：</label>
+        <div class="col-sm-10">
+            <textarea name="Positions" id="Positions" rows="10">@Model.Positions</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">联系方式：</label>
+        <div class="col-sm-10">
+            <textarea name="Contacts" id="Contacts" rows="10">@Model.Contacts</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <input type="button" class="btn btn-primary" value="保存" onclick="save()" />
+        </div>
+    </div>
+}
+
+
+@section Bottom{
+    <script>
+        $(function () {
+            UE.getEditor('JoinUs');
+            UE.getEditor('Positions');
+            UE.getEditor('Contacts');
+        })
+
+        function save() {
+            $("#mainForm").ajaxSubmit({
+                success: function (slt) {
+                    if (slt && slt.success) {
+                        layer.msg('保存成功');
+                    }
+                    else {
+                        layer.msg(slt.message || '操作失败，请重试');
+                    }
+                }
+            });
+        }
+    </script>
+}
+

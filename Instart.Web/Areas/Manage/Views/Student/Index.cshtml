@@ -77,9 +77,10 @@
                             <input class="chkRecommend" type="checkbox" data-id="@item.Id" />
                         }
                     </td>
-                    <td style="width:10%;">
+                    <td style="width:15%;">
                         <a data-id="@item.Id" href="javascript:void(0)" onclick="update(@item.Id)">修改</a>
                         <a data-id="@item.Id" href="javascript:void(0)" onclick="remove(@item.Id)">删除</a>
+                        <a href="javascript:void(0)" onclick="setcourse(@item.Id)">所学课程</a>
                     </td>
                 </tr>
             }
@@ -160,6 +161,10 @@
 
                 layer.close(index);
             });
+        }
+
+        function setcourse(id) {
+            location.href = '@Url.Action("courseselect", "student", new { area="manage" })' + "?id=" + id;
         }
     </script>
 }

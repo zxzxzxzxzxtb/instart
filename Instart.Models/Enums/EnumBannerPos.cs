@@ -47,5 +47,10 @@ namespace Instart.Models.Enums
         /// </summary>
         [Description("关于Instart")]
         About = 6,
+        /// <summary>
+        /// 招贤纳士
+        /// </summary>
+        [Description("招贤纳士")]
+        Recruit = 7,
     }
 }

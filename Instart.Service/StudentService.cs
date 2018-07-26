@@ -88,5 +88,15 @@ namespace Instart.Service
         {
             return await _studentRepository.SetRecommend(id, isRecommend);
         }
+
+        public async Task<IEnumerable<int>> GetCoursesByIdAsync(int id)
+        {
+            return await _studentRepository.GetCoursesByIdAsync(id);
+        }
+
+        public async Task<bool> SetCourses(int studentId, string courseIds)
+        {
+            return await _studentRepository.SetCourses(studentId, courseIds);
+        }
     }
 }

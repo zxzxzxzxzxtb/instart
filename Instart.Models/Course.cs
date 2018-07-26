@@ -37,6 +37,11 @@ namespace Instart.Models
         public string Introduce { get; set; }
 
         /// <summary>
+        /// 课程过程
+        /// </summary>
+        public string Process { get; set; }
+
+        /// <summary>
         /// 争对人群
         /// </summary>
         public string ForPeople { get; set; }
