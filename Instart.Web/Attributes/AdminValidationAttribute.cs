@@ -56,7 +56,9 @@ namespace Instart.Web.Attributes
                     return;
                 }
 
-                var user = AutofacService.Resolve<IUserService>().GetByIdAsync(userId).Result;
+                IUserService userService = AutofacService.Resolve<IUserService>();
+
+                var user = userService.GetById(userId);
                 if (user == null)
                 {
                     filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new

@@ -15,7 +15,18 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select * from [User] where Id = @Id and Status=1;";
-                return await conn.QueryFirstOrDefaultAsync<User>(sql, new { Id = id });
+                var list = await conn.QueryAsync<User>(sql, new { Id = id });
+                return list?.FirstOrDefault();
+            }
+        }
+
+        public User GetById(int id)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = "select * from [User] where Id = @Id and Status=1;";
+                var list = conn.Query<User>(sql, new { Id = id });
+                return list?.FirstOrDefault();
             }
         }
 
