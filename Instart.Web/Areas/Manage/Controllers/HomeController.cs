@@ -18,6 +18,7 @@ namespace Instart.Web.Areas.Manage.Controllers
         ISchoolApplyService _schoolApplyService = AutofacService.Resolve<ISchoolApplyService>();
         IStatisticsService _statisticsService = AutofacService.Resolve<IStatisticsService>();
         IUserService _userService = AutofacService.Resolve<IUserService>();
+        ILogService _logService = AutofacService.Resolve<ILogService>();
 
         public HomeController()
         {
@@ -25,6 +26,7 @@ namespace Instart.Web.Areas.Manage.Controllers
             this.AddDisposableObject(_schoolApplyService);
             this.AddDisposableObject(_statisticsService);
             this.AddDisposableObject(_userService);
+            this.AddDisposableObject(_logService);
         }
 
         public async Task<ActionResult> Index()
@@ -32,6 +34,7 @@ namespace Instart.Web.Areas.Manage.Controllers
             ViewBag.CourseApplyList = (await _courseApplyService.GetTopListAsync(5)) ?? new List<Instart.Models.CourseApply>();
             ViewBag.SchoolApplyList = (await _schoolApplyService.GetTopListAsync(5)) ?? new List<Instart.Models.SchoolApply>();
             ViewBag.Statistics = (await _statisticsService.GetAsync()) ?? new Instart.Models.Statistics();
+            ViewBag.LogList = (await _logService.GetTopListAsync(20)) ?? new List<Instart.Models.Log>();
             return View();
         }
 

@@ -68,14 +68,30 @@ namespace Instart.Web.Areas.Manage.Controllers
                 CookieHelper.Set(WebAppSettings.CookieName, encryptStr, DateTime.Now.AddDays(3));
             }
 
+            LogService.Write(new Instart.Models.Log
+            {
+                Title = $"{user.UserName}登录系统",
+                UserId = user.Id,
+                UserName = user.UserName,
+                Type = Instart.Models.Enums.EnumOperType.Other,                
+            });
+
             return Success();
         }
 
         [HttpPost]
         public void Quit()
         {
+            LogService.Write(new Instart.Models.Log
+            {
+                Title = $"{LoginUser.UserName}退出系统",
+                UserId = LoginUser.UserId,
+                UserName = LoginUser.UserName,
+                Type = Instart.Models.Enums.EnumOperType.Other,
+            });
+
             Session[WebAppSettings.SessionName] = null;
-            CookieHelper.Clear(WebAppSettings.CookieName);
+            CookieHelper.Clear(WebAppSettings.CookieName);            
         }
     }
 }

@@ -113,7 +113,10 @@
                     <h3 class="panel-title">操作日志</h3>
                 </div>
                 <div class="panel-body">
-                    Panel content
+                    @foreach(Instart.Models.Log item in ViewBag.LogList)
+                    {
+                        <text>@item.Title</text><text>@string.Format("{0:yyyy-MM-dd HH:mm:ss}",item.CreateTime)</text>
+                    }
                 </div>
             </div>
         </div>
