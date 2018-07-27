@@ -11,6 +11,8 @@ namespace Instart.Service
     {
         Task<User> GetByIdAsync(int id);
 
+        User GetById(int id);
+
         Task<User> GetByNameAsync(string name);
 
         Task<PageModel<User>> GetListAsync(int pageIndex, int pageSize);

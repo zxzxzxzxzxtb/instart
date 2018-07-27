@@ -27,6 +27,16 @@ namespace Instart.Service
             return await _userRepository.GetByIdAsync(id);
         }
 
+        public User GetById(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException(nameof(id));
+            }
+
+            return _userRepository.GetById(id);
+        }
+
         public async Task<User> GetByNameAsync(string name)
         {
             if (string.IsNullOrEmpty(name))
