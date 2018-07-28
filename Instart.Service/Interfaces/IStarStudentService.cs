@@ -9,16 +9,16 @@ namespace Instart.Service
 {
     public interface IStarStudentService
     {
-        Task<StarStudent> GetByIdAsync(int id);
+         StarStudent GetByIdAsync(int id);
 
-        Task<PageModel<StarStudent>> GetListAsync(int pageIndex, int pageSize, string name = null);
+         PageModel<StarStudent> GetListAsync(int pageIndex, int pageSize, string name = null);
 
-        Task<IEnumerable<StarStudent>> GetAllAsync();
+         IEnumerable<StarStudent> GetAllAsync();
 
-        Task<bool> InsertAsync(StarStudent model);
+         bool InsertAsync(StarStudent model);
 
-        Task<bool> UpdateAsync(StarStudent model);
+         bool UpdateAsync(StarStudent model);
 
-        Task<bool> DeleteAsync(int id);
+         bool DeleteAsync(int id);
     }
 }

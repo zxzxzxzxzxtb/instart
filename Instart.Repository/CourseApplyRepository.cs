@@ -11,16 +11,16 @@ namespace Instart.Repository
 {
     public class CourseApplyRepository : ICourseApplyRepository
     {
-        public async Task<List<string>> GetApplyCourseNameListAsync()
+        public  List<string> GetApplyCourseNameListAsync()
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select CourseName from CourseApply group by CourseName;";
-                return (await conn.QueryAsync<string>(sql, null))?.ToList();
+                return ( conn.Query<string>(sql, null))?.ToList();
             }
         }
 
-        public async Task<PageModel<CourseApply>> GetListAsync(int pageIndex, int pageSize, string courseName, EnumAccept accept)
+        public  PageModel<CourseApply> GetListAsync(int pageIndex, int pageSize, string courseName, EnumAccept accept)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -37,14 +37,14 @@ namespace Instart.Repository
                 #endregion
 
                 string countSql = $"select count(1) from [CourseApply] {where};";
-                int total = await conn.ExecuteScalarAsync<int>(countSql);
+                int total =  conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
                 {
                     return new PageModel<CourseApply>();
                 }
 
                 string sql = $@"select * from ( select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [CourseApply] {where} ) as b where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
-                var list = await conn.QueryAsync<CourseApply>(sql);
+                var list =  conn.Query<CourseApply>(sql);
 
                 return new PageModel<CourseApply>
                 {
@@ -54,7 +54,7 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<bool> InsertAsync(CourseApply model)
+        public  bool InsertAsync(CourseApply model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -67,25 +67,25 @@ namespace Instart.Repository
                 model.CreateTime = DateTime.Now;
 
                 string sql = $"insert into [CourseApply] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return  conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> SetAcceptAsync(int id)
+        public  bool SetAcceptAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "update [CourseApply] set IsAccept=1,AcceptTime=GETDATE() where Id=@Id;";
-                return await conn.ExecuteAsync(sql, new { Id = id }) > 0;
+                return  conn.Execute(sql, new { Id = id }) > 0;
             }
         }
 
-        public async Task<List<CourseApply>> GetTopListAsync(int topCount)
+        public  List<CourseApply> GetTopListAsync(int topCount)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = $"select top {topCount} * from CourseApply order by Id Desc;";
-                return (await conn.QueryAsync<CourseApply>(sql, null))?.ToList();
+                return ( conn.Query<CourseApply>(sql, null))?.ToList();
             }
         }
     }

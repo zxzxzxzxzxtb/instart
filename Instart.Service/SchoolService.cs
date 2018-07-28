@@ -17,27 +17,27 @@ namespace Instart.Service
             base.AddDisposableObject(_schoolRepository);
         }
 
-        public async Task<School> GetByIdAsync(int id)
+        public School GetByIdAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _schoolRepository.GetByIdAsync(id);
+            return _schoolRepository.GetByIdAsync(id);
         }
 
-        public async Task<PageModel<School>> GetListAsync(int pageIndex, int pageSize, string name = null)
+        public PageModel<School> GetListAsync(int pageIndex, int pageSize, string name = null)
         {
-            return await _schoolRepository.GetListAsync(pageIndex, pageSize, name);
+            return _schoolRepository.GetListAsync(pageIndex, pageSize, name);
         }
 
-        public async Task<IEnumerable<School>> GetAllAsync()
+        public IEnumerable<School> GetAllAsync()
         {
-            return await _schoolRepository.GetAllAsync();
+            return _schoolRepository.GetAllAsync();
         }
 
-        public async Task<bool> InsertAsync(School model)
+        public bool InsertAsync(School model)
         {
             if (model == null)
             {
@@ -48,10 +48,10 @@ namespace Instart.Service
             {
                 throw new ArgumentNullException(nameof(model.Name));
             }
-            return await _schoolRepository.InsertAsync(model);
+            return _schoolRepository.InsertAsync(model);
         }
 
-        public async Task<bool> UpdateAsync(School model)
+        public bool UpdateAsync(School model)
         {
             if (model == null)
             {
@@ -68,30 +68,30 @@ namespace Instart.Service
                 throw new ArgumentException(nameof(model.Id));
             }
 
-            return await _schoolRepository.UpdateAsync(model);
+            return _schoolRepository.UpdateAsync(model);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public bool DeleteAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _schoolRepository.DeleteAsync(id);
+            return _schoolRepository.DeleteAsync(id);
         }
 
-        public async Task<List<School>> GetRecommendListAsync(int topCount)
+        public List<School> GetRecommendListAsync(int topCount)
         {
             if (topCount == 0)
             {
                 return null;
             }
 
-            return await _schoolRepository.GetRecommendListAsync(topCount);
+            return _schoolRepository.GetRecommendListAsync(topCount);
         }
 
-        public Task<bool> SetRecommendAsync(int id, bool isRecommend)
+        public bool SetRecommendAsync(int id, bool isRecommend)
         {
             if (id <= 0)
             {
@@ -101,17 +101,17 @@ namespace Instart.Service
             return _schoolRepository.SetRecommendAsync(id, isRecommend);
         }
 
-        public async Task<List<School>> GetHotListAsync(int topCount)
+        public List<School> GetHotListAsync(int topCount)
         {
             if (topCount == 0)
             {
                 return null;
             }
 
-            return await _schoolRepository.GetHotListAsync(topCount);
+            return _schoolRepository.GetHotListAsync(topCount);
         }
 
-        public Task<bool> SetHotAsync(int id, bool isHot)
+        public bool SetHotAsync(int id, bool isHot)
         {
             if (id <= 0)
             {
@@ -121,19 +121,19 @@ namespace Instart.Service
             return _schoolRepository.SetHotAsync(id, isHot);
         }
 
-        public async Task<PageModel<School>> GetListAsync(int pageIndex, int pageSize, string name = null, int country = -1, int major = -1)
+        public PageModel<School> GetListAsync(int pageIndex, int pageSize, string name = null, int country = -1, int major = -1)
         {
-            return await _schoolRepository.GetListAsync(pageIndex, pageSize, name, country, major);
+            return _schoolRepository.GetListAsync(pageIndex, pageSize, name, country, major);
         }
 
-        public async Task<IEnumerable<SchoolMajor>> GetMajorsByIdAsync(int id)
+        public IEnumerable<SchoolMajor> GetMajorsByIdAsync(int id)
         {
-            return await _schoolRepository.GetMajorsByIdAsync(id);
+            return _schoolRepository.GetMajorsByIdAsync(id);
         }
 
-        public async Task<bool> SetMajors(int schoolId, string majorIds, string introduces)
+        public bool SetMajors(int schoolId, string majorIds, string introduces)
         {
-            return await _schoolRepository.SetMajors(schoolId, majorIds, introduces);
+            return _schoolRepository.SetMajors(schoolId, majorIds, introduces);
         }
     }
 }

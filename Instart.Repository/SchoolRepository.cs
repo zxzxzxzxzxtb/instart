@@ -11,14 +11,14 @@ namespace Instart.Repository
 {
     public class SchoolRepository : ISchoolRepository
     {     
-        public async Task<School> GetByIdAsync(int id) {
+        public School GetByIdAsync(int id) {
             using (var conn = DapperFactory.GetConnection()) {
                 string sql = "select * from [School] where Id = @Id and Status=1;";
-                return await conn.QueryFirstOrDefaultAsync<School>(sql, new { Id = id });
+                return conn.QueryFirstOrDefault<School>(sql, new { Id = id });
             }
         }
 
-        public async Task<PageModel<School>> GetListAsync(int pageIndex, int pageSize, string name = null) {
+        public PageModel<School> GetListAsync(int pageIndex, int pageSize, string name = null) {
             using (var conn = DapperFactory.GetConnection()) {
                 #region generate condition
                 string where = "where Status=1";
@@ -28,14 +28,14 @@ namespace Instart.Repository
                 #endregion
 
                 string countSql = $"select count(1) from [School] {where};";
-                int total = await conn.ExecuteScalarAsync<int>(countSql);
+                int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0) {
                     return new PageModel<School>();
                 }
 
                 string sql = $@"select * from ( select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [School] {where} ) as b  
                                 where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
-                var list = await conn.QueryAsync<School>(sql);
+                var list = conn.Query<School>(sql);
 
                 return new PageModel<School> {
                     Total = total,
@@ -44,7 +44,7 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<IEnumerable<School>> GetAllAsync()
+        public IEnumerable<School> GetAllAsync()
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -53,11 +53,11 @@ namespace Instart.Repository
                 #endregion
 
                 string sql = $@"select * from [School] {where};";
-                return await conn.QueryAsync<School>(sql);
+                return conn.Query<School>(sql);
             }
         }
 
-        public async Task<bool> InsertAsync(School model) {
+        public bool InsertAsync(School model) {
             using (var conn = DapperFactory.GetConnection()) {
                 var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id), nameof(model.AcceptRate),
                     nameof(model.IsRecommend), nameof(model.IsHot) });
@@ -70,11 +70,11 @@ namespace Instart.Repository
                 model.Status = 1;
 
                 string sql = $"insert into [School] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> UpdateAsync(School model) {
+        public bool UpdateAsync(School model) {
             using (var conn = DapperFactory.GetConnection()) {
                 var fields = model.ToFields(removeFields: new List<string>
                 {
@@ -98,54 +98,54 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
 
                 string sql = $"update [School] set {string.Join(",", fieldList)} where Id=@Id;";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> DeleteAsync(int id) {
+        public bool DeleteAsync(int id) {
             using (var conn = DapperFactory.GetConnection()) {
                 string sql = "update [School] set Status=0,ModifyTime=GETDATE() where Id=@Id;";
-                return await conn.ExecuteAsync(sql, new { Id = id }) > 0;
+                return conn.Execute(sql, new { Id = id }) > 0;
             }
         }
 
-        public async Task<List<School>> GetRecommendListAsync(int topCount)
+        public List<School> GetRecommendListAsync(int topCount)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = $"select top {topCount} Id,Name,NameEn,Difficult,Avatar,Country,Fee,Scholarship,LimitDate,Language from [School] where Status=1 and IsRecommend = 1 order by Id desc;";
-                return (await conn.QueryAsync<School>(sql, null))?.ToList();
+                return (conn.Query<School>(sql, null))?.ToList();
             }
         }
 
-        public async Task<bool> SetRecommendAsync(int id, bool isRecommend)
+        public bool SetRecommendAsync(int id, bool isRecommend)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = $"update [School] set IsRecommend=@IsRecommend where Id=@Id;";
-                return await conn.ExecuteAsync(sql, new { IsRecommend =isRecommend, Id = id}) > 0;
+                return conn.Execute(sql, new { IsRecommend =isRecommend, Id = id}) > 0;
             }
         }
 
-        public async Task<List<School>> GetHotListAsync(int topCount)
+        public List<School> GetHotListAsync(int topCount)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = $"select top {topCount} Id,Name,NameEn,Difficult,Avatar,Country,Fee,Scholarship,LimitDate,Language from [School] where Status=1 and IsHot = 1 order by Id desc;";
-                return (await conn.QueryAsync<School>(sql, null))?.ToList();
+                return (conn.Query<School>(sql, null))?.ToList();
             }
         }
 
-        public async Task<bool> SetHotAsync(int id, bool isHot)
+        public bool SetHotAsync(int id, bool isHot)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = $"update [School] set isHot=@isHot where Id=@Id;";
-                return await conn.ExecuteAsync(sql, new { isHot = isHot, Id = id }) > 0;
+                return conn.Execute(sql, new { isHot = isHot, Id = id }) > 0;
             }
         }
 
-        public async Task<PageModel<School>> GetListAsync(int pageIndex, int pageSize, string name = null, int country = -1, int major = -1)
+        public PageModel<School> GetListAsync(int pageIndex, int pageSize, string name = null, int country = -1, int major = -1)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -166,7 +166,7 @@ namespace Instart.Repository
                 #endregion
 
                 string countSql = $"select count(1) from [School] as k {where};";
-                int total = await conn.ExecuteScalarAsync<int>(countSql);
+                int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
                 {
                     return new PageModel<School>
@@ -178,7 +178,7 @@ namespace Instart.Repository
 
                 string sql = $@"select * from ( select k.*, ROW_NUMBER() over (Order by k.Id desc) as RowNumber from [School] as k {where} ) as b  
                                 where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
-                var list = await conn.QueryAsync<School>(sql);
+                var list = conn.Query<School>(sql);
 
                 return new PageModel<School>
                 {
@@ -188,16 +188,16 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<IEnumerable<SchoolMajor>> GetMajorsByIdAsync(int id)
+        public IEnumerable<SchoolMajor> GetMajorsByIdAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = $"select s.SchoolId, s.MajorId, s.Introduce, m.Name as MajorName, m.Type from [SchoolMajor] as s left join [Major] as m on m.Id = s.MajorId where s.SchoolId={id};";
-                return await conn.QueryAsync<SchoolMajor>(sql); ;
+                return conn.Query<SchoolMajor>(sql); ;
             }
         }
 
-        public async Task<bool> SetMajors(int schoolId, string majorIds, string introduces)
+        public bool SetMajors(int schoolId, string majorIds, string introduces)
         {
             var result = 0;
             using (var conn = DapperFactory.GetConnection())
@@ -211,14 +211,14 @@ namespace Instart.Repository
                 try
                 {
 
-                    result = await conn.ExecuteAsync(sql, new { SchoolId = schoolId }, tran);
+                    result = conn.Execute(sql, new { SchoolId = schoolId }, tran);
                     if (!String.IsNullOrEmpty(majorIds))
                     {
                         string[] ids = majorIds.Split(',');
                         string[] introducearr = introduces.Split('|');
                         for (int i = 0; i < ids.Length; i++)
                         {
-                            result = await conn.ExecuteAsync(insertImg, new { SchoolId = schoolId, MajorId = ids[i], Introduce = introducearr[i] }, tran);
+                            result = conn.Execute(insertImg, new { SchoolId = schoolId, MajorId = ids[i], Introduce = introducearr[i] }, tran);
                         }
                     }
                     tran.Commit();

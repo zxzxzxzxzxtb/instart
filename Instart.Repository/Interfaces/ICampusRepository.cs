@@ -9,22 +9,22 @@ namespace Instart.Repository
 {
     public interface ICampusRepository
     {
-        Task<Campus> GetByIdAsync(int id);
+        Campus GetByIdAsync(int id);
 
-        Task<PageModel<Campus>> GetListAsync(int pageIndex, int pageSize, string name = null);
+        PageModel<Campus> GetListAsync(int pageIndex, int pageSize, string name = null);
 
-        Task<IEnumerable<Campus>> GetAllAsync();
+        IEnumerable<Campus> GetAllAsync();
 
-        Task<bool> InsertAsync(Campus model);
+        bool InsertAsync(Campus model);
 
-        Task<bool> UpdateAsync(Campus model);
+        bool UpdateAsync(Campus model);
 
-        Task<bool> DeleteAsync(int id);
+        bool DeleteAsync(int id);
 
-        Task<IEnumerable<CampusImg>> GetImgsByCampusIdAsync(int campusId);
+        IEnumerable<CampusImg> GetImgsByCampusIdAsync(int campusId);
 
-        Task<bool> InsertImgAsync(CampusImg model);
+        bool InsertImgAsync(CampusImg model);
 
-        Task<bool> DeleteImgAsync(int id);
+        bool DeleteImgAsync(int id);
     }
 }

@@ -28,9 +28,9 @@ namespace Instart.Web.Controllers
             this.AddDisposableObject(_courseService);
         }
 
-        public async Task<ActionResult> Index() {
-            IEnumerable<Student> studentList = (await _studentService.GetAllAsync()) ?? new List<Student>();
-            IEnumerable<School> schoolList = (await _schoolService.GetAllAsync()) ?? new List<School>();
+        public  ActionResult Index() {
+            IEnumerable<Student> studentList = ( _studentService.GetAllAsync()) ?? new List<Student>();
+            IEnumerable<School> schoolList = ( _schoolService.GetAllAsync()) ?? new List<School>();
 
             //计算录取比例
             foreach (School school in schoolList)
@@ -92,16 +92,16 @@ namespace Instart.Web.Controllers
 
             ViewBag.StudentMap = studentMap;
             ViewBag.SchoolMap = schoolMap;
-            ViewBag.VideoList = (await _studentService.GetStarStudentsAsync()) ?? new List<Instart.Models.Student>();
-            ViewBag.CourseList = (await _courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();
-            ViewBag.BannerList = (await _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Student)) ?? new List<Instart.Models.Banner>();
+            ViewBag.VideoList = ( _studentService.GetStarStudentsAsync()) ?? new List<Instart.Models.Student>();
+            ViewBag.CourseList = ( _courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();
+            ViewBag.BannerList = ( _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Student)) ?? new List<Instart.Models.Banner>();
             return View();
         }
 
-        public async Task<ActionResult> Details(int id)
+        public  ActionResult Details(int id)
         {
-            Student student = await _studentService.GetByIdAsync(id);
-            IEnumerable<Student> studentList = (await _studentService.GetAllAsync()) ?? new List<Student>();
+            Student student =  _studentService.GetByIdAsync(id);
+            IEnumerable<Student> studentList = ( _studentService.GetAllAsync()) ?? new List<Student>();
             ViewBag.StudentList = studentList;
             return View(student ?? new Student());
         }

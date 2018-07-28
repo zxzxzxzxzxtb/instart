@@ -17,22 +17,22 @@ namespace Instart.Service
             base.AddDisposableObject(_worksRepository);
         }
 
-        public async Task<Works> GetByIdAsync(int id)
+        public Works GetByIdAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _worksRepository.GetByIdAsync(id);
+            return _worksRepository.GetByIdAsync(id);
         }
 
-        public async Task<PageModel<Works>> GetListAsync(int pageIndex, int pageSize, string name = null)
+        public PageModel<Works> GetListAsync(int pageIndex, int pageSize, string name = null)
         {
-            return await _worksRepository.GetListAsync(pageIndex, pageSize, name);
+            return _worksRepository.GetListAsync(pageIndex, pageSize, name);
         }
 
-        public async Task<bool> InsertAsync(Works model)
+        public bool InsertAsync(Works model)
         {
             if (model == null)
             {
@@ -44,10 +44,10 @@ namespace Instart.Service
                 throw new ArgumentNullException(nameof(model.Name));
             }
 
-            return await _worksRepository.InsertAsync(model);
+            return _worksRepository.InsertAsync(model);
         }
 
-        public async Task<bool> UpdateAsync(Works model)
+        public bool UpdateAsync(Works model)
         {
             if (model == null)
             {
@@ -64,27 +64,27 @@ namespace Instart.Service
                 throw new ArgumentException(nameof(model.Id));
             }
 
-            return await _worksRepository.UpdateAsync(model);
+            return _worksRepository.UpdateAsync(model);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public bool DeleteAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _worksRepository.DeleteAsync(id);
+            return _worksRepository.DeleteAsync(id);
         }
 
-        public async Task<List<Works>> GetListByMajorIdAsync(int majorId, int topCount)
+        public List<Works> GetListByMajorIdAsync(int majorId, int topCount)
         {
             if (majorId <= 0)
             {
                 throw new ArgumentException(nameof(majorId));
             }
 
-            return await _worksRepository.GetListByMajorIdAsync(majorId, topCount);
+            return _worksRepository.GetListByMajorIdAsync(majorId, topCount);
         }
     }
 }

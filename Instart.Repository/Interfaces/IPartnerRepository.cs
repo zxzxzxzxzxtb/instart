@@ -9,16 +9,16 @@ namespace Instart.Repository
 {
     public interface IPartnerRepository
     {
-        Task<Partner> GetByIdAsync(int id);
+        Partner GetByIdAsync(int id);
 
-        Task<PageModel<Partner>> GetListAsync(int pageIndex, int pageSize, string name = null);
+        PageModel<Partner> GetListAsync(int pageIndex, int pageSize, string name = null);
 
-        Task<bool> InsertAsync(Partner model);
+        bool InsertAsync(Partner model);
 
-        Task<bool> UpdateAsync(Partner model);
+        bool UpdateAsync(Partner model);
 
-        Task<bool> DeleteAsync(int id);
+        bool DeleteAsync(int id);
 
-        Task<List<Partner>> GetRecommendListAsync(int topCount);
+        List<Partner> GetRecommendListAsync(int topCount);
     }
 }

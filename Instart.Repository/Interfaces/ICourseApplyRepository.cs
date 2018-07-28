@@ -10,15 +10,15 @@ namespace Instart.Repository
 {
     public interface ICourseApplyRepository
     {
-        Task<PageModel<CourseApply>> GetListAsync(int pageIndex, int pageSize, string courseName, EnumAccept accept);
+        PageModel<CourseApply> GetListAsync(int pageIndex, int pageSize, string courseName, EnumAccept accept);
 
-        Task<List<string>> GetApplyCourseNameListAsync();
+        List<string> GetApplyCourseNameListAsync();
 
-        Task<bool> SetAcceptAsync(int id);
+        bool SetAcceptAsync(int id);
 
-        Task<bool> InsertAsync(CourseApply model);
+        bool InsertAsync(CourseApply model);
 
-        Task<List<CourseApply>> GetTopListAsync(int topCount);
+        List<CourseApply> GetTopListAsync(int topCount);
 
     }
 }

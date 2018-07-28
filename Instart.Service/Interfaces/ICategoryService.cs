@@ -10,16 +10,16 @@ namespace Instart.Service
 {
     public interface ICategoryService
     {
-        Task<Category> GetByIdAsync(int id);
+        Category GetByIdAsync(int id);
 
-        Task<List<Category>> GetByParentIdAsync(int parentId);
+        List<Category> GetByParentIdAsync(int parentId);
 
-        Task<PageModel<Category>> GetListAsync(int pageIndex, int pageSize, string name = null);
+        PageModel<Category> GetListAsync(int pageIndex, int pageSize, string name = null);
 
-        Task<bool> InsertAsync(Category model);
+        bool InsertAsync(Category model);
 
-        Task<bool> UpdateAsync(Category model);
+        bool UpdateAsync(Category model);
 
-        Task<bool> DeleteAsync(int id);
+        bool DeleteAsync(int id);
     }
 }

@@ -10,7 +10,7 @@ namespace Instart.Repository
 {
     public class LogRepository : ILogRepository
     {
-        public async Task<PageModel<Log>> GetListAsync(int pageIndex, int pageSize, string title, int userId, int type)
+        public PageModel<Log> GetListAsync(int pageIndex, int pageSize, string title, int userId, int type)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -31,14 +31,14 @@ namespace Instart.Repository
                 #endregion
 
                 string countSql = $"select count(1) from Log {where};";
-                int total = await conn.ExecuteScalarAsync<int>(countSql);
+                int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
                 {
                     return new PageModel<Log>();
                 }
 
                 string sql = $@"select * from ( select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from Log {where} ) as b where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
-                var list = await conn.QueryAsync<Log>(sql);
+                var list = conn.Query<Log>(sql);
 
                 return new PageModel<Log>
                 {
@@ -48,12 +48,12 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<List<Log>> GetTopListAsync(int topCount)
+        public List<Log> GetTopListAsync(int topCount)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = $"select top {topCount} * from Log Order by CreateTime desc;";
-                return (await conn.QueryAsync<Log>(sql, null))?.ToList();
+                return (conn.Query<Log>(sql, null))?.ToList();
             }
         }
 

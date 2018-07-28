@@ -10,16 +10,16 @@ namespace Instart.Repository
 {
     public class MajorRepository : IMajorRepository
     {
-        public async Task<Major> GetByIdAsync(int id)
+        public Major GetByIdAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select * from [Major] where Id = @Id and Status=1;";
-                return await conn.QueryFirstOrDefaultAsync<Major>(sql, new { Id = id });
+                return conn.QueryFirstOrDefault<Major>(sql, new { Id = id });
             }
         }
 
-        public async Task<PageModel<Major>> GetListAsync(int pageIndex, int pageSize, int division = -1, string name = null)
+        public PageModel<Major> GetListAsync(int pageIndex, int pageSize, int division = -1, string name = null)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -36,7 +36,7 @@ namespace Instart.Repository
                 #endregion
 
                 string countSql = $"select count(1) from [Major] as a {where};";
-                int total = await conn.ExecuteScalarAsync<int>(countSql);
+                int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
                 {
                     return new PageModel<Major>();
@@ -47,7 +47,7 @@ namespace Instart.Repository
                      left join [Division] as b on b.Id = a.DivisionId {where}
                      ) as c
                      where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
-                var list = await conn.QueryAsync<Major>(sql);
+                var list = conn.Query<Major>(sql);
 
                 return new PageModel<Major>
                 {
@@ -57,7 +57,7 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<IEnumerable<Major>> GetAllAsync()
+        public IEnumerable<Major> GetAllAsync()
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -66,11 +66,11 @@ namespace Instart.Repository
                 #endregion
 
                 string sql = $@"select * from [Major] {where};";
-                return await conn.QueryAsync<Major>(sql);
+                return conn.Query<Major>(sql);
             }
         }
 
-        public async Task<bool> InsertAsync(Major model)
+        public bool InsertAsync(Major model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -85,11 +85,11 @@ namespace Instart.Repository
                 model.Status = 1;
 
                 string sql = $"insert into [Major] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> UpdateAsync(Major model)
+        public bool UpdateAsync(Major model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -123,25 +123,25 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
 
                 string sql = $"update [Major] set {string.Join(",", fieldList)} where Id=@Id;";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public bool DeleteAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "update [Major] set Status=0,ModifyTime=GETDATE() where Id=@Id;";
-                return await conn.ExecuteAsync(sql, new { Id = id }) > 0;
+                return conn.Execute(sql, new { Id = id }) > 0;
             }
         }
 
-        public async Task<PageModel<Major>> GetListByDivsionAsync(int divisionId, int pageIndex, int pageSize)
+        public PageModel<Major> GetListByDivsionAsync(int divisionId, int pageIndex, int pageSize)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string countSql = $"select count(1) from [Major] as a where a.Status=1 and a.DivisionId={divisionId};";
-                int total = await conn.ExecuteScalarAsync<int>(countSql);
+                int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
                 {
                     return new PageModel<Major>();
@@ -152,7 +152,7 @@ namespace Instart.Repository
                      left join [Division] as b on b.Id = a.DivisionId where a.Status=1 and a.DivisionId={divisionId}
                      ) as c
                      where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
-                var list = await conn.QueryAsync<Major>(sql);
+                var list = conn.Query<Major>(sql);
 
                 return new PageModel<Major>
                 {

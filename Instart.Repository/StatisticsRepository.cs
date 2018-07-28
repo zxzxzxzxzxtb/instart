@@ -10,7 +10,7 @@ namespace Instart.Repository
 {
     public class StatisticsRepository : IStatisticsRepository
     {
-        public async Task<Statistics> GetAsync()
+        public Statistics GetAsync()
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -22,7 +22,7 @@ namespace Instart.Repository
                             (select COUNT(1) from Course where Status=1) as CourseCount,
                             (select COUNT(1) from SchoolApply) as SchoolApplyCount,
                             (select COUNT(1) from CourseApply) as CourseApplyCount;";
-                return await conn.QueryFirstOrDefaultAsync<Statistics>(sql, null);
+                return conn.QueryFirstOrDefault<Statistics>(sql, null);
             }
         }
     }

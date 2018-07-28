@@ -9,6 +9,6 @@ namespace Instart.Service
 {
     public interface IStatisticsService
     {
-        Task<Statistics> GetAsync();
+        Statistics GetAsync();
     }
 }

@@ -10,20 +10,20 @@ namespace Instart.Service
 {
     public interface IBannerService
     {
-        Task<Banner> GetByIdAsync(int id);
+        Banner GetByIdAsync(int id);
 
-        Task<List<Banner>> GetListByPosAsync(EnumBannerPos pos = EnumBannerPos.Index);
+        List<Banner> GetListByPosAsync(EnumBannerPos pos = EnumBannerPos.Index);
 
-        Task<PageModel<Banner>> GetListAsync(int pageIndex, int pageSize, string title = null, int pos = 1, int type = -1);
+        PageModel<Banner> GetListAsync(int pageIndex, int pageSize, string title = null, int pos = 1, int type = -1);
 
-        Task<bool> InsertAsync(Banner model);
+        bool InsertAsync(Banner model);
 
-        Task<bool> UpdateAsync(Banner model);
+        bool UpdateAsync(Banner model);
 
-        Task<bool> DeleteAsync(int id);
+        bool DeleteAsync(int id);
 
-        Task<List<Banner>> GetBannerListByPosAsync(EnumBannerPos pos, int topCount = 20);
+        List<Banner> GetBannerListByPosAsync(EnumBannerPos pos, int topCount = 20);
 
-        Task<bool> SetShowAsync(int id, bool isShow);
+        bool SetShowAsync(int id, bool isShow);
     }
 }

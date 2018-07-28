@@ -26,11 +26,11 @@ namespace Instart.Web.Controllers
             this.AddDisposableObject(_courseService);
         }
 
-        public async Task<ActionResult> Index()
+        public  ActionResult Index()
         {
-            AboutInstart model = (await _aboutService.GetInfoAsync()) ?? new AboutInstart();
-            ViewBag.CourseList = (await _courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();
-            List<Banner> bannerList = await _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Student);
+            AboutInstart model = ( _aboutService.GetInfoAsync()) ?? new AboutInstart();
+            ViewBag.CourseList = ( _courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();
+            List<Banner> bannerList =  _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Student);
             ViewBag.BannerUrl = "";
             if (bannerList != null && bannerList.Count() > 0)
             {

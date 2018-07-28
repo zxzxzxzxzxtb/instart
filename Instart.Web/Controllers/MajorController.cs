@@ -27,9 +27,9 @@ namespace Instart.Web.Controllers
             this.AddDisposableObject(_workService);
         }
 
-        public async Task<ActionResult> Index(int id = 0)
+        public  ActionResult Index(int id = 0)
         {
-            var divisionList = await _divisionService.GetAllAsync();
+            var divisionList =  _divisionService.GetAllAsync();
 
             if (divisionList == null || divisionList.Count() == 0)
             {
@@ -43,14 +43,14 @@ namespace Instart.Web.Controllers
 
             ViewBag.DivisionList = divisionList;
             ViewBag.DivisionId = id;
-            ViewBag.BannerList = (await _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Major)) ?? new List<Instart.Models.Banner>();
+            ViewBag.BannerList = ( _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Major)) ?? new List<Instart.Models.Banner>();
             return View();
         }
 
         [HttpPost]
-        public async Task<JsonResult> GetMajorList(int divisionId, int pageIndex, int pageSize = 8)
+        public  JsonResult GetMajorList(int divisionId, int pageIndex, int pageSize = 8)
         {
-            var result = await _majorService.GetListByDivsionAsync(divisionId, pageIndex, pageSize);
+            var result =  _majorService.GetListByDivsionAsync(divisionId, pageIndex, pageSize);
             return Success(data: new
             {
                 total = result.Total,
@@ -60,16 +60,16 @@ namespace Instart.Web.Controllers
             });
         }
 
-        public async Task<ActionResult> Details(int id)
+        public  ActionResult Details(int id)
         {
-            var major = await _majorService.GetByIdAsync(id);
+            var major =  _majorService.GetByIdAsync(id);
             if (major == null)
             {
                 throw new Exception("专业不存在");
             }
 
-            ViewBag.WorkList = (await _workService.GetListByMajorIdAsync(id, 3)) ?? new List<Instart.Models.Works>();
-            ViewBag.BannerList = (await _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Teacher)) ?? new List<Instart.Models.Banner>();
+            ViewBag.WorkList = ( _workService.GetListByMajorIdAsync(id, 3)) ?? new List<Instart.Models.Works>();
+            ViewBag.BannerList = ( _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Teacher)) ?? new List<Instart.Models.Banner>();
             return View(major);
         }
     }

@@ -87,8 +87,6 @@
     <Compile Include="Base\Extensions.cs" />
     <Compile Include="Base\FieldEqualityComparer.cs" />
     <Compile Include="Base\InstartDbContext.cs" />
-    <Compile Include="Base\IRepository.cs" />
-    <Compile Include="Base\RepositoryBase.cs" />
     <Compile Include="AboutInstartRepository.cs" />
     <Compile Include="CampusRepository.cs" />
     <Compile Include="CategoryRepository.cs" />

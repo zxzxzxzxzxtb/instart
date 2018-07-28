@@ -11,16 +11,16 @@ namespace Instart.Repository
 {
     public class CourseRepository: ICourseRepository
     {
-        public async Task<Course> GetByIdAsync(int id)
+        public Course GetByIdAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select * from [Course] where Id = @Id and Status=1;";
-                return await conn.QueryFirstOrDefaultAsync<Course>(sql, new { Id = id });
+                return conn.QueryFirstOrDefault<Course>(sql, new { Id = id });
             }
         }
 
-        public async Task<PageModel<Course>> GetListAsync(int pageIndex, int pageSize, string name = null)
+        public PageModel<Course> GetListAsync(int pageIndex, int pageSize, string name = null)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -33,7 +33,7 @@ namespace Instart.Repository
                 #endregion
 
                 string countSql = $"select count(1) from [Course] as a {where};";
-                int total = await conn.ExecuteScalarAsync<int>(countSql);
+                int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
                 {
                     return new PageModel<Course>();
@@ -43,7 +43,7 @@ namespace Instart.Repository
                      select a.*, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Course] as a {where}
                      ) as c
                      where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
-                var list = await conn.QueryAsync<Course>(sql);
+                var list = conn.Query<Course>(sql);
 
                 return new PageModel<Course>
                 {
@@ -53,7 +53,7 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<IEnumerable<Course>> GetAllAsync()
+        public IEnumerable<Course> GetAllAsync()
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -62,11 +62,11 @@ namespace Instart.Repository
                 #endregion
 
                 string sql = $@"select * from [Course] {where};";
-                return await conn.QueryAsync<Course>(sql);
+                return conn.Query<Course>(sql);
             }
         }
 
-        public async Task<bool> InsertAsync(Course model)
+        public bool InsertAsync(Course model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -81,11 +81,11 @@ namespace Instart.Repository
                 model.Status = 1;
 
                 string sql = $"insert into [Course] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> UpdateAsync(Course model)
+        public bool UpdateAsync(Course model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -112,56 +112,56 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
 
                 string sql = $"update [Course] set {string.Join(",", fieldList)} where Id=@Id;";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public bool DeleteAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "update [Course] set Status=0,ModifyTime=GETDATE() where Id=@Id;";
-                return await conn.ExecuteAsync(sql, new { Id = id }) > 0;
+                return conn.Execute(sql, new { Id = id }) > 0;
             }
         }
 
-        public async Task<List<Course>> GetRecommendListAsync(int topCount)
+        public List<Course> GetRecommendListAsync(int topCount)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = $@"select top {topCount} Id,Name,NameEn,Picture,Introduce from Course where Status=1 and IsRecommend=1 order by Id desc;";
-                return (await conn.QueryAsync<Course>(sql, null))?.ToList();
+                return (conn.Query<Course>(sql, null))?.ToList();
             }
         }
 
-        public async Task<bool> SetRecommend(int id, bool isRecommend)
+        public bool SetRecommend(int id, bool isRecommend)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = $"update [Course] set IsRecommend=@IsRecommend where Id=@Id;";
-                return await conn.ExecuteAsync(sql, new { IsRecommend = isRecommend, Id = id }) > 0;
+                return conn.Execute(sql, new { IsRecommend = isRecommend, Id = id }) > 0;
             }
         }
 
-        public async Task<int> GetInfoCountAsync()
+        public int GetInfoCountAsync()
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select count(1) from [CourseInfo];";
-                return await conn.ExecuteScalarAsync<int>(sql);
+                return conn.ExecuteScalar<int>(sql);
             }
         }
 
-        public async Task<CourseInfo> GetInfoAsync()
+        public CourseInfo GetInfoAsync()
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select * from [CourseInfo];";
-                return await conn.QueryFirstOrDefaultAsync<CourseInfo>(sql);
+                return conn.QueryFirstOrDefault<CourseInfo>(sql);
             }
         }
 
-        public async Task<bool> InsertInfoAsync(CourseInfo model)
+        public bool InsertInfoAsync(CourseInfo model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -175,11 +175,11 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
 
                 string sql = $"insert into [CourseInfo] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> UpdateInfoAsync(CourseInfo model)
+        public bool UpdateInfoAsync(CourseInfo model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -202,20 +202,20 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
 
                 string sql = $"update [CourseInfo] set {string.Join(",", fieldList)};";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<IEnumerable<int>> GetTeachersByIdAsync(int id)
+        public IEnumerable<int> GetTeachersByIdAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = $"select TeacherId from [TeacherCourse] where CourseId={id};";
-                return await conn.QueryAsync<int>(sql); ;
+                return conn.Query<int>(sql); ;
             }
         }
 
-        public async Task<bool> SetTeachers(int courseId, string teacherIds)
+        public bool SetTeachers(int courseId, string teacherIds)
         {
             var result = 0;
             using (var conn = DapperFactory.GetConnection())
@@ -229,13 +229,13 @@ namespace Instart.Repository
                 try
                 {
 
-                    result = await conn.ExecuteAsync(sql, new { CourseId = courseId }, tran);
+                    result = conn.Execute(sql, new { CourseId = courseId }, tran);
                     if (!String.IsNullOrEmpty(teacherIds))
                     {
                         string[] ids = teacherIds.Split(',');
                         foreach (var item in ids)
                         {
-                            result = await conn.ExecuteAsync(insertImg, new { CourseId = courseId, TeacherId = item }, tran);
+                            result = conn.Execute(insertImg, new { CourseId = courseId, TeacherId = item }, tran);
                         }
                     }
                     tran.Commit();

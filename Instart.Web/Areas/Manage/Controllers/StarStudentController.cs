@@ -24,10 +24,10 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_starStudentService);
         }
 
-        public async Task<ActionResult> Index(int page = 1, string keyword = null)
+        public ActionResult Index(int page = 1, string keyword = null)
         {
             int pageSize = 10;
-            var list = await _starStudentService.GetListAsync(page, pageSize, keyword);
+            var list = _starStudentService.GetListAsync(page, pageSize, keyword);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
@@ -35,14 +35,14 @@ namespace Instart.Web.Areas.Manage.Controllers
             return View(list.Data);
         }
 
-        public async Task<ActionResult> Edit(int id = 0)
+        public ActionResult Edit(int id = 0)
         {
             StarStudent model = new StarStudent();
             string action = "添加专访视频";
 
             if (id > 0)
             {
-                model = await _starStudentService.GetByIdAsync(id);
+                model = _starStudentService.GetByIdAsync(id);
                 action = "修改专访视频";
             }
             ViewBag.Action = action;
@@ -51,7 +51,7 @@ namespace Instart.Web.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public async Task<JsonResult> Set(StarStudent model)
+        public JsonResult Set(StarStudent model)
         {
             if (model == null)
             {
@@ -90,24 +90,24 @@ namespace Instart.Web.Areas.Manage.Controllers
 
             if (model.Id > 0)
             {
-                result.success = await _starStudentService.UpdateAsync(model);
+                result.success = _starStudentService.UpdateAsync(model);
             }
             else
             {
-                result.success = await _starStudentService.InsertAsync(model);
+                result.success = _starStudentService.InsertAsync(model);
             }
 
             return Json(result);
         }
 
         [HttpPost]
-        public async Task<JsonResult> Delete(int id)
+        public JsonResult Delete(int id)
         {
             try
             {
                 return Json(new ResultBase
                 {
-                    success = await _starStudentService.DeleteAsync(id)
+                    success = _starStudentService.DeleteAsync(id)
                 });
             }
             catch (Exception ex)

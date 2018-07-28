@@ -31,13 +31,13 @@ namespace Instart.Web.Controllers
             this.AddDisposableObject(_recruitService);
         }
 
-        public async Task<ActionResult> Index() {
-            ViewBag.PartnerList = (await _partnerService.GetRecommendListAsync(14)) ?? new List<Instart.Models.Partner>();
-            ViewBag.SchoolList = (await _schoolService.GetRecommendListAsync(10)) ?? new List<Instart.Models.School>();
-            ViewBag.TeacherList = (await _teacherService.GetRecommendListAsync(8)) ?? new List<Instart.Models.Teacher>();
-            ViewBag.StudentList = (await _studentService.GetRecommendListAsync(8)) ?? new List<Instart.Models.Student>();
-            ViewBag.CourseList = (await _courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();
-            ViewBag.BannerList = (await _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Index)) ?? new List<Instart.Models.Banner>();
+        public  ActionResult Index() {
+            ViewBag.PartnerList = ( _partnerService.GetRecommendListAsync(14)) ?? new List<Instart.Models.Partner>();
+            ViewBag.SchoolList = ( _schoolService.GetRecommendListAsync(10)) ?? new List<Instart.Models.School>();
+            ViewBag.TeacherList = ( _teacherService.GetRecommendListAsync(8)) ?? new List<Instart.Models.Teacher>();
+            ViewBag.StudentList = ( _studentService.GetRecommendListAsync(8)) ?? new List<Instart.Models.Student>();
+            ViewBag.CourseList = ( _courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();
+            ViewBag.BannerList = ( _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Index)) ?? new List<Instart.Models.Banner>();
             return View();
         }
 
@@ -45,10 +45,10 @@ namespace Instart.Web.Controllers
         /// 招贤纳士
         /// </summary>
         /// <returns></returns>
-        public async Task<ActionResult> Recruit() {
-            Recruit model = await _recruitService.GetInfoAsync() ?? new Recruit();
+        public  ActionResult Recruit() {
+            Recruit model =  _recruitService.GetInfoAsync() ?? new Recruit();
 
-            List<Banner> bannerList = await _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Recruit);
+            List<Banner> bannerList =  _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Recruit);
             ViewBag.BannerUrl = "";
             if (bannerList != null && bannerList.Count() > 0)
             {

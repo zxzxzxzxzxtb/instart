@@ -17,9 +17,9 @@ namespace Instart.Service
             base.AddDisposableObject(_statisticsRepository);
         }
 
-        public async Task<Statistics> GetAsync()
+        public  Statistics GetAsync()
         {
-            return await _statisticsRepository.GetAsync(); 
+            return _statisticsRepository.GetAsync(); 
         }
     }
 }

@@ -17,22 +17,22 @@ namespace Instart.Service
             base.AddDisposableObject(_partnerRepository);
         }
 
-        public async Task<Partner> GetByIdAsync(int id)
+        public Partner GetByIdAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _partnerRepository.GetByIdAsync(id);
+            return _partnerRepository.GetByIdAsync(id);
         }
 
-        public async Task<PageModel<Partner>> GetListAsync(int pageIndex, int pageSize, string name = null)
+        public PageModel<Partner> GetListAsync(int pageIndex, int pageSize, string name = null)
         {
-            return await _partnerRepository.GetListAsync(pageIndex, pageSize, name);
+            return _partnerRepository.GetListAsync(pageIndex, pageSize, name);
         }
 
-        public async Task<bool> InsertAsync(Partner model)
+        public bool InsertAsync(Partner model)
         {
             if (model == null)
             {
@@ -44,10 +44,10 @@ namespace Instart.Service
                 throw new ArgumentNullException(nameof(model.Name));
             }
 
-            return await _partnerRepository.InsertAsync(model);
+            return _partnerRepository.InsertAsync(model);
         }
 
-        public async Task<bool> UpdateAsync(Partner model)
+        public bool UpdateAsync(Partner model)
         {
             if (model == null)
             {
@@ -64,27 +64,27 @@ namespace Instart.Service
                 throw new ArgumentException(nameof(model.Id));
             }
 
-            return await _partnerRepository.UpdateAsync(model);
+            return _partnerRepository.UpdateAsync(model);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public bool DeleteAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _partnerRepository.DeleteAsync(id);
+            return _partnerRepository.DeleteAsync(id);
         }
 
-        public async Task<List<Partner>> GetRecommendListAsync(int topCount)
+        public List<Partner> GetRecommendListAsync(int topCount)
         {
             if (topCount == 0)
             {
                 return null;
             }
 
-            return await _partnerRepository.GetRecommendListAsync(topCount);
+            return _partnerRepository.GetRecommendListAsync(topCount);
         }
     }
 }

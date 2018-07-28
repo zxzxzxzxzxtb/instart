@@ -11,25 +11,25 @@ namespace Instart.Repository
 {
     public class AboutInstartRepository : IAboutInstartRepository
     {
-        public async Task<int> GetCountAsync()
+        public int GetCountAsync()
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select count(1) from [AboutInstart];";
-                return await conn.ExecuteScalarAsync<int>(sql);
+                return conn.ExecuteScalar<int>(sql);
             }
         }
 
-        public async Task<AboutInstart> GetInfoAsync()
+        public AboutInstart GetInfoAsync()
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select * from [AboutInstart];";
-                return await conn.QueryFirstOrDefaultAsync<AboutInstart>(sql);
+                return conn.QueryFirstOrDefault<AboutInstart>(sql);
             }
         }
 
-        public async Task<bool> InsertAsync(AboutInstart model)
+        public bool InsertAsync(AboutInstart model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -43,11 +43,11 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
 
                 string sql = $"insert into [AboutInstart] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> UpdateAsync(AboutInstart model)
+        public bool UpdateAsync(AboutInstart model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -70,7 +70,7 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
 
                 string sql = $"update [AboutInstart] set {string.Join(",", fieldList)};";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
     }

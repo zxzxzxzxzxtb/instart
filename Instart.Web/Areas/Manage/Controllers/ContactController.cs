@@ -24,16 +24,16 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_contactService);
         }
 
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            Contact model = await _contactService.GetInfoAsync();
+            Contact model = _contactService.GetInfoAsync();
             if (model == null) model = new Contact();
             return View(model);
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public async Task<JsonResult> Set(Contact model)
+        public JsonResult Set(Contact model)
         {
             var fileQrcode = Request.Files["fileQrcode"];
 
@@ -47,14 +47,14 @@ namespace Instart.Web.Areas.Manage.Controllers
             }
             var result = new ResultBase();
 
-            int count = await _contactService.GetCountAsync();
+            int count = _contactService.GetCountAsync();
             if (count > 0)
             {
-                result.success = await _contactService.UpdateAsync(model);
+                result.success = _contactService.UpdateAsync(model);
             }
             else
             {
-                result.success = await _contactService.InsertAsync(model);
+                result.success = _contactService.InsertAsync(model);
             }
 
             return Json(result);

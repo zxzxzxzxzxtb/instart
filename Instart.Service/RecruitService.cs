@@ -17,34 +17,34 @@ namespace Instart.Service
             base.AddDisposableObject(_recruitRepository);
         }
 
-        public async Task<int> GetCountAsync()
+        public int GetCountAsync()
         {
-            return await _recruitRepository.GetCountAsync();
+            return _recruitRepository.GetCountAsync();
         }
 
-        public async Task<Recruit> GetInfoAsync()
+        public Recruit GetInfoAsync()
         {
-            return await _recruitRepository.GetInfoAsync();
+            return _recruitRepository.GetInfoAsync();
         }
 
-        public async Task<bool> InsertAsync(Recruit model)
+        public bool InsertAsync(Recruit model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            return await _recruitRepository.InsertAsync(model);
+            return _recruitRepository.InsertAsync(model);
         }
 
-        public async Task<bool> UpdateAsync(Recruit model)
+        public bool UpdateAsync(Recruit model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            return await _recruitRepository.UpdateAsync(model);
+            return _recruitRepository.UpdateAsync(model);
         }
     }
 }

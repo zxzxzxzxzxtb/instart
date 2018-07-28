@@ -10,16 +10,16 @@ namespace Instart.Repository
 {
     public interface IDivisionRepository
     {
-        Task<Division> GetByIdAsync(int id);
+        Division GetByIdAsync(int id);
 
-        Task<PageModel<Division>> GetListAsync(int pageIndex, int pageSize, string name = null);
+        PageModel<Division> GetListAsync(int pageIndex, int pageSize, string name = null);
 
-        Task<IEnumerable<Division>> GetAllAsync();
+        IEnumerable<Division> GetAllAsync();
 
-        Task<bool> InsertAsync(Division model);
+        bool InsertAsync(Division model);
 
-        Task<bool> UpdateAsync(Division model);
+        bool UpdateAsync(Division model);
 
-        Task<bool> DeleteAsync(int id);
+        bool DeleteAsync(int id);
     }
 }

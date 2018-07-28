@@ -14,7 +14,7 @@ namespace Instart.UnitTest.Repository
         ICategoryRepository _categoryRepository = AutofacRepository.Resolve<ICategoryRepository>();
 
         [Fact]
-        public async Task Insert_Test()
+        public void Insert_Test()
         {
             Category model = new Category()
             {
@@ -25,12 +25,12 @@ namespace Instart.UnitTest.Repository
                 CreateTime = DateTime.Now,
             };
 
-            var result = await _categoryRepository.InsertAsync(model);
+            var result = _categoryRepository.InsertAsync(model);
             Assert.True(result);
         }
 
         [Fact]
-        public async Task Update_Test()
+        public void Update_Test()
         {
             Category model = new Category()
             {
@@ -43,28 +43,28 @@ namespace Instart.UnitTest.Repository
                 ModifyTime = DateTime.Now,
             };
 
-            var result = await _categoryRepository.UpdateAsync(model);
+            var result = _categoryRepository.UpdateAsync(model);
             Assert.True(result);
         }
 
         [Fact]
-        public async Task GetById_Test()
+        public void GetById_Test()
         {
-            var category = await _categoryRepository.GetByIdAsync(1);
+            var category = _categoryRepository.GetByIdAsync(1);
             Assert.NotNull(category);
         }
 
         [Fact]
-        public async Task GetList_Test()
+        public void GetList_Test()
         {
-            var list = await _categoryRepository.GetListAsync(1, 10, "");
+            var list = _categoryRepository.GetListAsync(1, 10, "");
             Assert.NotNull(list);
         }
 
         [Fact]
-        public async Task Delete_Test()
+        public void Delete_Test()
         {
-            var result = await _categoryRepository.DeleteAsync(1);
+            var result = _categoryRepository.DeleteAsync(1);
             Assert.True(result);
         }
     }

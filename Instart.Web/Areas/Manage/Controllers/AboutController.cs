@@ -24,16 +24,16 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_aboutInstartService);
         }
 
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            AboutInstart model = await _aboutInstartService.GetInfoAsync();
+            AboutInstart model = _aboutInstartService.GetInfoAsync();
             if (model == null) model = new AboutInstart();
             return View(model);
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public async Task<JsonResult> Set(AboutInstart model)
+        public JsonResult Set(AboutInstart model)
         {
             if (model == null)
             {
@@ -61,14 +61,14 @@ namespace Instart.Web.Areas.Manage.Controllers
             }
             var result = new ResultBase();
 
-            int count = await _aboutInstartService.GetCountAsync();
+            int count = _aboutInstartService.GetCountAsync();
             if (count > 0)
             {
-                result.success = await _aboutInstartService.UpdateAsync(model);
+                result.success = _aboutInstartService.UpdateAsync(model);
             }
             else
             {
-                result.success = await _aboutInstartService.InsertAsync(model);
+                result.success = _aboutInstartService.InsertAsync(model);
             }
 
             return Json(result);

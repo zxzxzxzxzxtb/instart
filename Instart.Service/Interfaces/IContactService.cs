@@ -9,12 +9,12 @@ namespace Instart.Service
 {
     public interface IContactService
     {
-        Task<int> GetCountAsync();
+        int GetCountAsync();
 
-        Task<Contact> GetInfoAsync();
+        Contact GetInfoAsync();
 
-        Task<bool> InsertAsync(Contact model);
+        bool InsertAsync(Contact model);
 
-        Task<bool> UpdateAsync(Contact model);
+        bool UpdateAsync(Contact model);
     }
 }

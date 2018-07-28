@@ -24,10 +24,10 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_campusService);
         }
 
-        public async Task<ActionResult> Index(int page = 1, string keyword = null)
+        public ActionResult Index(int page = 1, string keyword = null)
         {
             int pageSize = 10;
-            var list = await _campusService.GetListAsync(page, pageSize, keyword);
+            var list = _campusService.GetListAsync(page, pageSize, keyword);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
@@ -35,14 +35,14 @@ namespace Instart.Web.Areas.Manage.Controllers
             return View(list.Data);
         }
 
-        public async Task<ActionResult> Edit(int id = 0)
+        public ActionResult Edit(int id = 0)
         {
             Campus model = new Campus();
             string action = "添加校区";
 
             if (id > 0)
             {
-                model = await _campusService.GetByIdAsync(id);
+                model = _campusService.GetByIdAsync(id);
                 action = "修改校区";
             }
 
@@ -51,7 +51,7 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> Set(Campus model, List<HttpPostedFileBase> imgs)
+        public JsonResult Set(Campus model, List<HttpPostedFileBase> imgs)
         {
             if (model == null)
             {
@@ -68,24 +68,24 @@ namespace Instart.Web.Areas.Manage.Controllers
 
             if (model.Id > 0)
             {
-                result.success = await _campusService.UpdateAsync(model);
+                result.success = _campusService.UpdateAsync(model);
             }
             else
             {
-                result.success = await _campusService.InsertAsync(model);
+                result.success = _campusService.InsertAsync(model);
             }
 
             return Json(result);
         }
 
         [HttpPost]
-        public async Task<JsonResult> Delete(int id)
+        public JsonResult Delete(int id)
         {
             try
             {
                 return Json(new ResultBase
                 {
-                    success = await _campusService.DeleteAsync(id)
+                    success = _campusService.DeleteAsync(id)
                 });
             }
             catch (Exception ex)
@@ -95,15 +95,15 @@ namespace Instart.Web.Areas.Manage.Controllers
             }
         }
 
-        public async Task<ActionResult> ImgIndex(int campusId)
+        public ActionResult ImgIndex(int campusId)
         {
             ViewBag.CampusId = campusId;
-            ViewBag.ImgList = await _campusService.GetImgsByCampusIdAsync(campusId);
+            ViewBag.ImgList = _campusService.GetImgsByCampusIdAsync(campusId);
             return View();
         }
 
         [HttpPost]
-        public async Task<JsonResult> SetImg(CampusImg model)
+        public JsonResult SetImg(CampusImg model)
         {
             if (model == null)
             {
@@ -122,19 +122,19 @@ namespace Instart.Web.Areas.Manage.Controllers
             }
 
             var result = new ResultBase();
-            result.success = await _campusService.InsertImgAsync(model);
+            result.success = _campusService.InsertImgAsync(model);
 
             return Json(result);
         }
 
         [HttpPost]
-        public async Task<JsonResult> DeleteImg(int id)
+        public JsonResult DeleteImg(int id)
         {
             try
             {
                 return Json(new ResultBase
                 {
-                    success = await _campusService.DeleteImgAsync(id)
+                    success = _campusService.DeleteImgAsync(id)
                 });
             }
             catch (Exception ex)

@@ -27,7 +27,7 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> Login(string username, string password, bool autoLogin = false)
+        public JsonResult Login(string username, string password, bool autoLogin = false)
         {
             if (string.IsNullOrEmpty(username))
             {
@@ -39,14 +39,14 @@ namespace Instart.Web.Areas.Manage.Controllers
                 return Error("密码不能为空。");
             }
 
-            var user = await _userService.GetByNameAsync(username.Trim());
+            var user = _userService.GetByNameAsync(username.Trim());
 
-            if(user == null)
+            if (user == null)
             {
                 return Error("用户不存在。");
             }
 
-            if(Md5Helper.Encrypt(password) != user.Password.Trim())
+            if (Md5Helper.Encrypt(password) != user.Password.Trim())
             {
                 return Error("密码错误。");
             }
@@ -73,7 +73,7 @@ namespace Instart.Web.Areas.Manage.Controllers
                 Title = $"{user.UserName}登录系统",
                 UserId = user.Id,
                 UserName = user.UserName,
-                Type = Instart.Models.Enums.EnumOperType.Other,                
+                Type = Instart.Models.Enums.EnumOperType.Other,
             });
 
             return Success();
@@ -91,7 +91,7 @@ namespace Instart.Web.Areas.Manage.Controllers
             });
 
             Session[WebAppSettings.SessionName] = null;
-            CookieHelper.Clear(WebAppSettings.CookieName);            
+            CookieHelper.Clear(WebAppSettings.CookieName);
         }
     }
 }

@@ -17,26 +17,26 @@ namespace Instart.Service
             base.AddDisposableObject(_campusRepository);
         }
 
-        public async Task<Campus> GetByIdAsync(int id)
+        public Campus GetByIdAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
-            return await _campusRepository.GetByIdAsync(id);
+            return _campusRepository.GetByIdAsync(id);
         }
 
-        public async Task<PageModel<Campus>> GetListAsync(int pageIndex, int pageSize, string name = null)
+        public PageModel<Campus> GetListAsync(int pageIndex, int pageSize, string name = null)
         {
-            return await _campusRepository.GetListAsync(pageIndex, pageSize, name);
+            return _campusRepository.GetListAsync(pageIndex, pageSize, name);
         }
 
-        public async Task<IEnumerable<Campus>> GetAllAsync()
+        public IEnumerable<Campus> GetAllAsync()
         {
-            return await _campusRepository.GetAllAsync();
+            return _campusRepository.GetAllAsync();
         }
 
-        public async Task<bool> InsertAsync(Campus model)
+        public bool InsertAsync(Campus model)
         {
             if (model == null)
             {
@@ -48,10 +48,10 @@ namespace Instart.Service
                 throw new ArgumentNullException(nameof(model.Name));
             }
 
-            return await _campusRepository.InsertAsync(model);
+            return _campusRepository.InsertAsync(model);
         }
 
-        public async Task<bool> UpdateAsync(Campus model)
+        public bool UpdateAsync(Campus model)
         {
             if (model == null)
             {
@@ -68,41 +68,41 @@ namespace Instart.Service
                 throw new ArgumentException(nameof(model.Id));
             }
 
-            return await _campusRepository.UpdateAsync(model);
+            return _campusRepository.UpdateAsync(model);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public bool DeleteAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _campusRepository.DeleteAsync(id);
+            return _campusRepository.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<CampusImg>> GetImgsByCampusIdAsync(int campusId)
+        public IEnumerable<CampusImg> GetImgsByCampusIdAsync(int campusId)
         {
-            return await _campusRepository.GetImgsByCampusIdAsync(campusId);
+            return _campusRepository.GetImgsByCampusIdAsync(campusId);
         }
 
-        public async Task<bool> InsertImgAsync(CampusImg model)
+        public bool InsertImgAsync(CampusImg model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
-            return await _campusRepository.InsertImgAsync(model);
+            return _campusRepository.InsertImgAsync(model);
         }
 
-        public async Task<bool> DeleteImgAsync(int id)
+        public bool DeleteImgAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _campusRepository.DeleteImgAsync(id);
+            return _campusRepository.DeleteImgAsync(id);
         }
     }
 }

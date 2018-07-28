@@ -29,22 +29,22 @@ namespace Instart.Web.Areas.Manage.Controllers
             this.AddDisposableObject(_logService);
         }
 
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            ViewBag.CourseApplyList = (await _courseApplyService.GetTopListAsync(5)) ?? new List<Instart.Models.CourseApply>();
-            ViewBag.SchoolApplyList = (await _schoolApplyService.GetTopListAsync(5)) ?? new List<Instart.Models.SchoolApply>();
-            ViewBag.Statistics = (await _statisticsService.GetAsync()) ?? new Instart.Models.Statistics();
-            ViewBag.LogList = (await _logService.GetTopListAsync(20)) ?? new List<Instart.Models.Log>();
+            ViewBag.CourseApplyList = (_courseApplyService.GetTopListAsync(5)) ?? new List<Instart.Models.CourseApply>();
+            ViewBag.SchoolApplyList = (_schoolApplyService.GetTopListAsync(5)) ?? new List<Instart.Models.SchoolApply>();
+            ViewBag.Statistics = (_statisticsService.GetAsync()) ?? new Instart.Models.Statistics();
+            ViewBag.LogList = (_logService.GetTopListAsync(20)) ?? new List<Instart.Models.Log>();
             return View();
         }
 
-        public async Task<ActionResult> EditInfo()
+        public ActionResult EditInfo()
         {
             Instart.Models.User model;
             if (Session[WebAppSettings.SessionName] != null)
             {
                 LoginUser user = (LoginUser)Session[WebAppSettings.SessionName];
-                model = (await _userService.GetByIdAsync(user.UserId)) ?? new Instart.Models.User();
+                model = (_userService.GetByIdAsync(user.UserId)) ?? new Instart.Models.User();
             }
             else
             {
@@ -53,7 +53,7 @@ namespace Instart.Web.Areas.Manage.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> UpdatePwd()
+        public ActionResult UpdatePwd()
         {
             int id = 0;
             if (Session[WebAppSettings.SessionName] != null)

@@ -10,14 +10,14 @@ namespace Instart.Service
 {
     public interface ISchoolApplyService
     {
-        Task<PageModel<SchoolApply>> GetListAsync(int pageIndex, int pageSize, string schoolName, EnumAccept accept);
+         PageModel<SchoolApply> GetListAsync(int pageIndex, int pageSize, string schoolName, EnumAccept accept);
 
-        Task<List<string>> GetApplySchoolNameListAsync();
+         List<string> GetApplySchoolNameListAsync();
 
-        Task<bool> SetAcceptAsync(int id);
+         bool SetAcceptAsync(int id);
 
-        Task<bool> InsertAsync(SchoolApply model);
+         bool InsertAsync(SchoolApply model);
 
-        Task<List<SchoolApply>> GetTopListAsync(int topCount);
+         List<SchoolApply> GetTopListAsync(int topCount);
     }
 }

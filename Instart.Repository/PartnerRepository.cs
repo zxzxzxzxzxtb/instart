@@ -10,16 +10,16 @@ namespace Instart.Repository
 {
     public class PartnerRepository : IPartnerRepository
     {
-        public async Task<Partner> GetByIdAsync(int id)
+        public Partner GetByIdAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select * from [Partner] where Id = @Id and Status=1;";
-                return await conn.QueryFirstOrDefaultAsync<Partner>(sql, new { Id = id });
+                return conn.QueryFirstOrDefault<Partner>(sql, new { Id = id });
             }
         }
 
-        public async Task<PageModel<Partner>> GetListAsync(int pageIndex, int pageSize, string name = null)
+        public PageModel<Partner> GetListAsync(int pageIndex, int pageSize, string name = null)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -32,7 +32,7 @@ namespace Instart.Repository
                 #endregion
 
                 string countSql = $"select count(1) from [Partner] {where};";
-                int total = await conn.ExecuteScalarAsync<int>(countSql);
+                int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
                 {
                     return new PageModel<Partner>();
@@ -42,7 +42,7 @@ namespace Instart.Repository
                              select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [Partner] {where}
                              ) as b
                              where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
-                var list = await conn.QueryAsync<Partner>(sql);
+                var list = conn.Query<Partner>(sql);
 
                 return new PageModel<Partner>
                 {
@@ -52,7 +52,7 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<bool> InsertAsync(Partner model)
+        public bool InsertAsync(Partner model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -67,11 +67,11 @@ namespace Instart.Repository
                 model.Status = 1;
 
                 string sql = $"insert into [Partner] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> UpdateAsync(Partner model)
+        public bool UpdateAsync(Partner model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -101,25 +101,25 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
 
                 string sql = $"update [Partner] set {string.Join(",", fieldList)} where Id=@Id;";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public bool DeleteAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "update [Partner] set Status=0,ModifyTime=GETDATE() where Id=@Id;";
-                return await conn.ExecuteAsync(sql, new { Id = id }) > 0;
+                return conn.Execute(sql, new { Id = id }) > 0;
             }
         }
 
-        public async Task<List<Partner>> GetRecommendListAsync(int topCount)
+        public List<Partner> GetRecommendListAsync(int topCount)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = $"select top {topCount} Id,Name,ImageUrl,Link from [Partner] where Status=1 order by Id desc;";
-                return (await conn.QueryAsync<Partner>(sql, null))?.ToList();
+                return (conn.Query<Partner>(sql, null))?.ToList();
             }
         }
     }

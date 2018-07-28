@@ -9,20 +9,20 @@ namespace Instart.Repository
 {
     public interface IUserRepository
     {
-        Task<User> GetByIdAsync(int id);
+        User GetByIdAsync(int id);
 
         User GetById(int id);
 
-        Task<User> GetByNameAsync(string name);
+        User GetByNameAsync(string name);
 
-        Task<PageModel<User>> GetListAsync(int pageIndex, int pageSize);
+        PageModel<User> GetListAsync(int pageIndex, int pageSize);
 
-        Task<bool> DeleteAsync(int id);
+        bool DeleteAsync(int id);
 
-        Task<bool> UpdatePasswordAsync(int id, string password);
+        bool UpdatePasswordAsync(int id, string password);
 
-        Task<bool> InsertAsync(User model);
+        bool InsertAsync(User model);
 
-        Task<bool> UpdateAsync(User model);
+        bool UpdateAsync(User model);
     }
 }

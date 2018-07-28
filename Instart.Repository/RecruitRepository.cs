@@ -11,25 +11,25 @@ namespace Instart.Repository
 {
     public class RecruitRepository : IRecruitRepository
     {
-        public async Task<int> GetCountAsync()
+        public int GetCountAsync()
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select count(1) from [Recruit];";
-                return await conn.ExecuteScalarAsync<int>(sql);
+                return conn.ExecuteScalar<int>(sql);
             }
         }
 
-        public async Task<Recruit> GetInfoAsync()
+        public Recruit GetInfoAsync()
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select * from [Recruit];";
-                return await conn.QueryFirstOrDefaultAsync<Recruit>(sql);
+                return conn.QueryFirstOrDefault<Recruit>(sql);
             }
         }
 
-        public async Task<bool> InsertAsync(Recruit model)
+        public bool InsertAsync(Recruit model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -40,11 +40,11 @@ namespace Instart.Repository
                 }
 
                 string sql = $"insert into [Recruit] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> UpdateAsync(Recruit model)
+        public bool UpdateAsync(Recruit model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -62,7 +62,7 @@ namespace Instart.Repository
                 }
 
                 string sql = $"update [Recruit] set {string.Join(",", fieldList)};";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
     }

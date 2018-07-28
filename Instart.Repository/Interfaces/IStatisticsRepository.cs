@@ -9,6 +9,6 @@ namespace Instart.Repository
 {
     public interface IStatisticsRepository
     {
-        Task<Statistics> GetAsync();
+        Statistics GetAsync();
     }
 }

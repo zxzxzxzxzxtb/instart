@@ -11,16 +11,16 @@ namespace Instart.Repository
 {
     public class CampusRepository : ICampusRepository
     {
-        public async Task<Campus> GetByIdAsync(int id)
+        public Campus GetByIdAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select * from [Campus] where Id = @Id and Status=1;";
-                return await conn.QueryFirstOrDefaultAsync<Campus>(sql, new { Id = id });
+                return conn.QueryFirstOrDefault<Campus>(sql, new { Id = id });
             }
         }
 
-        public async Task<PageModel<Campus>> GetListAsync(int pageIndex, int pageSize, string name = null)
+        public PageModel<Campus> GetListAsync(int pageIndex, int pageSize, string name = null)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -33,7 +33,7 @@ namespace Instart.Repository
                 #endregion
 
                 string countSql = $"select count(1) from [Campus] {where};";
-                int total = await conn.ExecuteScalarAsync<int>(countSql);
+                int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
                 {
                     return new PageModel<Campus>();
@@ -43,7 +43,7 @@ namespace Instart.Repository
                              select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [Campus] {where}
                              ) as b
                              where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
-                var list = await conn.QueryAsync<Campus>(sql);
+                var list = conn.Query<Campus>(sql);
 
                 return new PageModel<Campus>
                 {
@@ -53,7 +53,7 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<IEnumerable<Campus>> GetAllAsync()
+        public IEnumerable<Campus> GetAllAsync()
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -62,11 +62,11 @@ namespace Instart.Repository
                 #endregion
 
                 string sql = $@"select * from [Campus] {where};";
-                return await conn.QueryAsync<Campus>(sql);
+                return conn.Query<Campus>(sql);
             }
         }
 
-        public async Task<bool> InsertAsync(Campus model)
+        public bool InsertAsync(Campus model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -81,11 +81,11 @@ namespace Instart.Repository
                 model.Status = 1;
 
                 string sql = $"insert into [Campus] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> UpdateAsync(Campus model)
+        public bool UpdateAsync(Campus model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -111,20 +111,20 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
 
                 string sql = $"update [Campus] set {string.Join(",", fieldList)} where Id=@Id;";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public bool DeleteAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "update [Campus] set Status=0,ModifyTime=GETDATE() where Id=@Id;";
-                return await conn.ExecuteAsync(sql, new { Id = id }) > 0;
+                return conn.Execute(sql, new { Id = id }) > 0;
             }
         }
 
-        public async Task<IEnumerable<CampusImg>> GetImgsByCampusIdAsync(int campusId)
+        public IEnumerable<CampusImg> GetImgsByCampusIdAsync(int campusId)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -133,11 +133,11 @@ namespace Instart.Repository
                 #endregion
 
                 string sql = $@"select * from [CampusImg] {where};";
-                return await conn.QueryAsync<CampusImg>(sql);
+                return conn.Query<CampusImg>(sql);
             }
         }
 
-        public async Task<bool> InsertImgAsync(CampusImg model)
+        public bool InsertImgAsync(CampusImg model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -152,16 +152,16 @@ namespace Instart.Repository
                 model.Status = 1;
 
                 string sql = $"insert into [CampusImg] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> DeleteImgAsync(int id)
+        public bool DeleteImgAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "update [CampusImg] set Status=0,ModifyTime=GETDATE() where Id=@Id;";
-                return await conn.ExecuteAsync(sql, new { Id = id }) > 0;
+                return conn.Execute(sql, new { Id = id }) > 0;
             }
         }
     }

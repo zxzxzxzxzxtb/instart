@@ -17,27 +17,27 @@ namespace Instart.Service
             base.AddDisposableObject(_divisionRepository);
         }
 
-        public async Task<Division> GetByIdAsync(int id)
+        public Division GetByIdAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _divisionRepository.GetByIdAsync(id);
+            return _divisionRepository.GetByIdAsync(id);
         }
 
-        public async Task<PageModel<Division>> GetListAsync(int pageIndex, int pageSize, string name = null)
+        public PageModel<Division> GetListAsync(int pageIndex, int pageSize, string name = null)
         {
-            return await _divisionRepository.GetListAsync(pageIndex, pageSize, name);
+            return _divisionRepository.GetListAsync(pageIndex, pageSize, name);
         }
 
-        public async Task<IEnumerable<Division>> GetAllAsync()
+        public IEnumerable<Division> GetAllAsync()
         {
-            return await _divisionRepository.GetAllAsync();
+            return _divisionRepository.GetAllAsync();
         }
 
-        public async Task<bool> InsertAsync(Division model)
+        public bool InsertAsync(Division model)
         {
             if (model == null)
             {
@@ -49,10 +49,10 @@ namespace Instart.Service
                 throw new ArgumentNullException(nameof(model.Name));
             }
 
-            return await _divisionRepository.InsertAsync(model);
+            return _divisionRepository.InsertAsync(model);
         }
 
-        public async Task<bool> UpdateAsync(Division model)
+        public bool UpdateAsync(Division model)
         {
             if (model == null)
             {
@@ -69,17 +69,17 @@ namespace Instart.Service
                 throw new ArgumentException(nameof(model.Id));
             }
 
-            return await _divisionRepository.UpdateAsync(model);
+            return _divisionRepository.UpdateAsync(model);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public bool DeleteAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _divisionRepository.DeleteAsync(id);
+            return _divisionRepository.DeleteAsync(id);
         }
     }
 }

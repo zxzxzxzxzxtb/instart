@@ -24,10 +24,10 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_partnerService);
         }
 
-        public async Task<ActionResult> Index(int page = 1, string keyword = null)
+        public ActionResult Index(int page = 1, string keyword = null)
         {
             int pageSize = 10;
-            var list = await _partnerService.GetListAsync(page, pageSize, keyword);
+            var list = _partnerService.GetListAsync(page, pageSize, keyword);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
@@ -35,14 +35,14 @@ namespace Instart.Web.Areas.Manage.Controllers
             return View(list.Data);
         }
 
-        public async Task<ActionResult> Edit(int id = 0)
+        public ActionResult Edit(int id = 0)
         {
             Partner model = new Partner();
             string action = "添加合作伙伴";
 
             if (id > 0)
             {
-                model = await _partnerService.GetByIdAsync(id);
+                model = _partnerService.GetByIdAsync(id);
                 action = "修改合作伙伴";
             }
             ViewBag.Action = action;
@@ -51,7 +51,7 @@ namespace Instart.Web.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public async Task<JsonResult> Set(Partner model)
+        public JsonResult Set(Partner model)
         {
             if (model == null)
             {
@@ -79,24 +79,24 @@ namespace Instart.Web.Areas.Manage.Controllers
 
             if (model.Id > 0)
             {
-                result.success = await _partnerService.UpdateAsync(model);
+                result.success = _partnerService.UpdateAsync(model);
             }
             else
             {
-                result.success = await _partnerService.InsertAsync(model);
+                result.success = _partnerService.InsertAsync(model);
             }
 
             return Json(result);
         }
 
         [HttpPost]
-        public async Task<JsonResult> Delete(int id)
+        public JsonResult Delete(int id)
         {
             try
             {
                 return Json(new ResultBase
                 {
-                    success = await _partnerService.DeleteAsync(id)
+                    success = _partnerService.DeleteAsync(id)
                 });
             }
             catch (Exception ex)

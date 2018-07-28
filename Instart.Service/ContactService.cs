@@ -17,34 +17,34 @@ namespace Instart.Service
             base.AddDisposableObject(_contactRepository);
         }
 
-        public async Task<int> GetCountAsync()
+        public int GetCountAsync()
         {
-            return await _contactRepository.GetCountAsync();
+            return _contactRepository.GetCountAsync();
         }
 
-        public async Task<Contact> GetInfoAsync()
+        public Contact GetInfoAsync()
         {
-            return await _contactRepository.GetInfoAsync();
+            return _contactRepository.GetInfoAsync();
         }
 
-        public async Task<bool> InsertAsync(Contact model)
+        public bool InsertAsync(Contact model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            return await _contactRepository.InsertAsync(model);
+            return _contactRepository.InsertAsync(model);
         }
 
-        public async Task<bool> UpdateAsync(Contact model)
+        public bool UpdateAsync(Contact model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            return await _contactRepository.UpdateAsync(model);
+            return _contactRepository.UpdateAsync(model);
         }
     }
 }

@@ -12,8 +12,7 @@ namespace Instart.Web.Controllers
     /// </summary>
     public class CourseController : ControllerBase
     {
-        public async Task<ActionResult> Index() {
-            await Task.Delay(1);
+        public  ActionResult Index() {
             return View();
         }
     }

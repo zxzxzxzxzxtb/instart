@@ -21,10 +21,10 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_userService);
         }
 
-        public async Task<ActionResult> Index(int page = 1)
+        public ActionResult Index(int page = 1)
         {
             int pageSize = 10;
-            var list = await _userService.GetListAsync(page, pageSize);
+            var list = _userService.GetListAsync(page, pageSize);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
@@ -38,7 +38,7 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> Set(User model)
+        public JsonResult Set(User model)
         {
             if (model == null)
             {
@@ -58,24 +58,24 @@ namespace Instart.Web.Areas.Manage.Controllers
             var result = new ResultBase();
             if (model.Id > 0)
             {
-                result.success = await _userService.UpdateAsync(model);
+                result.success = _userService.UpdateAsync(model);
             }
             else
             {
-                result.success = await _userService.InsertAsync(model);
+                result.success = _userService.InsertAsync(model);
             }
 
             return Json(result);
         }
 
         [HttpPost]
-        public async Task<JsonResult> Delete(int id)
+        public JsonResult Delete(int id)
         {
             try
             {
                 return Json(new ResultBase
                 {
-                    success = await _userService.DeleteAsync(id)
+                    success = _userService.DeleteAsync(id)
                 });
             }
             catch (Exception ex)
@@ -86,9 +86,9 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> UpdatePassword(int userId, string oldPwd, string newPwd)
+        public JsonResult UpdatePassword(int userId, string oldPwd, string newPwd)
         {
-            User user = await _userService.GetByIdAsync(userId);
+            User user = _userService.GetByIdAsync(userId);
             if (user == null || Md5Helper.Encrypt(oldPwd) != user.Password)
             {
                 return Error("旧密码错误");
@@ -96,7 +96,7 @@ namespace Instart.Web.Areas.Manage.Controllers
 
             return Json(new ResultBase
             {
-                success = await _userService.UpdatePasswordAsync(userId, newPwd)
+                success = _userService.UpdatePasswordAsync(userId, newPwd)
             });
         }
     }

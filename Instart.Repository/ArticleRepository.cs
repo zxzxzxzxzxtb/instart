@@ -11,16 +11,16 @@ namespace Instart.Repository
 {
     public class ArticleRepository : IArticleRepository
     {
-        public async Task<Article> GetByIdAsync(int id)
+        public Article GetByIdAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select * from [Article] where Id = @Id and Status=1;";
-                return await conn.QueryFirstOrDefaultAsync<Article>(sql, new { Id = id });
+                return conn.QueryFirstOrDefault<Article>(sql, new { Id = id });
             }
         }
 
-        public async Task<PageModel<Article>> GetListAsync(int pageIndex, int pageSize, int categoryId = 0, string title = null)
+        public PageModel<Article> GetListAsync(int pageIndex, int pageSize, int categoryId = 0, string title = null)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -37,7 +37,7 @@ namespace Instart.Repository
                 #endregion
 
                 string countSql = $"select count(1) from [Article] {where};";
-                int total = await conn.ExecuteScalarAsync<int>(countSql);
+                int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
                 {
                     return new PageModel<Article>();
@@ -50,7 +50,7 @@ namespace Instart.Repository
 　　　　                            select {string.Join(",", fields)}, ROW_NUMBER() over (Order by Id desc) as RowNumber from [Article] {where} 
 　　                            ) as b  
 　　                            where RowNumber between{((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
-                var list = await conn.QueryAsync<Article>(sql);
+                var list = conn.Query<Article>(sql);
 
                 return new PageModel<Article>
                 {
@@ -60,7 +60,7 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<bool> InsertAsync(Article model)
+        public bool InsertAsync(Article model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -75,11 +75,11 @@ namespace Instart.Repository
                 model.Status = 1;
 
                 string sql = $"insert into [Article] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> UpdateAsync(Article model)
+        public bool UpdateAsync(Article model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -104,16 +104,16 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
 
                 string sql = $"update [Article] set {string.Join(",", fieldList)} where Id=@Id;";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public bool DeleteAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "update [Article] set Status=0,ModifyTime=GETDATE() where Id=@Id;";
-                return await conn.ExecuteAsync(sql, new { Id = id }) > 0;
+                return conn.Execute(sql, new { Id = id }) > 0;
             }
         }
     }

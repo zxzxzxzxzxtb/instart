@@ -18,19 +18,19 @@ namespace Instart.Service
             base.AddDisposableObject(_schoolApplyRepository);
         }
 
-        public async Task<List<string>> GetApplySchoolNameListAsync()
+        public List<string> GetApplySchoolNameListAsync()
         {
-            return await _schoolApplyRepository.GetApplySchoolNameListAsync();
+            return _schoolApplyRepository.GetApplySchoolNameListAsync();
         }
 
-        public async Task<PageModel<SchoolApply>> GetListAsync(int pageIndex, int pageSize, string schoolName, EnumAccept accept)
+        public PageModel<SchoolApply> GetListAsync(int pageIndex, int pageSize, string schoolName, EnumAccept accept)
         {
-            return await _schoolApplyRepository.GetListAsync(pageIndex, pageSize, schoolName, accept);
+            return _schoolApplyRepository.GetListAsync(pageIndex, pageSize, schoolName, accept);
         }
 
-        public async Task<bool> InsertAsync(SchoolApply model)
+        public bool InsertAsync(SchoolApply model)
         {
-            if(model == null)
+            if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
@@ -45,27 +45,27 @@ namespace Instart.Service
                 throw new ArgumentNullException("手机不能为空");
             }
 
-            return await _schoolApplyRepository.InsertAsync(model);
+            return _schoolApplyRepository.InsertAsync(model);
         }
 
-        public async Task<bool> SetAcceptAsync(int id)
+        public bool SetAcceptAsync(int id)
         {
-            if(id <= 0)
+            if (id <= 0)
             {
                 throw new ArgumentNullException(nameof(id));
             }
 
-            return await _schoolApplyRepository.SetAcceptAsync(id);
+            return _schoolApplyRepository.SetAcceptAsync(id);
         }
 
-        public async Task<List<SchoolApply>> GetTopListAsync(int topCount)
+        public List<SchoolApply> GetTopListAsync(int topCount)
         {
-            if(topCount == 0)
+            if (topCount == 0)
             {
                 return null;
             }
 
-            return await _schoolApplyRepository.GetTopListAsync(topCount);
+            return _schoolApplyRepository.GetTopListAsync(topCount);
         }
     }
 }

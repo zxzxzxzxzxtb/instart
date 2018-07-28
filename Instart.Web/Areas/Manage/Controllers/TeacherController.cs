@@ -32,35 +32,35 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_majorService);
         }
 
-        public async Task<ActionResult> Index(int page = 1, int division = -1, string keyword = null)
+        public ActionResult Index(int page = 1, int division = -1, string keyword = null)
         {
             int pageSize = 10;
-            var list = await _teacherService.GetListAsync(page, pageSize, division, keyword);
+            var list = _teacherService.GetListAsync(page, pageSize, division, keyword);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
             ViewBag.Keyword = keyword;
 
-            ViewBag.divisionList = await _divisionService.GetAllAsync();
+            ViewBag.divisionList = _divisionService.GetAllAsync();
             ViewBag.division = division;
             return View(list.Data);
         }
 
-        public async Task<ActionResult> Edit(int id = 0)
+        public ActionResult Edit(int id = 0)
         {
             Teacher model = new Teacher();
             string action = "添加导师";
 
             if (id > 0)
             {
-                model = await _teacherService.GetByIdAsync(id);
+                model = _teacherService.GetByIdAsync(id);
                 action = "修改导师";
             }
 
             ViewBag.Action = action;
 
             List<SelectListItem> divisionList = new List<SelectListItem>();
-            IEnumerable<Division> divisions = await _divisionService.GetAllAsync();
+            IEnumerable<Division> divisions = _divisionService.GetAllAsync();
             foreach (var item in divisions)
             {
                 divisionList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
@@ -68,7 +68,7 @@ namespace Instart.Web.Areas.Manage.Controllers
             ViewBag.divisionList = divisionList;
 
             List<SelectListItem> schoolList = new List<SelectListItem>();
-            IEnumerable<School> schools = await _schoolService.GetAllAsync();
+            IEnumerable<School> schools = _schoolService.GetAllAsync();
             foreach (var item in schools)
             {
                 schoolList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
@@ -76,7 +76,7 @@ namespace Instart.Web.Areas.Manage.Controllers
             ViewBag.SchoolList = schoolList;
 
             List<SelectListItem> majorList = new List<SelectListItem>();
-            IEnumerable<Major> majors = await _majorService.GetAllAsync();
+            IEnumerable<Major> majors = _majorService.GetAllAsync();
             foreach (var item in majors)
             {
                 majorList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
@@ -87,7 +87,7 @@ namespace Instart.Web.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public async Task<JsonResult> Set(Teacher model)
+        public JsonResult Set(Teacher model)
         {
             if (model == null)
             {
@@ -112,24 +112,24 @@ namespace Instart.Web.Areas.Manage.Controllers
 
             if (model.Id > 0)
             {
-                result.success = await _teacherService.UpdateAsync(model);
+                result.success = _teacherService.UpdateAsync(model);
             }
             else
             {
-                result.success = await _teacherService.InsertAsync(model);
+                result.success = _teacherService.InsertAsync(model);
             }
 
             return Json(result);
         }
 
         [HttpPost]
-        public async Task<JsonResult> Delete(int id)
+        public JsonResult Delete(int id)
         {
             try
             {
                 return Json(new ResultBase
                 {
-                    success = await _teacherService.DeleteAsync(id)
+                    success = _teacherService.DeleteAsync(id)
                 });
             }
             catch (Exception ex)
@@ -140,7 +140,7 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> SetRecommend(int id, bool isRecommend)
+        public JsonResult SetRecommend(int id, bool isRecommend)
         {
             if (id <= 0)
             {
@@ -151,7 +151,7 @@ namespace Instart.Web.Areas.Manage.Controllers
             {
                 return Json(new ResultBase
                 {
-                    success = await _teacherService.SetRecommendAsync(id, isRecommend)
+                    success = _teacherService.SetRecommendAsync(id, isRecommend)
                 });
             }
             catch (Exception ex)
@@ -161,10 +161,10 @@ namespace Instart.Web.Areas.Manage.Controllers
             }
         }
 
-        public async Task<ActionResult> CourseSelect(int id = 0)
+        public ActionResult CourseSelect(int id = 0)
         {
-            IEnumerable<Course> courseList = await _courseService.GetAllAsync();
-            IEnumerable<int> selectedList = await _teacherService.GetCoursesByIdAsync(id);
+            IEnumerable<Course> courseList = _courseService.GetAllAsync();
+            IEnumerable<int> selectedList = _teacherService.GetCoursesByIdAsync(id);
             if (courseList != null)
             {
                 foreach (var course in courseList)
@@ -180,8 +180,8 @@ namespace Instart.Web.Areas.Manage.Controllers
                 }
             }
 
-            var teacher = await _teacherService.GetByIdAsync(id);
-            if(teacher == null)
+            var teacher = _teacherService.GetByIdAsync(id);
+            if (teacher == null)
             {
                 throw new Exception("导师不存在");
             }
@@ -193,13 +193,13 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> SetCourses(int teacherId, string courseIds)
+        public JsonResult SetCourses(int teacherId, string courseIds)
         {
             try
             {
                 return Json(new ResultBase
                 {
-                    success = await _teacherService.SetCourses(teacherId, courseIds)
+                    success = _teacherService.SetCourses(teacherId, courseIds)
                 });
             }
             catch (Exception ex)

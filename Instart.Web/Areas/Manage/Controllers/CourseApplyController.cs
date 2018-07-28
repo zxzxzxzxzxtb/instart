@@ -23,10 +23,10 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_courseApplyService);
         }
 
-        public async Task<ActionResult> Index(int page = 1, string keyword = null, EnumAccept accept = EnumAccept.All)
+        public ActionResult Index(int page = 1, string keyword = null, EnumAccept accept = EnumAccept.All)
         {
             int pageSize = 10;
-            var list = await _courseApplyService.GetListAsync(page, pageSize, keyword, accept);
+            var list = _courseApplyService.GetListAsync(page, pageSize, keyword, accept);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
@@ -36,7 +36,7 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> SetAccept(int id)
+        public JsonResult SetAccept(int id)
         {
             if (id <= 0)
             {
@@ -47,7 +47,7 @@ namespace Instart.Web.Areas.Manage.Controllers
             {
                 return Json(new ResultBase
                 {
-                    success = await _courseApplyService.SetAcceptAsync(id)
+                    success = _courseApplyService.SetAcceptAsync(id)
                 });
             }
             catch (Exception ex)

@@ -12,71 +12,84 @@ namespace Instart.Service
     {
         IMajorRepository _majorRepository = AutofacRepository.Resolve<IMajorRepository>();
 
-        public MajorService() {
+        public MajorService()
+        {
             base.AddDisposableObject(_majorRepository);
         }
 
-        public async Task<Major> GetByIdAsync(int id) {
-            if (id <= 0) {
+        public Major GetByIdAsync(int id)
+        {
+            if (id <= 0)
+            {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _majorRepository.GetByIdAsync(id);
+            return _majorRepository.GetByIdAsync(id);
         }
 
-        public async Task<PageModel<Major>> GetListAsync(int pageIndex, int pageSize, int division = -1, string name = null) {
-            return await _majorRepository.GetListAsync(pageIndex, pageSize, division, name);
-        }
-
-        public async Task<IEnumerable<Major>> GetAllAsync()
+        public PageModel<Major> GetListAsync(int pageIndex, int pageSize, int division = -1, string name = null)
         {
-            return await _majorRepository.GetAllAsync();
+            return _majorRepository.GetListAsync(pageIndex, pageSize, division, name);
         }
 
-        public async Task<bool> InsertAsync(Major model) {
-            if (model == null) {
+        public IEnumerable<Major> GetAllAsync()
+        {
+            return _majorRepository.GetAllAsync();
+        }
+
+        public bool InsertAsync(Major model)
+        {
+            if (model == null)
+            {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            if (string.IsNullOrEmpty(model.Name)) {
+            if (string.IsNullOrEmpty(model.Name))
+            {
                 throw new ArgumentNullException(nameof(model.Name));
             }
 
-            return await _majorRepository.InsertAsync(model);
+            return _majorRepository.InsertAsync(model);
         }
 
-        public async Task<bool> UpdateAsync(Major model) {
-            if (model == null) {
+        public bool UpdateAsync(Major model)
+        {
+            if (model == null)
+            {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            if (string.IsNullOrEmpty(model.Name)) {
+            if (string.IsNullOrEmpty(model.Name))
+            {
                 throw new ArgumentNullException(nameof(model.Name));
             }
 
-            if (model.Id <= 0) {
+            if (model.Id <= 0)
+            {
                 throw new ArgumentException(nameof(model.Id));
             }
 
-            return await _majorRepository.UpdateAsync(model);
+            return _majorRepository.UpdateAsync(model);
         }
 
-        public async Task<bool> DeleteAsync(int id) {
-            if (id <= 0) {
+        public bool DeleteAsync(int id)
+        {
+            if (id <= 0)
+            {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _majorRepository.DeleteAsync(id);
+            return _majorRepository.DeleteAsync(id);
         }
 
-        public async Task<PageModel<Major>> GetListByDivsionAsync(int divisionId, int pageIndex, int pageSize)
+        public PageModel<Major> GetListByDivsionAsync(int divisionId, int pageIndex, int pageSize)
         {
-            if(divisionId <= 0)
+            if (divisionId <= 0)
             {
                 throw new ArgumentException(nameof(Major));
             }
 
-            return await _majorRepository.GetListByDivsionAsync(divisionId, pageIndex, pageSize);
+            return _majorRepository.GetListByDivsionAsync(divisionId, pageIndex, pageSize);
         }
     }
 }

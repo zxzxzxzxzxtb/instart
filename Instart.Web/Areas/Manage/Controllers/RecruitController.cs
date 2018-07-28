@@ -24,26 +24,26 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_recruitService);
         }
 
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            Recruit model = await _recruitService.GetInfoAsync();
+            Recruit model = _recruitService.GetInfoAsync();
             if (model == null) model = new Recruit();
             return View(model);
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public async Task<JsonResult> Set(Recruit model)
+        public JsonResult Set(Recruit model)
         {
             var result = new ResultBase();
-            int count = await _recruitService.GetCountAsync();
+            int count = _recruitService.GetCountAsync();
             if (count > 0)
             {
-                result.success = await _recruitService.UpdateAsync(model);
+                result.success = _recruitService.UpdateAsync(model);
             }
             else
             {
-                result.success = await _recruitService.InsertAsync(model);
+                result.success = _recruitService.InsertAsync(model);
             }
 
             return Json(result);

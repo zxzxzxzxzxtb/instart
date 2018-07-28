@@ -24,10 +24,10 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_bannserService);
         }
 
-        public async Task<ActionResult> Index(int page = 1, string keyword = null, int pos = -1, int type = -1 )
+        public ActionResult Index(int page = 1, string keyword = null, int pos = -1, int type = -1)
         {
             int pageSize = 10;
-            var list = await _bannserService.GetListAsync(page, pageSize, keyword, pos, type);
+            var list = _bannserService.GetListAsync(page, pageSize, keyword, pos, type);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
@@ -43,14 +43,14 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Edit(int id = 0)
+        public ActionResult Edit(int id = 0)
         {
             Banner model = new Banner();
             string action = "添加轮播";
 
             if (id > 0)
             {
-                model = await _bannserService.GetByIdAsync(id);
+                model = _bannserService.GetByIdAsync(id);
                 action = "修改轮播";
             }
 
@@ -61,7 +61,7 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> Set(Banner model)
+        public JsonResult Set(Banner model)
         {
             if (model == null)
             {
@@ -73,7 +73,7 @@ namespace Instart.Web.Areas.Manage.Controllers
                 return Error("标题不能为空");
             }
 
-            if(string.IsNullOrEmpty(model.ImageUrl) && Request.Files["fileImage"] == null)
+            if (string.IsNullOrEmpty(model.ImageUrl) && Request.Files["fileImage"] == null)
             {
                 return Error("图片不能为空");
             }
@@ -105,18 +105,18 @@ namespace Instart.Web.Areas.Manage.Controllers
 
             if (model.Id > 0)
             {
-                result.success = await _bannserService.UpdateAsync(model);
+                result.success = _bannserService.UpdateAsync(model);
             }
             else
             {
-                result.success = await _bannserService.InsertAsync(model);
+                result.success = _bannserService.InsertAsync(model);
             }
 
             return Json(result);
         }
 
         [HttpPost]
-        public async Task<JsonResult> Delete(int id)
+        public JsonResult Delete(int id)
         {
             if (id <= 0)
             {
@@ -127,7 +127,7 @@ namespace Instart.Web.Areas.Manage.Controllers
             {
                 return Json(new ResultBase
                 {
-                    success = await _bannserService.DeleteAsync(id)
+                    success = _bannserService.DeleteAsync(id)
                 });
             }
             catch (Exception ex)
@@ -138,7 +138,7 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> SetShow(int id, bool isShow)
+        public JsonResult SetShow(int id, bool isShow)
         {
             if (id <= 0)
             {
@@ -149,7 +149,7 @@ namespace Instart.Web.Areas.Manage.Controllers
             {
                 return Json(new ResultBase
                 {
-                    success = await _bannserService.SetShowAsync(id, isShow)
+                    success = _bannserService.SetShowAsync(id, isShow)
                 });
             }
             catch (Exception ex)

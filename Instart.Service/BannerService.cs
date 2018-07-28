@@ -19,27 +19,27 @@ namespace Instart.Service
             base.AddDisposableObject(_bannerRepository);
         }
 
-        public async Task<Banner> GetByIdAsync(int id)
+        public Banner GetByIdAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _bannerRepository.GetByIdAsync(id);
+            return _bannerRepository.GetByIdAsync(id);
         }
 
-        public async Task<PageModel<Banner>> GetListAsync(int pageIndex, int pageSize, string title = null, int pos = 1, int type = -1)
+        public PageModel<Banner> GetListAsync(int pageIndex, int pageSize, string title = null, int pos = 1, int type = -1)
         {
-            return await _bannerRepository.GetListAsync(pageIndex, pageSize, title, pos, type);
+            return _bannerRepository.GetListAsync(pageIndex, pageSize, title, pos, type);
         }
 
-        public async Task<List<Banner>> GetListByPosAsync(EnumBannerPos pos = EnumBannerPos.Index)
+        public List<Banner> GetListByPosAsync(EnumBannerPos pos = EnumBannerPos.Index)
         {
-            return await _bannerRepository.GetListByPosAsync(pos);
+            return _bannerRepository.GetListByPosAsync(pos);
         }
 
-        public async Task<bool> InsertAsync(Banner model)
+        public bool InsertAsync(Banner model)
         {
             if (model == null)
             {
@@ -51,10 +51,10 @@ namespace Instart.Service
                 throw new ArgumentNullException(nameof(model.Title));
             }
 
-            return await _bannerRepository.InsertAsync(model);
+            return _bannerRepository.InsertAsync(model);
         }
 
-        public async Task<bool> UpdateAsync(Banner model)
+        public bool UpdateAsync(Banner model)
         {
             if (model == null)
             {
@@ -71,37 +71,37 @@ namespace Instart.Service
                 throw new ArgumentException(nameof(model.Id));
             }
 
-            return await _bannerRepository.UpdateAsync(model);
+            return _bannerRepository.UpdateAsync(model);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public bool DeleteAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _bannerRepository.DeleteAsync(id);
+            return _bannerRepository.DeleteAsync(id);
         }
 
-        public async Task<List<Banner>> GetBannerListByPosAsync(EnumBannerPos pos, int topCount = 20)
+        public List<Banner> GetBannerListByPosAsync(EnumBannerPos pos, int topCount = 20)
         {
             if (topCount == 0)
             {
                 return null;
             }
 
-            return await _bannerRepository.GetBannerListByPosAsync(pos, topCount);
+            return _bannerRepository.GetBannerListByPosAsync(pos, topCount);
         }
 
-        public async Task<bool> SetShowAsync(int id, bool isShow)
+        public bool SetShowAsync(int id, bool isShow)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _bannerRepository.SetShowAsync(id, isShow);
+            return _bannerRepository.SetShowAsync(id, isShow);
         }
 
     }

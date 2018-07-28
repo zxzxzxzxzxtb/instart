@@ -18,27 +18,27 @@ namespace Instart.Service
             base.AddDisposableObject(_courseApplyRepository);
         }
 
-        public async Task<List<string>> GetApplyCourseNameListAsync()
+        public  List<string> GetApplyCourseNameListAsync()
         {
-            return await _courseApplyRepository.GetApplyCourseNameListAsync();
+            return _courseApplyRepository.GetApplyCourseNameListAsync();
         }
 
-        public async Task<PageModel<CourseApply>> GetListAsync(int pageIndex, int pageSize, string courseName, EnumAccept accept)
+        public  PageModel<CourseApply> GetListAsync(int pageIndex, int pageSize, string courseName, EnumAccept accept)
         {
-            return await _courseApplyRepository.GetListAsync(pageIndex, pageSize, courseName, accept);
+            return _courseApplyRepository.GetListAsync(pageIndex, pageSize, courseName, accept);
         }
 
-        public async Task<List<CourseApply>> GetTopListAsync(int topCount)
+        public  List<CourseApply> GetTopListAsync(int topCount)
         {
             if(topCount == 0)
             {
                 return null;
             }
 
-            return await _courseApplyRepository.GetTopListAsync(topCount);
+            return _courseApplyRepository.GetTopListAsync(topCount);
         }
 
-        public async Task<bool> InsertAsync(CourseApply model)
+        public  bool InsertAsync(CourseApply model)
         {
             if(model == null)
             {
@@ -55,17 +55,17 @@ namespace Instart.Service
                 throw new ArgumentNullException("手机不能为空");
             }
 
-            return await _courseApplyRepository.InsertAsync(model);
+            return _courseApplyRepository.InsertAsync(model);
         }
 
-        public async Task<bool> SetAcceptAsync(int id)
+        public  bool SetAcceptAsync(int id)
         {
             if(id <= 0)
             {
                 throw new ArgumentNullException(nameof(id));
             }
 
-            return await _courseApplyRepository.SetAcceptAsync(id);
+            return _courseApplyRepository.SetAcceptAsync(id);
         }
     }
 }

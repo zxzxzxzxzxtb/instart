@@ -9,16 +9,16 @@ namespace Instart.Service
 {
     public interface IWorksService
     {
-        Task<Works> GetByIdAsync(int id);
+         Works GetByIdAsync(int id);
 
-        Task<PageModel<Works>> GetListAsync(int pageIndex, int pageSize, string name = null);
+         PageModel<Works> GetListAsync(int pageIndex, int pageSize, string name = null);
 
-        Task<bool> InsertAsync(Works model);
+         bool InsertAsync(Works model);
 
-        Task<bool> UpdateAsync(Works model);
+         bool UpdateAsync(Works model);
 
-        Task<bool> DeleteAsync(int id);
+         bool DeleteAsync(int id);
 
-        Task<List<Works>> GetListByMajorIdAsync(int majorId, int topCount);
+         List<Works> GetListByMajorIdAsync(int majorId, int topCount);
     }
 }

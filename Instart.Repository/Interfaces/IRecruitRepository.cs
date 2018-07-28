@@ -9,12 +9,12 @@ namespace Instart.Repository
 {
     public interface IRecruitRepository
     {
-        Task<int> GetCountAsync();
+        int GetCountAsync();
 
-        Task<Recruit> GetInfoAsync();
+        Recruit GetInfoAsync();
 
-        Task<bool> InsertAsync(Recruit model);
+        bool InsertAsync(Recruit model);
 
-        Task<bool> UpdateAsync(Recruit model);
+        bool UpdateAsync(Recruit model);
     }
 }

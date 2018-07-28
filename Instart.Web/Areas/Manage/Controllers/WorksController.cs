@@ -26,30 +26,30 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_majorService);
         }
 
-        public async Task<ActionResult> Index(int page = 1, string name = null)
+        public ActionResult Index(int page = 1, string name = null)
         {
             int pageSize = 10;
-            var list = await _worksService.GetListAsync(page, pageSize, name);
+            var list = _worksService.GetListAsync(page, pageSize, name);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
             return View(list.Data);
         }
 
-        public async Task<ActionResult> Edit(int id = 0)
+        public ActionResult Edit(int id = 0)
         {
             Works model = new Works();
             string action = "添加作品";
 
             if (id > 0)
             {
-                model = await _worksService.GetByIdAsync(id);
+                model = _worksService.GetByIdAsync(id);
                 action = "修改作品";
             }
             ViewBag.Action = action;
 
             List<SelectListItem> majorList = new List<SelectListItem>();
-            IEnumerable<Major> majors = await _majorService.GetAllAsync();
+            IEnumerable<Major> majors = _majorService.GetAllAsync();
             foreach (var item in majors)
             {
                 majorList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
@@ -60,7 +60,7 @@ namespace Instart.Web.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public async Task<JsonResult> Set(Works model)
+        public JsonResult Set(Works model)
         {
             if (model == null)
             {
@@ -85,24 +85,24 @@ namespace Instart.Web.Areas.Manage.Controllers
 
             if (model.Id > 0)
             {
-                result.success = await _worksService.UpdateAsync(model);
+                result.success = _worksService.UpdateAsync(model);
             }
             else
             {
-                result.success = await _worksService.InsertAsync(model);
+                result.success = _worksService.InsertAsync(model);
             }
 
             return Json(result);
         }
 
         [HttpPost]
-        public async Task<JsonResult> Delete(int id)
+        public JsonResult Delete(int id)
         {
             try
             {
                 return Json(new ResultBase
                 {
-                    success = await _worksService.DeleteAsync(id)
+                    success = _worksService.DeleteAsync(id)
                 });
             }
             catch (Exception ex)

@@ -10,12 +10,12 @@ namespace Instart.Repository
 {
     public class UserRepository : IUserRepository
     {
-        public async Task<User> GetByIdAsync(int id)
+        public User GetByIdAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select * from [User] where Id = @Id and Status=1;";
-                var list = await conn.QueryAsync<User>(sql, new { Id = id });
+                var list = conn.Query<User>(sql, new { Id = id });
                 return list?.FirstOrDefault();
             }
         }
@@ -30,28 +30,28 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<User> GetByNameAsync(string name)
+        public User GetByNameAsync(string name)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select * from [User] where UserName = @name and Status=1;";
-                return await conn.QueryFirstOrDefaultAsync<User>(sql, new { name = name });
+                return conn.QueryFirstOrDefault<User>(sql, new { name = name });
             }
         }
 
-        public async Task<PageModel<User>> GetListAsync(int pageIndex, int pageSize)
+        public PageModel<User> GetListAsync(int pageIndex, int pageSize)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string countSql = "select count(1) from [User] where Status=1;";
-                int total = await conn.ExecuteScalarAsync<int>(countSql);
+                int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
                 {
                     return new PageModel<User>();
                 }
                 
                 string sql = $@"select * from (select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [User] where Status=1) as b where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
-                var list = await conn.QueryAsync<User>(sql);
+                var list = conn.Query<User>(sql);
 
                 return new PageModel<User>
                 {
@@ -61,7 +61,7 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<bool> InsertAsync(User model)
+        public bool InsertAsync(User model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -76,11 +76,11 @@ namespace Instart.Repository
                 model.Status = 1;
 
                 string sql = $"insert into [User] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> UpdateAsync(User model)
+        public bool UpdateAsync(User model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -106,25 +106,25 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
 
                 string sql = $"update [User] set {string.Join(",", fieldList)} where Id=@Id;";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> UpdatePasswordAsync(int id, string password)
+        public bool UpdatePasswordAsync(int id, string password)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "update [User] set Password=@Password,ModifyTime=GETDATE() where Id=@Id;";
-                return await conn.ExecuteAsync(sql, new { Id = id, Password = password }) > 0;
+                return conn.Execute(sql, new { Id = id, Password = password }) > 0;
             }
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public bool DeleteAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "update [User] set Status=0,ModifyTime=GETDATE() where Id=@Id;";
-                return await conn.ExecuteAsync(sql, new { Id = id }) > 0;
+                return conn.Execute(sql, new { Id = id }) > 0;
             }
         }
     }

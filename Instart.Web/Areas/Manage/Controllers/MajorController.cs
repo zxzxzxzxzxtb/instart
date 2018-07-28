@@ -26,28 +26,28 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_divisionService);
         }
 
-        public async Task<ActionResult> Index(int page = 1, int division = -1, string keyword = null)
+        public ActionResult Index(int page = 1, int division = -1, string keyword = null)
         {
             int pageSize = 10;
-            var list = await _majorService.GetListAsync(page, pageSize, division, keyword);
+            var list = _majorService.GetListAsync(page, pageSize, division, keyword);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
             ViewBag.Keyword = keyword;
 
-            ViewBag.divisionList = await _divisionService.GetAllAsync();
+            ViewBag.divisionList = _divisionService.GetAllAsync();
             ViewBag.division = division;
             return View(list.Data);
         }
 
-        public async Task<ActionResult> Edit(int id = 0)
+        public ActionResult Edit(int id = 0)
         {
             Major model = new Major();
             string action = "添加专业";
 
             if (id > 0)
             {
-                model = await _majorService.GetByIdAsync(id);
+                model = _majorService.GetByIdAsync(id);
                 action = "修改专业";
             }
 
@@ -58,7 +58,7 @@ namespace Instart.Web.Areas.Manage.Controllers
             ViewBag.typeList = typeList;
 
             List<SelectListItem> divisionList = new List<SelectListItem>();
-            IEnumerable<Division> divisions = await _divisionService.GetAllAsync();
+            IEnumerable<Division> divisions = _divisionService.GetAllAsync();
             foreach (var item in divisions)
             {
                 divisionList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
@@ -69,7 +69,7 @@ namespace Instart.Web.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public async Task<JsonResult> Set(Major model)
+        public JsonResult Set(Major model)
         {
             if (model == null)
             {
@@ -97,24 +97,24 @@ namespace Instart.Web.Areas.Manage.Controllers
 
             if (model.Id > 0)
             {
-                result.success = await _majorService.UpdateAsync(model);
+                result.success = _majorService.UpdateAsync(model);
             }
             else
             {
-                result.success = await _majorService.InsertAsync(model);
+                result.success = _majorService.InsertAsync(model);
             }
 
             return Json(result);
         }
 
         [HttpPost]
-        public async Task<JsonResult> Delete(int id)
+        public JsonResult Delete(int id)
         {
             try
             {
                 return Json(new ResultBase
                 {
-                    success = await _majorService.DeleteAsync(id)
+                    success = _majorService.DeleteAsync(id)
                 });
             }
             catch (Exception ex)

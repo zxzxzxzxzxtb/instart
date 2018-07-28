@@ -25,10 +25,10 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_majorService);
         }
 
-        public async Task<ActionResult> Index(int page = 1, string keyword = null)
+        public ActionResult Index(int page = 1, string keyword = null)
         {
             int pageSize = 10;
-            var list = await _schoolService.GetListAsync(page, pageSize, keyword);
+            var list = _schoolService.GetListAsync(page, pageSize, keyword);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
@@ -37,14 +37,14 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Edit(int id = 0)
+        public ActionResult Edit(int id = 0)
         {
             School model = new School();
             string action = "添加院校";
 
             if (id > 0)
             {
-                model = await _schoolService.GetByIdAsync(id);
+                model = _schoolService.GetByIdAsync(id);
                 action = "修改院校";
             }
 
@@ -54,7 +54,7 @@ namespace Instart.Web.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public async Task<JsonResult> Set(School model)
+        public JsonResult Set(School model)
         {
             if (model == null)
             {
@@ -103,11 +103,11 @@ namespace Instart.Web.Areas.Manage.Controllers
 
             if (model.Id > 0)
             {
-                result.success = await _schoolService.UpdateAsync(model);
+                result.success = _schoolService.UpdateAsync(model);
             }
             else
             {
-                result.success = await _schoolService.InsertAsync(model);
+                result.success = _schoolService.InsertAsync(model);
             }
 
             return Json(result);
@@ -115,7 +115,7 @@ namespace Instart.Web.Areas.Manage.Controllers
 
 
         [HttpPost]
-        public async Task<JsonResult> Delete(int id)
+        public JsonResult Delete(int id)
         {
             if (id <= 0)
             {
@@ -126,7 +126,7 @@ namespace Instart.Web.Areas.Manage.Controllers
             {
                 return Json(new ResultBase
                 {
-                    success = await _schoolService.DeleteAsync(id)
+                    success = _schoolService.DeleteAsync(id)
                 });
             }
             catch (Exception ex)
@@ -137,7 +137,7 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> SetRecommend(int id, bool isRecommend)
+        public JsonResult SetRecommend(int id, bool isRecommend)
         {
             if (id <= 0)
             {
@@ -148,7 +148,7 @@ namespace Instart.Web.Areas.Manage.Controllers
             {
                 return Json(new ResultBase
                 {
-                    success = await _schoolService.SetRecommendAsync(id, isRecommend)
+                    success = _schoolService.SetRecommendAsync(id, isRecommend)
                 });
             }
             catch (Exception ex)
@@ -159,7 +159,7 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> SetHot(int id, bool isHot)
+        public JsonResult SetHot(int id, bool isHot)
         {
             if (id <= 0)
             {
@@ -170,7 +170,7 @@ namespace Instart.Web.Areas.Manage.Controllers
             {
                 return Json(new ResultBase
                 {
-                    success = await _schoolService.SetHotAsync(id, isHot)
+                    success = _schoolService.SetHotAsync(id, isHot)
                 });
             }
             catch (Exception ex)
@@ -180,10 +180,10 @@ namespace Instart.Web.Areas.Manage.Controllers
             }
         }
 
-        public async Task<ActionResult> MajorSelect(int id = 0)
+        public ActionResult MajorSelect(int id = 0)
         {
-            IEnumerable<Major> majorList = (await _majorService.GetAllAsync()) ?? new List<Major>();
-            IEnumerable<SchoolMajor> selectedList = (await _schoolService.GetMajorsByIdAsync(id)) ?? new List<SchoolMajor>();
+            IEnumerable<Major> majorList = (_majorService.GetAllAsync()) ?? new List<Major>();
+            IEnumerable<SchoolMajor> selectedList = (_schoolService.GetMajorsByIdAsync(id)) ?? new List<SchoolMajor>();
             List<Major> majorBkList = new List<Major>();
             List<Major> majorYjsList = new List<Major>();
             foreach (var major in majorList)
@@ -208,7 +208,7 @@ namespace Instart.Web.Areas.Manage.Controllers
                     majorYjsList.Add(major);
                 }
             }
-            var school = await _schoolService.GetByIdAsync(id);
+            var school = _schoolService.GetByIdAsync(id);
             if (school == null)
             {
                 throw new Exception("艺术院校不存在");
@@ -221,13 +221,13 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> SetMajors(int schoolId, string majorIds, string introduces)
+        public JsonResult SetMajors(int schoolId, string majorIds, string introduces)
         {
             try
             {
                 return Json(new ResultBase
                 {
-                    success = await _schoolService.SetMajors(schoolId, majorIds, introduces)
+                    success = _schoolService.SetMajors(schoolId, majorIds, introduces)
                 });
             }
             catch (Exception ex)

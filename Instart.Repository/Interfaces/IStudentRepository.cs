@@ -9,26 +9,26 @@ namespace Instart.Repository
 {
     public interface IStudentRepository
     {
-        Task<Student> GetByIdAsync(int id);        
+        Student GetByIdAsync(int id);        
 
-        Task<PageModel<Student>> GetListAsync(int pageIndex, int pageSize, int division = -1, string name = null);
+        PageModel<Student> GetListAsync(int pageIndex, int pageSize, int division = -1, string name = null);
 
-        Task<bool> InsertAsync(Student model);
+        bool InsertAsync(Student model);
 
-        Task<bool> UpdateAsync(Student model);
+        bool UpdateAsync(Student model);
 
-        Task<bool> DeleteAsync(int id);
+        bool DeleteAsync(int id);
 
-        Task<List<Student>> GetRecommendListAsync(int topCount);
+        List<Student> GetRecommendListAsync(int topCount);
 
-        Task<bool> SetRecommend(int id, bool isRecommend);
+        bool SetRecommend(int id, bool isRecommend);
 
-        Task<IEnumerable<Student>> GetAllAsync();
+        IEnumerable<Student> GetAllAsync();
 
-        Task<IEnumerable<Student>> GetStarStudentsAsync();
+        IEnumerable<Student> GetStarStudentsAsync();
 
-        Task<IEnumerable<int>> GetCoursesByIdAsync(int id);
+        IEnumerable<int> GetCoursesByIdAsync(int id);
 
-        Task<bool> SetCourses(int studentId, string courseIds);
+        bool SetCourses(int studentId, string courseIds);
     }
 }

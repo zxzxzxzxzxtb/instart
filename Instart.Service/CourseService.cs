@@ -17,27 +17,27 @@ namespace Instart.Service
             base.AddDisposableObject(_courseRepository);
         }
 
-        public async Task<Course> GetByIdAsync(int id)
+        public Course GetByIdAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _courseRepository.GetByIdAsync(id);
+            return _courseRepository.GetByIdAsync(id);
         }
 
-        public async Task<PageModel<Course>> GetListAsync(int pageIndex, int pageSize, string name = null)
+        public PageModel<Course> GetListAsync(int pageIndex, int pageSize, string name = null)
         {
-            return await _courseRepository.GetListAsync(pageIndex, pageSize, name);
+            return _courseRepository.GetListAsync(pageIndex, pageSize, name);
         }
 
-        public async Task<IEnumerable<Course>> GetAllAsync()
+        public IEnumerable<Course> GetAllAsync()
         {
-            return await _courseRepository.GetAllAsync();
+            return _courseRepository.GetAllAsync();
         }
 
-        public async Task<bool> InsertAsync(Course model)
+        public bool InsertAsync(Course model)
         {
             if (model == null)
             {
@@ -49,10 +49,10 @@ namespace Instart.Service
                 throw new ArgumentNullException(nameof(model.Name));
             }
 
-            return await _courseRepository.InsertAsync(model);
+            return _courseRepository.InsertAsync(model);
         }
 
-        public async Task<bool> UpdateAsync(Course model)
+        public bool UpdateAsync(Course model)
         {
             if (model == null)
             {
@@ -69,30 +69,30 @@ namespace Instart.Service
                 throw new ArgumentException(nameof(model.Id));
             }
 
-            return await _courseRepository.UpdateAsync(model);
+            return _courseRepository.UpdateAsync(model);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public bool DeleteAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _courseRepository.DeleteAsync(id);
+            return _courseRepository.DeleteAsync(id);
         }
 
-        public async Task<List<Course>> GetRecommendListAsync(int topCount)
+        public List<Course> GetRecommendListAsync(int topCount)
         {
-            if(topCount == 0)
+            if (topCount == 0)
             {
                 return null;
             }
 
-            return await _courseRepository.GetRecommendListAsync(topCount);
+            return _courseRepository.GetRecommendListAsync(topCount);
         }
 
-        public Task<bool> SetRecommendAsync(int id, bool isRecommend)
+        public bool SetRecommendAsync(int id, bool isRecommend)
         {
             if (id <= 0)
             {
@@ -102,44 +102,44 @@ namespace Instart.Service
             return _courseRepository.SetRecommend(id, isRecommend);
         }
 
-        public async Task<int> GetInfoCountAsync()
+        public int GetInfoCountAsync()
         {
-            return await _courseRepository.GetInfoCountAsync();
+            return _courseRepository.GetInfoCountAsync();
         }
 
-        public async Task<CourseInfo> GetInfoAsync()
+        public CourseInfo GetInfoAsync()
         {
-            return await _courseRepository.GetInfoAsync();
+            return _courseRepository.GetInfoAsync();
         }
 
-        public async Task<bool> InsertInfoAsync(CourseInfo model)
+        public bool InsertInfoAsync(CourseInfo model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            return await _courseRepository.InsertInfoAsync(model);
+            return _courseRepository.InsertInfoAsync(model);
         }
 
-        public async Task<bool> UpdateInfoAsync(CourseInfo model)
+        public bool UpdateInfoAsync(CourseInfo model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            return await _courseRepository.UpdateInfoAsync(model);
+            return _courseRepository.UpdateInfoAsync(model);
         }
 
-        public async Task<IEnumerable<int>> GetTeachersByIdAsync(int id)
+        public IEnumerable<int> GetTeachersByIdAsync(int id)
         {
-            return await _courseRepository.GetTeachersByIdAsync(id);
+            return _courseRepository.GetTeachersByIdAsync(id);
         }
 
-        public async Task<bool> SetTeachers(int courseId, string teacherIds)
+        public bool SetTeachers(int courseId, string teacherIds)
         {
-            return await _courseRepository.SetTeachers(courseId, teacherIds);
+            return _courseRepository.SetTeachers(courseId, teacherIds);
         }
     }
 }

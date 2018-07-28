@@ -16,29 +16,29 @@ namespace Instart.Service
             base.AddDisposableObject(_studentRepository);
         }
 
-        public async Task<Student> GetByIdAsync(int id) {
+        public  Student GetByIdAsync(int id) {
             if (id <= 0) {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _studentRepository.GetByIdAsync(id);
+            return _studentRepository.GetByIdAsync(id);
         }
 
-        public async Task<PageModel<Student>> GetListAsync(int pageIndex, int pageSize, int division = -1, string name = null) {
-            return await _studentRepository.GetListAsync(pageIndex, pageSize, division, name);
+        public  PageModel<Student> GetListAsync(int pageIndex, int pageSize, int division = -1, string name = null) {
+            return _studentRepository.GetListAsync(pageIndex, pageSize, division, name);
         }
 
-        public async Task<IEnumerable<Student>> GetAllAsync()
+        public  IEnumerable<Student> GetAllAsync()
         {
-            return await _studentRepository.GetAllAsync();
+            return _studentRepository.GetAllAsync();
         }
 
-        public async Task<IEnumerable<Student>> GetStarStudentsAsync()
+        public  IEnumerable<Student> GetStarStudentsAsync()
         {
-            return await _studentRepository.GetStarStudentsAsync();
+            return _studentRepository.GetStarStudentsAsync();
         }
 
-        public async Task<bool> InsertAsync(Student model) {
+        public  bool InsertAsync(Student model) {
             if (model == null) {
                 throw new ArgumentNullException(nameof(model));
             }
@@ -47,10 +47,10 @@ namespace Instart.Service
                 throw new ArgumentNullException(nameof(model.Name));
             }
 
-            return await _studentRepository.InsertAsync(model);
+            return _studentRepository.InsertAsync(model);
         }
 
-        public async Task<bool> UpdateAsync(Student model) {
+        public  bool UpdateAsync(Student model) {
             if (model == null) {
                 throw new ArgumentNullException(nameof(model));
             }
@@ -63,40 +63,40 @@ namespace Instart.Service
                 throw new ArgumentException(nameof(model.Id));
             }
             
-            return await _studentRepository.UpdateAsync(model);
+            return _studentRepository.UpdateAsync(model);
         }
 
-        public async Task<bool> DeleteAsync(int id) {
+        public  bool DeleteAsync(int id) {
             if (id <= 0) {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _studentRepository.DeleteAsync(id);
+            return _studentRepository.DeleteAsync(id);
         }
 
-        public async Task<List<Student>> GetRecommendListAsync(int topCount)
+        public  List<Student> GetRecommendListAsync(int topCount)
         {
             if(topCount == 0)
             {
                 return null;
             }
 
-            return await _studentRepository.GetRecommendListAsync(topCount);
+            return _studentRepository.GetRecommendListAsync(topCount);
         }
 
-        public async Task<bool> SetRecommend(int id, bool isRecommend)
+        public  bool SetRecommend(int id, bool isRecommend)
         {
-            return await _studentRepository.SetRecommend(id, isRecommend);
+            return _studentRepository.SetRecommend(id, isRecommend);
         }
 
-        public async Task<IEnumerable<int>> GetCoursesByIdAsync(int id)
+        public  IEnumerable<int> GetCoursesByIdAsync(int id)
         {
-            return await _studentRepository.GetCoursesByIdAsync(id);
+            return _studentRepository.GetCoursesByIdAsync(id);
         }
 
-        public async Task<bool> SetCourses(int studentId, string courseIds)
+        public  bool SetCourses(int studentId, string courseIds)
         {
-            return await _studentRepository.SetCourses(studentId, courseIds);
+            return _studentRepository.SetCourses(studentId, courseIds);
         }
     }
 }

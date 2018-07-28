@@ -11,16 +11,16 @@ namespace Instart.Repository
 {
     public class BannerRepository : IBannerRepository
     {
-        public async Task<Banner> GetByIdAsync(int id)
+        public Banner GetByIdAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select * from [Banner] where Id = @Id and Status=1;";
-                return await conn.QueryFirstOrDefaultAsync<Banner>(sql, new { Id = id });
+                return conn.QueryFirstOrDefault<Banner>(sql, new { Id = id });
             }
         }
 
-        public async Task<PageModel<Banner>> GetListAsync(int pageIndex, int pageSize, string title = null, int pos = 1, int type = -1)
+        public PageModel<Banner> GetListAsync(int pageIndex, int pageSize, string title = null, int pos = 1, int type = -1)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -41,14 +41,14 @@ namespace Instart.Repository
                 #endregion
 
                 string countSql = $"select count(1) from [Banner] {where};";
-                int total = await conn.ExecuteScalarAsync<int>(countSql);
+                int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
                 {
                     return new PageModel<Banner>();
                 }
 
                 string sql = $@"select * from ( select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [Banner] {where} ) as b where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
-                var list = await conn.QueryAsync<Banner>(sql);
+                var list = conn.Query<Banner>(sql);
 
                 return new PageModel<Banner>
                 {
@@ -58,17 +58,17 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<List<Banner>> GetListByPosAsync(EnumBannerPos pos = EnumBannerPos.Index)
+        public List<Banner> GetListByPosAsync(EnumBannerPos pos = EnumBannerPos.Index)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select * from [Banner] where Pos = @Pos and Status=1;";
-                var list = await conn.QueryAsync<Banner>(sql, new { Pos = pos });
+                var list = conn.Query<Banner>(sql, new { Pos = pos });
                 return list?.ToList();
             }
         }
 
-        public async Task<bool> InsertAsync(Banner model)
+        public bool InsertAsync(Banner model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -83,11 +83,11 @@ namespace Instart.Repository
                 model.Status = 1;
 
                 string sql = $"insert into [Banner] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> UpdateAsync(Banner model)
+        public bool UpdateAsync(Banner model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -112,34 +112,34 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
 
                 string sql = $"update [Banner] set {string.Join(",", fieldList)} where Id=@Id;";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public bool DeleteAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "update [Banner] set Status=0,ModifyTime=GETDATE() where Id=@Id;";
-                return await conn.ExecuteAsync(sql, new { Id = id }) > 0;
+                return conn.Execute(sql, new { Id = id }) > 0;
             }
         }
 
-        public async Task<List<Banner>> GetBannerListByPosAsync(EnumBannerPos pos, int topCount)
+        public List<Banner> GetBannerListByPosAsync(EnumBannerPos pos, int topCount)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = $"select top {topCount} Id,Title,Type,ImageUrl,VideoUrl,Link from Banner where Pos=@Pos and IsShow=1 and Status=1 order by GroupIndex;";
-                return (await conn.QueryAsync<Banner>(sql, new { Pos = pos.ToInt32() }))?.ToList();
+                return (conn.Query<Banner>(sql, new { Pos = pos.ToInt32() }))?.ToList();
             }
         }
 
-        public async Task<bool> SetShowAsync(int id, bool isShow)
+        public bool SetShowAsync(int id, bool isShow)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "update [Banner] set IsShow=@IsShow,ModifyTime=GETDATE() where Id=@Id;";
-                return await conn.ExecuteAsync(sql, new { IsShow = isShow, Id = id }) > 0;
+                return conn.Execute(sql, new { IsShow = isShow, Id = id }) > 0;
             }
         }
     }

@@ -17,34 +17,34 @@ namespace Instart.Service
             base.AddDisposableObject(_aboutInstartRepository);
         }
 
-        public async Task<int> GetCountAsync()
+        public int GetCountAsync()
         {
-            return await _aboutInstartRepository.GetCountAsync();
+            return _aboutInstartRepository.GetCountAsync();
         }
 
-        public async Task<AboutInstart> GetInfoAsync()
+        public AboutInstart GetInfoAsync()
         {
-            return await _aboutInstartRepository.GetInfoAsync();
+            return _aboutInstartRepository.GetInfoAsync();
         }
 
-        public async Task<bool> InsertAsync(AboutInstart model)
+        public bool InsertAsync(AboutInstart model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            return await _aboutInstartRepository.InsertAsync(model);
+            return _aboutInstartRepository.InsertAsync(model);
         }
 
-        public async Task<bool> UpdateAsync(AboutInstart model)
+        public bool UpdateAsync(AboutInstart model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            return await _aboutInstartRepository.UpdateAsync(model);
+            return _aboutInstartRepository.UpdateAsync(model);
         }
     }
 }

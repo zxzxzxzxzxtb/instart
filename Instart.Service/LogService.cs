@@ -17,24 +17,24 @@ namespace Instart.Service
             base.AddDisposableObject(_logRepository);
         }
 
-        public async Task<PageModel<Log>> GetListAsync(int pageIndex, int pageSize, string title, int userId, int type)
+        public PageModel<Log> GetListAsync(int pageIndex, int pageSize, string title, int userId, int type)
         {
-            return await _logRepository.GetListAsync(pageIndex, pageSize, title, userId, type);
+            return _logRepository.GetListAsync(pageIndex, pageSize, title, userId, type);
         }
 
-        public async Task<List<Log>> GetTopListAsync(int topCount)
+        public List<Log> GetTopListAsync(int topCount)
         {
-            if(topCount == 0)
+            if (topCount == 0)
             {
                 return null;
             }
 
-            return await _logRepository.GetTopListAsync(topCount);
+            return _logRepository.GetTopListAsync(topCount);
         }
 
         public bool Insert(Log model)
         {
-            if(model == null)
+            if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }

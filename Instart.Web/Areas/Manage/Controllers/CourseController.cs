@@ -26,10 +26,10 @@ namespace Instart.Web.Areas.Manage.Controllers
             base.AddDisposableObject(_teacherService);
         }
 
-        public async Task<ActionResult> Index(int page = 1, string keyword = null)
+        public ActionResult Index(int page = 1, string keyword = null)
         {
             int pageSize = 10;
-            var list = await _courseService.GetListAsync(page, pageSize, keyword);
+            var list = _courseService.GetListAsync(page, pageSize, keyword);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
@@ -37,14 +37,14 @@ namespace Instart.Web.Areas.Manage.Controllers
             return View(list.Data);
         }
 
-        public async Task<ActionResult> Edit(int id = 0)
+        public ActionResult Edit(int id = 0)
         {
             Course model = new Course();
             string action = "添加课程";
 
             if (id > 0)
             {
-                model = await _courseService.GetByIdAsync(id);
+                model = _courseService.GetByIdAsync(id);
                 action = "修改课程";
             }
 
@@ -54,7 +54,7 @@ namespace Instart.Web.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public async Task<JsonResult> Set(Course model)
+        public JsonResult Set(Course model)
         {
             if (model == null)
             {
@@ -79,24 +79,24 @@ namespace Instart.Web.Areas.Manage.Controllers
 
             if (model.Id > 0)
             {
-                result.success = await _courseService.UpdateAsync(model);
+                result.success = _courseService.UpdateAsync(model);
             }
             else
             {
-                result.success = await _courseService.InsertAsync(model);
+                result.success = _courseService.InsertAsync(model);
             }
 
             return Json(result);
         }
 
         [HttpPost]
-        public async Task<JsonResult> Delete(int id)
+        public JsonResult Delete(int id)
         {
             try
             {
                 return Json(new ResultBase
                 {
-                    success = await _courseService.DeleteAsync(id)
+                    success = _courseService.DeleteAsync(id)
                 });
             }
             catch (Exception ex)
@@ -107,7 +107,7 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> SetRecommend(int id, bool isRecommend)
+        public JsonResult SetRecommend(int id, bool isRecommend)
         {
             if (id <= 0)
             {
@@ -118,7 +118,7 @@ namespace Instart.Web.Areas.Manage.Controllers
             {
                 return Json(new ResultBase
                 {
-                    success = await _courseService.SetRecommendAsync(id, isRecommend)
+                    success = _courseService.SetRecommendAsync(id, isRecommend)
                 });
             }
             catch (Exception ex)
@@ -128,16 +128,16 @@ namespace Instart.Web.Areas.Manage.Controllers
             }
         }
 
-        public async Task<ActionResult> Info()
+        public ActionResult Info()
         {
-            CourseInfo model = await _courseService.GetInfoAsync();
+            CourseInfo model = _courseService.GetInfoAsync();
             if (model == null) model = new CourseInfo();
             return View(model);
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public async Task<JsonResult> SetInfo(CourseInfo model)
+        public JsonResult SetInfo(CourseInfo model)
         {
             if (model == null)
             {
@@ -146,23 +146,23 @@ namespace Instart.Web.Areas.Manage.Controllers
 
             var result = new ResultBase();
 
-            int count = await _courseService.GetInfoCountAsync();
+            int count = _courseService.GetInfoCountAsync();
             if (count > 0)
             {
-                result.success = await _courseService.UpdateInfoAsync(model);
+                result.success = _courseService.UpdateInfoAsync(model);
             }
             else
             {
-                result.success = await _courseService.InsertInfoAsync(model);
+                result.success = _courseService.InsertInfoAsync(model);
             }
 
             return Json(result);
         }
 
-        public async Task<ActionResult> TeacherSelect(int id = 0)
+        public ActionResult TeacherSelect(int id = 0)
         {
-            IEnumerable<Teacher> teacherList = await _teacherService.GetAllAsync();
-            IEnumerable<int> selectedList = await _courseService.GetTeachersByIdAsync(id);
+            IEnumerable<Teacher> teacherList = _teacherService.GetAllAsync();
+            IEnumerable<int> selectedList = _courseService.GetTeachersByIdAsync(id);
             if (teacherList != null)
             {
                 foreach (var teacher in teacherList)
@@ -178,8 +178,8 @@ namespace Instart.Web.Areas.Manage.Controllers
                 }
             }
 
-            var course = await _courseService.GetByIdAsync(id);
-            if(course == null)
+            var course = _courseService.GetByIdAsync(id);
+            if (course == null)
             {
                 throw new Exception("课程不存在");
             }
@@ -191,13 +191,13 @@ namespace Instart.Web.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> SetTeachers(int courseId, string teacherIds)
+        public JsonResult SetTeachers(int courseId, string teacherIds)
         {
             try
             {
                 return Json(new ResultBase
                 {
-                    success = await _courseService.SetTeachers(courseId, teacherIds)
+                    success = _courseService.SetTeachers(courseId, teacherIds)
                 });
             }
             catch (Exception ex)

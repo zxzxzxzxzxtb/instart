@@ -10,14 +10,14 @@ namespace Instart.Repository
 {
     public class StarStudentRepository : IStarStudentRepository
     {
-        public async Task<StarStudent> GetByIdAsync(int id) {
+        public StarStudent GetByIdAsync(int id) {
             using (var conn = DapperFactory.GetConnection()) {
                 string sql = "select * from [StarStudent] where Id = @Id and Status=1;";
-                return await conn.QueryFirstOrDefaultAsync<StarStudent>(sql, new { Id = id });
+                return conn.QueryFirstOrDefault<StarStudent>(sql, new { Id = id });
             }
         }
 
-        public async Task<PageModel<StarStudent>> GetListAsync(int pageIndex, int pageSize, string name = null) {
+        public PageModel<StarStudent> GetListAsync(int pageIndex, int pageSize, string name = null) {
             using (var conn = DapperFactory.GetConnection()) {
                 #region generate condition
                 string where = "where a.Status=1";
@@ -27,7 +27,7 @@ namespace Instart.Repository
                 #endregion
 
                 string countSql = $"select count(1) from [StarStudent] as a {where};";
-                int total = await conn.ExecuteScalarAsync<int>(countSql);
+                int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0) {
                     return new PageModel<StarStudent>();
                 }
@@ -36,7 +36,7 @@ namespace Instart.Repository
                      select a.*, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [StarStudent] as a {where}
                      ) as c
                      where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
-                var list = await conn.QueryAsync<StarStudent>(sql);
+                var list = conn.Query<StarStudent>(sql);
 
                 return new PageModel<StarStudent> {
                     Total = total,
@@ -45,7 +45,7 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<IEnumerable<StarStudent>> GetAllAsync()
+        public IEnumerable<StarStudent> GetAllAsync()
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -54,11 +54,11 @@ namespace Instart.Repository
                 #endregion
 
                 string sql = $@"select * from [StarStudent] {where};";
-                return await conn.QueryAsync<StarStudent>(sql);
+                return conn.Query<StarStudent>(sql);
             }
         }
 
-        public async Task<bool> InsertAsync(StarStudent model) {
+        public bool InsertAsync(StarStudent model) {
             using (var conn = DapperFactory.GetConnection()) {
                 var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id) });
                 if (fields == null || fields.Count == 0) {
@@ -70,11 +70,11 @@ namespace Instart.Repository
                 model.Status = 1;
 
                 string sql = $"insert into [StarStudent] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> UpdateAsync(StarStudent model) {
+        public bool UpdateAsync(StarStudent model) {
             using (var conn = DapperFactory.GetConnection()) {
                 List<string> removeFields = new List<string>
                 {
@@ -96,14 +96,14 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
 
                 string sql = $"update [StarStudent] set {string.Join(",", fieldList)} where Id=@Id;";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> DeleteAsync(int id) {
+        public bool DeleteAsync(int id) {
             using (var conn = DapperFactory.GetConnection()) {
                 string sql = "update [StarStudent] set Status=0,ModifyTime=GETDATE() where Id=@Id;";
-                return await conn.ExecuteAsync(sql, new { Id = id }) > 0;
+                return conn.Execute(sql, new { Id = id }) > 0;
             }
         }
     }

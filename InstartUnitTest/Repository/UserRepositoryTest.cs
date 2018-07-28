@@ -13,30 +13,30 @@ namespace Instart.UnitTest.Repository
         IUserRepository _userRepository = AutofacRepository.Resolve<IUserRepository>();
 
         [Fact]
-        public async Task GetById_Test()
+        public void GetById_Test()
         {
-            var user = await _userRepository.GetByIdAsync(1);
+            var user = _userRepository.GetByIdAsync(1);
             Assert.NotNull(user);
         }
 
         [Fact]
-        public async Task GetByName_Test()
+        public void GetByName_Test()
         {
-            var user = await _userRepository.GetByNameAsync("admin");
+            var user = _userRepository.GetByNameAsync("admin");
             Assert.NotNull(user);
         }
 
         [Fact]
-        public async Task GetList_Test()
+        public void GetList_Test()
         {
-            var user = await _userRepository.GetListAsync(1, 10);
+            var user = _userRepository.GetListAsync(1, 10);
             Assert.NotNull(user);
         }
 
         [Fact]
-        public async Task Insert_Test()
+        public void Insert_Test()
         {
-            var result = await _userRepository.InsertAsync(new Models.User
+            var result = _userRepository.InsertAsync(new Models.User
             {
                 UserName = "test",
                 Password = "123456",
@@ -49,16 +49,16 @@ namespace Instart.UnitTest.Repository
         }
 
         [Fact]
-        public async Task UpdatePassword_Test()
+        public void UpdatePassword_Test()
         {
-            var result = await _userRepository.UpdatePasswordAsync(2, "666666");
+            var result = _userRepository.UpdatePasswordAsync(2, "666666");
             Assert.True(result);
         }
 
         [Fact]
-        public async Task Delete_Test()
+        public void Delete_Test()
         {
-            var result = await _userRepository.DeleteAsync(2);
+            var result = _userRepository.DeleteAsync(2);
             Assert.True(result);
         }
     }

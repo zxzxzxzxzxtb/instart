@@ -12,53 +12,64 @@ namespace Instart.Service
     {
         IStarStudentRepository _starStudentRepository = AutofacRepository.Resolve<IStarStudentRepository>();
 
-        public StarStudentService() {
+        public StarStudentService()
+        {
             base.AddDisposableObject(_starStudentRepository);
         }
 
-        public async Task<StarStudent> GetByIdAsync(int id) {
-            if (id <= 0) {
+        public StarStudent GetByIdAsync(int id)
+        {
+            if (id <= 0)
+            {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _starStudentRepository.GetByIdAsync(id);
+            return _starStudentRepository.GetByIdAsync(id);
         }
 
-        public async Task<PageModel<StarStudent>> GetListAsync(int pageIndex, int pageSize, string name = null) {
-            return await _starStudentRepository.GetListAsync(pageIndex, pageSize, name);
-        }
-
-        public async Task<IEnumerable<StarStudent>> GetAllAsync()
+        public PageModel<StarStudent> GetListAsync(int pageIndex, int pageSize, string name = null)
         {
-            return await _starStudentRepository.GetAllAsync();
+            return _starStudentRepository.GetListAsync(pageIndex, pageSize, name);
         }
 
-        public async Task<bool> InsertAsync(StarStudent model) {
-            if (model == null) {
+        public IEnumerable<StarStudent> GetAllAsync()
+        {
+            return _starStudentRepository.GetAllAsync();
+        }
+
+        public bool InsertAsync(StarStudent model)
+        {
+            if (model == null)
+            {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            return await _starStudentRepository.InsertAsync(model);
+            return _starStudentRepository.InsertAsync(model);
         }
 
-        public async Task<bool> UpdateAsync(StarStudent model) {
-            if (model == null) {
+        public bool UpdateAsync(StarStudent model)
+        {
+            if (model == null)
+            {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            if (model.Id <= 0) {
+            if (model.Id <= 0)
+            {
                 throw new ArgumentException(nameof(model.Id));
             }
 
-            return await _starStudentRepository.UpdateAsync(model);
+            return _starStudentRepository.UpdateAsync(model);
         }
 
-        public async Task<bool> DeleteAsync(int id) {
-            if (id <= 0) {
+        public bool DeleteAsync(int id)
+        {
+            if (id <= 0)
+            {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _starStudentRepository.DeleteAsync(id);
+            return _starStudentRepository.DeleteAsync(id);
         }
     }
 }

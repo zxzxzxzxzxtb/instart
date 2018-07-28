@@ -11,25 +11,25 @@ namespace Instart.Repository
 {
     public class ContactRepository : IContactRepository
     {
-        public async Task<int> GetCountAsync()
+        public int GetCountAsync()
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select count(1) from [Contact];";
-                return await conn.ExecuteScalarAsync<int>(sql);
+                return conn.ExecuteScalar<int>(sql);
             }
         }
 
-        public async Task<Contact> GetInfoAsync()
+        public Contact GetInfoAsync()
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select * from [Contact];";
-                return await conn.QueryFirstOrDefaultAsync<Contact>(sql);
+                return conn.QueryFirstOrDefault<Contact>(sql);
             }
         }
 
-        public async Task<bool> InsertAsync(Contact model)
+        public bool InsertAsync(Contact model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -43,11 +43,11 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
 
                 string sql = $"insert into [Contact] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
 
-        public async Task<bool> UpdateAsync(Contact model)
+        public bool UpdateAsync(Contact model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -70,7 +70,7 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
 
                 string sql = $"update [Contact] set {string.Join(",", fieldList)};";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
     }

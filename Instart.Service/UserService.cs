@@ -13,18 +13,19 @@ namespace Instart.Service
     {
         IUserRepository _userRepository = AutofacRepository.Resolve<IUserRepository>();
 
-        public UserService() {
+        public UserService()
+        {
             base.AddDisposableObject(_userRepository);
         }
 
-        public async Task<User> GetByIdAsync(int id)
+        public User GetByIdAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _userRepository.GetByIdAsync(id);
+            return _userRepository.GetByIdAsync(id);
         }
 
         public User GetById(int id)
@@ -37,32 +38,32 @@ namespace Instart.Service
             return _userRepository.GetById(id);
         }
 
-        public async Task<User> GetByNameAsync(string name)
+        public User GetByNameAsync(string name)
         {
             if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentNullException(nameof(name));
             }
 
-            return await _userRepository.GetByNameAsync(name);
+            return _userRepository.GetByNameAsync(name);
         }
 
-        public async Task<PageModel<User>> GetListAsync(int pageIndex, int pageSize)
+        public PageModel<User> GetListAsync(int pageIndex, int pageSize)
         {
-            return await _userRepository.GetListAsync(pageIndex, pageSize);
+            return _userRepository.GetListAsync(pageIndex, pageSize);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public bool DeleteAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException(nameof(id));
             }
 
-            return await _userRepository.DeleteAsync(id);
+            return _userRepository.DeleteAsync(id);
         }
 
-        public async Task<bool> UpdatePasswordAsync(int id, string password)
+        public bool UpdatePasswordAsync(int id, string password)
         {
             if (id <= 0)
             {
@@ -76,12 +77,12 @@ namespace Instart.Service
 
             string encryptPwd = Md5Helper.Encrypt(password);
 
-            return await _userRepository.UpdatePasswordAsync(id, encryptPwd);
+            return _userRepository.UpdatePasswordAsync(id, encryptPwd);
         }
 
-        public async Task<bool> InsertAsync(User model)
+        public bool InsertAsync(User model)
         {
-            if(model == null)
+            if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
@@ -95,10 +96,10 @@ namespace Instart.Service
             model.CreateTime = DateTime.Now;
             model.ModifyTime = DateTime.Now;
 
-            return await _userRepository.InsertAsync(model);
+            return _userRepository.InsertAsync(model);
         }
 
-        public async Task<bool> UpdateAsync(User model)
+        public bool UpdateAsync(User model)
         {
             if (model == null)
             {
@@ -110,7 +111,7 @@ namespace Instart.Service
                 throw new ArgumentNullException(nameof(model.UserName));
             }
 
-            return await _userRepository.UpdateAsync(model);
+            return _userRepository.UpdateAsync(model);
         }
     }
 }

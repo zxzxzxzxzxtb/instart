@@ -9,12 +9,12 @@ namespace Instart.Service
 {
     public interface IAboutInstartService
     {
-        Task<int> GetCountAsync();
+        int GetCountAsync();
 
-        Task<AboutInstart> GetInfoAsync();
+        AboutInstart GetInfoAsync();
 
-        Task<bool> InsertAsync(AboutInstart model);
+        bool InsertAsync(AboutInstart model);
 
-        Task<bool> UpdateAsync(AboutInstart model);
+        bool UpdateAsync(AboutInstart model);
     }
 }

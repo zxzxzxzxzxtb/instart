@@ -14,7 +14,7 @@ namespace Instart.UnitTest.Repository
         IArticleRepository _articleRepository = AutofacRepository.Resolve<IArticleRepository>();
 
         [Fact]
-        public async Task Insert_Test()
+        public void Insert_Test()
         {
             Article model = new Article()
             {
@@ -28,12 +28,12 @@ namespace Instart.UnitTest.Repository
                 CreateTime = DateTime.Now,
             };
 
-            var result = await _articleRepository.InsertAsync(model);
+            var result = _articleRepository.InsertAsync(model);
             Assert.True(result);
         }
 
         [Fact]
-        public async Task Update_Test()
+        public void Update_Test()
         {
             Article model = new Article()
             {
@@ -48,28 +48,28 @@ namespace Instart.UnitTest.Repository
                 CreateTime = DateTime.Now,
             };
 
-            var result = await _articleRepository.UpdateAsync(model);
+            var result = _articleRepository.UpdateAsync(model);
             Assert.True(result);
         }
 
         [Fact]
-        public async Task GetById_Test()
+        public void GetById_Test()
         {
-            var article = await _articleRepository.GetByIdAsync(1);
+            var article = _articleRepository.GetByIdAsync(1);
             Assert.NotNull(article);
         }
 
         [Fact]
-        public async Task GetList_Test()
+        public void GetList_Test()
         {
-            var article = await _articleRepository.GetListAsync(1, 10 , 2);
+            var article = _articleRepository.GetListAsync(1, 10 , 2);
             Assert.NotNull(article);
         }
 
         [Fact]
-        public async Task Delete_Test()
+        public void Delete_Test()
         {
-            var result = await _articleRepository.DeleteAsync(1);
+            var result = _articleRepository.DeleteAsync(1);
             Assert.True(result);
         }
     }
