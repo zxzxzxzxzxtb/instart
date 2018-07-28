@@ -841,6 +841,36 @@
     <Content Include="Content\upload\images\20180719225029792.jpg" />
     <Content Include="Content\upload\images\20180719225050681.jpg" />
     <Content Include="Content\upload\images\20180719225112100.jpg" />
+    <Content Include="Content\upload\images\20180720221302351.jpg" />
+    <Content Include="Content\upload\images\20180720221712191.jpg" />
+    <Content Include="Content\upload\images\20180720221727586.jpg" />
+    <Content Include="Content\upload\images\20180720221734899.jpg" />
+    <Content Include="Content\upload\images\20180720221742923.jpg" />
+    <Content Include="Content\upload\images\20180720221752818.jpg" />
+    <Content Include="Content\upload\images\20180720221806947.jpg" />
+    <Content Include="Content\upload\images\20180720221821315.jpg" />
+    <Content Include="Content\upload\images\20180720221824523.jpg" />
+    <Content Include="Content\upload\images\20180720221830826.jpg" />
+    <Content Include="Content\upload\images\20180721164252597.jpg" />
+    <Content Include="Content\upload\images\20180721164325893.jpg" />
+    <Content Include="Content\upload\images\20180722235102768.jpg" />
+    <Content Include="Content\upload\images\20180723204133129.jpg" />
+    <Content Include="Content\upload\images\20180723204139529.jpg" />
+    <Content Include="Content\upload\images\20180723204305672.jpg" />
+    <Content Include="Content\upload\images\20180723204555999.jpg" />
+    <Content Include="Content\upload\images\20180723204720036.jpg" />
+    <Content Include="Content\upload\images\20180723204749285.jpg" />
+    <Content Include="Content\upload\images\20180723204807861.jpg" />
+    <Content Include="Content\upload\images\20180723204822485.jpg" />
+    <Content Include="Content\upload\images\20180723204841269.jpg" />
+    <Content Include="Content\upload\images\20180723235329165.jpg" />
+    <Content Include="Content\upload\images\20180724222250993.jpg" />
+    <Content Include="Content\upload\images\20180724223843883.jpg" />
+    <Content Include="Content\upload\images\20180725230044830.jpg" />
+    <Content Include="Content\upload\images\20180726232735053.jpg" />
+    <Content Include="Content\upload\images\20180728161011487.jpg" />
+    <Content Include="Content\upload\images\20180728161043601.jpg" />
+    <Content Include="Content\upload\images\20180728162412378.jpg" />
     <Content Include="Content\upload\videos\20180719184348808.mp4" />
     <Content Include="Content\upload\videos\20180719211841277.mp4" />
     <Content Include="Content\upload\videos\20180719214154571.mp4" />
@@ -1072,6 +1102,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Manage\Views\Student\CourseSelect.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
