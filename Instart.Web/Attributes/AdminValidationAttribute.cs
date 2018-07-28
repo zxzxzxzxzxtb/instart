@@ -55,10 +55,8 @@ namespace Instart.Web.Attributes
                     }));
                     return;
                 }
-
-                IUserService userService = AutofacService.Resolve<IUserService>();
-
-                var user = userService.GetById(userId);
+                
+                var user = AutofacService.Resolve<IUserService>().GetById(userId);
                 if (user == null)
                 {
                     filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new

@@ -65,7 +65,7 @@
                             <a href="/manage/schoolapply" style="float:right;">全部</a>
                             <h3 class="panel-title">最近学校申请</h3>
                         </div>
-                        <table class="table table-bordered">
+                        <table class="table table-hover table-bordered">
                             <tr>
                                 <th>申请人</th>
                                 <th>学校</th>
@@ -88,7 +88,7 @@
                             <a href="/manage/courseapply" style="float:right;">全部</a>
                             <h3 class="panel-title">最近课程申请</h3>
                         </div>
-                        <table class="table table-bordered">
+                        <table class="table table-hover table-bordered">
                             <tr>
                                 <th>申请人</th>
                                 <th>课程</th>
@@ -110,14 +110,24 @@
         <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
+                    <a href="/manage/log" style="float:right;">全部</a>
                     <h3 class="panel-title">操作日志</h3>
                 </div>
-                <div class="panel-body">
-                    @foreach(Instart.Models.Log item in ViewBag.LogList)
+                <table class="table table-hover table-bordered">
+                    <tr>
+                        <th>操作人</th>
+                        <th>内容</th>
+                        <th>时间</th>
+                    </tr>
+                    @foreach (Instart.Models.Log item in ViewBag.LogList)
                     {
-                        <text>@item.Title</text><text>@string.Format("{0:yyyy-MM-dd HH:mm:ss}",item.CreateTime)</text>
+                    <tr>
+                        <td>@item.UserName</td>
+                        <td>@item.Title</td>
+                        <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
+                    </tr>
                     }
-                </div>
+                </table>
             </div>
         </div>
     </div>

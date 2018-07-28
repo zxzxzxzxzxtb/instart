@@ -57,7 +57,7 @@ namespace Instart.Repository
             }
         }
 
-        public async Task<bool> InsertAsync(Log model)
+        public bool Insert(Log model)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -70,7 +70,7 @@ namespace Instart.Repository
                 model.CreateTime = DateTime.Now;
 
                 string sql = $"insert into Log ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
-                return await conn.ExecuteAsync(sql, model) > 0;
+                return conn.Execute(sql, model) > 0;
             }
         }
     }
