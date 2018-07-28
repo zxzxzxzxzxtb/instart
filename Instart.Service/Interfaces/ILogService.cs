@@ -11,7 +11,7 @@ namespace Instart.Service
     {
         Task<PageModel<Log>> GetListAsync(int pageIndex, int pageSize, string title, int userId, int type);
 
-        Task<bool> InsertAsync(Log model);
+        bool Insert(Log model);
 
         Task<List<Log>> GetTopListAsync(int topCount);
     }

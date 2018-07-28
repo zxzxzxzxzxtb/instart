@@ -32,7 +32,7 @@ namespace Instart.Service
             return await _logRepository.GetTopListAsync(topCount);
         }
 
-        public async Task<bool> InsertAsync(Log model)
+        public bool Insert(Log model)
         {
             if(model == null)
             {
@@ -44,7 +44,7 @@ namespace Instart.Service
                 throw new ArgumentNullException(nameof(model.Title));
             }
 
-            return await _logRepository.InsertAsync(model);
+            return _logRepository.Insert(model);
         }
     }
 }

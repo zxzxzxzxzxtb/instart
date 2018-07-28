@@ -10,14 +10,14 @@ namespace Instart.Web
 {
     public class LogService
     {
-        public static  void Write(Log log)
+        public static void Write(Log log)
         {
             if(log == null)
             {
                 return;
             }
 
-            var slt = AutofacService.Resolve<ILogService>().InsertAsync(log).Result;
+            var slt = AutofacService.Resolve<ILogService>().Insert(log);
         }
     }
 }
