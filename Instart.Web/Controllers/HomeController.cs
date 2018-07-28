@@ -1,4 +1,5 @@
 ﻿using Instart.Common;
+using Instart.Models;
 using Instart.Service;
 using Instart.Service.Base;
 using System;
@@ -18,6 +19,7 @@ namespace Instart.Web.Controllers
         IStudentService _studentService = AutofacService.Resolve<IStudentService>();
         ICourseService _courseService = AutofacService.Resolve<ICourseService>();
         IBannerService _bannerService = AutofacService.Resolve<IBannerService>();
+        IRecruitService _recruitService = AutofacService.Resolve<IRecruitService>();
 
         public HomeController() {
             this.AddDisposableObject(_partnerService);
@@ -26,6 +28,7 @@ namespace Instart.Web.Controllers
             this.AddDisposableObject(_studentService);
             this.AddDisposableObject(_courseService);
             this.AddDisposableObject(_bannerService);
+            this.AddDisposableObject(_recruitService);
         }
 
         public async Task<ActionResult> Index() {
@@ -36,6 +39,22 @@ namespace Instart.Web.Controllers
             ViewBag.CourseList = (await _courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();
             ViewBag.BannerList = (await _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Index)) ?? new List<Instart.Models.Banner>();
             return View();
+        }
+
+        /// <summary>
+        /// 招贤纳士
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ActionResult> Recruit() {
+            Recruit model = await _recruitService.GetInfoAsync() ?? new Recruit();
+
+            List<Banner> bannerList = await _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Recruit);
+            ViewBag.BannerUrl = "";
+            if (bannerList != null && bannerList.Count() > 0)
+            {
+                ViewBag.BannerUrl = bannerList[0].ImageUrl;
+            }
+            return View(model);
         }
     }
 }

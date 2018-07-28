@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Instart.Models;
 using Dapper;
+using System.Data.SqlClient;
 
 namespace Instart.Repository
 {
@@ -171,6 +172,56 @@ namespace Instart.Repository
                 string sql = $"update [Student] set IsRecommend=@IsRecommend where Id=@Id;";
                 return await conn.ExecuteAsync(sql, new { IsRecommend = isRecommend, Id = id }) > 0;
             }
+        }
+
+        public async Task<IEnumerable<int>> GetCoursesByIdAsync(int id)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = $"select CourseId from [StudentCourse] where StudentId={id};";
+                return await conn.QueryAsync<int>(sql); ;
+            }
+        }
+
+        public async Task<bool> SetCourses(int studentId, string courseIds)
+        {
+            var result = 0;
+            using (var conn = DapperFactory.GetConnection())
+            {
+                conn.Open();
+                var tran = conn.BeginTransaction();
+
+                string sql = $"delete from [StudentCourse] where StudentId = @StudentId; ";
+
+                var insertImg = @" INSERT INTO [StudentCourse] ([StudentId],[CourseId]) VALUES(@StudentId,@CourseId)";
+                try
+                {
+
+                    result = await conn.ExecuteAsync(sql, new { StudentId = studentId }, tran);
+                    if (!String.IsNullOrEmpty(courseIds))
+                    {
+                        string[] ids = courseIds.Split(',');
+                        foreach (var item in ids)
+                        {
+                            result = await conn.ExecuteAsync(insertImg, new { StudentId = studentId, CourseId = item }, tran);
+                        }
+                    }
+                    tran.Commit();
+                }
+                catch (SqlException ex)
+                {
+                    result = 0;
+                    tran.Rollback();
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    result = 0;
+                    tran.Rollback();
+                    return false;
+                }
+            }//end using
+            return result > 0;
         }
     }
 }

@@ -21,10 +21,16 @@ namespace Instart.Web.Areas.Manage.Controllers
         ITeacherService _teacherService = AutofacService.Resolve<ITeacherService>();
         IMajorService _majorService = AutofacService.Resolve<IMajorService>();
         IDivisionService _divisionService = AutofacService.Resolve<IDivisionService>();
+        ICourseService _courseService = AutofacService.Resolve<ICourseService>();
 
         public StudentController()
         {
             base.AddDisposableObject(_studentService);
+            base.AddDisposableObject(_schoolService);
+            base.AddDisposableObject(_teacherService);
+            base.AddDisposableObject(_majorService);
+            base.AddDisposableObject(_divisionService);
+            base.AddDisposableObject(_courseService);
         }
 
         public async Task<ActionResult> Index(int page = 1, int division = -1, string keyword = null)
@@ -211,6 +217,54 @@ namespace Instart.Web.Areas.Manage.Controllers
             catch (Exception ex)
             {
                 LogHelper.Error($"StudentController.SetRecommend异常", ex);
+                return Error(ex.Message);
+            }
+        }
+
+        public async Task<ActionResult> CourseSelect(int id = 0)
+        {
+            IEnumerable<Course> courseList = await _courseService.GetAllAsync();
+            IEnumerable<int> selectedList = await _studentService.GetCoursesByIdAsync(id);
+            if (courseList != null)
+            {
+                foreach (var course in courseList)
+                {
+                    if (selectedList != null && selectedList.Contains(course.Id))
+                    {
+                        course.IsSelected = true;
+                    }
+                    else
+                    {
+                        course.IsSelected = false;
+                    }
+                }
+            }
+
+            var student = await _studentService.GetByIdAsync(id);
+            if (student == null)
+            {
+                throw new Exception("学员不存在");
+            }
+
+            ViewBag.CourseList = courseList;
+            ViewBag.StudentId = id;
+            ViewBag.StudentName = student.Name;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> SetCourses(int studentId, string courseIds)
+        {
+            try
+            {
+                return Json(new ResultBase
+                {
+                    success = await _studentService.SetCourses(studentId, courseIds)
+                });
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error($"StudentController.SetCourses异常", ex);
                 return Error(ex.Message);
             }
         }

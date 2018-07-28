@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Recruit.cs" />
     <Compile Include="CourseInfo.cs" />
     <Compile Include="Enums\EnumCountry.cs" />
     <Compile Include="SchoolMajor.cs" />

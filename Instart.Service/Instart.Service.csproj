@@ -47,6 +47,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RecruitService.cs" />
+    <Compile Include="Interfaces\IRecruitService.cs" />
     <Compile Include="Interfaces\ILogService.cs" />
     <Compile Include="Interfaces\IStatisticsService.cs" />
     <Compile Include="LogService.cs" />

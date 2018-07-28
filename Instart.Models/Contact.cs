@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 namespace Instart.Models
 {
     /// <summary>
-    /// 校区
+    /// 联系我们
     /// </summary>
     public class Contact
     {
-
         /// <summary>
         /// 电话号码
         /// </summary>
@@ -36,11 +35,6 @@ namespace Instart.Models
         /// 二维码
         /// </summary>
         public string Qrcode { get; set; }
-
-        /// <summary>
-        /// 招聘信息
-        /// </summary>
-        public string Recruit { get; set; }
 
         /// <summary>
         /// 创建时间
