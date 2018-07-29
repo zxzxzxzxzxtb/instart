@@ -1,0 +1,103 @@
+﻿@using Instart.Models
+@{
+    ViewBag.Title = "艺术导师";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!--banner展示图-->
+<div class="banner">
+    <ul class="lubo_box">
+        @foreach (Banner item in ViewBag.BannerList)
+        {
+            if (item.Type == Instart.Models.Enums.EnumBannerType.Image)
+            {
+                <li><a style="background:url(@item.ImageUrl) center top no-repeat"></a></li>
+            }
+            else if (item.Type == Instart.Models.Enums.EnumBannerType.Video)
+            {
+                <li style=" opacity: 1;filter:alpha(opacity=100);">
+                    <a href="" style="background:url(@item.ImageUrl) center top no-repeat">
+                        <video autoplay="autoplay" muted="muted" loop="loop" poster="https://storage.googleapis.com/tate-digital/videos/winifred-knights/the-deluge.jpg" title="">
+                            <source class="video--mp4" src="@item.VideoUrl" type="video/mp4">
+                        </video>
+                    </a>
+                </li>
+            }
+        }
+    </ul>
+</div>
+
+
+<div class="maincont">
+    <!--文章列表-->
+    <div class="pagemeun">
+        @foreach (Division item in ViewBag.DivisionList)
+        {
+            if (item.Id == ViewBag.DivisionId)
+            {
+                <p class="active"><a href="/teacher/index/@item.Id">@item.Name</a></p>
+            }
+            else
+            {
+                <p><a href="/teacher/index/@item.Id">@item.Name</a></p>
+            }
+        }
+    </div>
+
+    <div class="neilist">
+        <div class="teacher com-cont noborder"></div>
+        <div class="pagelist"></div>
+    </div>
+</div>
+
+@section Bottom{
+    <script src="~/content/js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            getData(1);
+            $('.pagelist').on('click', 'li a', function () {
+                var rel = $(this).attr("rel");
+                if (rel) {
+                    getData(rel);
+                }
+            });
+        });
+
+        function getData(page) {
+            $.ajax({
+                url: '/teacher/getteacherlist',
+                type: 'POST',
+                data: { divisionId: "@ViewBag.DivisionId", pageIndex: page },
+                success: function (slt) {
+                    var html = '<ul>';
+                    if (slt.data.list != null) {
+                        for (var index in slt.data.list) {
+                            var item = slt.data.list[index];
+                            html += '<li><div class="teacher-cont">';
+                            html += '<div class="top"><a href="/teacher/details/' + item.Id + '"><i></i><img src="' + item.Avatar + '" alt="' + item.Name + '" /></a></div>';
+                            html += '<dl>';
+                            html += '<dt><a href="/teacher/details/' + item.Id + '">' + item.Name + " " + (item.NameEn || '') + '</a></dt>';
+                            html += '<dd class="teac-m">';
+                            html += '<p><span>' + item.SchoolName + '</span><small>' + (item.SchoolNameEn || '') + '</small></p>';
+                            html += '<p><span>' + item.MajorName + '</span><small>' + (item.MajorNameEn || '') + '</small></p>';
+                            html += '</dd>';
+                            html += '<dd class="teac-b">' + item.DivisionName + " " + (item.DivisionNameEn || '') + '</dd>';
+                            html += '</dl>';
+                            html += '</div></li>';
+                        }
+                    }
+                    html += '</ul>';
+                    $('.teacher').html(html);
+                    getPageBar(page, slt.data.totalPage, $('.pagelist'));
+                },
+                error: function () {
+                    layer.msg("数据加载失败");
+                }
+            });
+        }
+    </script>
+
+}
+

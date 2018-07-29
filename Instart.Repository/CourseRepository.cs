@@ -28,27 +28,27 @@ namespace Instart.Repository
                 string where = "where a.Status=1";
                 if (!string.IsNullOrEmpty(name))
                 {
-                    where += $" and a.Name like '%{name}%'";
+                    where += string.Format(" and a.Name like '%{0}%'",name);
                 }
                 #endregion
 
-                string countSql = $"select count(1) from [Course] as a {where};";
+                string countSql = string.Format("select count(1) from [Course] as a {0};",where);
                 int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
                 {
                     return new PageModel<Course>();
                 }
 
-                string sql = $@"select * from (
-                     select a.*, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Course] as a {where}
+                string sql = string.Format(@"select * from (
+                     select a.*, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Course] as a {0}
                      ) as c
-                     where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
+                     where RowNumber between {1} and {};",where,((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
                 var list = conn.Query<Course>(sql);
 
                 return new PageModel<Course>
                 {
                     Total = total,
-                    Data = list?.ToList()
+                    Data = list != null ? list.ToList(): null
                 };
             }
         }
@@ -61,7 +61,7 @@ namespace Instart.Repository
                 string where = "where Status=1";
                 #endregion
 
-                string sql = $@"select * from [Course] {where};";
+                string sql = string.Format(@"select * from [Course] {0};",where);
                 return conn.Query<Course>(sql);
             }
         }
@@ -70,7 +70,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id), nameof(model.IsSelected) });
+                var fields = model.ToFields(removeFields: new List<string> { "Id", "IsSelected"});
                 if (fields == null || fields.Count == 0)
                 {
                     return false;
@@ -80,7 +80,7 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
                 model.Status = 1;
 
-                string sql = $"insert into [Course] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
+                string sql = string.Format("insert into [Course] ({0}) values ({1});", string.Join(",", fields), string.Join(",", fields.Select(n => "@" + n)));
                 return conn.Execute(sql, model) > 0;
             }
         }
@@ -91,10 +91,10 @@ namespace Instart.Repository
             {
                 List<string> removeFields = new List<string>
                 {
-                    nameof(model.Id),
-                    nameof(model.CreateTime),
-                    nameof(model.Status),
-                    nameof(model.IsSelected)
+                    "Id",
+                    "CreateTime",
+                    "Status",
+                    "IsSelected"
                 };
                 var fields = model.ToFields(removeFields: removeFields);
 
@@ -106,12 +106,12 @@ namespace Instart.Repository
                 var fieldList = new List<string>();
                 foreach (var field in fields)
                 {
-                    fieldList.Add($"{field}=@{field}");
+                    fieldList.Add(string.Format("{0}=@{0}",field));
                 }
 
                 model.ModifyTime = DateTime.Now;
 
-                string sql = $"update [Course] set {string.Join(",", fieldList)} where Id=@Id;";
+                string sql = string.Format("update [Course] set {0} where Id=@Id;", string.Join(",", fieldList));
                 return conn.Execute(sql, model) > 0;
             }
         }
@@ -129,8 +129,9 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = $@"select top {topCount} Id,Name,NameEn,Picture,Introduce from Course where Status=1 and IsRecommend=1 order by Id desc;";
-                return (conn.Query<Course>(sql, null))?.ToList();
+                string sql = string.Format(@"select top {0} Id,Name,NameEn,Picture,Introduce from Course where Status=1 and IsRecommend=1 order by Id desc;",topCount);
+                var list = conn.Query<Course>(sql, null);
+                return list != null ? list.ToList() : null;
             }
         }
 
@@ -138,7 +139,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = $"update [Course] set IsRecommend=@IsRecommend where Id=@Id;";
+                string sql = "update [Course] set IsRecommend=@IsRecommend where Id=@Id;";
                 return conn.Execute(sql, new { IsRecommend = isRecommend, Id = id }) > 0;
             }
         }
@@ -174,7 +175,7 @@ namespace Instart.Repository
                 model.CreateTime = DateTime.Now;
                 model.ModifyTime = DateTime.Now;
 
-                string sql = $"insert into [CourseInfo] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
+                string sql = string.Format("insert into [CourseInfo] ({0}) values ({1});", string.Join(",", fields), string.Join(",", fields.Select(n => "@" + n)));
                 return conn.Execute(sql, model) > 0;
             }
         }
@@ -185,7 +186,7 @@ namespace Instart.Repository
             {
                 var fields = model.ToFields(removeFields: new List<string>
                 {
-                    nameof(model.CreateTime)
+                    "CreateTime"
                 });
 
                 if (fields == null || fields.Count == 0)
@@ -196,12 +197,12 @@ namespace Instart.Repository
                 var fieldList = new List<string>();
                 foreach (var field in fields)
                 {
-                    fieldList.Add($"{field}=@{field}");
+                    fieldList.Add(string.Format("{0}=@{0}",field));
                 }
 
                 model.ModifyTime = DateTime.Now;
 
-                string sql = $"update [CourseInfo] set {string.Join(",", fieldList)};";
+                string sql = string.Format("update [CourseInfo] set {0};", string.Join(",", fieldList));
                 return conn.Execute(sql, model) > 0;
             }
         }
@@ -210,7 +211,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = $"select TeacherId from [TeacherCourse] where CourseId={id};";
+                string sql = string.Format("select TeacherId from [TeacherCourse] where CourseId={0};",id);
                 return conn.Query<int>(sql); ;
             }
         }
@@ -223,7 +224,7 @@ namespace Instart.Repository
                 conn.Open();
                 var tran = conn.BeginTransaction();
 
-                string sql = $"delete from [TeacherCourse] where CourseId = @CourseId; ";
+                string sql = "delete from [TeacherCourse] where CourseId = @CourseId; ";
 
                 var insertImg = @" INSERT INTO [TeacherCourse] ([TeacherId],[CourseId]) VALUES(@TeacherId,@CourseId)";
                 try

@@ -23,28 +23,28 @@ namespace Instart.Repository
                 #region generate condition
                 string where = "where t.Status=1";
                 if (!string.IsNullOrEmpty(name)) {
-                    where += $" and t.Name like '%{name}%'";
+                    where += string.Format(" and t.Name like '%{0}%'",name);
                 }
                 if (division != -1)
                 {
-                    where += $" and t.DivisionId = {division}";
+                    where += string.Format(" and t.DivisionId = {0}",division);
                 }
                 #endregion
 
-                string countSql = $"select count(1) from [Teacher] as t {where};";
+                string countSql = string.Format("select count(1) from [Teacher] as t {0};",where);
                 int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0) {
                     return new PageModel<Teacher>();
                 }
 
-                string sql = $@"select * from ( select t.*, d.Name as DivisionName, ROW_NUMBER() over (Order by t.Id desc) as RowNumber from [Teacher] as t
-                    left join [Division] d on d.Id = t.DivisionId {where} ) as b 
-                    where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
+                string sql = string.Format(@"select * from ( select t.*, d.Name as DivisionName, ROW_NUMBER() over (Order by t.Id desc) as RowNumber from [Teacher] as t
+                    left join [Division] d on d.Id = t.DivisionId {0} ) as b 
+                    where RowNumber between {1} and {2};",where,((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
                 var list = conn.Query<Teacher>(sql);
 
                 return new PageModel<Teacher> {
                     Total = total,
-                    Data = list?.ToList()
+                    Data = list != null ? list.ToList() : null
                 };
             }
         }
@@ -57,15 +57,14 @@ namespace Instart.Repository
                 string where = "where Status=1";
                 #endregion
 
-                string sql = $@"select * from [Teacher] {where};";
+                string sql = string.Format(@"select * from [Teacher] {0};",where);
                 return conn.Query<Teacher>(sql);
             }
         }
 
         public bool InsertAsync(Teacher model) {
             using (var conn = DapperFactory.GetConnection()) {
-                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id), nameof(model.DivisionName), nameof(model.DivisionNameEn),
-                    nameof(model.SchoolName), nameof(model.SchoolNameEn), nameof(model.MajorName), nameof(model.MajorNameEn), nameof(model.IsSelected)});
+                var fields = model.ToFields(removeFields: new List<string> { "Id", "DivisionName", "DivisionNameEn","SchoolName", "SchoolNameEn", "MajorName", "MajorNameEn", "IsSelected"});
                 if (fields == null || fields.Count == 0) {
                     return false;
                 }
@@ -74,7 +73,7 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
                 model.Status = 1;
 
-                string sql = $"insert into [Teacher] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
+                string sql = string.Format("insert into [Teacher] ({0}) values ({1});",string.Join(",", fields),string.Join(",", fields.Select(n => "@" + n)));
                 return conn.Execute(sql, model) > 0;
             }
         }
@@ -83,16 +82,16 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection()) {
                 var fields = model.ToFields(removeFields: new List<string>
                 {
-                    nameof(model.Id),
-                    nameof(model.CreateTime),
-                    nameof(model.Status),
-                    nameof(model.DivisionName),
-                    nameof(model.DivisionNameEn),
-                    nameof(model.SchoolName),
-                    nameof(model.SchoolNameEn),
-                    nameof(model.MajorName),
-                    nameof(model.MajorNameEn),
-                    nameof(model.IsSelected)
+                    "Id",
+                    "CreateTime",
+                    "Status",
+                    "DivisionName",
+                    "DivisionNameEn",
+                    "SchoolName",
+                    "SchoolNameEn",
+                    "MajorName",
+                    "MajorNameEn",
+                    "IsSelected"
                 });
 
                 if (fields == null || fields.Count == 0) {
@@ -101,12 +100,12 @@ namespace Instart.Repository
 
                 var fieldList = new List<string>();
                 foreach (var field in fields) {
-                    fieldList.Add($"{field}=@{field}");
+                    fieldList.Add(string.Format("{0}=@{0}",field));
                 }
 
                 model.ModifyTime = DateTime.Now;
 
-                string sql = $"update [Teacher] set {string.Join(",", fieldList)} where Id=@Id;";
+                string sql = string.Format("update [Teacher] set {0} where Id=@Id;",string.Join(",", fieldList));
                 return conn.Execute(sql, model) > 0;
             }
         }
@@ -122,14 +121,15 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = $@"select top {topCount} t.Id,t.Name,t.NameEn,t.Avatar,s.Name as SchoolName,s.NameEn as SchoolNameEn,
+                string sql = string.Format(@"select top {0} t.Id,t.Name,t.NameEn,t.Avatar,s.Name as SchoolName,s.NameEn as SchoolNameEn,
                                 m.Name as MajorName,m.NameEn as MajorNameEn,d.Name as DivisionName,d.NameEn as DivisionNameEn from Teacher t
                                 left join School s on t.SchoolId = s.Id
                                 left join Major m on t.MajorId = m.Id
                                 left join Division d on t.DivisionId = d.Id
                                 where t.Status = 1 and t.IsRecommend = 1
-                                order by t.Id desc;";
-                return (conn.Query<Teacher>(sql, null))?.ToList();
+                                order by t.Id desc;",topCount);
+                var list = conn.Query<Teacher>(sql, null);
+                return list != null ? list.ToList() : null;
             }
         }
 
@@ -137,7 +137,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = $"update [Teacher] set IsRecommend=@IsRecommend where Id=@Id;";
+                string sql = "update [Teacher] set IsRecommend=@IsRecommend where Id=@Id;";
                 return conn.Execute(sql, new { IsRecommend = isRecommend, Id = id }) > 0;
             }
         }
@@ -146,7 +146,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = $"select CourseId from [TeacherCourse] where TeacherId={id};";
+                string sql = string.Format("select CourseId from [TeacherCourse] where TeacherId={0};", id);
                 return conn.Query<int>(sql); ;
             }
         }
@@ -159,7 +159,7 @@ namespace Instart.Repository
                 conn.Open();
                 var tran = conn.BeginTransaction();
 
-                string sql = $"delete from [TeacherCourse] where TeacherId = @TeacherId; ";
+                string sql = "delete from [TeacherCourse] where TeacherId = @TeacherId; ";
 
                 var insertImg = @" INSERT INTO [TeacherCourse] ([TeacherId],[CourseId]) VALUES(@TeacherId,@CourseId)";
                 try
@@ -196,7 +196,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string countSql = $"select count(1) from [Teacher] where DivisionId={divisionId} and Status=1;";
+                string countSql = string.Format("select count(1) from [Teacher] where DivisionId={0} and Status=1;",divisionId);
 
                 int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
@@ -204,19 +204,21 @@ namespace Instart.Repository
                     return new PageModel<Teacher>();
                 }
 
-                string sql = $@"select * from (select TOP (100) PERCENT t.Id,t.Name,t.NameEn,t.Avatar,s.Name as SchoolName,s.NameEn as SchoolNameEn,
+                string sql = string.Format(@"select * from (select TOP (100) PERCENT t.Id,t.Name,t.NameEn,t.Avatar,s.Name as SchoolName,s.NameEn as SchoolNameEn,
                                 m.Name as MajorName,m.NameEn as MajorNameEn,d.Name as DivisionName,d.NameEn as DivisionNameEn, ROW_NUMBER() over (Order by t.Id desc) as RowNumber from Teacher t
                                 left join School s on t.SchoolId = s.Id
                                 left join Major m on t.MajorId = m.Id
                                 left join Division d on t.DivisionId = d.Id
                                 where t.DivisionId = @DivisionId and t.Status = 1 
                                 order by t.Id desc) as b 
-                                where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
+                                where RowNumber between {0} and {1};",((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
+
+                var list = conn.Query<Teacher>(sql, new { DivisionId = divisionId });
 
                 PageModel<Teacher> result = new PageModel<Teacher>
                 {
                     Total = total,
-                    Data = (conn.Query<Teacher>(sql, new { DivisionId = divisionId }))?.ToList()
+                    Data = list != null ? list.ToList() : null
                 };
 
                 return result;

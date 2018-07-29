@@ -1,0 +1,18 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>errors</title>
+</head>
+<body>
+    <div style="font-size:13px; line-height:180%;"> 
+        @Html.Raw(TempData["ExceptionAttributeMessages"])
+    </div>
+</body>
+</html>

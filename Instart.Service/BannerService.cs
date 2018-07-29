@@ -23,7 +23,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _bannerRepository.GetByIdAsync(id);
@@ -43,12 +43,12 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Title))
             {
-                throw new ArgumentNullException(nameof(model.Title));
+                throw new ArgumentNullException("Title不能为null");
             }
 
             return _bannerRepository.InsertAsync(model);
@@ -58,17 +58,17 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Title))
             {
-                throw new ArgumentNullException(nameof(model.Title));
+                throw new ArgumentNullException("Title不能为null");
             }
 
             if (model.Id <= 0)
             {
-                throw new ArgumentException(nameof(model.Id));
+                throw new ArgumentException("Id错误");
             }
 
             return _bannerRepository.UpdateAsync(model);
@@ -78,7 +78,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _bannerRepository.DeleteAsync(id);
@@ -98,7 +98,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _bannerRepository.SetShowAsync(id, isShow);

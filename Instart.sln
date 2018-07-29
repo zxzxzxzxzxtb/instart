@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2035
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Instart.Web", "Instart.Web\Instart.Web.csproj", "{7B0B4DFA-1AFD-47C0-A29F-211008C7228F}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Instart.Models", "Instart.Models\Instart.Models.csproj", "{B3346B33-40AA-4974-866A-957DA188E8AB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Instart.UnitTest", "InstartUnitTest\Instart.UnitTest.csproj", "{4280B9CC-08DD-4B66-9389-DD087DE24A82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Instart.Web2", "Instart.Web2\Instart.Web2.csproj", "{5E55DD48-7F05-4386-B660-BE0AF9F8D158}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{4280B9CC-08DD-4B66-9389-DD087DE24A82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4280B9CC-08DD-4B66-9389-DD087DE24A82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4280B9CC-08DD-4B66-9389-DD087DE24A82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E55DD48-7F05-4386-B660-BE0AF9F8D158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E55DD48-7F05-4386-B660-BE0AF9F8D158}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E55DD48-7F05-4386-B660-BE0AF9F8D158}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E55DD48-7F05-4386-B660-BE0AF9F8D158}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

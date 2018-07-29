@@ -1,0 +1,93 @@
+﻿@using Instart.Models
+@using Instart.Web2.Infrastructures
+
+@{
+    ViewBag.Title = "校区管理";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li><a href="#">校区管理</a></li>
+</ol>
+
+<div>
+    <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
+    <form method="post" action="" target="_self" class="form-inline">
+        <div class="form-group">
+            <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="校区名称" style="width:300px;">
+        </div>
+        <button type="submit" class="btn btn-success">查询</button>
+        <a href="/manage/campus" class="btn btn-default">全部</a>
+        <a href="/manage/campus/edit" class="btn btn-default">添加</a>
+    </form>
+</div>
+<table class="table table-bordered table-hover" style="margin-top:15px;">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>校区名称</th>
+            <th>地址</th>
+            <th>电话</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (Campus item in Model)
+            {
+        <tr>
+            <td style="width:5%;">@item.Id</td>
+            <td>@item.Name</td>
+            <td>@Html.Raw(item.Address)</td>
+            <td>@Html.Raw(item.Phone)</td>
+            <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
+            <td style="width:15%;">
+                <a data-id="@item.Id" href="javascript:void(0)" onclick="update(@item.Id)">修改</a>
+                <a data-id="@item.Id" href="javascript:void(0)" onclick="remove(@item.Id)">删除</a>
+                <a data-id="@item.Id" href="javascript:void(0)" onclick="setImgs(@item.Id)">校区图片</a>
+            </td>
+        </tr>
+            }
+        }
+    </tbody>
+</table>
+<div class="row page-center">
+    @if (ViewBag.TotalPages > 1)
+    {
+        <div class="pagination">
+            <ul class="pl0">
+                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new { area = "manage",keyword= ViewBag.Keyword })
+            </ul>
+        </div>
+    }
+</div>
+
+@section Bottom{
+    <script>
+        function update(id) {
+            location.href = '@Url.Action("edit", "campus", new { area="manage" })' + "?id=" + id;
+        }
+
+        function setImgs(id) {
+            location.href = '@Url.Action("imgindex", "campus", new { area="manage" })' + "?campusId=" + id;
+        }
+
+        function remove(id) {
+            layer.confirm('确定删除该校区?', function (index) {
+                $.post('/manage/campus/delete', { id: id }, function (slt) {
+                    if (slt && slt.success) {
+                        location.reload();
+                    }
+                    else {
+                        layer.msg(slt.message || '操作失败，请重试');
+                    }
+                });
+
+                layer.close(index);
+            }); 
+        }
+    </script>
+}
+

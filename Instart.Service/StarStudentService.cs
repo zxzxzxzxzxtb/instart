@@ -21,7 +21,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _starStudentRepository.GetByIdAsync(id);
@@ -41,7 +41,7 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             return _starStudentRepository.InsertAsync(model);
@@ -51,12 +51,12 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (model.Id <= 0)
             {
-                throw new ArgumentException(nameof(model.Id));
+                throw new ArgumentException("Id错误");
             }
 
             return _starStudentRepository.UpdateAsync(model);
@@ -66,7 +66,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _starStudentRepository.DeleteAsync(id);

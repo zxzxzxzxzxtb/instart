@@ -21,7 +21,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id不能为空");
             }
 
             return _schoolRepository.GetByIdAsync(id);
@@ -41,12 +41,12 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Name))
             {
-                throw new ArgumentNullException(nameof(model.Name));
+                throw new ArgumentNullException("Name不能为null");
             }
             return _schoolRepository.InsertAsync(model);
         }
@@ -55,17 +55,17 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Name))
             {
-                throw new ArgumentNullException(nameof(model.Name));
+                throw new ArgumentNullException("Name不能为null");
             }
 
             if (model.Id <= 0)
             {
-                throw new ArgumentException(nameof(model.Id));
+                throw new ArgumentException("Id错误");
             }
 
             return _schoolRepository.UpdateAsync(model);
@@ -75,7 +75,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _schoolRepository.DeleteAsync(id);
@@ -95,7 +95,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _schoolRepository.SetRecommendAsync(id, isRecommend);
@@ -115,7 +115,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _schoolRepository.SetHotAsync(id, isHot);

@@ -1,0 +1,203 @@
+﻿@using Instart.Models
+@using Instart.Web2.Infrastructures
+
+@{
+    ViewBag.Title = "艺术院校";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li><a href="#">艺术院校</a></li>
+</ol>
+
+<div>
+    <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
+    <form method="post" action="" target="_self" class="form-inline">
+        <div class="form-group">
+            <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="学校名称" style="width:300px;">
+        </div>
+        <button type="submit" class="btn btn-success">查询</button>
+        <a href="/manage/school" class="btn btn-default">全部</a>
+        <a href="/manage/school/edit" class="btn btn-default">添加</a>
+    </form>
+</div>
+<table class="table table-bordered table-hover" style="margin-top:15px;">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>学校名称</th>
+            <th>学费</th>
+            <th>申请难度</th>
+            <th>创建时间</th>
+            <th>推荐首页</th>
+            <th>热门搜索</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (School item in Model)
+            {
+                <tr>
+                    <td style="width:5%;">@item.Id</td>
+
+                    <td>@item.Name</td>
+                    <td>@item.Fee</td>
+                    <td>@item.Difficult</td>
+                    <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
+                    <td>
+                        @if (item.IsRecommend)
+                        {
+                            <input class="chkRecommend" type="checkbox" checked="checked" data-id="@item.Id" />
+                        }
+                        else
+                        {
+                            <input class="chkRecommend" type="checkbox" data-id="@item.Id" />
+                        }
+                    </td>
+                    <td>
+                        @if (item.IsHot)
+                        {
+                            <input class="chkHot" type="checkbox" checked="checked" data-id="@item.Id" />
+                        }
+                        else
+                        {
+                            <input class="chkHot" type="checkbox" data-id="@item.Id" />
+                        }
+                    </td>
+                    <td style="width:20%;">
+                        <a href="/school/details/@item.Id" target="_blank">详情</a>
+                        <a data-id="@item.Id" href="javascript:void(0)" onclick="update(@item.Id)">修改</a>
+                        <a data-id="@item.Id" href="javascript:void(0)" onclick="remove(@item.Id)">删除</a>
+                        <a data-id="@item.Id" href="javascript:void(0)" onclick="setmajor(@item.Id)">专业设置</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<div class="row page-center">
+    @if (ViewBag.TotalPages > 1)
+    {
+        <div class="pagination">
+            <ul class="pl0">
+                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new { area = "manage", keyword = ViewBag.Keyword })
+            </ul>
+        </div>
+    }
+</div>
+
+<iframe id="id_iframe" name="9/." style="display:none;"></iframe>
+
+<script>
+    $(function () {
+        $(".chkRecommend").click(function () {
+            var checked = $(this).is(":checked");
+            var id = $(this).attr("data-id");
+
+            $.post('/manage/school/setrecommend', { id: id, isRecommend: checked }, function (slt) {
+                if (slt && slt.success) {
+                    layer.msg(checked ? '推荐成功' : '取消推荐成功');
+                }
+                else {
+                    layer.msg(slt.message || '操作失败，请重试');
+                }
+            });
+        });
+
+        $(".chkHot").click(function () {
+            var checked = $(this).is(":checked");
+            var id = $(this).attr("data-id");
+
+            $.post('/manage/school/sethot', { id: id, isHot: checked }, function (slt) {
+                if (slt && slt.success) {
+                    layer.msg(checked ? '设置热搜成功' : '取消热搜成功');
+                }
+                else {
+                    layer.msg(slt.message || '操作失败，请重试');
+                }
+            });
+        });
+    });
+
+    function update(id) {
+        location.href = '@Url.Action("edit", "school", new { area="manage" })' + "?id=" + id;
+    }
+
+    function remove(schoolId) {
+        if (schoolId == 0) {
+            return;
+        }
+
+        layer.confirm('确定删除该学校?', function (index) {
+            $.post('/manage/school/delete', { id: schoolId }, function (slt) {
+                if (slt && slt.success) {
+                    location.reload();
+                }
+                else {
+                    layer.msg(slt.message || '操作失败，请重试');
+                }
+            });
+
+            layer.close(index);
+        });
+    }
+
+    function setmajor(id) {
+        location.href = '@Url.Action("majorselect", "school", new { area="manage" })' + "?id=" + id;
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

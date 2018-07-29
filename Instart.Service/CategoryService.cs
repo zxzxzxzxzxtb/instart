@@ -21,7 +21,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _categoryRepository.GetByIdAsync(id);
@@ -31,7 +31,7 @@ namespace Instart.Service
         {
             if (parentId <= 0)
             {
-                throw new ArgumentException(nameof(parentId));
+                throw new ArgumentException("parentId错误");
             }
 
             return _categoryRepository.GetByParentIdAsync(parentId);
@@ -46,12 +46,12 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Name))
             {
-                throw new ArgumentNullException(nameof(model.Name));
+                throw new ArgumentNullException("Name不能为null");
             }
 
             return _categoryRepository.InsertAsync(model);
@@ -61,17 +61,17 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Name))
             {
-                throw new ArgumentNullException(nameof(model.Name));
+                throw new ArgumentNullException("Name不能为null");
             }
 
             if (model.Id <= 0)
             {
-                throw new ArgumentException(nameof(model.Id));
+                throw new ArgumentException("Id错误");
             }
 
             return _categoryRepository.UpdateAsync(model);
@@ -81,7 +81,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _categoryRepository.DeleteAsync(id);

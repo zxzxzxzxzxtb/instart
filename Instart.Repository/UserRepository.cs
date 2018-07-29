@@ -16,7 +16,7 @@ namespace Instart.Repository
             {
                 string sql = "select * from [User] where Id = @Id and Status=1;";
                 var list = conn.Query<User>(sql, new { Id = id });
-                return list?.FirstOrDefault();
+                return list != null ? list.FirstOrDefault() : null;
             }
         }
 
@@ -26,7 +26,7 @@ namespace Instart.Repository
             {
                 string sql = "select * from [User] where Id = @Id and Status=1;";
                 var list = conn.Query<User>(sql, new { Id = id });
-                return list?.FirstOrDefault();
+                return list != null ? list.FirstOrDefault() : null;
             }
         }
 
@@ -50,13 +50,13 @@ namespace Instart.Repository
                     return new PageModel<User>();
                 }
                 
-                string sql = $@"select * from (select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [User] where Status=1) as b where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
+                string sql = string.Format(@"select * from (select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [User] where Status=1) as b where RowNumber between {0} and {1};",((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
                 var list = conn.Query<User>(sql);
 
                 return new PageModel<User>
                 {
                     Total = total,
-                    Data = list?.ToList()
+                    Data = list != null ? list.ToList() : null
                 };
             }
         }
@@ -65,7 +65,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id) });
+                var fields = model.ToFields(removeFields: new List<string> { "Id" });
                 if (fields == null || fields.Count == 0)
                 {
                     return false;
@@ -75,7 +75,7 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
                 model.Status = 1;
 
-                string sql = $"insert into [User] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
+                string sql = string.Format("insert into [User] ({0}) values ({1});",string.Join(",", fields),string.Join(",", fields.Select(n => "@" + n)));
                 return conn.Execute(sql, model) > 0;
             }
         }
@@ -86,10 +86,10 @@ namespace Instart.Repository
             {
                 var fields = model.ToFields(removeFields: new List<string>
                 {
-                    nameof(model.Id),
-                    nameof(model.CreateTime),
-                    nameof(model.Status),
-                    nameof(model.Password)
+                    "Id",
+                    "CreateTime",
+                    "Status",
+                    "Password"
                 });
 
                 if (fields == null || fields.Count == 0)
@@ -100,12 +100,12 @@ namespace Instart.Repository
                 var fieldList = new List<string>();
                 foreach (var field in fields)
                 {
-                    fieldList.Add($"{field}=@{field}");
+                    fieldList.Add(string.Format("{0}=@{0}",field));
                 }
 
                 model.ModifyTime = DateTime.Now;
 
-                string sql = $"update [User] set {string.Join(",", fieldList)} where Id=@Id;";
+                string sql = string.Format("update [User] set {0} where Id=@Id;",string.Join(",", fieldList));
                 return conn.Execute(sql, model) > 0;
             }
         }

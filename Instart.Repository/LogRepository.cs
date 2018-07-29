@@ -18,32 +18,32 @@ namespace Instart.Repository
                 string where = "where 1=1";
                 if (!string.IsNullOrEmpty(title))
                 {
-                    where += $" and Title like '%{title}%'";
+                    where += string.Format(" and Title like '%{0}%'",title);
                 }
                 if (userId > 0)
                 {
-                    where += $" and UserId = {userId}";
+                    where += string.Format(" and UserId = {0}", userId);
                 }
                 if(type > -1)
                 {
-                    where += $" and Type = {type}";
+                    where += string.Format(" and Type = {0}", type);
                 }
                 #endregion
 
-                string countSql = $"select count(1) from Log {where};";
+                string countSql = string.Format("select count(1) from Log {0}", where);
                 int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
                 {
                     return new PageModel<Log>();
                 }
 
-                string sql = $@"select * from ( select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from Log {where} ) as b where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
+                string sql = string.Format(@"select * from ( select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from Log {0} ) as b where RowNumber between {1} and {2};",where,((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
                 var list = conn.Query<Log>(sql);
 
                 return new PageModel<Log>
                 {
                     Total = total,
-                    Data = list?.ToList()
+                    Data = list != null ? list.ToList() : null
                 };
             }
         }
@@ -52,8 +52,9 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = $"select top {topCount} * from Log Order by CreateTime desc;";
-                return (conn.Query<Log>(sql, null))?.ToList();
+                string sql = string.Format("select top {0} * from Log Order by CreateTime desc;", topCount);
+                var list = conn.Query<Log>(sql, null);
+                return list != null ? list.ToList() : null;
             }
         }
 
@@ -61,7 +62,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id) });
+                var fields = model.ToFields(removeFields: new List<string> { "Id" });
                 if (fields == null || fields.Count == 0)
                 {
                     return false;
@@ -69,7 +70,7 @@ namespace Instart.Repository
 
                 model.CreateTime = DateTime.Now;
 
-                string sql = $"insert into Log ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
+                string sql = string.Format("insert into Log ({0}) values ({1});", string.Join(",", fields), string.Join(",", fields.Select(n => "@" + n)));
                 return conn.Execute(sql, model) > 0;
             }
         }

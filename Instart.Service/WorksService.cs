@@ -21,7 +21,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _worksRepository.GetByIdAsync(id);
@@ -36,12 +36,12 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Name))
             {
-                throw new ArgumentNullException(nameof(model.Name));
+                throw new ArgumentNullException("Name不能为null");
             }
 
             return _worksRepository.InsertAsync(model);
@@ -51,17 +51,17 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Name))
             {
-                throw new ArgumentNullException(nameof(model.Name));
+                throw new ArgumentNullException("Name不能为null");
             }
 
             if (model.Id <= 0)
             {
-                throw new ArgumentException(nameof(model.Id));
+                throw new ArgumentException("Id错误");
             }
 
             return _worksRepository.UpdateAsync(model);
@@ -71,7 +71,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _worksRepository.DeleteAsync(id);
@@ -81,7 +81,7 @@ namespace Instart.Service
         {
             if (majorId <= 0)
             {
-                throw new ArgumentException(nameof(majorId));
+                throw new ArgumentException("majorId错误");
             }
 
             return _worksRepository.GetListByMajorIdAsync(majorId, topCount);

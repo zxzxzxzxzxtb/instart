@@ -42,7 +42,7 @@ namespace Instart.Service
         {
             if(model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Name))
@@ -62,7 +62,7 @@ namespace Instart.Service
         {
             if(id <= 0)
             {
-                throw new ArgumentNullException(nameof(id));
+                throw new ArgumentNullException("id错误");
             }
 
             return _courseApplyRepository.SetAcceptAsync(id);

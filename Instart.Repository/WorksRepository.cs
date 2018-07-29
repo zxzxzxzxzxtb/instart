@@ -23,20 +23,20 @@ namespace Instart.Repository
                 string where = "where a.Status=1";
                 #endregion
 
-                string countSql = $"select count(1) from [Works] as a {where};";
+                string countSql = string.Format("select count(1) from [Works] as a {0};",where);
                 int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0) {
                     return new PageModel<Works>();
                 }
 
-                string sql = $@"select * from (select a.*, b.Name as MajorName, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Works] as a 
-                    left join [Major] as b on b.Id = a.MajorId {where}) as c 
-                    where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
+                string sql = string.Format(@"select * from (select a.*, b.Name as MajorName, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Works] as a 
+                    left join [Major] as b on b.Id = a.MajorId {0}) as c 
+                    where RowNumber between {1} and {2};",where,((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
                 var list = conn.Query<Works>(sql);
 
                 return new PageModel<Works> {
                     Total = total,
-                    Data = list?.ToList()
+                    Data = list != null ? list.ToList() : null
                 };
             }
         }
@@ -45,14 +45,15 @@ namespace Instart.Repository
         {
             using(var conn = DapperFactory.GetConnection())
             {
-                string sql = $"select top {topCount} Id,Name,ImgUrl,Introduce,CreateTime from Works where MajorId=@MajorId and Status=1 order by Id desc";
-                return (conn.Query<Works>(sql,new { MajorId = majorId}))?.ToList();
+                string sql = string.Format("select top {0} Id,Name,ImgUrl,Introduce,CreateTime from Works where MajorId=@MajorId and Status=1 order by Id desc",topCount);
+                var list = conn.Query<Works>(sql, new { MajorId = majorId });
+                return list != null ? list.ToList() : null;
             }
         }
 
         public bool InsertAsync(Works model) {
             using (var conn = DapperFactory.GetConnection()) {
-                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id), nameof(model.MajorName) });
+                var fields = model.ToFields(removeFields: new List<string> { "Id", "MajorName" });
                 if (fields == null || fields.Count == 0) {
                     return false;
                 }
@@ -61,7 +62,7 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
                 model.Status = 1;
 
-                string sql = $"insert into [Works] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
+                string sql = string.Format("insert into [Works] ({0}) values ({1});",string.Join(",", fields),string.Join(",", fields.Select(n => "@" + n)));
                 return conn.Execute(sql, model) > 0;
             }
         }
@@ -70,14 +71,14 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection()) {
                 List<string> removeFields = new List<string>
                 {
-                    nameof(model.Id),
-                    nameof(model.MajorName),
-                    nameof(model.CreateTime),
-                    nameof(model.Status)
+                    "Id",
+                    "MajorName",
+                    "CreateTime",
+                    "Status"
                 };
                 if (String.IsNullOrEmpty(model.ImgUrl))
                 {
-                    removeFields.Add(nameof(model.ImgUrl));
+                    removeFields.Add("ImgUrl");
                 }
                 var fields = model.ToFields(removeFields: removeFields);
 
@@ -87,12 +88,12 @@ namespace Instart.Repository
 
                 var fieldList = new List<string>();
                 foreach (var field in fields) {
-                    fieldList.Add($"{field}=@{field}");
+                    fieldList.Add(string.Format("{0}=@{0}",field));
                 }
 
                 model.ModifyTime = DateTime.Now;
 
-                string sql = $"update [Works] set {string.Join(",", fieldList)} where Id=@Id;";
+                string sql = string.Format("update [Works] set {0} where Id=@Id;", string.Join(",", fieldList));
                 return conn.Execute(sql, model) > 0;
             }
         }

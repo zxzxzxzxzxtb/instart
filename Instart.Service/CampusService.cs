@@ -21,7 +21,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
             return _campusRepository.GetByIdAsync(id);
         }
@@ -40,12 +40,12 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Name))
             {
-                throw new ArgumentNullException(nameof(model.Name));
+                throw new ArgumentNullException("Name不能为null");
             }
 
             return _campusRepository.InsertAsync(model);
@@ -55,17 +55,17 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Name))
             {
-                throw new ArgumentNullException(nameof(model.Name));
+                throw new ArgumentNullException("Name不能为null");
             }
 
             if (model.Id <= 0)
             {
-                throw new ArgumentException(nameof(model.Id));
+                throw new ArgumentException("Id错误");
             }
 
             return _campusRepository.UpdateAsync(model);
@@ -75,7 +75,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _campusRepository.DeleteAsync(id);
@@ -90,7 +90,7 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
             return _campusRepository.InsertImgAsync(model);
         }
@@ -99,7 +99,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _campusRepository.DeleteImgAsync(id);

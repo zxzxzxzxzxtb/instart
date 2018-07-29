@@ -21,7 +21,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(id));
+                throw new ArgumentOutOfRangeException("id错误");
             }
 
             return _articleRepository.GetByIdAsync(id);
@@ -36,17 +36,17 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Title))
             {
-                throw new ArgumentNullException(nameof(model.Title));
+                throw new ArgumentNullException("Title不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Content))
             {
-                throw new ArgumentNullException(nameof(model.Content));
+                throw new ArgumentNullException("Content不能为null");
             }
 
             return _articleRepository.InsertAsync(model);
@@ -56,22 +56,22 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Title))
             {
-                throw new ArgumentNullException(nameof(model.Title));
+                throw new ArgumentNullException("Title不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Content))
             {
-                throw new ArgumentNullException(nameof(model.Content));
+                throw new ArgumentNullException("Content不能为null");
             }
 
             if (model.Id <= 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(model.Id));
+                throw new ArgumentOutOfRangeException("Id错误");
             }
 
             return _articleRepository.UpdateAsync(model);
@@ -81,7 +81,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _articleRepository.DeleteAsync(id);

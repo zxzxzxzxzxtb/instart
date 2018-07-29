@@ -27,27 +27,27 @@ namespace Instart.Repository
                 string where = "where Status=1";
                 if (!string.IsNullOrEmpty(name))
                 {
-                    where += $" and Name like '%{name}%'";
+                    where += string.Format(" and Name like '%{0}%'",name);
                 }
                 #endregion
 
-                string countSql = $"select count(1) from [Division] {where};";
+                string countSql = string.Format("select count(1) from [Division] {0};",where);
                 int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
                 {
                     return new PageModel<Division>();
                 }
 
-                string sql = $@"select * from (
-                             select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [Division] {where}
+                string sql = string.Format(@"select * from (
+                             select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [Division] {0}
                              ) as b
-                             where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
+                             where RowNumber between {1} and {2};",where,((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
                 var list = conn.Query<Division>(sql);
 
                 return new PageModel<Division>
                 {
                     Total = total,
-                    Data = list?.ToList()
+                    Data = list != null ? list.ToList() : null
                 };
             }
         }
@@ -60,7 +60,7 @@ namespace Instart.Repository
                 string where = "where Status=1";
                 #endregion
 
-                string sql = $@"select * from [Division] {where};";
+                string sql = string.Format(@"select * from [Division] {0};",where);
                 return conn.Query<Division>(sql);
             }
         }
@@ -69,7 +69,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id) });
+                var fields = model.ToFields(removeFields: new List<string> { "Id" });
                 if (fields == null || fields.Count == 0)
                 {
                     return false;
@@ -79,7 +79,7 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
                 model.Status = 1;
 
-                string sql = $"insert into [Division] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
+                string sql = string.Format("insert into [Division] ({0}) values ({1});",string.Join(",", fields),string.Join(",", fields.Select(n => "@" + n)));
                 return conn.Execute(sql, model) > 0;
             }
         }
@@ -90,9 +90,9 @@ namespace Instart.Repository
             {
                 var fields = model.ToFields(removeFields: new List<string>
                 {
-                    nameof(model.Id),
-                    nameof(model.CreateTime),
-                    nameof(model.Status)
+                    "Id",
+                    "CreateTime",
+                    "Status"
                 });
 
                 if (fields == null || fields.Count == 0)
@@ -103,12 +103,12 @@ namespace Instart.Repository
                 var fieldList = new List<string>();
                 foreach (var field in fields)
                 {
-                    fieldList.Add($"{field}=@{field}");
+                    fieldList.Add(string.Format("{0}=@{0}",field));
                 }
 
                 model.ModifyTime = DateTime.Now;
 
-                string sql = $"update [Division] set {string.Join(",", fieldList)} where Id=@Id;";
+                string sql = string.Format("update [Division] set {0} where Id=@Id;",string.Join(",", fieldList));
                 return conn.Execute(sql, model) > 0;
             }
         }

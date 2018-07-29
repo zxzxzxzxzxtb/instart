@@ -36,12 +36,12 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Title))
             {
-                throw new ArgumentNullException(nameof(model.Title));
+                throw new ArgumentNullException("Title不能为null");
             }
 
             return _logRepository.Insert(model);

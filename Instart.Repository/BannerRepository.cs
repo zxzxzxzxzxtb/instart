@@ -28,32 +28,32 @@ namespace Instart.Repository
                 string where = "where Status=1";
                 if (!string.IsNullOrEmpty(title))
                 {
-                    where += $" and Title like '%{title}%'";
+                    where += string.Format(" and Title like '%{0}%'",title);
                 }
                 if(pos > -1)
                 {
-                    where += $" and Pos = {pos}";
+                    where += string.Format(" and Pos = {0}",pos);
                 }
                 if(type > -1)
                 {
-                    where += $" and [Type]={type}";
+                    where += string.Format(" and [Type]={0}",type);
                 }
                 #endregion
 
-                string countSql = $"select count(1) from [Banner] {where};";
+                string countSql = string.Format("select count(1) from [Banner] {0};",where);
                 int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
                 {
                     return new PageModel<Banner>();
                 }
 
-                string sql = $@"select * from ( select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [Banner] {where} ) as b where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
+                string sql = string.Format(@"select * from ( select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [Banner] {0} ) as b where RowNumber between {1} and {2};",where,((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
                 var list = conn.Query<Banner>(sql);
 
                 return new PageModel<Banner>
                 {
                     Total = total,
-                    Data = list?.ToList()
+                    Data = list != null ? list.ToList() : null
                 };
             }
         }
@@ -64,7 +64,7 @@ namespace Instart.Repository
             {
                 string sql = "select * from [Banner] where Pos = @Pos and Status=1;";
                 var list = conn.Query<Banner>(sql, new { Pos = pos });
-                return list?.ToList();
+                return list != null ? list.ToList() : null;
             }
         }
 
@@ -72,7 +72,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id) });
+                var fields = model.ToFields(removeFields: new List<string> { "Id" });
                 if (fields == null || fields.Count == 0)
                 {
                     return false;
@@ -82,7 +82,7 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
                 model.Status = 1;
 
-                string sql = $"insert into [Banner] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
+                string sql = string.Format("insert into [Banner] ({0}) values ({1});",string.Join(",", fields),string.Join(",", fields.Select(n => "@" + n)));
                 return conn.Execute(sql, model) > 0;
             }
         }
@@ -93,9 +93,9 @@ namespace Instart.Repository
             {
                 var fields = model.ToFields(removeFields: new List<string>
                 {
-                    nameof(model.Id),
-                    nameof(model.CreateTime),
-                    nameof(model.Status)
+                    "Id",
+                    "CreateTime",
+                    "Status"
                 });
 
                 if (fields == null || fields.Count == 0)
@@ -106,12 +106,12 @@ namespace Instart.Repository
                 var fieldList = new List<string>();
                 foreach (var field in fields)
                 {
-                    fieldList.Add($"{field}=@{field}");
+                    fieldList.Add(string.Format("{0}=@{0}",field));
                 }
 
                 model.ModifyTime = DateTime.Now;
 
-                string sql = $"update [Banner] set {string.Join(",", fieldList)} where Id=@Id;";
+                string sql = string.Format("update [Banner] set {0} where Id=@Id;",string.Join(",", fieldList));
                 return conn.Execute(sql, model) > 0;
             }
         }
@@ -129,8 +129,9 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = $"select top {topCount} Id,Title,Type,ImageUrl,VideoUrl,Link from Banner where Pos=@Pos and IsShow=1 and Status=1 order by GroupIndex;";
-                return (conn.Query<Banner>(sql, new { Pos = pos.ToInt32() }))?.ToList();
+                string sql = string.Format("select top {0} Id,Title,Type,ImageUrl,VideoUrl,Link from Banner where Pos=@Pos and IsShow=1 and Status=1 order by GroupIndex;",topCount);
+                var list = conn.Query<Banner>(sql, new { Pos = pos.ToInt32() });
+                return list != null ? list.ToList() : null;
             }
         }
 

@@ -39,7 +39,7 @@ namespace Instart.Repository
                     return false;
                 }
 
-                string sql = $"insert into [Recruit] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
+                string sql = string.Format("insert into [Recruit] ({0}) values ({1});",string.Join(",", fields),string.Join(",", fields.Select(n => "@" + n)));
                 return conn.Execute(sql, model) > 0;
             }
         }
@@ -58,10 +58,10 @@ namespace Instart.Repository
                 var fieldList = new List<string>();
                 foreach (var field in fields)
                 {
-                    fieldList.Add($"{field}=@{field}");
+                    fieldList.Add(string.Format("{0}=@{0}",field));
                 }
 
-                string sql = $"update [Recruit] set {string.Join(",", fieldList)};";
+                string sql = string.Format("update [Recruit] set {0};",string.Join(",", fieldList));
                 return conn.Execute(sql, model) > 0;
             }
         }

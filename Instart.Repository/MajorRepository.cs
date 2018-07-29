@@ -27,32 +27,32 @@ namespace Instart.Repository
                 string where = "where a.Status=1";
                 if (!string.IsNullOrEmpty(name))
                 {
-                    where += $" and a.Name like '%{name}%'";
+                    where += string.Format(" and a.Name like '%{0}%'",name);
                 }
                 if (division != -1)
                 {
-                    where += $" and a.DivisionId = {division}";
+                    where += string.Format(" and a.DivisionId = {0}",division);
                 }
                 #endregion
 
-                string countSql = $"select count(1) from [Major] as a {where};";
+                string countSql = string.Format("select count(1) from [Major] as a {0};",where);
                 int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
                 {
                     return new PageModel<Major>();
                 }
 
-                string sql = $@"select * from (
+                string sql = string.Format(@"select * from (
                      select a.*, b.Name as DivisionName,b.NameEn as DivisionNameEn, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Major] as a
-                     left join [Division] as b on b.Id = a.DivisionId {where}
+                     left join [Division] as b on b.Id = a.DivisionId {0}
                      ) as c
-                     where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
+                     where RowNumber between {1} and {2};",where,((pageIndex - 1) * pageSize) + 1, pageIndex * pageSize);
                 var list = conn.Query<Major>(sql);
 
                 return new PageModel<Major>
                 {
                     Total = total,
-                    Data = list?.ToList()
+                    Data = list != null ? list.ToList() : null
                 };
             }
         }
@@ -65,7 +65,7 @@ namespace Instart.Repository
                 string where = "where Status=1";
                 #endregion
 
-                string sql = $@"select * from [Major] {where};";
+                string sql = string.Format(@"select * from [Major] {0};",where);
                 return conn.Query<Major>(sql);
             }
         }
@@ -74,7 +74,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id), nameof(model.DivisionName), nameof(model.DivisionNameEn), nameof(model.IsSelected), nameof(model.SchoolInfo) });
+                var fields = model.ToFields(removeFields: new List<string> { "Id", "DivisionName", "DivisionNameEn", "IsSelected", "SchoolInfo" });
                 if (fields == null || fields.Count == 0)
                 {
                     return false;
@@ -84,7 +84,7 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
                 model.Status = 1;
 
-                string sql = $"insert into [Major] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
+                string sql = string.Format("insert into [Major] ({0}) values ({1});", string.Join(",", fields), string.Join(",", fields.Select(n => "@" + n)));
                 return conn.Execute(sql, model) > 0;
             }
         }
@@ -95,17 +95,17 @@ namespace Instart.Repository
             {
                 List<string> removeFields = new List<string>
                 {
-                    nameof(model.Id),
-                    nameof(model.DivisionName),
-                    nameof(model.CreateTime),
-                    nameof(model.Status),
-                    nameof(model.DivisionNameEn),
-                    nameof(model.IsSelected),
-                    nameof(model.SchoolInfo)
+                    "Id",
+                    "DivisionName",
+                    "CreateTime",
+                    "Status",
+                    "DivisionNameEn",
+                    "IsSelected",
+                    "SchoolInfo"
                 };
                 if (String.IsNullOrEmpty(model.ImgUrl))
                 {
-                    removeFields.Add(nameof(model.ImgUrl));
+                    removeFields.Add("ImgUrl");
                 }
                 var fields = model.ToFields(removeFields: removeFields);
 
@@ -117,12 +117,12 @@ namespace Instart.Repository
                 var fieldList = new List<string>();
                 foreach (var field in fields)
                 {
-                    fieldList.Add($"{field}=@{field}");
+                    fieldList.Add(string.Format("{0}=@{0}", field));
                 }
 
                 model.ModifyTime = DateTime.Now;
 
-                string sql = $"update [Major] set {string.Join(",", fieldList)} where Id=@Id;";
+                string sql = string.Format("update [Major] set {0} where Id=@Id;", string.Join(",", fieldList));
                 return conn.Execute(sql, model) > 0;
             }
         }
@@ -140,24 +140,24 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string countSql = $"select count(1) from [Major] as a where a.Status=1 and a.DivisionId={divisionId};";
+                string countSql = string.Format("select count(1) from [Major] as a where a.Status=1 and a.DivisionId={0};",divisionId);
                 int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
                 {
                     return new PageModel<Major>();
                 }
 
-                string sql = $@"select * from (
+                string sql = string.Format(@"select * from (
                      select a.Id,a.Name,a.NameEn,a.Introduce,a.CreateTime,a.DivisionId,b.Name as DivisionName,b.NameEn as DivisionNameEn, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Major] as a
-                     left join [Division] as b on b.Id = a.DivisionId where a.Status=1 and a.DivisionId={divisionId}
+                     left join [Division] as b on b.Id = a.DivisionId where a.Status=1 and a.DivisionId={0}
                      ) as c
-                     where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
+                     where RowNumber between {1} and {2};", divisionId,((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
                 var list = conn.Query<Major>(sql);
 
                 return new PageModel<Major>
                 {
                     Total = total,
-                    Data = list?.ToList()
+                    Data = list != null ? list.ToList() : null
                 };
             }
         }

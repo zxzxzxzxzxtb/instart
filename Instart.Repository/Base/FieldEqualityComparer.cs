@@ -10,7 +10,17 @@ namespace Instart.Repository
     {
         public bool Equals(string x, string y)
         {
-            return x?.ToLower() == y?.ToLower();
+            if(x == null && y == null)
+            {
+                return true;
+            }
+
+            if(x != null && y != null)
+            {
+                return x.ToLower () == y.ToLower();
+            }
+
+            return false;
         }
 
         public int GetHashCode(string obj)

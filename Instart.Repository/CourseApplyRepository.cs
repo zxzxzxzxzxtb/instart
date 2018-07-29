@@ -16,7 +16,8 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = "select CourseName from CourseApply group by CourseName;";
-                return ( conn.Query<string>(sql, null))?.ToList();
+                var list = conn.Query<string>(sql, null);
+                return list != null ? list.ToList() : null;
             }
         }
 
@@ -28,28 +29,28 @@ namespace Instart.Repository
                 string where = "where 1=1 ";
                 if (!string.IsNullOrEmpty(courseName))
                 {
-                    where += $" and CourseName like '%{courseName}%'";
+                    where += string.Format(" and CourseName like '%{0}%'",courseName);
                 }
                 if(accept != EnumAccept.All)
                 {
-                    where += $" and IsAccept = {(int)accept}";
+                    where += string.Format(" and IsAccept = {0}",(int)accept);
                 }
                 #endregion
 
-                string countSql = $"select count(1) from [CourseApply] {where};";
+                string countSql = string.Format("select count(1) from [CourseApply] {0};",where);
                 int total =  conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
                 {
                     return new PageModel<CourseApply>();
                 }
 
-                string sql = $@"select * from ( select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [CourseApply] {where} ) as b where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
+                string sql = string.Format(@"select * from ( select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [CourseApply] {0} ) as b where RowNumber between {1} and {2};",where,((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
                 var list =  conn.Query<CourseApply>(sql);
 
                 return new PageModel<CourseApply>
                 {
                     Total = total,
-                    Data = list?.ToList()
+                    Data = list != null ? list.ToList() : null
                 };
             }
         }
@@ -58,7 +59,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id) });
+                var fields = model.ToFields(removeFields: new List<string> { "Id" });
                 if (fields == null || fields.Count == 0)
                 {
                     return false;
@@ -66,7 +67,7 @@ namespace Instart.Repository
 
                 model.CreateTime = DateTime.Now;
 
-                string sql = $"insert into [CourseApply] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
+                string sql = string.Format("insert into [CourseApply] ({0}) values ({1});", string.Join(",", fields), string.Join(",", fields.Select(n => "@" + n)));
                 return  conn.Execute(sql, model) > 0;
             }
         }
@@ -84,8 +85,9 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = $"select top {topCount} * from CourseApply order by Id Desc;";
-                return ( conn.Query<CourseApply>(sql, null))?.ToList();
+                string sql = string.Format("select top {0} * from CourseApply order by Id Desc;",topCount);
+                var list = conn.Query<CourseApply>(sql, null);
+                return list != null ? list.ToList() : null;
             }
         }
     }

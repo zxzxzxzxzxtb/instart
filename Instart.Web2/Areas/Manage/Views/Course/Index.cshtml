@@ -1,0 +1,122 @@
+﻿@using Instart.Models
+@using Instart.Web2.Infrastructures
+
+@{
+    ViewBag.Title = "课程管理";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li><a href="#">课程管理</a></li>
+</ol>
+
+<div>
+    <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
+    <form method="post" action="" target="_self" class="form-inline">
+        <div class="form-group">
+            <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="课程名称" style="width:300px;">
+        </div>
+        <button type="submit" class="btn btn-success">查询</button>
+        <a href="/manage/cource" class="btn btn-default">全部</a>
+        <a href="/manage/course/edit" class="btn btn-default">添加</a>
+        <a href="/manage/course/info" class="btn btn-default">课程首页</a>
+    </form>
+</div>
+<table class="table table-bordered table-hover" style="margin-top:15px;">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>课程名称</th>
+            <th>主题图片</th>
+            <th>创建时间</th>
+            <th>推荐首页</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (Course item in Model)
+            {
+                <tr>
+                    <td style="width:5%;">@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>
+                        <img src="@item.Picture" style="width:100px;height:100px" alt="" />
+                    </td>
+                    <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
+                    <td>
+                        @if (item.IsRecommend)
+                        {
+                            <input class="chkRecommend" type="checkbox" checked="checked" data-id="@item.Id" />
+                        }
+                        else
+                        {
+                            <input class="chkRecommend" type="checkbox" data-id="@item.Id" />
+                        }
+                    </td>
+                    <td style="width:15%;">
+                        <a href="/course/details/@item.Id" target="_blank">详情</a>
+                        <a href="javascript:void(0)" onclick="update(@item.Id)">修改</a>
+                        <a data-id="@item.Id" href="javascript:void(0)" onclick="remove(@item.Id)">删除</a>
+                        <a href="javascript:void(0)" onclick="setteacher(@item.Id)">授课导师</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<div class="row page-center">
+    @if (ViewBag.TotalPages > 1)
+    {
+        <div class="pagination">
+            <ul class="pl0">
+                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new { area = "manage", keyword = ViewBag.Keyword })
+            </ul>
+        </div>
+    }
+</div>
+
+@section Bottom{
+    <script>
+        $(function () {
+            $(".chkRecommend").click(function () {
+                var checked = $(this).is(":checked");
+                var id = $(this).attr("data-id");
+
+                $.post('/manage/course/setrecommend', { id: id, isRecommend: checked }, function (slt) {
+                    if (slt && slt.success) {
+                        layer.msg(checked ? '推荐成功' : '取消推荐成功');
+                    }
+                    else {
+                        layer.msg(slt.message || '操作失败，请重试');
+                    }
+                });
+            });
+        });
+
+        function update(id) {
+            location.href = '@Url.Action("edit", "course", new { area="manage" })' + "?id=" + id;
+        }
+
+        function remove(id) {
+            layer.confirm('确定删除该课程?', function (index) {
+                $.post('/manage/course/delete', { id: id }, function (slt) {
+                    if (slt && slt.success) {
+                        location.reload();
+                    }
+                    else {
+                        layer.msg(slt.message || '操作失败，请重试。');
+                    }
+                });
+
+                layer.close(index);
+            });
+        }
+
+        function setteacher(id) {
+            location.href = '@Url.Action("teacherselect", "course", new { area="manage" })' + "?id=" + id;
+        }
+    </script>
+}
+

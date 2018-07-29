@@ -18,7 +18,7 @@ namespace Instart.Service
 
         public  Student GetByIdAsync(int id) {
             if (id <= 0) {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id不能为空");
             }
 
             return _studentRepository.GetByIdAsync(id);
@@ -40,11 +40,11 @@ namespace Instart.Service
 
         public  bool InsertAsync(Student model) {
             if (model == null) {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Name)) {
-                throw new ArgumentNullException(nameof(model.Name));
+                throw new ArgumentNullException("Name不能为null");
             }
 
             return _studentRepository.InsertAsync(model);
@@ -52,15 +52,15 @@ namespace Instart.Service
 
         public  bool UpdateAsync(Student model) {
             if (model == null) {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Name)) {
-                throw new ArgumentNullException(nameof(model.Name));
+                throw new ArgumentNullException("Name不能为null");
             }
 
             if (model.Id <= 0) {
-                throw new ArgumentException(nameof(model.Id));
+                throw new ArgumentException("Id错误");
             }
             
             return _studentRepository.UpdateAsync(model);
@@ -68,7 +68,7 @@ namespace Instart.Service
 
         public  bool DeleteAsync(int id) {
             if (id <= 0) {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _studentRepository.DeleteAsync(id);

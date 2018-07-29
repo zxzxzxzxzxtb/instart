@@ -1,0 +1,75 @@
+﻿@using Instart.Models
+@using Instart.Web2.Infrastructures
+@model Instart.Models.Partner
+
+@{
+    ViewBag.Title = "合作伙伴设置";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li><a href="/manage/partner">合作伙伴</a></li>
+    <li class="active">@ViewBag.Action</li>
+</ol>
+
+@using (Html.BeginForm("Set", "Partner", new { area = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "mainForm", @class = "form-horizontal edit-container-width" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    <div class="form-group">
+        <label class="col-sm-2 control-label">名称：</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">LOGO：</label>
+        <div class="col-sm-10">
+            <img src="@Model.ImageUrl" id="partnerPreview" style="width:200px;height:200px;border:1px solid #eee;" />
+            <input type="hidden" name="ImageUrl" value="@Model.ImageUrl" />
+            <a href="javascript:void(0)" onclick="$('#filePartner').click()" class="btn-link" style="position:relative;top:90px;">点击上传</a>
+            <input type='file' id='filePartner' name='filePartner' style='display:none;'>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">链接：</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Link, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <input type="button" class="btn btn-primary" value="提交" onclick="save()" />
+        </div>
+    </div>
+}
+
+@section Bottom{
+    <script>
+        function save() {
+            var name = $("input[name='Name']").val();
+            if (name == '') {
+                layer.msg('合作伙伴名称不能为空。');
+                return;
+            }
+            $("#mainForm").ajaxSubmit({
+                success: function (slt) {
+                    if (slt && slt.success) {
+                        location.href = '@Url.Action("index", "partner", new { area="manage"})';
+                    }
+                    else {
+                        alert(slt.message || '操作失败，请重试。');
+                    }
+                }
+            });
+        }
+
+        $('#filePartner').change(function () {
+            imagePreview(this.files[0], $("#partnerPreview"));
+        });
+
+    </script>
+}
+

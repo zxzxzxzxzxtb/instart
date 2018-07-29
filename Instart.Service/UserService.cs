@@ -22,7 +22,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _userRepository.GetByIdAsync(id);
@@ -32,7 +32,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _userRepository.GetById(id);
@@ -42,7 +42,7 @@ namespace Instart.Service
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new ArgumentNullException(nameof(name));
+                throw new ArgumentNullException("name不能为null");
             }
 
             return _userRepository.GetByNameAsync(name);
@@ -57,7 +57,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _userRepository.DeleteAsync(id);
@@ -67,12 +67,12 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             if (string.IsNullOrEmpty(password))
             {
-                throw new ArgumentNullException(nameof(password));
+                throw new ArgumentNullException("password不能为空");
             }
 
             string encryptPwd = Md5Helper.Encrypt(password);
@@ -84,12 +84,12 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.UserName))
             {
-                throw new ArgumentNullException(nameof(model.UserName));
+                throw new ArgumentNullException("UserName错误");
             }
 
             model.Password = Md5Helper.Encrypt(model.UserName);
@@ -103,12 +103,12 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.UserName))
             {
-                throw new ArgumentNullException(nameof(model.UserName));
+                throw new ArgumentNullException("UserName错误");
             }
 
             return _userRepository.UpdateAsync(model);

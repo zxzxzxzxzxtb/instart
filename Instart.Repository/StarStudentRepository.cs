@@ -22,25 +22,25 @@ namespace Instart.Repository
                 #region generate condition
                 string where = "where a.Status=1";
                 if (!string.IsNullOrEmpty(name)) {
-                    where += $" and a.Name like '%{name}%'";
+                    where += string.Format(" and a.Name like '%{0}%'",name);
                 }
                 #endregion
 
-                string countSql = $"select count(1) from [StarStudent] as a {where};";
+                string countSql = string.Format("select count(1) from [StarStudent] as a {0};",where);
                 int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0) {
                     return new PageModel<StarStudent>();
                 }
 
-                string sql = $@"select * from (
-                     select a.*, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [StarStudent] as a {where}
+                string sql = string.Format(@"select * from (
+                     select a.*, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [StarStudent] as a {0}
                      ) as c
-                     where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};";
+                     where RowNumber between {1} and {2};",where,((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
                 var list = conn.Query<StarStudent>(sql);
 
                 return new PageModel<StarStudent> {
                     Total = total,
-                    Data = list?.ToList()
+                    Data = list != null ? list.ToList() : null
                 };
             }
         }
@@ -53,14 +53,14 @@ namespace Instart.Repository
                 string where = "where Status=1";
                 #endregion
 
-                string sql = $@"select * from [StarStudent] {where};";
+                string sql = string.Format(@"select * from [StarStudent] {0};",where);
                 return conn.Query<StarStudent>(sql);
             }
         }
 
         public bool InsertAsync(StarStudent model) {
             using (var conn = DapperFactory.GetConnection()) {
-                var fields = model.ToFields(removeFields: new List<string> { nameof(model.Id) });
+                var fields = model.ToFields(removeFields: new List<string> { "Id" });
                 if (fields == null || fields.Count == 0) {
                     return false;
                 }
@@ -69,7 +69,7 @@ namespace Instart.Repository
                 model.ModifyTime = DateTime.Now;
                 model.Status = 1;
 
-                string sql = $"insert into [StarStudent] ({string.Join(",", fields)}) values ({string.Join(",", fields.Select(n => "@" + n))});";
+                string sql = string.Format("insert into [StarStudent] ({0}) values ({1});",string.Join(",", fields),string.Join(",", fields.Select(n => "@" + n)));
                 return conn.Execute(sql, model) > 0;
             }
         }
@@ -78,9 +78,9 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection()) {
                 List<string> removeFields = new List<string>
                 {
-                    nameof(model.Id),
-                    nameof(model.CreateTime),
-                    nameof(model.Status)
+                    "Id",
+                    "CreateTime",
+                    "Status"
                 };
                 var fields = model.ToFields(removeFields: removeFields);
 
@@ -90,12 +90,12 @@ namespace Instart.Repository
 
                 var fieldList = new List<string>();
                 foreach (var field in fields) {
-                    fieldList.Add($"{field}=@{field}");
+                    fieldList.Add(string.Format("{0}=@{0}",field));
                 }
 
                 model.ModifyTime = DateTime.Now;
 
-                string sql = $"update [StarStudent] set {string.Join(",", fieldList)} where Id=@Id;";
+                string sql = string.Format("update [StarStudent] set {0} where Id=@Id;",string.Join(",", fieldList));
                 return conn.Execute(sql, model) > 0;
             }
         }

@@ -21,7 +21,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _teacherRepository.GetByIdAsync(id);
@@ -41,12 +41,12 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Name))
             {
-                throw new ArgumentNullException(nameof(model.Name));
+                throw new ArgumentNullException("Name不能为null");
             }
 
             return _teacherRepository.InsertAsync(model);
@@ -56,17 +56,17 @@ namespace Instart.Service
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException("model不能为null");
             }
 
             if (string.IsNullOrEmpty(model.Name))
             {
-                throw new ArgumentNullException(nameof(model.Name));
+                throw new ArgumentNullException("Name不能为null");
             }
 
             if (model.Id <= 0)
             {
-                throw new ArgumentException(nameof(model.Id));
+                throw new ArgumentException("Id错误");
             }
 
             return _teacherRepository.UpdateAsync(model);
@@ -76,7 +76,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _teacherRepository.DeleteAsync(id);
@@ -96,7 +96,7 @@ namespace Instart.Service
         {
             if (id <= 0)
             {
-                throw new ArgumentException(nameof(id));
+                throw new ArgumentException("id错误");
             }
 
             return _teacherRepository.SetRecommend(id, isRecommend);
@@ -116,7 +116,7 @@ namespace Instart.Service
         {
             if (divisionId <= 0)
             {
-                throw new ArgumentException(nameof(divisionId));
+                throw new ArgumentException("divisionId错误");
             }
 
             return _teacherRepository.GetListByDivsionAsync(divisionId, pageIndex, pageSize);
