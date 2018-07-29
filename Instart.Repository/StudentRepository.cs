@@ -213,5 +213,23 @@ namespace Instart.Repository
             }//end using
             return result > 0;
         }
+
+        public List<Student> GetListByCourseAsync(int courseId = -1)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = string.Format(@"select t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
+                     c.NameEn as TeacherNameEn, e.Name as SchoolName, e.NameEn as SchoolNameEn, f.Name as DivisionName, f.NameEn as DivisionNameEn from StudentCourse s 
+                     left join [STUDENT] as t on s.StudentId = t.Id
+                     left join [Major] as b on b.Id = t.MajorId 
+                     left join [Teacher] as c on c.Id = t.TeacherId 
+                     left join [School] as e on e.Id = t.SchoolId
+                     left join [Division] as f on f.Id = t.DivisionId
+                     where s.CourseId = {0} and t.Status=1
+                     order by t.Id Desc;", courseId);
+                var list = conn.Query<Student>(sql, null);
+                return list != null ? list.ToList() : null;
+            }
+        }
     }
 }

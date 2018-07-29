@@ -26,14 +26,15 @@ namespace Instart.Web2.Areas.Manage.Controllers
             base.AddDisposableObject(_teacherService);
         }
 
-        public ActionResult Index(int page = 1, string keyword = null)
+        public ActionResult Index(int page = 1, int type = -1, string keyword = null)
         {
             int pageSize = 10;
-            var list = _courseService.GetListAsync(page, pageSize, keyword);
+            var list = _courseService.GetListAsync(page, pageSize, type, keyword);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
             ViewBag.Keyword = keyword;
+            ViewBag.Type = type;
             return View(list.Data);
         }
 
@@ -49,6 +50,11 @@ namespace Instart.Web2.Areas.Manage.Controllers
             }
 
             ViewBag.Action = action;
+
+            List<SelectListItem> typeList = new List<SelectListItem>();
+            typeList.Add(new SelectListItem { Text = "常规课程", Value = "1" });
+            typeList.Add(new SelectListItem { Text = "体系课程", Value = "2" });
+            ViewBag.typeList = typeList;
             return View(model);
         }
 
