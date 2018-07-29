@@ -98,5 +98,10 @@ namespace Instart.Service
         {
             return _studentRepository.SetCourses(studentId, courseIds);
         }
+
+        public List<Student> GetListByCourseAsync(int courseId = -1)
+        {
+            return _studentRepository.GetListByCourseAsync(courseId);
+        }
     }
 }

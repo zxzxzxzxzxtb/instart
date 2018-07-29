@@ -30,5 +30,7 @@ namespace Instart.Repository
         IEnumerable<int> GetCoursesByIdAsync(int id);
 
         bool SetCourses(int studentId, string courseIds);
+
+        List<Student> GetListByCourseAsync(int courseId = -1);
     }
 }

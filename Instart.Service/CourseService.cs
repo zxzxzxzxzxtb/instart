@@ -27,9 +27,9 @@ namespace Instart.Service
             return _courseRepository.GetByIdAsync(id);
         }
 
-        public PageModel<Course> GetListAsync(int pageIndex, int pageSize, string name = null)
+        public PageModel<Course> GetListAsync(int pageIndex, int pageSize, int type = -1, string name = null)
         {
-            return _courseRepository.GetListAsync(pageIndex, pageSize, name);
+            return _courseRepository.GetListAsync(pageIndex, pageSize, type, name);
         }
 
         public IEnumerable<Course> GetAllAsync()

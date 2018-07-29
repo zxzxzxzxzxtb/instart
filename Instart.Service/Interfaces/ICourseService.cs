@@ -11,7 +11,7 @@ namespace Instart.Service
     {
         Course GetByIdAsync(int id);
 
-        PageModel<Course> GetListAsync(int pageIndex, int pageSize, string name = null);
+        PageModel<Course> GetListAsync(int pageIndex, int pageSize, int type = -1, string name = null);
 
         IEnumerable<Course> GetAllAsync();
 

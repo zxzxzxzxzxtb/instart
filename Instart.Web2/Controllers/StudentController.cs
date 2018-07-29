@@ -98,7 +98,7 @@ namespace Instart.Web2.Controllers
             return View();
         }
 
-        public  ActionResult Details(int id)
+        public  ActionResult Details(int id = 0)
         {
             Student student =  _studentService.GetByIdAsync(id);
             IEnumerable<Student> studentList = ( _studentService.GetAllAsync()) ?? new List<Student>();

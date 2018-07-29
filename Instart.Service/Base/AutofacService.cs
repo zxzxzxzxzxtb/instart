@@ -48,6 +48,7 @@ namespace Instart.Service.Base
             builder.RegisterType<StatisticsService>().As<IStatisticsService>().InstancePerLifetimeScope();
             builder.RegisterType<LogService>().As<ILogService>().InstancePerLifetimeScope();
             builder.RegisterType<RecruitService>().As<IRecruitService>().InstancePerLifetimeScope();
+            builder.RegisterType<ProgramService>().As<IProgramService>().InstancePerLifetimeScope();
             container = builder.Build();
         }
     }

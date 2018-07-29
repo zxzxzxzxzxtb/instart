@@ -20,7 +20,7 @@ namespace Instart.Repository
             }
         }
 
-        public PageModel<Course> GetListAsync(int pageIndex, int pageSize, string name = null)
+        public PageModel<Course> GetListAsync(int pageIndex, int pageSize, int type = -1, string name = null)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -29,6 +29,10 @@ namespace Instart.Repository
                 if (!string.IsNullOrEmpty(name))
                 {
                     where += string.Format(" and a.Name like '%{0}%'",name);
+                }
+                if (type != -1)
+                {
+                    where += string.Format(" and a.Type = {0}",type);
                 }
                 #endregion
 
@@ -129,7 +133,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = string.Format(@"select top {0} Id,Name,NameEn,Picture,Introduce from Course where Status=1 and IsRecommend=1 order by Id desc;",topCount);
+                string sql = string.Format(@"select top {0} Id,Name,NameEn,Picture,Introduce from Course where Status=1 and Type = 1 and IsRecommend=1 order by Id desc;", topCount);
                 var list = conn.Query<Course>(sql, null);
                 return list != null ? list.ToList() : null;
             }

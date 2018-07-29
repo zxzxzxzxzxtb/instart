@@ -70,5 +70,10 @@ namespace Instart.Models
         /// 是否被选中
         /// </summary>
         public bool IsSelected { get; set; }
+
+        /// <summary>
+        /// 课程类型: 1-课程介绍,2-课程体系
+        /// </summary>
+        public int Type { get; set; }
     }
 }
