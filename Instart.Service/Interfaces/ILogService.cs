@@ -9,7 +9,7 @@ namespace Instart.Service
 {
     public interface ILogService
     {
-        PageModel<Log> GetListAsync(int pageIndex, int pageSize, string title, int userId, int type);
+        PageModel<Log> GetListAsync(int pageIndex, int pageSize, int userId, string title);
 
         bool Insert(Log model);
 

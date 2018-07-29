@@ -27,6 +27,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("登录系统")]
         public JsonResult Login(string username, string password, bool autoLogin = false)
         {
             if (string.IsNullOrEmpty(username))
@@ -68,28 +69,13 @@ namespace Instart.Web2.Areas.Manage.Controllers
                 CookieHelper.Set(WebAppSettings.CookieName, encryptStr, DateTime.Now.AddDays(3));
             }
 
-            LogService.Write(new Instart.Models.Log
-            {
-                Title = string.Format("{0}登录系统",user.UserName),
-                UserId = user.Id,
-                UserName = user.UserName,
-                Type = Instart.Models.Enums.EnumOperType.Other,
-            });
-
             return Success();
         }
 
         [HttpPost]
+        [Operation("退出系统")]
         public void Quit()
         {
-            LogService.Write(new Instart.Models.Log
-            {
-                Title = string.Format("{0}退出系统",LoginUser.UserName),
-                UserId = LoginUser.UserId,
-                UserName = LoginUser.UserName,
-                Type = Instart.Models.Enums.EnumOperType.Other,
-            });
-
             Session[WebAppSettings.SessionName] = null;
             CookieHelper.Clear(WebAppSettings.CookieName);
         }

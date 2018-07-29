@@ -33,6 +33,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
+        [Operation("设置招聘")]
         public JsonResult Set(Recruit model)
         {
             var result = new ResultBase();

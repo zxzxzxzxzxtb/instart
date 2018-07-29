@@ -60,6 +60,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
+        [Operation("设置作品")]
         public JsonResult Set(Works model)
         {
             if (model == null)
@@ -96,6 +97,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("删除作品")]
         public JsonResult Delete(int id)
         {
             try

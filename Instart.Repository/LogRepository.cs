@@ -10,7 +10,7 @@ namespace Instart.Repository
 {
     public class LogRepository : ILogRepository
     {
-        public PageModel<Log> GetListAsync(int pageIndex, int pageSize, string title, int userId, int type)
+        public PageModel<Log> GetListAsync(int pageIndex, int pageSize, int userId, string title)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -18,15 +18,11 @@ namespace Instart.Repository
                 string where = "where 1=1";
                 if (!string.IsNullOrEmpty(title))
                 {
-                    where += string.Format(" and Title like '%{0}%'",title);
+                    where += string.Format(" and Title like '%{0}%'", title);
                 }
                 if (userId > 0)
                 {
                     where += string.Format(" and UserId = {0}", userId);
-                }
-                if(type > -1)
-                {
-                    where += string.Format(" and Type = {0}", type);
                 }
                 #endregion
 

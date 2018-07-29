@@ -51,6 +51,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
+        [Operation("设置学员专访")]
         public JsonResult Set(StarStudent model)
         {
             if (model == null)
@@ -101,6 +102,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("删除学员专访")]
         public JsonResult Delete(int id)
         {
             try

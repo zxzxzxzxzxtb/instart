@@ -51,6 +51,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
+        [Operation("设置学部")]
         public JsonResult AddOrUpdate(Division model, List<HttpPostedFileBase> imgs)
         {
             try
@@ -85,6 +86,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("删除学部")]
         public JsonResult Delete(int id)
         {
             try

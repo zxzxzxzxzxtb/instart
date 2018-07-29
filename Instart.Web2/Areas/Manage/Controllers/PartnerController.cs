@@ -51,6 +51,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
+        [Operation("设置合作伙伴")]
         public JsonResult Set(Partner model)
         {
             if (model == null)
@@ -90,6 +91,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("删除合作伙伴")]
         public JsonResult Delete(int id)
         {
             try

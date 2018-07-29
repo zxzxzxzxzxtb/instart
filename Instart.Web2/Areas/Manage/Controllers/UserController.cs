@@ -38,6 +38,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("设置用户")]
         public JsonResult Set(User model)
         {
             if (model == null)
@@ -69,6 +70,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("删除用户")]
         public JsonResult Delete(int id)
         {
             try
@@ -86,6 +88,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("修改用户密码")]
         public JsonResult UpdatePassword(int userId, string oldPwd, string newPwd)
         {
             User user = _userService.GetByIdAsync(userId);

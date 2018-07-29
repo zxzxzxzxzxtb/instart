@@ -15,19 +15,33 @@ namespace Instart.Models
         public int Id { get; set; }
 
         /// <summary>
-        /// 日志标题
+        /// 操作内容
         /// </summary>
-        public string Title { get; set; }
+        public string Title
+        {
+            get;
+            set;
+        }
 
         /// <summary>
-        /// 日志明细
+        /// 方法名称
         /// </summary>
-        public string Content { get; set; }
+        public string ActionName{get;set;}
 
         /// <summary>
-        /// 操作类型
+        /// 控制器名称
         /// </summary>
-        public EnumOperType Type { get; set; }
+        public string ControllerName{ get; set;}
+
+        /// <summary>
+        /// 方法参数
+        /// </summary>
+        public string ActionParameters{get;set;}        
+
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Remark{get;set;}
 
         /// <summary>
         /// 用户ID

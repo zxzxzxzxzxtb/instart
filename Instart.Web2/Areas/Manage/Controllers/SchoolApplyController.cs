@@ -36,6 +36,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("受理学校申请")]
         public JsonResult SetAccept(int id)
         {
             if (id <= 0)

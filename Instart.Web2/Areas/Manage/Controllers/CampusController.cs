@@ -51,6 +51,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("设置学区")]
         public JsonResult Set(Campus model, List<HttpPostedFileBase> imgs)
         {
             if (model == null)
@@ -79,6 +80,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("删除学区")]
         public JsonResult Delete(int id)
         {
             try
@@ -103,6 +105,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("设置学区图片")]
         public JsonResult SetImg(CampusImg model)
         {
             if (model == null)
@@ -128,6 +131,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("删除学区图片")]
         public JsonResult DeleteImg(int id)
         {
             try

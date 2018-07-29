@@ -54,6 +54,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
+        [Operation("设置学校")]
         public JsonResult Set(School model)
         {
             if (model == null)
@@ -115,6 +116,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
 
 
         [HttpPost]
+        [Operation("删除学校")]
         public JsonResult Delete(int id)
         {
             if (id <= 0)
@@ -137,6 +139,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("设置推荐学校")]
         public JsonResult SetRecommend(int id, bool isRecommend)
         {
             if (id <= 0)
@@ -159,6 +162,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("设置热门学校")]
         public JsonResult SetHot(int id, bool isHot)
         {
             if (id <= 0)
@@ -221,6 +225,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("设置学校专业")]
         public JsonResult SetMajors(int schoolId, string majorIds, string introduces)
         {
             try

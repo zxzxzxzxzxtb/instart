@@ -69,6 +69,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
+        [Operation("设置专业")]
         public JsonResult Set(Major model)
         {
             if (model == null)
@@ -108,6 +109,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("删除专业")]
         public JsonResult Delete(int id)
         {
             try

@@ -24,16 +24,15 @@ namespace Instart.Web2.Areas.Manage.Controllers
             base.AddDisposableObject(_userService);
         }
 
-        public ActionResult Index(int page = 1, string keyword = null, int userId = 0, int type = -1)
+        public ActionResult Index(int page = 1, string keyword = null, int userId = 0)
         {
             int pageSize = 10;
-            var list = _logService.GetListAsync(page, pageSize, keyword, userId, type);
+            var list = _logService.GetListAsync(page, pageSize, userId, keyword);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
             ViewBag.Keyword = keyword;
             ViewBag.UserId = userId;
-            ViewBag.Type = type;
             ViewBag.TypeList = EnumberHelper.EnumToList<EnumOperType>();
 
             var users = _userService.GetListAsync(1, 100);

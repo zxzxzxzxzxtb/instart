@@ -17,9 +17,9 @@ namespace Instart.Service
             base.AddDisposableObject(_logRepository);
         }
 
-        public PageModel<Log> GetListAsync(int pageIndex, int pageSize, string title, int userId, int type)
+        public PageModel<Log> GetListAsync(int pageIndex, int pageSize, int userId, string title)
         {
-            return _logRepository.GetListAsync(pageIndex, pageSize, title, userId, type);
+            return _logRepository.GetListAsync(pageIndex, pageSize, userId, title);
         }
 
         public List<Log> GetTopListAsync(int topCount)

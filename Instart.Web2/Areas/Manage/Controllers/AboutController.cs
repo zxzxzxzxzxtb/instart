@@ -33,6 +33,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
+        [Operation("设置关于我们")]
         public JsonResult Set(AboutInstart model)
         {
             if (model == null)

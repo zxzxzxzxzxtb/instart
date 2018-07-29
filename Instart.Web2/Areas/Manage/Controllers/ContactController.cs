@@ -33,6 +33,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
+        [Operation("设置联系方式")]
         public JsonResult Set(Contact model)
         {
             var fileQrcode = Request.Files["fileQrcode"];

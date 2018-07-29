@@ -61,6 +61,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("设置轮播")]
         public JsonResult Set(Banner model)
         {
             if (model == null)
@@ -116,6 +117,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("删除轮播")]
         public JsonResult Delete(int id)
         {
             if (id <= 0)
@@ -138,6 +140,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("设置轮播显示")]
         public JsonResult SetShow(int id, bool isShow)
         {
             if (id <= 0)

@@ -97,6 +97,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
+        [Operation("设置学员")]
         public JsonResult Set(Student model)
         {
             if (model == null)
@@ -178,6 +179,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
 
 
         [HttpPost]
+        [Operation("推荐学员")]
         public JsonResult Delete(int id)
         {
             if (id <= 0)
@@ -200,6 +202,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("推荐学员")]
         public JsonResult SetRecommend(int id, bool isRecommend)
         {
             if (id <= 0)
@@ -253,6 +256,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
+        [Operation("设置学员课程")]
         public JsonResult SetCourses(int studentId, string courseIds)
         {
             try
