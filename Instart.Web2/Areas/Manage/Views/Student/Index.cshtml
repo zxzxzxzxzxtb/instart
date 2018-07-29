@@ -6,109 +6,121 @@
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 
-<ol class="breadcrumb">
-    <li><a href="#">成功学员</a></li>
-</ol>
+<div class="row">
+    @Html.Partial("PartialSchool")
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-top:75px;">
 
-<div>
-    <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
-    <form method="post" action="" target="_self" class="form-inline">
-        <div class="form-group">
-            <select id="selDivision" name="division" class="form-control" style="width:100px;">
-                <option value="-1">全部</option>
-                @if (ViewBag.divisionList != null)
+        <ol class="breadcrumb">
+            <li><a href="#">成功学员</a></li>
+        </ol>
+
+        <div>
+            <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
+            <form method="post" action="" target="_self" class="form-inline">
+                <div class="form-group">
+                    <select id="selDivision" name="division" class="form-control" style="width:100px;">
+                        <option value="-1">全部</option>
+                        @if (ViewBag.divisionList != null)
+                        {
+                            foreach (Division item in ViewBag.divisionList)
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="学员名称" style="width:300px;">
+                </div>
+                <button type="submit" class="btn btn-success">查询</button>
+                <a href="/manage/student" class="btn btn-default">全部</a>
+                <a href="/manage/student/edit" class="btn btn-default">添加</a>
+            </form>
+        </div>
+        <table class="table table-bordered table-hover" style="margin-top:15px;">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>学员名称</th>
+                    <th>头像</th>
+                    <th>OFFER</th>
+                    <th>录取专业</th>
+                    <th>专访视频</th>
+                    <th>创建时间</th>
+                    <th>推荐</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
                 {
-                    foreach (Division item in ViewBag.divisionList)
+                    foreach (Student item in Model)
                     {
-                        <option value="@item.Id">@item.Name</option>
+                        <tr>
+                            <td style="width:5%;">@item.Id</td>
+                            <td>@item.Name</td>
+                            <td>
+                                <img src="@item.Avatar" style="width:100px;height:100px" alt="" />
+                            </td>
+                            <td>@item.SchoolName</td>
+                            <td>@item.MajorName</td>
+                            <td>
+                                @if (!String.IsNullOrEmpty(item.VideoUrl))
+                                {
+                                    <a class="video-play" href="javascript:void(0)" data-video="@item.VideoUrl">播放</a>
+                                }
+                            </td>
+                            <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
+                            <td>
+                                @if (item.IsRecommend)
+                                {
+                                    <input class="chkRecommend" type="checkbox" checked="checked" data-id="@item.Id" />
+                                }
+                                else
+                                {
+                                    <input class="chkRecommend" type="checkbox" data-id="@item.Id" />
+                                }
+                            </td>
+                            <td style="width:15%;">
+                                <a data-id="@item.Id" href="javascript:void(0)" onclick="update(@item.Id)">修改</a>
+                                <a data-id="@item.Id" href="javascript:void(0)" onclick="remove(@item.Id)">删除</a>
+                                <a href="javascript:void(0)" onclick="setcourse(@item.Id)">所学课程</a>
+                            </td>
+                        </tr>
                     }
                 }
-            </select>
-        </div>
-        <div class="form-group">
-            <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="学员名称" style="width:300px;">
-        </div>
-        <button type="submit" class="btn btn-success">查询</button>
-        <a href="/manage/student" class="btn btn-default">全部</a>
-        <a href="/manage/student/edit" class="btn btn-default">添加</a>
-    </form>
-</div>
-<table class="table table-bordered table-hover" style="margin-top:15px;">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>学员名称</th>
-            <th>头像</th>
-            <th>OFFER</th>
-            <th>录取专业</th>
-            <th>专访视频</th>
-            <th>创建时间</th>
-            <th>推荐</th>
-            <th>操作</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null)
-        {
-            foreach (Student item in Model)
+            </tbody>
+        </table>
+        <div class="row page-center">
+            @if (ViewBag.TotalPages > 1)
             {
-                <tr>
-                    <td style="width:5%;">@item.Id</td>
-                    <td>@item.Name</td>
-                    <td>
-                        <img src="@item.Avatar" style="width:100px;height:100px" alt="" />
-                    </td>
-                    <td>@item.SchoolName</td>
-                    <td>@item.MajorName</td>
-                    <td>
-                        @if (!String.IsNullOrEmpty(item.VideoUrl))
-                        {
-                            <a class="video-play" href="javascript:void(0)" data-video="@item.VideoUrl">播放</a>
-                        }
-                    </td>
-                    <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
-                    <td>
-                        @if (item.IsRecommend)
-                        {
-                            <input class="chkRecommend" type="checkbox" checked="checked" data-id="@item.Id" />
-                        }
-                        else
-                        {
-                            <input class="chkRecommend" type="checkbox" data-id="@item.Id" />
-                        }
-                    </td>
-                    <td style="width:15%;">
-                        <a data-id="@item.Id" href="javascript:void(0)" onclick="update(@item.Id)">修改</a>
-                        <a data-id="@item.Id" href="javascript:void(0)" onclick="remove(@item.Id)">删除</a>
-                        <a href="javascript:void(0)" onclick="setcourse(@item.Id)">所学课程</a>
-                    </td>
-                </tr>
+                <div class="pagination">
+                    <ul class="pl0">
+                        @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new
+           {
+               area = "manage",
+               division = ViewBag.division,
+               keyword = ViewBag.Keyword
+           })
+                    </ul>
+                </div>
             }
-        }
-    </tbody>
-</table>
-<div class="row page-center">
-    @if (ViewBag.TotalPages > 1)
-    {
-        <div class="pagination">
-            <ul class="pl0">
-                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new { area = "manage", division = ViewBag.division, keyword = ViewBag.Keyword })
-            </ul>
         </div>
-    }
-</div>
 
-<div id="videoModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">视频预览</h4>
-            </div>
-            <div class="modal-body">
-                <video class="video-container" src="/i/movie.ogg" style="width:100%;height:400px;" controls="controls"></video>
+        <div id="videoModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">视频预览</h4>
+                    </div>
+                    <div class="modal-body">
+                        <video class="video-container" src="/i/movie.ogg" style="width:100%;height:400px;" controls="controls"></video>
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
 </div>
 

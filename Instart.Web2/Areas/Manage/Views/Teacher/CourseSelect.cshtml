@@ -4,85 +4,90 @@
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 @section Head{
-<style type="text/css">
-    .w_con_left {
-        width: 100%;
-        height: auto;
-        float: left;
-        margin: 0px;
-    }
-
-    .w_ico {
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        height: auto;
-        margin-top: 10px;
-    }
-
-        .w_ico li {
+    <style type="text/css">
+        .w_con_left {
+            width: 100%;
+            height: auto;
             float: left;
-            margin-right: 50px;
-            list-style: none;
-            text-align: center;
-            margin-bottom: 10px;
-            max-width:100px;
+            margin: 0px;
         }
 
-            .w_ico li img {
-                width: 200px;
-                height: 200px;
-                position: relative;
-                top: 5px;
-                border: none;
-                border-radius: 5px;
-            }
-
-            .w_ico li p {
-                margin-top: 10px;
-            }
-</style>
-    }
-
-<ol class="breadcrumb">
-    <li><a href="/manage/teacher">艺术导师</a></li>
-    <li class="active">@ViewBag.TeacherName - 选择课程</li>
-</ol>
-
-<div class="checkbox">
-    <label style="float:right;">
-        <input type="checkbox" name="chkAll" id="chkAll" />全选
-    </label>
-    <a class="btn btn-primary" style="float:left;" onclick="save()">保存</a>
-</div>
-
-<input type="hidden" id="teacherId" name="teacherId" value="@ViewBag.TeacherId" />
-<div class="w_con_left">
-    <ul class="w_ico">
-        @if (ViewBag.CourseList != null)
-        {
-            foreach (Course item in ViewBag.CourseList)
-            {
-                <li class="icoli">
-                    <img src="@item.Picture" style="width:100px;height:100px;border:1px solid #eee;" /><p>
-                        <div class="checkbox">
-                            <label>
-                                @if (item.IsSelected)
-                                {
-                                    <input type="checkbox" name="chkCourse" checked="checked" data-id="@item.Id" />@item.Name
-                                }
-                                else
-                                {
-                                    <input type="checkbox" name="chkCourse" data-id="@item.Id" />@item.Name
-                                }
-                            </label>
-                        </div>
-                    </p>
-                </li>
-            }
+        .w_ico {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: auto;
+            margin-top: 10px;
         }
-    </ul>
+
+            .w_ico li {
+                float: left;
+                margin-right: 50px;
+                list-style: none;
+                text-align: center;
+                margin-bottom: 10px;
+                max-width: 100px;
+            }
+
+                .w_ico li img {
+                    width: 200px;
+                    height: 200px;
+                    position: relative;
+                    top: 5px;
+                    border: none;
+                    border-radius: 5px;
+                }
+
+                .w_ico li p {
+                    margin-top: 10px;
+                }
+    </style>
+}
+<div class="row">
+    @Html.Partial("PartialSchool")
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-top:75px;">
+        <ol class="breadcrumb">
+            <li><a href="/manage/teacher">艺术导师</a></li>
+            <li class="active">@ViewBag.TeacherName - 选择课程</li>
+        </ol>
+
+        <div class="checkbox">
+            <label style="float:right;">
+                <input type="checkbox" name="chkAll" id="chkAll" />全选
+            </label>
+            <a class="btn btn-primary" style="float:left;" onclick="save()">保存</a>
+        </div>
+
+        <input type="hidden" id="teacherId" name="teacherId" value="@ViewBag.TeacherId" />
+        <div class="w_con_left">
+            <ul class="w_ico">
+                @if (ViewBag.CourseList != null)
+                {
+                    foreach (Course item in ViewBag.CourseList)
+                    {
+                        <li class="icoli">
+                            <img src="@item.Picture" style="width:100px;height:100px;border:1px solid #eee;" /><p>
+                                <div class="checkbox">
+                                    <label>
+                                        @if (item.IsSelected)
+                                        {
+                                            <input type="checkbox" name="chkCourse" checked="checked" data-id="@item.Id" />@item.Name
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" name="chkCourse" data-id="@item.Id" />@item.Name
+                                        }
+                                    </label>
+                                </div>
+                            </p>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
 </div>
+
 @section Bottom{
     <script>
         $(function () {

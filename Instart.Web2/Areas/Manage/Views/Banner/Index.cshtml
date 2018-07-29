@@ -6,117 +6,129 @@
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 
-<ol class="breadcrumb">
-    <li><a href="#">轮播管理</a></li>
-</ol>
+<div class="row">
+    @Html.Partial("PartialOther")
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-top:75px;">
+        <ol class="breadcrumb">
+            <li><a href="#">轮播管理</a></li>
+        </ol>
 
-<div>
-    <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
-    <form method="post" action="" target="_self" class="form-inline">
-        <div class="form-group">
-            <select id="selPos" name="Pos" class="form-control">
-                <option value="-1">全部</option>
-                @foreach (Instart.Common.EnumberEntity item in ViewBag.PosList)
-                {
-                    <option value="@item.EnumValue">@item.Description</option>
-                }
-            </select>
+        <div>
+            <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
+            <form method="post" action="" target="_self" class="form-inline">
+                <div class="form-group">
+                    <select id="selPos" name="Pos" class="form-control">
+                        <option value="-1">全部</option>
+                        @foreach (Instart.Common.EnumberEntity item in ViewBag.PosList)
+                        {
+                            <option value="@item.EnumValue">@item.Description</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select id="selType" name="Type" class="form-control">
+                        <option value="-1">全部</option>
+                        @foreach (Instart.Common.EnumberEntity item in ViewBag.TypeList)
+                        {
+                            <option value="@item.EnumValue">@item.Description</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="标题" style="width:300px;">
+                </div>
+                <button type="submit" class="btn btn-success">查询</button>
+                <a href="/manage/banner" class="btn btn-default">全部</a>
+                <a href="/manage/banner/edit" class="btn btn-default">添加</a>
+            </form>
         </div>
-        <div class="form-group">
-            <select id="selType" name="Type" class="form-control">
-                <option value="-1">全部</option>
-                @foreach (Instart.Common.EnumberEntity item in ViewBag.TypeList)
-                {
-                    <option value="@item.EnumValue">@item.Description</option>
-                }
-            </select>
-        </div>
-        <div class="form-group">
-            <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="标题" style="width:300px;">
-        </div>
-        <button type="submit" class="btn btn-success">查询</button>
-        <a href="/manage/banner" class="btn btn-default">全部</a>
-        <a href="/manage/banner/edit" class="btn btn-default">添加</a>
-    </form>
-</div>
-<table class="table table-bordered table-hover" style="margin-top:15px;">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>标题</th>
-            <th>图片</th>
-            <th>链接</th>
-            <th>类型</th>
-            <th>位置</th>
-            <th>排序</th>
-            <th>显示</th>
-            <th>时间</th>
-            <th>操作</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null)
-        {
-            foreach (Banner item in Model)
-            {
+        <table class="table table-bordered table-hover" style="margin-top:15px;">
+            <thead>
                 <tr>
-                    <td style="width:5%;">@item.Id</td>
-                    <td>@item.Title</td>
-                    <td>
-                        <img src="@item.ImageUrl" style="width:150px;height:100px" alt="" />
-                    </td>
-                    <td><a href="@item.Link" target="_blank">@item.Link </a> </td>
-                    <td>
-                        @item.Type.GetDescription()                        
-                    </td>
-                    <td>@item.Pos.GetDescription()</td>
-                    <td>@item.GroupIndex</td>
-                    <td>
-                        @if (item.IsShow)
-                        {
-                            <input class="chkShow" type="checkbox" checked="checked" data-id="@item.Id" />
-                        }
-                        else
-                        {
-                            <input class="chkShow" type="checkbox" data-id="@item.Id" />
-                        }
-                    </td>
-                    <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
-                    <td style="width:15%;">
-                        <a href="/manage/banner/edit/@item.Id">编辑</a>
-                        <a data-id="@item.Id" href="javascript:void(0)" class="delete">删除</a>
-                        @if (item.Type == Instart.Models.Enums.EnumBannerType.Video)
-                        {
-                            <a class="video-play" href="javascript:void(0)" data-video="@item.VideoUrl">播放</a>
-                        }
-                    </td>
+                    <th>#</th>
+                    <th>标题</th>
+                    <th>图片</th>
+                    <th>链接</th>
+                    <th>类型</th>
+                    <th>位置</th>
+                    <th>排序</th>
+                    <th>显示</th>
+                    <th>时间</th>
+                    <th>操作</th>
                 </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (Banner item in Model)
+                    {
+                        <tr>
+                            <td style="width:5%;">@item.Id</td>
+                            <td>@item.Title</td>
+                            <td>
+                                <img src="@item.ImageUrl" style="width:150px;height:100px" alt="" />
+                            </td>
+                            <td><a href="@item.Link" target="_blank">@item.Link </a> </td>
+                            <td>
+                                @item.Type.GetDescription()
+                            </td>
+                            <td>@item.Pos.GetDescription()</td>
+                            <td>@item.GroupIndex</td>
+                            <td>
+                                @if (item.IsShow)
+                                {
+                                    <input class="chkShow" type="checkbox" checked="checked" data-id="@item.Id" />
+                                }
+                                else
+                                {
+                                    <input class="chkShow" type="checkbox" data-id="@item.Id" />
+                                }
+                            </td>
+                            <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
+                            <td style="width:15%;">
+                                <a href="/manage/banner/edit/@item.Id">编辑</a>
+                                <a data-id="@item.Id" href="javascript:void(0)" class="delete">删除</a>
+                                @if (item.Type == Instart.Models.Enums.EnumBannerType.Video)
+                                {
+                                    <a class="video-play" href="javascript:void(0)" data-video="@item.VideoUrl">播放</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <div class="row page-center">
+            @if (ViewBag.TotalPages > 1)
+            {
+                <div class="pagination">
+                    <ul class="pl0">
+                        @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new
+       {
+           area = "manage",
+           keyword = ViewBag.Keyword,
+           pos = ViewBag.Pos,
+           type = ViewBag.Type
+       })
+                    </ul>
+                </div>
             }
-        }
-    </tbody>
-</table>
-<div class="row page-center">
-    @if (ViewBag.TotalPages > 1)
-    {
-        <div class="pagination">
-            <ul class="pl0">
-                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new { area = "manage",keyword = ViewBag.Keyword,pos=ViewBag.Pos,type=ViewBag.Type })
-            </ul>
         </div>
-    }
-</div>
 
-<div id="videoModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">视频预览</h4>
-            </div>
-            <div class="modal-body">
-                <video class="video-container" src="/i/movie.ogg" style="width:100%;height:400px;" controls="controls"></video>
+        <div id="videoModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">视频预览</h4>
+                    </div>
+                    <div class="modal-body">
+                        <video class="video-container" src="/i/movie.ogg" style="width:100%;height:400px;" controls="controls"></video>
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
 </div>
 
@@ -154,7 +166,7 @@
                     });
 
                     layer.close(index);
-                }); 
+                });
             });
 
             $(".video-play").click(function () {
@@ -165,12 +177,12 @@
                 }
 
                 $(".video-container").attr("src", src);
-                $("#videoModal").modal("show");                
+                $("#videoModal").modal("show");
             });
 
             $("#selType").val("@(ViewBag.Type)");
             $("#selPos").val("@(ViewBag.Pos)");
-        });        
+        });
     </script>
 }
 

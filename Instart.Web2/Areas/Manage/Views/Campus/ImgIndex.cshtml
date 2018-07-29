@@ -19,58 +19,69 @@
         margin-top: 10px;
     }
 
-    .w_ico li {
-        float: left;
-        width: 250px;
-        list-style: none;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .w_ico li img {
-        width: 200px;
-        height: 200px;
-        position: relative;
-        top: 5px;
-        border: none;
-    }
-
-    .w_ico li p {
-        margin-top: 10px;
-    }
-</style>
-
-<ol class="breadcrumb">
-    <li><a href="/manage/campus">校区管理</a></li>
-    <li class="active">校区图片</li>
-</ol>
-
-<div class="w_con_left">
-    <ul class="w_ico">
-        @if (ViewBag.ImgList != null)
-        {
-            foreach (CampusImg item in ViewBag.ImgList)
-            {
-                <li class="icoli">
-                    <img src="@item.ImgUrl" style="width:200px;height:200px;border:1px solid #eee;" /><p>
-                        <a href="javascript:void(0)" onclick="deleteImg(this, @item.Id)" class="btn btn-primary">删除</a>
-                    </p>
-                </li>
-            }
+        .w_ico li {
+            float: left;
+            width: 250px;
+            list-style: none;
+            text-align: center;
+            margin-bottom: 20px;
         }
-        <li class="icoli">
-            @using (Html.BeginForm("SetImg", "Campus", new { area = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "mainForm" }))
-            {
-                <input type="hidden" id="CampusId" name="CampusId" value="@ViewBag.CampusId" />
-                <img src="" id="imgPreview" style="width:200px;height:200px;border:1px solid #eee;" /><p>
-                    <input type='file' id='campusImg' name='campusImg' style="margin-left: 25px;">
-                    <a href="javascript:void(0)" onclick="imgSubmit()" class="btn btn-primary">上传</a>
-                </p>
-            }
-        </li>
-    </ul>
-</div>
 
+            .w_ico li img {
+                width: 200px;
+                height: 200px;
+                position: relative;
+                top: 5px;
+                border: none;
+            }
+
+            .w_ico li p {
+                margin-top: 10px;
+            }
+</style>
+<div class="row">
+    @Html.Partial("PartialSchool")
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-top:75px;">
+        <ol class="breadcrumb">
+            <li><a href="/manage/campus">校区管理</a></li>
+            <li class="active">校区图片</li>
+        </ol>
+
+        <div class="w_con_left">
+            <ul class="w_ico">
+                @if (ViewBag.ImgList != null)
+                {
+                    foreach (CampusImg item in ViewBag.ImgList)
+                    {
+                        <li class="icoli">
+                            <img src="@item.ImgUrl" style="width:200px;height:200px;border:1px solid #eee;" /><p>
+                                <a href="javascript:void(0)" onclick="deleteImg(this, @item.Id)" class="btn btn-primary">删除</a>
+                            </p>
+                        </li>
+                    }
+                }
+                <li class="icoli">
+                    @using (Html.BeginForm("SetImg", "Campus", new
+                    {
+                        area = "Manage"
+                    }, FormMethod.Post, new
+                    {
+                        enctype = "multipart/form-data",
+                        id = "mainForm"
+                    }))
+                    {
+                        <input type="hidden" id="CampusId" name="CampusId" value="@ViewBag.CampusId" />
+                        <img src="" id="imgPreview" style="width:200px;height:200px;border:1px solid #eee;" /><p>
+                            <input type='file' id='campusImg' name='campusImg' style="margin-left: 25px;">
+                            <a href="javascript:void(0)" onclick="imgSubmit()" class="btn btn-primary">上传</a>
+                        </p>
+                    }
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
 
 @section Bottom{
     <script>

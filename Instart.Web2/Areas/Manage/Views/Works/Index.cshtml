@@ -5,59 +5,66 @@
     ViewBag.Title = "作品管理";
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
+<div class="row">
+    @Html.Partial("PartialSchool")
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-top:75px;">
+        <ol class="breadcrumb">
+            <li><a href="#">作品管理</a></li>
+        </ol>
 
-<ol class="breadcrumb">
-    <li><a href="#">作品管理</a></li>
-</ol>
-
-<div>
-    <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
-    <form method="post" action="" target="_self" class="form-inline">
-        <a href="/manage/works/edit" class="btn btn-default">添加</a>
-    </form>
-</div>
-<table class="table table-bordered table-hover" style="margin-top:15px;">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>作品名称</th>
-            <th>作品</th>
-            <th>所属专业</th>
-            <th>创建时间</th>
-            <th>操作</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null)
-        {
-            foreach (Works item in Model)
-            {
-                <tr>
-                    <td style="width:5%;">@item.Id</td>
-                    <td>@item.Name</td>
-                    <td>
-                        <img src="@item.ImgUrl" style="width:150px;height:100px" alt="" />
-                    </td>
-                    <td>@item.MajorName</td>
-                    <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
-                    <td style="width:10%;">
-                        <a data-id="@item.Id" href="javascript:void(0)" onclick="update(@item.Id)">修改</a>
-                        <a data-id="@item.Id" href="javascript:void(0)" onclick="remove(@item.Id)">删除</a>
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
-<div class="row page-center">
-    @if (ViewBag.TotalPages > 1)
-    {
-        <div class="pagination">
-            <ul class="pl0">
-                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new { area = "manage" })
-            </ul>
+        <div>
+            <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
+            <form method="post" action="" target="_self" class="form-inline">
+                <a href="/manage/works/edit" class="btn btn-default">添加</a>
+            </form>
         </div>
-    }
+        <table class="table table-bordered table-hover" style="margin-top:15px;">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>作品名称</th>
+                    <th>作品</th>
+                    <th>所属专业</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (Works item in Model)
+                    {
+                        <tr>
+                            <td style="width:5%;">@item.Id</td>
+                            <td>@item.Name</td>
+                            <td>
+                                <img src="@item.ImgUrl" style="width:150px;height:100px" alt="" />
+                            </td>
+                            <td>@item.MajorName</td>
+                            <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
+                            <td style="width:10%;">
+                                <a data-id="@item.Id" href="javascript:void(0)" onclick="update(@item.Id)">修改</a>
+                                <a data-id="@item.Id" href="javascript:void(0)" onclick="remove(@item.Id)">删除</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <div class="row page-center">
+            @if (ViewBag.TotalPages > 1)
+            {
+                <div class="pagination">
+                    <ul class="pl0">
+                        @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new
+           {
+               area = "manage"
+           })
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
 </div>
 
 @section Bottom{

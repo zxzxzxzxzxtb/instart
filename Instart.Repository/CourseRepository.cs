@@ -42,7 +42,7 @@ namespace Instart.Repository
                 string sql = string.Format(@"select * from (
                      select a.*, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Course] as a {0}
                      ) as c
-                     where RowNumber between {1} and {};",where,((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
+                     where RowNumber between {1} and {2};",where,((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
                 var list = conn.Query<Course>(sql);
 
                 return new PageModel<Course>

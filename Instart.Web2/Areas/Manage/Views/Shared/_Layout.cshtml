@@ -39,15 +39,15 @@
                 </a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/manage/home">控制台</a></li>
-                <li class="dropdown">
+                <li class="li-menu-home"><a href="/manage/home">控制台</a></li>
+                <li class="dropdown li-menu-system">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">系统管理 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="/manage/user">用户管理</a></li>
                         <li><a href="/manage/log">操作日志</a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
+                <li class="dropdown li-menu-school">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">学校管理 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="/manage/campus">校区管理</a></li>
@@ -61,22 +61,21 @@
                         <li role="separator" class="divider"></li>
                         <li><a href="/manage/student">成功学员</a></li>
                         <li><a href="/manage/works">作品管理</a></li>
-
                     </ul>
                 </li>
-                <li class="dropdown">
+                <li class="dropdown li-menu-apply">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">申请管理 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="/manage/schoolapply">学校申请</a></li>
                         <li><a href="/manage/courseapply">课程申请</a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
+                <li class="dropdown li-menu-other">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">其他管理 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="/manage/banner">轮播管理</a></li>
                         <li><a href="/manage/partner">合作伙伴</a></li>
-                        <li><a href="/manage/recruit">招贤纳士</a></li>                        
+                        <li><a href="/manage/recruit">招贤纳士</a></li>
                         <li><a href="/manage/contact">联系我们</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="/manage/about">关于instart</a></li>
@@ -88,8 +87,8 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> @(Instart.Web2.Models.CookieData.CurrentUser.UserName) <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/manage/home/editinfo">基础设置</a></li>
-                        <li><a href="/manage/home/updatepwd">修改密码</a></li>
+                        <li><a href="/manage/user/editinfo">基础设置</a></li>
+                        <li><a href="/manage/user/updatepwd">修改密码</a></li>
                         <li><a href="javascript:void(0)" class="quit">退出</a></li>
                     </ul>
                 </li>
@@ -97,34 +96,7 @@
         </div>
     </nav>
     <div class="container-fluid">
-        <div class="row">
-            @*<div class="col-sm-3 col-md-2 sidebar">
-                <ul class="nav nav-sidebar">
-                    <li data-flag=""><a href="/manage/home">控制台</a></li>
-                    <li data-flag="banner"><a href="/manage/banner">轮播管理</a></li>
-                    <li data-flag="division"><a href="/manage/division">学部管理</a></li>
-                    <li data-flag="school"><a href="/manage/school">艺术院校</a></li>
-                    <li data-flag="major"><a href="/manage/major">专业管理</a></li>
-                    <li data-flag="teacher"><a href="/manage/teacher">艺术导师</a></li>
-                    <li data-flag="student"><a href="/manage/student">成功学员</a></li>
-                    <li data-flag="course"><a href="/manage/course">课程管理</a></li>
-                    <li data-flag="schoolapply"><a href="/manage/schoolapply">学校申请</a></li>
-                    <li data-flag="courseapply"><a href="/manage/courseapply">课程申请</a></li>
-                    <li data-flag="campus"><a href="/manage/campus">校区管理</a></li>
-                    <li data-flag="works"><a href="/manage/works">作品管理</a></li>
-                    <li data-flag="about"><a href="/manage/about">关于instart</a></li>
-                    <li data-flag="partner"><a href="/manage/partner">合作伙伴</a></li>
-                    <li data-flag="contact"><a href="/manage/contact">联系我们</a></li>
-                    <li data-flag="recruit"><a href="/manage/recruit">招贤纳士</a></li>
-                    <li data-flag="user"><a href="/manage/user">用户管理</a></li>
-                    <li data-flag="log"><a href="/manage/log">操作日志</a></li>
-                    <li data-flag="about"><a href="/manage/about">关于instart</a></li>
-                </ul>
-            </div>*@
-            <div class="col-sm-12 main" style="padding-top:75px;">
-                @RenderBody()
-            </div>
-        </div>
+       @RenderBody()
     </div>
 
     @RenderSection("Bottom", false)
@@ -149,21 +121,45 @@
         var isIndex = true;
         var href = location.href.toLowerCase();
         var $lis = $(".nav-sidebar").children("li");
+
+        var systemMenus = ["user", "log"];
+        var schoolMenus = ["campus", "division", "school", "teacher", "major", "course", "student", "works"];
+        var applyMenus = ["schoolapply", "courseapply"];
+        var otherMenus = ["banner", "partner", "recruit", "contact", "about"];
+
         $.each($lis, function () {
             var nav = $(this).attr("data-flag");
             href = href.toLocaleLowerCase().replace(/\?.+/, '');
-            console.log(href);
             var arr = href.split('/');
             var len = arr.length;
             if (( len >= 1 && arr[len - 1] == nav ) || (len >= 2 && arr[len - 2] == nav ) || ( len >= 3 && arr[len - 3] == nav)) {
                 $(this).addClass("active");
                 isIndex = false;
+
+                if (systemMenus.indexOf(nav) > -1) {
+                    $(".li-menu-system").addClass("active");
+                }
+                else if (schoolMenus.indexOf(nav) > -1) {
+                    $(".li-menu-school").addClass("active");
+                }
+                else if (applyMenus.indexOf(nav) > -1) {
+                    $(".li-menu-apply").addClass("active");
+                }
+                else if (otherMenus.indexOf(nav) > -1) {
+                    $(".li-menu-other").addClass("active");
+                }
+                else {
+                    $(".li-menu-home").addClass("active");
+                }
+
                 return false;
             }
         });
 
-        if (isIndex)
+        if (isIndex) {
             $(".nav-sidebar li").eq(0).addClass("active");
+            $(".li-menu-home").addClass("active");
+        }
     }());
 
 </script>

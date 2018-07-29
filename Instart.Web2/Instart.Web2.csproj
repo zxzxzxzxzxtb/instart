@@ -763,9 +763,9 @@
     <Content Include="Areas\Manage\Views\CourseApply\Index.cshtml" />
     <Content Include="Areas\Manage\Views\Division\Edit.cshtml" />
     <Content Include="Areas\Manage\Views\Division\Index.cshtml" />
-    <Content Include="Areas\Manage\Views\Home\EditInfo.cshtml" />
+    <Content Include="Areas\Manage\Views\User\EditInfo.cshtml" />
     <Content Include="Areas\Manage\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Manage\Views\Home\UpdatePwd.cshtml" />
+    <Content Include="Areas\Manage\Views\User\UpdatePwd.cshtml" />
     <Content Include="Areas\Manage\Views\Log\Index.cshtml" />
     <Content Include="Areas\Manage\Views\Major\Edit.cshtml" />
     <Content Include="Areas\Manage\Views\Major\Index.cshtml" />
@@ -816,6 +816,10 @@
     <Content Include="Content\ueditor\third-party\video-js\font\vjs.ttf" />
     <Content Include="Content\ueditor\third-party\video-js\font\vjs.woff" />
     <Content Include="NLog.config" />
+    <Content Include="Areas\Manage\Views\Shared\PartialOther.cshtml" />
+    <Content Include="Areas\Manage\Views\Shared\PartialApply.cshtml" />
+    <Content Include="Areas\Manage\Views\Shared\PartialSchool.cshtml" />
+    <Content Include="Areas\Manage\Views\Shared\PartialSystem.cshtml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

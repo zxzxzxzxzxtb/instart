@@ -6,49 +6,60 @@
     ViewBag.Title = "课程首页";
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
+<div class="row">
+    @Html.Partial("PartialSchool")
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-top:75px;">
+        <ol class="breadcrumb">
+            <li><a href="/manage/course">课程管理</a></li>
+            <li class="active">课程首页</li>
+        </ol>
 
-<ol class="breadcrumb">
-    <li><a href="/manage/course">课程管理</a></li>
-    <li class="active">课程首页</li>
-</ol>
+        @using (Html.BeginForm("SetInfo", "Course", new
+        {
+            area = "Manage"
+        }, FormMethod.Post, new
+        {
+            enctype = "multipart/form-data",
+            id = "mainForm",
+            @class = "form-horizontal edit-container-width"
+        }))
+        {
+            <div class="form-group">
+                <label class="col-sm-2 control-label">课程体系：</label>
+                <div class="col-sm-10">
+                    <textarea name="TeachingSys" id="TeachingSys" rows="10">@Model.TeachingSys</textarea>
+                </div>
+            </div>
 
-@using (Html.BeginForm("SetInfo", "Course", new { area = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data", id = "mainForm", @class = "form-horizontal edit-container-width" }))
-{
-    <div class="form-group">
-        <label class="col-sm-2 control-label">课程体系：</label>
-        <div class="col-sm-10">
-            <textarea name="TeachingSys" id="TeachingSys" rows="10">@Model.TeachingSys</textarea>
-        </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">课程前期：</label>
+                <div class="col-sm-10">
+                    <textarea name="Early" id="Early" rows="10">@Model.Early</textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">课程中期：</label>
+                <div class="col-sm-10">
+                    <textarea name="Mid" id="Mid" rows="10">@Model.Mid</textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">课程后期：</label>
+                <div class="col-sm-10">
+                    <textarea name="Laster" id="Laster" rows="10">@Model.Laster</textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="button" class="btn btn-success" value="保存" onclick="save()" />
+                </div>
+            </div>
+        }
     </div>
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label">课程前期：</label>
-        <div class="col-sm-10">
-            <textarea name="Early" id="Early" rows="10">@Model.Early</textarea>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label">课程中期：</label>
-        <div class="col-sm-10">
-            <textarea name="Mid" id="Mid" rows="10">@Model.Mid</textarea>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label">课程后期：</label>
-        <div class="col-sm-10">
-            <textarea name="Laster" id="Laster" rows="10">@Model.Laster</textarea>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <input type="button" class="btn btn-success" value="保存" onclick="save()" />
-        </div>
-    </div>
-}
-
+</div>
 
 @section Bottom{
     <script>

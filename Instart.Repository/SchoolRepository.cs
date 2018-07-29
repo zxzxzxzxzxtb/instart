@@ -34,7 +34,7 @@ namespace Instart.Repository
                 }
 
                 string sql = string.Format(@"select * from ( select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [School] {0} ) as b  
-                                where RowNumber between {((pageIndex - 1) * pageSize) + 1} and {pageIndex * pageSize};", where);
+                                where RowNumber between {1} and {2};", where, ((pageIndex - 1) * pageSize) + 1, pageIndex * pageSize);
                 var list = conn.Query<School>(sql);
 
                 return new PageModel<School> {

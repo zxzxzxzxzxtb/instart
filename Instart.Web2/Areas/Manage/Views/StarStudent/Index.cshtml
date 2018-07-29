@@ -5,64 +5,72 @@
     ViewBag.Title = "明星学员专访";
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
+<div class="row">
+    @Html.Partial("PartialOther")
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-top:75px;">
+        <ol class="breadcrumb">
+            <li><a href="/manage/student">成功学员</a></li>
+            <li class="active">明星学员专访</li>
+        </ol>
 
-<ol class="breadcrumb">
-    <li><a href="/manage/student">成功学员</a></li>
-    <li class="active">明星学员专访</li>
-</ol>
-
-<div>
-    <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
-    <form method="post" action="" target="_self" class="form-inline">
-        <div class="form-group">
-            <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="专访标题" style="width:300px;">
+        <div>
+            <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
+            <form method="post" action="" target="_self" class="form-inline">
+                <div class="form-group">
+                    <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="专访标题" style="width:300px;">
+                </div>
+                <button type="submit" class="btn btn-success">查询</button>
+                <a href="/manage/starstudent" class="btn btn-default">全部</a>
+                <a href="/manage/starstudent/edit" class="btn btn-default">添加</a>
+            </form>
         </div>
-        <button type="submit" class="btn btn-success">查询</button>
-        <a href="/manage/starstudent" class="btn btn-default">全部</a>
-        <a href="/manage/starstudent/edit" class="btn btn-default">添加</a>
-    </form>
-</div>
-<table class="table table-bordered table-hover" style="margin-top:15px;">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>专访标题</th>
-            <th>视频封面</th>
-            <th>视频链接</th>
-            <th>描述</th>
-            <th>创建时间</th>
-            <th>操作</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null)
-        {
-            foreach (StarStudent item in Model)
-            {
+        <table class="table table-bordered table-hover" style="margin-top:15px;">
+            <thead>
                 <tr>
-                    <td style="width:5%;">@item.Id</td>
-                    <td>@item.Title</td>
-                    <td>@item.ImgUrl</td>
-                    <td>@item.VideoUrl</td>
-                    <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
-                    <td style="width:10%;">
-                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="update(@item.Id)">修改</a>
-                        <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="remove(@item.Id)">删除</a>
-                    </td>
+                    <th>#</th>
+                    <th>专访标题</th>
+                    <th>视频封面</th>
+                    <th>视频链接</th>
+                    <th>描述</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
                 </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (StarStudent item in Model)
+                    {
+                        <tr>
+                            <td style="width:5%;">@item.Id</td>
+                            <td>@item.Title</td>
+                            <td>@item.ImgUrl</td>
+                            <td>@item.VideoUrl</td>
+                            <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
+                            <td style="width:10%;">
+                                <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="update(@item.Id)">修改</a>
+                                <a data-id="@item.Id" href="javascript:void(0)" class="btn btn-primary" onclick="remove(@item.Id)">删除</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <div class="row page-center">
+            @if (ViewBag.TotalPages > 1)
+            {
+                <div class="pagination">
+                    <ul class="pl0">
+                        @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new
+           {
+               area = "manage"
+           })
+                    </ul>
+                </div>
             }
-        }
-    </tbody>
-</table>
-<div class="row page-center">
-    @if (ViewBag.TotalPages > 1)
-    {
-        <div class="pagination">
-            <ul class="pl0">
-                @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new { area = "manage" })
-            </ul>
         </div>
-    }
+
+    </div>
 </div>
 
 @section Bottom{
@@ -83,7 +91,7 @@
                 });
 
                 layer.close(index);
-            }); 
+            });
         }
     </script>
 }
