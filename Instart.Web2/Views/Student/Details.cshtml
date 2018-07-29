@@ -7,21 +7,9 @@
 
 <!--banner展示图-->
 <div class="neibanner">
-    @if (!String.IsNullOrEmpty(Model.BannerVideo))
-    {
-        <a href="" style="background:url(@Model.BannerImg) center top no-repeat;width:100%;">
-            <video autoplay="autoplay" muted="muted" loop="loop" poster="@Model.BannerImg" title="" style="width:100%;">
-                <source class="video--mp4" src="@Model.BannerVideo" type="video/mp4">
-            </video>
-        </a>
-    }
-    else
-    {
-        <img src="@Model.BannerImg" alt="" />
-    }
-    <p>@Model.Title</p>
+    <img src="@ViewBag.BannerUrl" alt="" />
 </div>
-<div class="maincont">
+<div class="relative">
     <div class="xuetop overflow">
         <div class="xue-left fl">
             <div class="xue-img">
@@ -47,6 +35,8 @@
             </div>
         </div>
     </div>
+</div>
+<div class="maincont">
     <!--成功学员-->
     <div class="title">
         <h2>成功学员</h2>

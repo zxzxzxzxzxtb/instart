@@ -33,11 +33,32 @@ namespace Instart.Web2.Controllers
 
         public  ActionResult Index() {
             ViewBag.PartnerList = ( _partnerService.GetRecommendListAsync(14)) ?? new List<Instart.Models.Partner>();
-            ViewBag.SchoolList = ( _schoolService.GetRecommendListAsync(10)) ?? new List<Instart.Models.School>();
+            List<School> schoolList = ( _schoolService.GetRecommendListAsync(10)) ?? new List<Instart.Models.School>();
             ViewBag.TeacherList = ( _teacherService.GetRecommendListAsync(8)) ?? new List<Instart.Models.Teacher>();
             ViewBag.StudentList = ( _studentService.GetRecommendListAsync(8)) ?? new List<Instart.Models.Student>();
             ViewBag.CourseList = ( _courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();
             ViewBag.BannerList = ( _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Index)) ?? new List<Instart.Models.Banner>();
+
+            //计算录取比例
+            IEnumerable<Student> studentList = (_studentService.GetAllAsync()) ?? new List<Student>();
+            foreach (School school in schoolList)
+            {
+                int count = 0;
+                foreach (Student student in studentList)
+                {
+                    if (student.SchoolId == school.Id)
+                    {
+                        count++;
+                    }
+                }
+                school.AcceptRate = "0";
+                if (schoolList.Count() > 0)
+                {
+                    decimal rate = (decimal)count / schoolList.Count();
+                    school.AcceptRate = (rate * 100).ToString("f2");
+                }
+            }
+            ViewBag.SchoolList = schoolList;
             return View();
         }
 

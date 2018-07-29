@@ -1,4 +1,5 @@
-﻿using Instart.Service;
+﻿using Instart.Models;
+using Instart.Service;
 using Instart.Service.Base;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace Instart.Web2.Controllers
         IDivisionService _divisionService = AutofacService.Resolve<IDivisionService>();
         IBannerService _bannerService = AutofacService.Resolve<IBannerService>();
         IWorksService _workService = AutofacService.Resolve<IWorksService>();
+        ISchoolService _schoolService = AutofacService.Resolve<ISchoolService>();
+        IStudentService _studentService = AutofacService.Resolve<IStudentService>();
 
         public MajorController()
         {
@@ -25,6 +28,8 @@ namespace Instart.Web2.Controllers
             this.AddDisposableObject(_divisionService);
             this.AddDisposableObject(_bannerService);
             this.AddDisposableObject(_workService);
+            this.AddDisposableObject(_schoolService);
+            this.AddDisposableObject(_studentService);
         }
 
         public  ActionResult Index(int id = 0)
@@ -70,6 +75,27 @@ namespace Instart.Web2.Controllers
 
             ViewBag.WorkList = ( _workService.GetListByMajorIdAsync(id, 3)) ?? new List<Instart.Models.Works>();
             ViewBag.BannerList = ( _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Teacher)) ?? new List<Instart.Models.Banner>();
+            List<School> schoolList = _schoolService.GetListByMajorAsync(id) ?? new List<Instart.Models.School>();
+            //计算录取比例
+            IEnumerable<Student> studentList = (_studentService.GetAllAsync()) ?? new List<Student>();
+            foreach (School school in schoolList)
+            {
+                int count = 0;
+                foreach (Student student in studentList)
+                {
+                    if (student.SchoolId == school.Id)
+                    {
+                        count++;
+                    }
+                }
+                school.AcceptRate = "0";
+                if (schoolList.Count() > 0)
+                {
+                    decimal rate = (decimal)count / schoolList.Count();
+                    school.AcceptRate = (rate * 100).ToString("f2");
+                }
+            }
+            ViewBag.SchoolList = schoolList;
             return View(major);
         }
     }

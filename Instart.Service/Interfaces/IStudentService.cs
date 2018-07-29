@@ -32,5 +32,7 @@ namespace Instart.Service
          bool SetCourses(int studentId, string courseIds);
 
          List<Student> GetListByCourseAsync(int courseId = -1);
+
+         List<Student> GetListByTeacherAsync(int teacherId = -1);
     }
 }

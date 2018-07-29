@@ -98,7 +98,8 @@ namespace Instart.Repository
                     "Id",
                     "CreateTime",
                     "Status",
-                    "IsSelected"
+                    "IsSelected",
+                    "IsRecommend"
                 };
                 var fields = model.ToFields(removeFields: removeFields);
 

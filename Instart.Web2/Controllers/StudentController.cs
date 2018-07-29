@@ -103,6 +103,9 @@ namespace Instart.Web2.Controllers
             Student student =  _studentService.GetByIdAsync(id);
             IEnumerable<Student> studentList = ( _studentService.GetAllAsync()) ?? new List<Student>();
             ViewBag.StudentList = studentList;
+            List<Banner> bannerList = (_bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Student)) ?? new List<Instart.Models.Banner>();
+            ViewBag.BannerUrl = "";
+            if (bannerList.Count() > 0) ViewBag.BannerUrl = bannerList[0].ImageUrl;
             return View(student ?? new Student());
         }
     }

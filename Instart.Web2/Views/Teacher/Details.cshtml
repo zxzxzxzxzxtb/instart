@@ -26,24 +26,30 @@
             }
         }
     </ul>
-    <ul class="cir_box" style="left: 50%; margin-left: -40px; bottom: 3%;"><li style="" value="0" class=""></li><li style="" value="1" class="cir_on"></li></ul><div class="lubo_btn"></div>
 </div>
-
-<div class="maincont">
-    <div class="title">
-        <h2>导师介绍</h2>
-    </div>
-    <div class="meester overflow">
-        <div class="mee-left"><img src="@Model.Avatar" alt=""></div>
-        <div class="mee-right">
+<!--导师介绍-->
+<div class="title">
+    <h2>导师介绍</h2>
+</div>
+<div class="relative">
+    <div class="maincont meester overflow">
+        <div class="mee-left fl"><img src="@Model.Avatar" alt=""></div>
+        <div class="mee-right fr">
             <div class="mee-info">
                 <div class="stel"><a href="#">向TA提问</a></div>
                 <dl class="mee-info-top">
                     <dt>导师背景</dt>
                     <dd><em>姓名</em><span>@Model.Name</span></dd>
-                    <dd><em>院校背景</em><span><a href="#">@Model.SchoolName</a></span></dd>
-                    <dd><em>专业</em><span><a href="#">@(Model.MajorName) @(Model.MajorNameEn)</a></span></dd>
-                    <dd><em>擅长课程</em><span><a href="#">工业设计</a><a href="#">交互设计</a><a href="#">产品设计</a></span></dd>
+                    <dd><em>院校背景</em><span><a href="/school/details/@Model.SchoolId">@Model.SchoolName</a></span></dd>
+                    <dd><em>专业</em><span><a href="/major/details/@Model.MajorId">@(Model.MajorName) @(Model.MajorNameEn)</a></span></dd>
+                    <dd>
+                        <em>擅长课程</em><span>
+                            @foreach (Course item in ViewBag.CourseList)
+                            {
+                                <a href="/course/details/@item.Id">@item.Name</a>
+                            }
+                        </span>
+                    </dd>
                 </dl>
                 <dl class="mee-info-bottom">
                     <dt>导师荣誉</dt>
@@ -52,143 +58,27 @@
             </div>
         </div>
     </div>
+</div>
+<div class="maincont">
     <div class="title">
         <h2>导师案例</h2>
     </div>
     <div class="caselist com-cont">
         <ul>
-            <li>
-                <div class="case-cont">
-                    <div class="top"><a href="#"><i></i><img src="../yishaimg/lingshi/9.jpg" alt=""></a></div>
-                    <dl>
-                        <a href="#">
-                            <dt>UCL</dt>
-                            <dd>工业设计</dd>
-                        </a>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                <div class="case-cont">
-                    <div class="top"><a href="#"><i style="opacity: 0;"></i><img src="../yishaimg/lingshi/9.jpg" alt=""></a></div>
-                    <dl>
-                        <a href="#">
-                            <dt>UCL</dt>
-                            <dd>工业设计</dd>
-                        </a>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                <div class="case-cont">
-                    <div class="top"><a href="#"><i style="opacity: 0;"></i><img src="../yishaimg/lingshi/9.jpg" alt=""></a></div>
-                    <dl>
-                        <a href="#">
-                            <dt>UCL</dt>
-                            <dd>工业设计</dd>
-                        </a>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                <div class="case-cont">
-                    <div class="top"><a href="#"><i></i><img src="../yishaimg/lingshi/9.jpg" alt=""></a></div>
-                    <dl>
-                        <a href="#">
-                            <dt>UCL</dt>
-                            <dd>工业设计</dd>
-                        </a>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                <div class="case-cont">
-                    <div class="top"><a href="#"><i></i><img src="../yishaimg/lingshi/9.jpg" alt=""></a></div>
-                    <dl>
-                        <a href="#">
-                            <dt>UCL</dt>
-                            <dd>工业设计</dd>
-                        </a>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                <div class="case-cont">
-                    <div class="top"><a href="#"><i></i><img src="../yishaimg/lingshi/9.jpg" alt=""></a></div>
-                    <dl>
-                        <a href="#">
-                            <dt>UCL</dt>
-                            <dd>工业设计</dd>
-                        </a>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                <div class="case-cont">
-                    <div class="top"><a href="#"><i></i><img src="../yishaimg/lingshi/9.jpg" alt=""></a></div>
-                    <dl>
-                        <a href="#">
-                            <dt>UCL</dt>
-                            <dd>工业设计</dd>
-                        </a>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                <div class="case-cont">
-                    <div class="top"><a href="#"><i></i><img src="../yishaimg/lingshi/9.jpg" alt=""></a></div>
-                    <dl>
-                        <a href="#">
-                            <dt>UCL</dt>
-                            <dd>工业设计</dd>
-                        </a>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                <div class="case-cont">
-                    <div class="top"><a href="#"><i></i><img src="../yishaimg/lingshi/9.jpg" alt=""></a></div>
-                    <dl>
-                        <a href="#">
-                            <dt>UCL</dt>
-                            <dd>工业设计</dd>
-                        </a>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                <div class="case-cont">
-                    <div class="top"><a href="#"><i></i><img src="../yishaimg/lingshi/9.jpg" alt=""></a></div>
-                    <dl>
-                        <a href="#">
-                            <dt>UCL</dt>
-                            <dd>工业设计</dd>
-                        </a>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                <div class="case-cont">
-                    <div class="top"><a href="#"><i></i><img src="../yishaimg/lingshi/9.jpg" alt=""></a></div>
-                    <dl>
-                        <a href="#">
-                            <dt>UCL</dt>
-                            <dd>工业设计</dd>
-                        </a>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                <div class="case-cont">
-                    <div class="top"><a href="#"><i></i><img src="../yishaimg/lingshi/9.jpg" alt=""></a></div>
-                    <dl>
-                        <a href="#">
-                            <dt>UCL</dt>
-                            <dd>工业设计</dd>
-                        </a>
-                    </dl>
-                </div>
-            </li>
+            @foreach (Student item in ViewBag.StudentList)
+            {
+                <li>
+                    <div class="case-cont">
+                        <div class="top"><a href="/school/details/@item.SchoolId"><i></i><img src="@item.SchoolLogo" alt=""></a></div>
+                        <dl>
+                            <a href="/major/details/@item.MajorId">
+                                <dt>@item.SchoolName</dt>
+                                <dd>@item.MajorName</dd>
+                            </a>
+                        </dl>
+                    </div>
+                </li>
+            }
         </ul>
     </div>
 </div>

@@ -102,7 +102,7 @@ namespace Instart.Service
             return _teacherRepository.SetRecommend(id, isRecommend);
         }
 
-        public IEnumerable<int> GetCoursesByIdAsync(int id)
+        public IEnumerable<Course> GetCoursesByIdAsync(int id)
         {
             return _teacherRepository.GetCoursesByIdAsync(id);
         }

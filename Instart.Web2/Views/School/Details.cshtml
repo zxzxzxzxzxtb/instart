@@ -16,7 +16,7 @@
                     <dd>@Model.NameEn</dd>
                     <p><span class="glaxfont">申请难度：</span>@Model.Difficult</p>
                     <p><div id="stars" style="width:100%" flag="@Model.Difficult"></div></p>
-                    <p><span class="glaxfont">录取比例：</span>@Model.AcceptRate</p>
+                    <p><span class="glaxfont">录取比例：</span>@(Model.AcceptRate + "%")</p>
                 </dl>
             </div>
             <div class="s-name-right"><a href="#"><img src="@Model.Logo" alt="" /></a></div>
@@ -180,7 +180,7 @@
             {
                 <li>
                     <div class="peoplecont">
-                        <div class="top"><a href="#"><i></i><span>@item.Motto</span><img src="@item.Avatar" alt="" /></a></div>
+                        <div class="top"><a href="/student/details/@item.Id"><i></i><span>@item.Motto</span><img src="@item.Avatar" alt="" /></a></div>
                         <dl>
                             <dt><a href="#">@item.Name</a></dt>
                             <dd class="pe1">录取专业：@item.MajorName</dd>
@@ -194,7 +194,7 @@
     <!--课程推荐-->
     <div class="title">
         <h2>课程推荐</h2>
-        <a href="#" class="more">查看全部&gt;&gt;</a>
+        <a href="/Course" class="more">查看全部&gt;&gt;</a>
     </div>
     <div class="recommend com-cont">
         <ul>
@@ -202,7 +202,7 @@
             {
                 <li>
                     <div class="recimg">
-                        <a href="#">
+                        <a href="/course/details/@item.Id">
                             <i></i>
                             <p>@item.Introduce</p>
                             <img src="@item.Picture" alt="@item.Name" />
@@ -214,7 +214,6 @@
     </div>
 </div>
 @section Bottom{
-    <script src="~/content/js/jquery.raty.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             //学员座右铭
@@ -235,7 +234,7 @@
                 number: 5, //多少个星星设置
                 score: $("#stars").attr('flag'),
                 targetType: 'number', //类型选择，number是数字值，hint，是设置的数组值
-                path: 'content/images',
+                path: '../../content/images',
                 size: 24,
                 starHalf: 'star-half.png',
                 starOff: 'star-off.png',

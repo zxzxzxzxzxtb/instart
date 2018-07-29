@@ -135,5 +135,10 @@ namespace Instart.Service
         {
             return _schoolRepository.SetMajors(schoolId, majorIds, introduces);
         }
+
+        public List<School> GetListByMajorAsync(int majorId = 0) 
+        {
+            return _schoolRepository.GetListByMajorAsync(majorId);
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace Instart.Repository
 
         bool SetRecommend(int id, bool isRecommend);
 
-        IEnumerable<int> GetCoursesByIdAsync(int id);
+        IEnumerable<Course> GetCoursesByIdAsync(int id);
 
         bool SetCourses(int teacherId, string courseIds);
 

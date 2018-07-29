@@ -42,7 +42,7 @@ namespace Instart.Common
             }
 
             string ext = Path.GetExtension(fileName);
-            string newFileName = string.Format("{0:yyyyMMddHHmmssfff}", DateTime.Now);
+            string newFileName = string.Format("{0:yyyyMMddHHmmssfff}", DateTime.Now) + ext;
             string pathName = string.Empty;
 
             if (IsImage(ext))
