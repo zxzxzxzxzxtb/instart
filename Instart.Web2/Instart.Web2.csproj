@@ -769,7 +769,6 @@
     <Content Include="Areas\Manage\Views\Division\Index.cshtml" />
     <Content Include="Areas\Manage\Views\User\EditInfo.cshtml" />
     <Content Include="Areas\Manage\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Manage\Views\User\UpdatePwd.cshtml" />
     <Content Include="Areas\Manage\Views\Log\Index.cshtml" />
     <Content Include="Areas\Manage\Views\Major\Edit.cshtml" />
     <Content Include="Areas\Manage\Views\Major\Index.cshtml" />
@@ -826,6 +825,8 @@
     <Content Include="Areas\Manage\Views\Shared\PartialSystem.cshtml" />
     <Content Include="Areas\Manage\Views\Program\Edit.cshtml" />
     <Content Include="Areas\Manage\Views\Program\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\User\UpdatePwd.cshtml" />
+    <None Include="Properties\PublishProfiles\InstartWebConfig.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

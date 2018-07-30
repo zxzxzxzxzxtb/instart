@@ -47,21 +47,21 @@
         <dl>
             <dt>国家：</dt>
             <dd>
-                <a href="#" onclick="searchCountry(-1)">全部</a><a href="#" onclick="searchCountry(0)">英国</a><a href="#" onclick="searchCountry(1)">美国</a>
-                <a href="#" onclick="searchCountry(2)">欧洲</a><a href="#" onclick="searchCountry(3)">亚洲</a><a href="#" onclick="searchCountry(9)">其他</a>
+                <a href="javascript:void(0)" onclick="searchCountry(-1)">全部</a><a href="javascript:void(0)" onclick="searchCountry(0)">英国</a><a href="javascript:void(0)" onclick="searchCountry(1)">美国</a>
+                <a href="javascript:void(0)" onclick="searchCountry(2)">欧洲</a><a href="javascript:void(0)" onclick="searchCountry(3)">亚洲</a><a href="javascript:void(0)" onclick="searchCountry(9)">其他</a>
             </dd>
         </dl>
         <dl>
             <dt>学历：</dt>
-            <dd><a href="#">全部</a><a href="#">本科</a><a href="#">硕士</a></dd>
+            <dd><a href="javascript:void(0)">全部</a><a href="javascript:void(0)">本科</a><a href="javascript:void(0)">硕士</a></dd>
         </dl>
         <dl>
             <dt>专业：</dt>
             <dd>
-                <a href="#" onclick="searchMajor(-1)">全部</a>
+                <a href="javascript:void(0)" onclick="searchMajor(-1)">全部</a>
                 @foreach (Major item in ViewBag.MajorList)
                 {
-                    <a href="#" onclick="searchMajor(@item.Id)">@item.Name</a>
+                    <a href="javascript:void(0)" onclick="searchMajor(@item.Id)">@item.Name</a>
                 }
             </dd>
         </dl>
