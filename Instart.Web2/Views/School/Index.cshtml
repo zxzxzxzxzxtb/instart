@@ -74,7 +74,7 @@
     <!--课程推荐-->
     <div class="title">
         <h2>课程推荐</h2>
-        <a href="#" class="more">查看全部&gt;&gt;</a>
+        <a href="/course" class="more">查看全部&gt;&gt;</a>
     </div>
     <div class="recommend com-cont">
         <ul>
@@ -82,7 +82,7 @@
             {
                 <li>
                     <div class="recimg">
-                        <a href="#">
+                        <a href="/course/details/@item.Id">
                             <i></i>
                             <p>@item.Introduce</p>
                             <img src="@item.Picture" alt="@item.Name" />
@@ -94,8 +94,6 @@
     </div>
 </div>
 @section Bottom{
-    <script src="~/content/js/jquery.raty.js" type="text/javascript"></script>
-    <script src="~/content/js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             getData(1);
@@ -193,7 +191,7 @@
                     });
                 },
                 error: function () {
-                    layer.msg("数据加载失败。");
+                    
                 }
             });
         }

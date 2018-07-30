@@ -34,5 +34,7 @@ namespace Instart.Service
          IEnumerable<SchoolMajor> GetMajorsByIdAsync(int id);
 
          bool SetMajors(int schoolId, string majorIds, string introduces);
+
+         List<School> GetListByMajorAsync(int majorId = 0);
     }
 }

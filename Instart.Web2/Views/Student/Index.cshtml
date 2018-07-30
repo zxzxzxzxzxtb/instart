@@ -42,9 +42,10 @@
                         {
                             <li>
                                 <div class="picimg">
-                                    <a href="#">
-                                        <img src="@item.ImgUrl" alt="" /> <i></i>
-                                        <p>@item.Title</p>
+                                    <a href="" style="background:url(@item.ImgUrl) center top no-repeat">
+                                        <video autoplay="autoplay" muted="muted" loop="loop" poster="@item.ImgUrl" title="">
+                                            <source class="video--mp4" src="@item.VideoUrl" type="video/mp4">
+                                        </video>
                                     </a>
                                 </div>
                             </li>
@@ -75,7 +76,7 @@
                                 <div class="peoplecont">
                                     <div class="top"><a href="/student/details/@item.Id"><i></i><img src="@item.Avatar" alt="" /></a></div>
                                     <dl>
-                                        <dt><a href="#">@item.Name</a></dt>
+                                        <dt><a href="/student/details/@item.Id">@item.Name</a></dt>
                                         <dd class="pe1">录取专业：@item.MajorName</dd>
                                         <dd class="pe2">offer：@item.SchoolName</dd>
                                     </dl>
@@ -106,9 +107,9 @@
                         {
                             <li>
                                 <div class="case-cont">
-                                    <div class="top"><a href="#"><i></i><img src="@item.Logo" alt="" /></a></div>
+                                    <div class="top"><a href="/school/details/@item.Id"><i></i><img src="@item.Logo" alt="" /></a></div>
                                     <dl>
-                                        <a href="#">
+                                        <a href="/school/details/@item.Id">
                                             <dt>@item.Name</dt>
                                             <dd>录取比例：@(item.AcceptRate + "%")</dd>
                                         </a>
@@ -129,7 +130,7 @@
     <!--课程推荐-->
     <div class="title">
         <h2>课程推荐</h2>
-        <a href="#" class="more">查看全部&gt;&gt;</a>
+        <a href="/Course" class="more">查看全部&gt;&gt;</a>
     </div>
     <div class="recommend com-cont">
         <ul>
@@ -137,7 +138,7 @@
             {
                 <li>
                     <div class="recimg">
-                        <a href="#">
+                        <a href="/course/details/@item.Id">
                             <i></i>
                             <p>@item.Introduce</p>
                             <img src="@item.Picture" alt="@item.Name" />

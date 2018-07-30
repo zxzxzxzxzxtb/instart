@@ -167,18 +167,19 @@ namespace Instart.Web2.Areas.Manage.Controllers
         public ActionResult CourseSelect(int id = 0)
         {
             IEnumerable<Course> courseList = _courseService.GetAllAsync();
-            IEnumerable<int> selectedList = _teacherService.GetCoursesByIdAsync(id);
+            IEnumerable<Course> selectedList = _teacherService.GetCoursesByIdAsync(id) ?? new List<Course>();
             if (courseList != null)
             {
                 foreach (var course in courseList)
                 {
-                    if (selectedList != null && selectedList.Contains(course.Id))
+                    course.IsSelected = false;
+                    foreach (var item in selectedList) 
                     {
-                        course.IsSelected = true;
-                    }
-                    else
-                    {
-                        course.IsSelected = false;
+                        if (course.Id == item.Id) 
+                        {
+                            course.IsSelected = true;
+                            break;
+                        }
                     }
                 }
             }

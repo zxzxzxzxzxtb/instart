@@ -13,7 +13,11 @@ namespace Instart.Repository
     {
         public Teacher GetByIdAsync(int id) {
             using (var conn = DapperFactory.GetConnection()) {
-                string sql = "select * from [Teacher] where Id = @Id and Status=1;";
+                string sql = @"select t.*, b.Name as MajorName, b.NameEn as MajorNameEn, 
+                     d.Name as DivisionName, d.NameEn as DivisionNameEn, e.Name as SchoolName, e.NameEn as SchoolNameEn from [Teacher] t 
+                     left join [Major] as b on b.Id = t.MajorId 
+                     left join [Division] as d on d.Id = t.DivisionId 
+                     left join [School] as e on e.Id = t.SchoolId where t.Id = @Id and t.Status=1;";
                 return conn.QueryFirstOrDefault<Teacher>(sql, new { Id = id });
             }
         }
@@ -142,12 +146,12 @@ namespace Instart.Repository
             }
         }
 
-        public IEnumerable<int> GetCoursesByIdAsync(int id)
+        public IEnumerable<Course> GetCoursesByIdAsync(int id)
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = string.Format("select CourseId from [TeacherCourse] where TeacherId={0};", id);
-                return conn.Query<int>(sql); ;
+                string sql = string.Format("select c.* from [TeacherCourse] as t left join [Course] as c on c.Id = t.CourseId where t.TeacherId={0};", id);
+                return conn.Query<Course>(sql); ;
             }
         }
 

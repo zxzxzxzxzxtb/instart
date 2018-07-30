@@ -14,9 +14,10 @@ namespace Instart.Repository
         public Student GetByIdAsync(int id) {
             using (var conn = DapperFactory.GetConnection()) {
                 string sql = @"select t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
-                     c.NameEn as TeacherNameEn, e.Name as SchoolName, e.NameEn as SchoolNameEn from Student t 
+                     c.NameEn as TeacherNameEn, d.Name as DivisionName, d.NameEn as DivisionNameEn, e.Name as SchoolName, e.NameEn as SchoolNameEn from Student t 
                      left join [Major] as b on b.Id = t.MajorId 
                      left join [Teacher] as c on c.Id = t.TeacherId 
+                     left join [Division] as d on d.Id = t.DivisionId 
                      left join [School] as e on e.Id = t.SchoolId where t.Id = @Id and t.Status=1;";
                 return conn.QueryFirstOrDefault<Student>(sql, new { Id = id });
             }
@@ -93,7 +94,7 @@ namespace Instart.Repository
         public bool InsertAsync(Student model) {
             using (var conn = DapperFactory.GetConnection()) {
                 var fields = model.ToFields(removeFields: new List<string> { "Id", "SchoolName", "SchoolNameEn","MajorName", "MajorNameEn", "TeacherName", "TeacherNameEn",
-                    "DivisionName", "DivisionNameEn", "IsRecommend"});
+                    "DivisionName", "DivisionNameEn", "IsRecommend", "SchoolLogo"});
                 if (fields == null || fields.Count == 0) {
                     return false;
                 }
@@ -112,7 +113,7 @@ namespace Instart.Repository
                 var fields = model.ToFields(removeFields: new List<string>
                 {
                     "Id", "SchoolName", "SchoolNameEn","MajorName", "MajorNameEn", "TeacherName", "TeacherNameEn",
-                    "DivisionName", "DivisionNameEn", "IsRecommend"
+                    "DivisionName", "DivisionNameEn", "IsRecommend", "SchoolLogo", "Status", "CreateTime"
                 });
 
                 if (fields == null || fields.Count == 0) {
@@ -227,6 +228,23 @@ namespace Instart.Repository
                      left join [Division] as f on f.Id = t.DivisionId
                      where s.CourseId = {0} and t.Status=1
                      order by t.Id Desc;", courseId);
+                var list = conn.Query<Student>(sql, null);
+                return list != null ? list.ToList() : null;
+            }
+        }
+
+        public List<Student> GetListByTeacherAsync(int teacherId = -1)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = string.Format(@"select t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
+                     c.NameEn as TeacherNameEn, e.Name as SchoolName, e.NameEn as SchoolNameEn, e.Logo as SchoolLogo, f.Name as DivisionName, f.NameEn as DivisionNameEn from [STUDENT] t 
+                     left join [Major] as b on b.Id = t.MajorId 
+                     left join [Teacher] as c on c.Id = t.TeacherId 
+                     left join [School] as e on e.Id = t.SchoolId
+                     left join [Division] as f on f.Id = t.DivisionId
+                     where t.TeacherId = {0} and t.Status=1
+                     order by t.Id Desc;", teacherId);
                 var list = conn.Query<Student>(sql, null);
                 return list != null ? list.ToList() : null;
             }

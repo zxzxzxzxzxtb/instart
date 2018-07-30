@@ -52,6 +52,11 @@ namespace Instart.Models
         public string SchoolNameEn { get; set; }
 
         /// <summary>
+        /// 录取院校Logo
+        /// </summary>
+        public string SchoolLogo { get; set; }
+
+        /// <summary>
         /// 录取专业Id
         /// </summary>
         public int MajorId { get; set; }
