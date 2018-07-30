@@ -110,8 +110,8 @@ namespace Instart.Web2
                 ControllerName = this.ControllerName,
                 ActionParameters = this.ActionParameters,
                 CreateTime = DateTime.Now,
-                UserId = CookieData.CurrentUser.UserId,
-                UserName = CookieData.CurrentUser.UserName
+                UserId = CookieData.CurrentUser == null ? 0 : CookieData.CurrentUser.UserId,
+                UserName = CookieData.CurrentUser == null ? "" : CookieData.CurrentUser.UserName
             });
         }
     }
