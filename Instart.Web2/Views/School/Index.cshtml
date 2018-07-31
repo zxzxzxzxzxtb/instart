@@ -3,6 +3,15 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@section Head{
+    <style type="text/css">
+        .search-selected{
+            color:#0000ff !important;
+        }
+    </style>
+}
+
 <!--banner展示图-->
 <div class="banner">
     <ul class="lubo_box">
@@ -46,22 +55,29 @@
     <div class="conditie">
         <dl>
             <dt>国家：</dt>
-            <dd>
-                <a href="javascript:void(0)" onclick="searchCountry(-1)">全部</a><a href="javascript:void(0)" onclick="searchCountry(0)">英国</a><a href="javascript:void(0)" onclick="searchCountry(1)">美国</a>
-                <a href="javascript:void(0)" onclick="searchCountry(2)">欧洲</a><a href="javascript:void(0)" onclick="searchCountry(3)">亚洲</a><a href="javascript:void(0)" onclick="searchCountry(9)">其他</a>
+            <dd class="dd-country">
+                <a href="javascript:void(0)" class="search-selected" data-id="-1">全部</a>
+                @foreach (Instart.Common.EnumberEntity item in ViewBag.CountryList)
+                {
+                    <a href="javascript:void(0)" data-id="@item.EnumValue">@item.Description</a>
+                }
             </dd>
         </dl>
         <dl>
             <dt>学历：</dt>
-            <dd><a href="javascript:void(0)">全部</a><a href="javascript:void(0)">本科</a><a href="javascript:void(0)">硕士</a></dd>
+            <dd class="dd-level">
+                <a href="javascript:void(0)" class="search-selected" data-id="-1">全部</a>
+                <a href="javascript:void(0)" data-id="1">本科</a>
+                <a href="javascript:void(0)" data-id="2">硕士</a>
+            </dd>
         </dl>
         <dl>
             <dt>专业：</dt>
-            <dd>
-                <a href="javascript:void(0)" onclick="searchMajor(-1)">全部</a>
+            <dd class="dd-major">
+                <a href="javascript:void(0)" class="search-selected">全部</a>
                 @foreach (Major item in ViewBag.MajorList)
                 {
-                    <a href="javascript:void(0)" onclick="searchMajor(@item.Id)">@item.Name</a>
+                    <a href="javascript:void(0)" data-id="@item.Id">@item.Name</a>
                 }
             </dd>
         </dl>
@@ -96,36 +112,30 @@
 @section Bottom{
     <script type="text/javascript">
         $(function () {
-            getData(1);
+            search();
             $('.pagelist').on('click', 'li a', function () {
-                var rel = $(this).attr("rel");
-                if (rel) {
-                    getData(rel);
+                var page = $(this).attr("rel");
+                if (page) {
+                    search(page);
                 }
             });
-
-            //国家
-            var country = $("#country").val();
-            switch (country) {
-                case '0':
-                    $("#countrySpan").text("英国");
-                    break;
-                case '1':
-                    $("#countrySpan").text("美国");
-                    break;
-                case '2':
-                    $("#countrySpan").text("欧洲");
-                    break;
-                case '3':
-                    $("#countrySpan").text("亚洲");
-                    break;
-                case '9':
-                    $("#countrySpan").text("其他");
-                    break;
-            }
+                      
+            $(".dd-country > a,.dd-level > a,.dd-major > a").click(function () {
+                $(this).addClass("search-selected").siblings("a").removeClass("search-selected");
+                search();
+            });
         });
 
-        function getData(page, keyword, country, major) {
+        function search(page) {
+            page = page || 1;
+            var keyword = $("#keyword").val();
+            var country = $(".dd-country > a.search-selected").attr("data-id");
+            var major = $(".dd-major > a.search-selected").attr("data-id");
+            var level = $(".dd-level > a.search-selected").attr("data-id");
+            getData(page, keyword, country, major, level);
+        }
+
+        function getData(page, keyword, country, major, level) {
             $.ajax({
                 url: '/school/getschoollist',
                 type: 'POST',
@@ -195,20 +205,6 @@
                 }
             });
         }
-
-        function search() {
-            var keyword = $("#keyword").val();
-            getData(1, keyword);
-        }
-
-        function searchCountry(country) {
-            var keyword = $("#keyword").val();
-            getData(1, keyword, country);
-        }
-
-        function searchMajor(major) {
-            var keyword = $("#keyword").val();
-            getData(1, keyword, -1, major);
-        }
     </script>
 }
+
