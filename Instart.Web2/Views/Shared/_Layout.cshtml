@@ -27,14 +27,14 @@
         <!--网站导航-->
         <div class="meun">
             <div class="nav">
-                <ul>
+                <ul class="nav-menu">
                     <li><a href="/">首页</a></li>
-                    <li><a href="/student">成功学员</a></li>
-                    <li><a href="/teacher">艺术导师</a></li>
-                    <li><a href="/school">艺术院校</a></li>
-                    <li><a href="/major">艺术专业</a></li>
-                    <li><a href="/course">课程</a></li>
-                    <li><a href="/about">关于INSTART</a></li>
+                    <li data-flag="student"><a href="/student">成功学员</a></li>
+                    <li data-flag="teacher"><a href="/teacher">艺术导师</a></li>
+                    <li data-flag="school"><a href="/school">艺术院校</a></li>
+                    <li data-flag="major"><a href="/major">艺术专业</a></li>
+                    <li data-flag="course"><a href="/course">课程</a></li>
+                    <li data-flag="about"><a href="/about">关于INSTART</a></li>
                 </ul>
             </div>
             <p class="here"><a href="#"></a></p>
@@ -87,6 +87,31 @@
     <script src="/content/js/jquery.raty.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(".banner").lubo({});
+
+        (function () {
+            //当前页导航高亮显示
+            var isIndex = true;
+            var href = location.href.toLowerCase();
+            var $lis = $(".nav-menu").children("li");
+
+            console.log($lis.length);
+
+            $.each($lis, function () {
+                var nav = $(this).attr("data-flag");
+                href = href.toLocaleLowerCase().replace(/\?.+/, '');
+                var arr = href.split('/');
+                var len = arr.length;                
+                if ((len >= 1 && arr[len - 1] == nav) || (len >= 2 && arr[len - 2] == nav) || (len >= 3 && arr[len - 3] == nav)) {                   
+                    $(this).find("a").css("color", "#0000ff");
+                    isIndex = false;
+                    return false;
+                }
+            });
+
+            if (isIndex) {
+                $(".nav-menu li").eq(0).find("a").css("color", "#0000ff");
+            }
+        }());
     </script>
     @RenderSection("Bottom", required: false)
 </body>
