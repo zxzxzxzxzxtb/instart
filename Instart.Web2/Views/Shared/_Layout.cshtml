@@ -93,9 +93,7 @@
             var isIndex = true;
             var href = location.href.toLowerCase();
             var $lis = $(".nav-menu").children("li");
-
-            console.log($lis.length);
-
+            
             $.each($lis, function () {
                 var nav = $(this).attr("data-flag");
                 href = href.toLocaleLowerCase().replace(/\?.+/, '');

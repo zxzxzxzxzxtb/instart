@@ -1,4 +1,6 @@
-﻿using Instart.Models;
+﻿using Instart.Common;
+using Instart.Models;
+using Instart.Models.Enums;
 using Instart.Service;
 using Instart.Service.Base;
 using System;
@@ -43,6 +45,9 @@ namespace Instart.Web2.Controllers
             //专业列表
             IEnumerable<Major> majorList = ( _majorService.GetAllAsync()) ?? new List<Major>();
             ViewBag.MajorList = majorList;
+
+            ViewBag.CountryList = EnumberHelper.EnumToList<EnumCountry>();
+
             return View();
         }
 
