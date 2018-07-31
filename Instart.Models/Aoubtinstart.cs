@@ -37,9 +37,14 @@ namespace Instart.Models
         public string Develop { get; set; }
 
         /// <summary>
-        /// pre to pro
+        /// pre to pro图片
         /// </summary>
-        public string PreToPro { get; set; }
+        public string PreToProImg { get; set; }
+
+        /// <summary>
+        /// 学部制度图片
+        /// </summary>
+        public string DivisionImg { get; set; }
 
         /// <summary>
         /// 跨学科教学
@@ -47,24 +52,34 @@ namespace Instart.Models
         public string PassLearning { get; set; }
 
         /// <summary>
-        /// WorkShop
+        /// 跨学科教学图片
         /// </summary>
-        public string WorkShop { get; set; }
+        public string PassLearningImg { get; set; }
 
         /// <summary>
-        /// 24小时工作室
+        /// WorkShop图片
         /// </summary>
-        public string Studio { get; set; }
+        public string WorkShopImg { get; set; }
 
         /// <summary>
-        /// 实习推荐
+        /// 24小时工作室图片
         /// </summary>
-        public string Recommand { get; set; }
+        public string StudioImg { get; set; }
 
         /// <summary>
-        /// 驻地项目
+        /// 实习推荐图片
         /// </summary>
-        public string Programs { get; set; }
+        public string CompanyImg { get; set; }
+
+        /// <summary>
+        /// 艺术家孵化平台图片
+        /// </summary>
+        public string ActorImg { get; set; }
+
+        /// <summary>
+        /// 驻地项目图片
+        /// </summary>
+        public string ProgramsImg { get; set; }
 
         /// <summary>
         /// 创建时间

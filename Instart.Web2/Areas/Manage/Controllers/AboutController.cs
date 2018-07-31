@@ -60,6 +60,78 @@ namespace Instart.Web2.Areas.Manage.Controllers
                     model.VideoUrl = uploadResult;
                 }
             }
+            var filePreToPro = Request.Files["filePreToPro"];
+            if (filePreToPro != null)
+            {
+                string uploadResult = UploadHelper.Process(filePreToPro.FileName, filePreToPro.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
+                {
+                    model.PreToProImg = uploadResult;
+                }
+            }
+            var fileDivision = Request.Files["fileDivision"];
+            if (fileDivision != null)
+            {
+                string uploadResult = UploadHelper.Process(fileDivision.FileName, fileDivision.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
+                {
+                    model.DivisionImg = uploadResult;
+                }
+            }
+            var filePassLearning = Request.Files["filePassLearning"];
+            if (filePassLearning != null)
+            {
+                string uploadResult = UploadHelper.Process(filePassLearning.FileName, filePassLearning.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
+                {
+                    model.PassLearningImg = uploadResult;
+                }
+            }
+            var fileWorkShop = Request.Files["fileWorkShop"];
+            if (fileWorkShop != null)
+            {
+                string uploadResult = UploadHelper.Process(fileWorkShop.FileName, fileWorkShop.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
+                {
+                    model.WorkShopImg = uploadResult;
+                }
+            }
+            var fileStudio = Request.Files["fileStudio"];
+            if (fileVideo != null)
+            {
+                string uploadResult = UploadHelper.Process(fileStudio.FileName, fileStudio.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
+                {
+                    model.StudioImg = uploadResult;
+                }
+            }
+            var fileCompany = Request.Files["fileCompany"];
+            if (fileCompany != null)
+            {
+                string uploadResult = UploadHelper.Process(fileCompany.FileName, fileCompany.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
+                {
+                    model.CompanyImg = uploadResult;
+                }
+            }
+            var fileActor = Request.Files["fileActor"];
+            if (fileActor != null)
+            {
+                string uploadResult = UploadHelper.Process(fileActor.FileName, fileActor.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
+                {
+                    model.ActorImg = uploadResult;
+                }
+            }
+            var filePrograms = Request.Files["filePrograms"];
+            if (filePrograms != null)
+            {
+                string uploadResult = UploadHelper.Process(filePrograms.FileName, filePrograms.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
+                {
+                    model.ProgramsImg = uploadResult;
+                }
+            }
             var result = new ResultBase();
 
             int count = _aboutInstartService.GetCountAsync();

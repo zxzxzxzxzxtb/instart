@@ -48,7 +48,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StudioService.cs" />
+    <Compile Include="Interfaces\IStudioService.cs" />
+    <Compile Include="Interfaces\ICompanyService.cs" />
     <Compile Include="Interfaces\IProgramService.cs" />
+    <Compile Include="CompanyService.cs" />
     <Compile Include="ProgramService.cs" />
     <Compile Include="RecruitService.cs" />
     <Compile Include="Interfaces\IRecruitService.cs" />
