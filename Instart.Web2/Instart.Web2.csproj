@@ -826,6 +826,7 @@
     <Content Include="Areas\Manage\Views\Program\Edit.cshtml" />
     <Content Include="Areas\Manage\Views\Program\Index.cshtml" />
     <Content Include="Areas\Manage\Views\User\UpdatePwd.cshtml" />
+    <Content Include="Areas\Manage\Views\Shared\PartialFeature.cshtml" />
     <None Include="Properties\PublishProfiles\InstartWebConfig.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
