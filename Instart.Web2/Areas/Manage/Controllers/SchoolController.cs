@@ -1,5 +1,6 @@
 ﻿using Instart.Common;
 using Instart.Models;
+using Instart.Models.Enums;
 using Instart.Service;
 using Instart.Service.Base;
 using Instart.Web2.Attributes;
@@ -49,6 +50,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
             }
 
             ViewBag.Action = action;
+            ViewBag.CountryList = EnumberHelper.EnumToList<EnumCountry>();
             return View(model);
         }
 
