@@ -47,6 +47,8 @@ namespace Instart.Repository
             builder.RegisterType<LogRepository>().As<ILogRepository>().InstancePerLifetimeScope();
             builder.RegisterType<RecruitRepository>().As<IRecruitRepository>().InstancePerLifetimeScope();
             builder.RegisterType<ProgramRepository>().As<IProgramRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<CompanyRepository>().As<ICompanyRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<StudioRepository>().As<IStudioRepository>().InstancePerLifetimeScope();
             container = builder.Build();
         }
     }

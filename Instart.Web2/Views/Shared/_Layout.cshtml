@@ -1,15 +1,15 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>一沙国际创意教育</title>
     <meta http-equiv="keywords" content="一沙国际创意教育" />
     <meta http-equiv="description" content="一沙国际创意教育" />
     <link href="/content/css/common.css" type="text/css" rel="stylesheet" />
     <link href="/content/css/main.css" type="text/css" rel="stylesheet" />
 
-    @RenderSection("Head", required:false)
+    @RenderSection("Head", required: false)
 </head>
 
 <body>
@@ -93,13 +93,15 @@
             var isIndex = true;
             var href = location.href.toLowerCase();
             var $lis = $(".nav-menu").children("li");
-            
+
+            console.log($lis.length);
+
             $.each($lis, function () {
                 var nav = $(this).attr("data-flag");
                 href = href.toLocaleLowerCase().replace(/\?.+/, '');
                 var arr = href.split('/');
-                var len = arr.length;                
-                if ((len >= 1 && arr[len - 1] == nav) || (len >= 2 && arr[len - 2] == nav) || (len >= 3 && arr[len - 3] == nav)) {                   
+                var len = arr.length;
+                if ((len >= 1 && arr[len - 1] == nav) || (len >= 2 && arr[len - 2] == nav) || (len >= 3 && arr[len - 3] == nav)) {
                     $(this).find("a").css("color", "#0000ff");
                     isIndex = false;
                     return false;

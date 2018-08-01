@@ -1,0 +1,143 @@
+﻿@using Instart.Models
+@using Instart.Web2.Infrastructures
+@model Instart.Models.Company
+
+@{
+    ViewBag.Title = "单位设置";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    @Html.Partial("PartialFeature")
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-top:75px;">
+        <ol class="breadcrumb">
+            <li><a href="/manage/company">实习单位</a></li>
+            <li class="active">@ViewBag.Action</li>
+        </ol>
+
+        @using (Html.BeginForm("Set", "Company", new
+        {
+            area = "Manage"
+        }, FormMethod.Post, new
+        {
+            enctype = "multipart/form-data",
+            id = "mainForm",
+            @class = "form-horizontal edit-container-width"
+        }))
+        {
+            @Html.HiddenFor(m => m.Id)
+            <div class="form-group">
+                <label class="col-sm-2 control-label">单位名称：</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Name, new
+       {
+           @class = "form-control"
+       })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">英文名：</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.NameEn, new
+       {
+           @class = "form-control"
+       })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">单位图片：</label>
+                <div class="col-sm-10">
+                    <img src="@Model.ImgUrl" id="avatarPreview" style="width:200px;height:200px;border:1px solid #eee;" />
+                    <input type="hidden" name="ImgUrl" value="@Model.ImgUrl" />
+                    <a href="javascript:void(0)" onclick="$('#fileAvatar').click()" class="btn-link" style="position:relative;top:90px;">点击上传</a>
+                    <input type='file' id='fileAvatar' name='fileAvatar' style='display:none;'>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">单位简介：</label>
+                <div class="col-sm-10">
+                    <textarea name="Introduce" id="Introduce" rows="10" class="form-control">@Model.Introduce</textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">招聘职务：</label>
+                <div class="col-sm-10">
+                    <textarea name="Postions" id="Postions" rows="10" class="form-control">@Model.Postions</textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">单位详情：</label>
+                <div class="col-sm-10">
+                    <textarea name="Details" id="Details" rows="10">@Model.Details</textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">工作环境：</label>
+                <div class="col-sm-10">
+                    <img src="@Model.Environment" id="environmentPreview" style="width:200px;height:200px;border:1px solid #eee;" />
+                    <input type="hidden" name="Environment" value="@Model.Environment" />
+                    <a href="javascript:void(0)" onclick="$('#fileEnvironment').click()" class="btn-link" style="position:relative;top:90px;">点击上传</a>
+                    <input type='file' id='fileEnvironment' name='fileEnvironment' style='display:none;'>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">作品：</label>
+                <div class="col-sm-10">
+                    <img src="@Model.Works" id="worksPreview" style="width:200px;height:200px;border:1px solid #eee;" />
+                    <input type="hidden" name="Works" value="@Model.Works" />
+                    <a href="javascript:void(0)" onclick="$('#fileWorks').click()" class="btn-link" style="position:relative;top:90px;">点击上传</a>
+                    <input type='file' id='fileWorks' name='fileWorks' style='display:none;'>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="button" class="btn btn-primary" value="提交" onclick="save()" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Bottom{
+    <script>
+        UE.getEditor('Details');
+
+        function save() {
+            var name = $("input[name='Name']").val();
+            if (name == '') {
+                layer.msg('单位名称不能为空。');
+                return;
+            }
+            $("#mainForm").ajaxSubmit({
+                success: function (slt) {
+                    if (slt && slt.success) {
+                        location.href = '@Url.Action("index", "company", new { area="manage"})';
+                    }
+                    else {
+                        layer.msg(slt.message || '操作失败，请重试。');
+                    }
+                }
+            });
+        }
+
+        $('#fileAvatar').change(function () {
+            imagePreview(this.files[0], $("#avatarPreview"));
+        });
+
+        $('#fileEnvironment').change(function () {
+            imagePreview(this.files[0], $("#environmentPreview"));
+        });
+
+        $('#fileWorks').change(function () {
+            imagePreview(this.files[0], $("#worksPreview"));
+        });
+    </script>
+}
+

@@ -131,6 +131,7 @@
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Manage\Controllers\StudioController.cs" />
     <Compile Include="Areas\Manage\Controllers\AboutController.cs" />
     <Compile Include="Areas\Manage\Controllers\AccountController.cs" />
     <Compile Include="Areas\Manage\Controllers\BannerController.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Areas\Manage\Controllers\DivisionController.cs" />
     <Compile Include="Areas\Manage\Controllers\HomeController.cs" />
     <Compile Include="Areas\Manage\Controllers\LogController.cs" />
+    <Compile Include="Areas\Manage\Controllers\CompanyController.cs" />
     <Compile Include="Areas\Manage\Controllers\MajorController.cs" />
     <Compile Include="Areas\Manage\Controllers\PartnerController.cs" />
     <Compile Include="Areas\Manage\Controllers\ProgramController.cs" />
@@ -826,6 +828,11 @@
     <Content Include="Areas\Manage\Views\Program\Edit.cshtml" />
     <Content Include="Areas\Manage\Views\Program\Index.cshtml" />
     <Content Include="Areas\Manage\Views\User\UpdatePwd.cshtml" />
+    <Content Include="Areas\Manage\Views\Company\Edit.cshtml" />
+    <Content Include="Areas\Manage\Views\Company\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\Shared\PartialFeature.cshtml" />
+    <Content Include="Areas\Manage\Views\Studio\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\Studio\ImgIndex.cshtml" />
     <Content Include="Areas\Manage\Views\Shared\PartialFeature.cshtml" />
     <None Include="Properties\PublishProfiles\InstartWebConfig.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />

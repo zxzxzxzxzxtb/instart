@@ -1,4 +1,4 @@
-﻿using Instart.Common;
+using Instart.Common;
 using Instart.Models;
 using Instart.Models.Enums;
 using Instart.Service;
@@ -32,18 +32,18 @@ namespace Instart.Web2.Controllers
             this.AddDisposableObject(_majorService);
         }
 
-        public  ActionResult Index()
+        public ActionResult Index()
         {
 
             //热门搜索
-            IEnumerable<School> hotList = ( _schoolService.GetHotListAsync(4)) ?? new List<School>();
+            IEnumerable<School> hotList = (_schoolService.GetHotListAsync(4)) ?? new List<School>();
             ViewBag.HotList = hotList;
 
-            ViewBag.BannerList = ( _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.School)) ?? new List<Instart.Models.Banner>();//banner
-            ViewBag.CourseList = ( _courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();//推荐课程
+            ViewBag.BannerList = (_bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.School)) ?? new List<Instart.Models.Banner>();//banner
+            ViewBag.CourseList = (_courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();//推荐课程
 
             //专业列表
-            IEnumerable<Major> majorList = ( _majorService.GetAllAsync()) ?? new List<Major>();
+            IEnumerable<Major> majorList = (_majorService.GetAllAsync()) ?? new List<Major>();
             ViewBag.MajorList = majorList;
 
             ViewBag.CountryList = EnumberHelper.EnumToList<EnumCountry>();
@@ -52,10 +52,10 @@ namespace Instart.Web2.Controllers
         }
 
         [HttpPost]
-        public  JsonResult GetSchoolList(int pageIndex, int pageSize = 6, string keyword = null, int country = -1, int major = -1)
+        public JsonResult GetSchoolList(int pageIndex, int pageSize = 6, string keyword = null, int country = -1, int major = -1)
         {
-            PageModel<School> schoolList =  _schoolService.GetListAsync(pageIndex, pageSize, keyword, country, major);
-            IEnumerable<Student> studentList = ( _studentService.GetAllAsync()) ?? new List<Student>();
+            PageModel<School> schoolList = _schoolService.GetListAsync(pageIndex, pageSize, keyword, country, major);
+            IEnumerable<Student> studentList = (_studentService.GetAllAsync()) ?? new List<Student>();
 
             //计算录取比例
             foreach (School school in schoolList.Data)
@@ -75,7 +75,7 @@ namespace Instart.Web2.Controllers
                     school.AcceptRate = (rate * 100).ToString("f2");
                 }
             }
-            
+
             return Success(data: new
             {
                 total = schoolList.Total,
@@ -85,14 +85,14 @@ namespace Instart.Web2.Controllers
             });
         }
 
-        public  ActionResult Details(int id)
+        public ActionResult Details(int id)
         {
             if (id == 0)
             {
                 throw new Exception("艺术院校不存在。");
             }
 
-            var school =  _schoolService.GetByIdAsync(id);
+            var school = _schoolService.GetByIdAsync(id);
 
             if (school == null)
             {
@@ -100,8 +100,8 @@ namespace Instart.Web2.Controllers
             }
 
             //计算录取比例
-            IEnumerable<School> schoolList = ( _schoolService.GetAllAsync()) ?? new List<School>();
-            IEnumerable<Student> studentList = ( _studentService.GetAllAsync()) ?? new List<Student>();
+            IEnumerable<School> schoolList = (_schoolService.GetAllAsync()) ?? new List<School>();
+            IEnumerable<Student> studentList = (_studentService.GetAllAsync()) ?? new List<Student>();
             List<Student> schoolStudents = new List<Student>();
             int count = 0;
             foreach (Student student in studentList)
@@ -120,7 +120,7 @@ namespace Instart.Web2.Controllers
             }
             ViewBag.SchoolStudents = schoolStudents;
             //院校专业
-            IEnumerable<SchoolMajor> schoolMajorList = ( _schoolService.GetMajorsByIdAsync(id)) ?? new List<SchoolMajor>();
+            IEnumerable<SchoolMajor> schoolMajorList = (_schoolService.GetMajorsByIdAsync(id)) ?? new List<SchoolMajor>();
             List<SchoolMajor> majorBkList = new List<SchoolMajor>(); //本科专业
             List<SchoolMajor> majorYjsList = new List<SchoolMajor>(); //研究生专业
             foreach (var item in schoolMajorList)
@@ -137,7 +137,7 @@ namespace Instart.Web2.Controllers
             ViewBag.MajorBkList = majorBkList;
             ViewBag.MajorYjsList = majorYjsList;
             //推荐课程
-            ViewBag.CourseList = ( _courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();
+            ViewBag.CourseList = (_courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();
             return View(school);
         }
     }

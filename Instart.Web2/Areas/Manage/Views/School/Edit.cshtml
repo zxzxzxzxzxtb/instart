@@ -1,4 +1,4 @@
-﻿@using Instart.Models
+@using Instart.Models
 @model Instart.Models.School
 
 @{
@@ -184,57 +184,57 @@
 </div>
 
 @section Bottom{
-<script>
-    $(function () {
-        var applyCondition = UE.getEditor('ApplyCondition', {
-            autoHeight: false
-        });
+    <script>
+        $(function () {
+            var applyCondition = UE.getEditor('ApplyCondition', {
+                autoHeight: false
+            });
 
-        var moneys = UE.getEditor('Moneys', {
-            autoHeight: false
-        });
+            var moneys = UE.getEditor('Moneys', {
+                autoHeight: false
+            });
 
-        $("#btnSubmit").click(function () {
-            var name = $("input[name='Name']").val();
-            if (name == '') {
-                layer.msg('院校名称不能为空');
-                return;
-            }
-
-            $("#mainForm").ajaxSubmit({
-                success: function (slt) {
-                    if (slt && slt.success) {
-                        var msg = "@Model.Id" > 0 ? "修改成功" : "添加成功";
-                        layer.alert(msg, function (index) {
-                            layer.close(index);
-                            location.href = '/manage/school';
-                        });
-
-                    }
-                    else {
-                        layer.msg(slt.message || '操作失败，请重试。');
-                    }
+            $("#btnSubmit").click(function () {
+                var name = $("input[name='Name']").val();
+                if (name == '') {
+                    layer.msg('院校名称不能为空');
+                    return;
                 }
+
+                $("#mainForm").ajaxSubmit({
+                    success: function (slt) {
+                        if (slt && slt.success) {
+                            var msg = "@Model.Id" > 0 ? "修改成功" : "添加成功";
+                            layer.alert(msg, function (index) {
+                                layer.close(index);
+                                location.href = '/manage/school';
+                            });
+
+                        }
+                        else {
+                            layer.msg(slt.message || '操作失败，请重试。');
+                        }
+                    }
+                });
+            });
+
+            $("#selType").val("@((int)Model.Type)");
+
+            $("#selCountry").val("@((int)Model.Country)");
+
+            $('#fileAvatar').change(function () {
+                imagePreview(this.files[0], $("#avatarPreview"));
+            });
+
+            $('#fileLogo').change(function () {
+                imagePreview(this.files[0], $("#logoPreview"));
+            });
+
+            $('#fileBanner').change(function () {
+                imagePreview(this.files[0], $("#bannerPreview"));
             });
         });
-
-        $("#selType").val("@((int)Model.Type)");
-
-        $("#selCountry").val("@((int)Model.Country)");
-
-        $('#fileAvatar').change(function () {
-            imagePreview(this.files[0], $("#avatarPreview"));
-        });
-
-        $('#fileLogo').change(function () {
-            imagePreview(this.files[0], $("#logoPreview"));
-        });
-
-        $('#fileBanner').change(function () {
-            imagePreview(this.files[0], $("#bannerPreview"));
-        });
-    });
-</script>
+    </script>
 }
 
 
