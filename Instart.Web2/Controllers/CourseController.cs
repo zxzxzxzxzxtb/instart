@@ -28,22 +28,19 @@ namespace Instart.Web2.Controllers
             this.AddDisposableObject(_worksService);
         }
 
-        public ActionResult Index(int id = 0)
+        public ActionResult Index(int studentId = -1)
         {
-            var courseList = _courseService.GetAllAsync();
-
-            if (courseList == null || courseList.Count() == 0)
+            IEnumerable<Course> courseList;
+            if (studentId == -1)
             {
-                throw new Exception("请先创建课程");
+                courseList = _courseService.GetAllAsync() ?? new List<Course>();
             }
-
-            if (id == 0)
+            else 
             {
-                id = courseList.First().Id;
+                courseList = _courseService.GetAllByStudentAsync(studentId) ?? new List<Course>();
             }
 
             ViewBag.CourseList = courseList;
-            ViewBag.CourseId = id;
             ViewBag.BannerList = _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Course) ?? new List<Instart.Models.Banner>();
             ViewBag.StudentList = _studentService.GetAllAsync() ?? new List<Instart.Models.Student>();
             return View();

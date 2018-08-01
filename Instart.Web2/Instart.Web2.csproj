@@ -871,10 +871,10 @@
     <Content Include="Views\School\Details.cshtml" />
     <Content Include="Views\School\Index.cshtml" />
     <Content Include="Views\Student\Details.cshtml" />
-    <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Teacher\Details.cshtml" />
     <Content Include="Views\Teacher\Index.cshtml" />
     <Content Include="Views\Course\Details.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Manage\Models\" />
