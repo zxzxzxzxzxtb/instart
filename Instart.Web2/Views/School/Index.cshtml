@@ -1,17 +1,15 @@
-@using Instart.Models
+﻿@using Instart.Models
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @section Head{
     <style type="text/css">
-        .search-selected{
-            color:#0000ff !important;
+        .search-selected {
+            color: #0000ff !important;
         }
     </style>
 }
-
 <!--banner展示图-->
 <div class="banner">
     <ul class="lubo_box">
@@ -34,7 +32,6 @@
         }
     </ul>
 </div>
-
 <!--院校搜索-->
 <div class="maincont" id="maincont">
     <div class="coll-search">
@@ -119,7 +116,7 @@
                     search(page);
                 }
             });
-                      
+
             $(".dd-country > a,.dd-level > a,.dd-major > a").click(function () {
                 $(this).addClass("search-selected").siblings("a").removeClass("search-selected");
                 search();
@@ -139,7 +136,7 @@
             $.ajax({
                 url: '/school/getschoollist',
                 type: 'POST',
-                data: { pageIndex: page, keyword: keyword, country: country, major: major },
+                data: { pageIndex: page, keyword: keyword, country: country, major: major, level: level },
                 success: function (slt) {
                     var html = '<ul>';
                     if (slt.data.list != null) {
@@ -201,10 +198,9 @@
                     });
                 },
                 error: function () {
-                    
+
                 }
             });
         }
     </script>
 }
-

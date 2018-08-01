@@ -52,9 +52,9 @@ namespace Instart.Web2.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetSchoolList(int pageIndex, int pageSize = 6, string keyword = null, int country = -1, int major = -1)
+        public JsonResult GetSchoolList(int pageIndex, int pageSize = 6, string keyword = null, int country = -1, int major = -1, int level = -1)
         {
-            PageModel<School> schoolList = _schoolService.GetListAsync(pageIndex, pageSize, keyword, country, major);
+            PageModel<School> schoolList = _schoolService.GetListAsync(pageIndex, pageSize, keyword, country, major, level);
             IEnumerable<Student> studentList = (_studentService.GetAllAsync()) ?? new List<Student>();
 
             //计算录取比例

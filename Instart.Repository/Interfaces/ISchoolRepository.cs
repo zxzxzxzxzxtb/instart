@@ -29,7 +29,7 @@ namespace Instart.Repository
 
         bool SetHotAsync(int id, bool isHot);
 
-        PageModel<School> GetListAsync(int pageIndex, int pageSize, string name = null, int country = -1, int major = -1);
+        PageModel<School> GetListAsync(int pageIndex, int pageSize, string name = null, int country = -1, int major = -1, int level = -1);
 
         IEnumerable<SchoolMajor> GetMajorsByIdAsync(int id);
 

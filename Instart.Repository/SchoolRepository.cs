@@ -146,7 +146,7 @@ namespace Instart.Repository
             }
         }
 
-        public PageModel<School> GetListAsync(int pageIndex, int pageSize, string name = null, int country = -1, int major = -1)
+        public PageModel<School> GetListAsync(int pageIndex, int pageSize, string name = null, int country = -1, int major = -1, int level = -1)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -163,6 +163,10 @@ namespace Instart.Repository
                 if (major != -1)
                 {
                     where += string.Format(" and exists (select * from [SchoolMajor] as a where a.SchoolId = k.Id and a.MajorId = {0})", major);
+                }
+                if (level != -1)
+                {
+                    where += string.Format(" and CHARINDEX('{0}', k.Education) > 0", level);
                 }
                 #endregion
 
