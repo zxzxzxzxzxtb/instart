@@ -37,6 +37,11 @@ namespace Instart.Service
             return _courseRepository.GetAllAsync();
         }
 
+        public IEnumerable<Course> GetAllByStudentAsync(int studentId) 
+        {
+            return _courseRepository.GetAllByStudentAsync(studentId);
+        }
+
         public bool InsertAsync(Course model)
         {
             if (model == null)

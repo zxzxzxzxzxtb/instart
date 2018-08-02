@@ -70,6 +70,15 @@ namespace Instart.Repository
             }
         }
 
+        public IEnumerable<Course> GetAllByStudentAsync(int studentId)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = string.Format(@"select c.* from [StudentCourse] as s left join [Course] as c on s.CourseId = c.Id where c.Status=1 and s.StudentId = {0};", studentId);
+                return conn.Query<Course>(sql);
+            }
+        }
+
         public bool InsertAsync(Course model)
         {
             using (var conn = DapperFactory.GetConnection())

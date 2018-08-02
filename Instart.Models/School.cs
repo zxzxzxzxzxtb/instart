@@ -191,5 +191,10 @@ namespace Instart.Models
         /// Banner图片
         /// </summary>
         public string BannerImg { get; set; }
+
+        /// <summary>
+        /// 学历，逗号拼接
+        /// </summary>
+        public string Education { get; set; }
     }
 }

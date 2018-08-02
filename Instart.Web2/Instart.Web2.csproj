@@ -754,7 +754,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Areas\Manage\Views\Web.config" />
-    <Content Include="Areas\Manage\Views\About\Index.cshtml" />
     <Content Include="Areas\Manage\Views\Account\Login.cshtml" />
     <Content Include="Areas\Manage\Views\Banner\Edit.cshtml" />
     <Content Include="Areas\Manage\Views\Banner\Index.cshtml" />
@@ -777,7 +776,6 @@
     <Content Include="Areas\Manage\Views\Partner\Edit.cshtml" />
     <Content Include="Areas\Manage\Views\Partner\Index.cshtml" />
     <Content Include="Areas\Manage\Views\Recruit\Index.cshtml" />
-    <Content Include="Areas\Manage\Views\School\Edit.cshtml" />
     <Content Include="Areas\Manage\Views\School\Index.cshtml" />
     <Content Include="Areas\Manage\Views\School\MajorSelect.cshtml" />
     <Content Include="Areas\Manage\Views\SchoolApply\Index.cshtml" />
@@ -830,10 +828,11 @@
     <Content Include="Areas\Manage\Views\User\UpdatePwd.cshtml" />
     <Content Include="Areas\Manage\Views\Company\Edit.cshtml" />
     <Content Include="Areas\Manage\Views\Company\Index.cshtml" />
-    <Content Include="Areas\Manage\Views\Shared\PartialFeature.cshtml" />
     <Content Include="Areas\Manage\Views\Studio\Index.cshtml" />
     <Content Include="Areas\Manage\Views\Studio\ImgIndex.cshtml" />
+    <Content Include="Areas\Manage\Views\About\Index.cshtml" />
     <Content Include="Areas\Manage\Views\Shared\PartialFeature.cshtml" />
+    <Content Include="Areas\Manage\Views\School\Edit.cshtml" />
     <None Include="Properties\PublishProfiles\InstartWebConfig.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -872,10 +871,10 @@
     <Content Include="Views\School\Details.cshtml" />
     <Content Include="Views\School\Index.cshtml" />
     <Content Include="Views\Student\Details.cshtml" />
-    <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Teacher\Details.cshtml" />
     <Content Include="Views\Teacher\Index.cshtml" />
     <Content Include="Views\Course\Details.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Manage\Models\" />

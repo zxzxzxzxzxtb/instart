@@ -121,9 +121,9 @@ namespace Instart.Service
             return _schoolRepository.SetHotAsync(id, isHot);
         }
 
-        public PageModel<School> GetListAsync(int pageIndex, int pageSize, string name = null, int country = -1, int major = -1)
+        public PageModel<School> GetListAsync(int pageIndex, int pageSize, string name = null, int country = -1, int major = -1, int level = -1)
         {
-            return _schoolRepository.GetListAsync(pageIndex, pageSize, name, country, major);
+            return _schoolRepository.GetListAsync(pageIndex, pageSize, name, country, major, level);
         }
 
         public IEnumerable<SchoolMajor> GetMajorsByIdAsync(int id)

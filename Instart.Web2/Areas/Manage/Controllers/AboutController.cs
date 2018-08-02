@@ -97,7 +97,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
                 }
             }
             var fileStudio = Request.Files["fileStudio"];
-            if (fileVideo != null)
+            if (fileStudio != null)
             {
                 string uploadResult = UploadHelper.Process(fileStudio.FileName, fileStudio.InputStream);
                 if (!string.IsNullOrEmpty(uploadResult))
