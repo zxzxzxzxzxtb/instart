@@ -87,6 +87,21 @@ namespace Instart.Models
         public string TeacherNameEn { get; set; }
 
         /// <summary>
+        /// 校区Id
+        /// </summary>
+        public int CampusId { get; set; }
+
+        /// <summary>
+        /// 校区名称
+        /// </summary>
+        public string CampusName { get; set; }
+
+        /// <summary>
+        /// 校区英文名称
+        /// </summary>
+        public string CampusNameEn { get; set; }
+
+        /// <summary>
         /// 学员介绍
         /// </summary>
         public string Introduce { get; set; }

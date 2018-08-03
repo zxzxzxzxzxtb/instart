@@ -52,5 +52,10 @@ namespace Instart.Models.Enums
         /// </summary>
         [Description("招贤纳士")]
         Recruit = 7,
+        /// <summary>
+        /// 校区
+        /// </summary>
+        [Description("校区")]
+        Campus = 8
     }
 }

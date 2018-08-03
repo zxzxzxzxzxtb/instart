@@ -15,6 +15,10 @@ button,select{ cursor: pointer;}
 i,em{ font-style: normal;}
 table{ width: 100%; border-collapse:separate;border-spacing:0;clear:both}
 .glaxfont{ color:#808080}
+.blue{ color:#0000ff;}
+.bluebox{ background:#0000ff; color:#fff}
+.glaxbox{ background:#ebebeb; color:#000;}
 .overflow{ overflow:hidden;}
 .padding30{ padding-bottom:30px;}
 .relative{ position:relative}
+.textcenter{ text-align:center!important;}

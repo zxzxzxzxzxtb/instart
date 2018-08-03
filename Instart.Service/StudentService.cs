@@ -108,5 +108,10 @@ namespace Instart.Service
         {
             return _studentRepository.GetListByTeacherAsync(teacherId);
         }
+
+        public List<Student> GetListByCampusAsync(int campusId = -1, int topCount = 4) 
+        {
+            return _studentRepository.GetListByCampusAsync(campusId, topCount);
+        }
     }
 }

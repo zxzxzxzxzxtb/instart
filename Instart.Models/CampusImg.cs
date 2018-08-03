@@ -25,20 +25,5 @@ namespace Instart.Models
         /// 图片路径
         /// </summary>
         public string ImgUrl { get; set; }
-
-        /// <summary>
-        /// 状态，1：正常，0：删除
-        /// </summary>
-        public int Status { get; set; }
-
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        public DateTime CreateTime { get; set; }
-
-        /// <summary>
-        /// 修改时间
-        /// </summary>
-        public DateTime ModifyTime { get; set; }
     }
 }

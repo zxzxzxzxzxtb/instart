@@ -129,7 +129,7 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection())
             {
                 #region generate condition
-                string where = string.Format("where Status=1 and CampusId = {0}",campusId);
+                string where = string.Format("where CampusId = {0}",campusId);
                 #endregion
 
                 string sql = string.Format(@"select * from [CampusImg] {0};", where);
@@ -147,11 +147,7 @@ namespace Instart.Repository
                     return false;
                 }
 
-                model.CreateTime = DateTime.Now;
-                model.ModifyTime = DateTime.Now;
-                model.Status = 1;
-
-                string sql = string.Format("insert into [CampusImg] ({0}) values ({1});",string.Join(",", fields,string.Join(",", fields.Select(n => "@" + n))));
+                string sql = string.Format("insert into [CampusImg] ({0}) values ({1});",string.Join(",", fields),string.Join(",", fields.Select(n => "@" + n)));
                 return conn.Execute(sql, model) > 0;
             }
         }
@@ -160,7 +156,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = "update [CampusImg] set Status=0,ModifyTime=GETDATE() where Id=@Id;";
+                string sql = "delete from [CampusImg] where Id=@Id;";
                 return conn.Execute(sql, new { Id = id }) > 0;
             }
         }

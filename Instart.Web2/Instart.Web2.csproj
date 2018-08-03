@@ -238,6 +238,34 @@
     <Content Include="Content\js\pubu.js" />
     <Content Include="Content\js\rem.js" />
     <Content Include="Content\js\remH.js" />
+    <Content Include="Content\layer\css\layer.css" />
+    <Content Include="Content\layer\layer.js" />
+    <Content Include="Content\layer\layui.all.js" />
+    <Content Include="Content\layer\layui.css" />
+    <Content Include="Content\layer\layui.js" />
+    <Content Include="Content\layer\lay\modules\carousel.js" />
+    <Content Include="Content\layer\lay\modules\code.js" />
+    <Content Include="Content\layer\lay\modules\element.js" />
+    <Content Include="Content\layer\lay\modules\flow.js" />
+    <Content Include="Content\layer\lay\modules\form.js" />
+    <Content Include="Content\layer\lay\modules\jquery.js" />
+    <Content Include="Content\layer\lay\modules\laydate.js" />
+    <Content Include="Content\layer\lay\modules\layedit.js" />
+    <Content Include="Content\layer\lay\modules\layer.js" />
+    <Content Include="Content\layer\lay\modules\laypage.js" />
+    <Content Include="Content\layer\lay\modules\laytpl.js" />
+    <Content Include="Content\layer\lay\modules\mobile.js" />
+    <Content Include="Content\layer\lay\modules\table.js" />
+    <Content Include="Content\layer\lay\modules\tree.js" />
+    <Content Include="Content\layer\lay\modules\upload.js" />
+    <Content Include="Content\layer\lay\modules\util.js" />
+    <Content Include="Content\layer\mobile\layer.js" />
+    <Content Include="Content\layer\mobile\need\layer.css" />
+    <Content Include="Content\layer\skin\default\icon-ext.png" />
+    <Content Include="Content\layer\skin\default\icon.png" />
+    <Content Include="Content\layer\skin\default\loading-0.gif" />
+    <Content Include="Content\layer\skin\default\loading-1.gif" />
+    <Content Include="Content\layer\skin\default\loading-2.gif" />
     <Content Include="Content\layui\css\layui.css" />
     <Content Include="Content\layui\css\layui.mobile.css" />
     <Content Include="Content\layui\css\modules\code.css" />
@@ -875,6 +903,8 @@
     <Content Include="Views\Teacher\Index.cshtml" />
     <Content Include="Views\Course\Details.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Home\Campus.cshtml" />
+    <Content Include="Views\Home\HereAndMore.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Manage\Models\" />

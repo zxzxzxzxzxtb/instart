@@ -52,6 +52,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
 
         [HttpPost]
         [Operation("设置学区")]
+        [ValidateInput(false)]
         public JsonResult Set(Campus model, List<HttpPostedFileBase> imgs)
         {
             if (model == null)
@@ -65,6 +66,17 @@ namespace Instart.Web2.Areas.Manage.Controllers
             }
 
             model.Name = model.Name.Trim();
+
+            var avatarFile = Request.Files["fileAvatar"];
+
+            if (avatarFile != null)
+            {
+                string uploadResult = UploadHelper.Process(avatarFile.FileName, avatarFile.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
+                {
+                    model.Avatar = uploadResult;
+                }
+            }
             var result = new ResultBase();
 
             if (model.Id > 0)
