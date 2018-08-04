@@ -20,6 +20,7 @@ namespace Instart.Web2.Controllers
         ICourseService _courseService = AutofacService.Resolve<ICourseService>();
         IBannerService _bannerService = AutofacService.Resolve<IBannerService>();
         IRecruitService _recruitService = AutofacService.Resolve<IRecruitService>();
+        ICampusService _campusService = AutofacService.Resolve<ICampusService>();
 
         public HomeController() {
             this.AddDisposableObject(_partnerService);
@@ -29,6 +30,7 @@ namespace Instart.Web2.Controllers
             this.AddDisposableObject(_courseService);
             this.AddDisposableObject(_bannerService);
             this.AddDisposableObject(_recruitService);
+            this.AddDisposableObject(_campusService);
         }
 
         public  ActionResult Index() {
@@ -76,6 +78,35 @@ namespace Instart.Web2.Controllers
                 ViewBag.BannerUrl = bannerList[0].ImageUrl;
             }
             return View(model);
+        }
+
+        /// <summary>
+        /// 校区
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Campus(int id = 0)
+        {
+            Campus model = _campusService.GetByIdAsync(id);
+            if (model == null)
+            {
+                throw new Exception("校区不存在");
+            }
+            ViewBag.Imgs = _campusService.GetImgsByCampusIdAsync(id) ?? new List<CampusImg>();
+            ViewBag.Student = _studentService.GetListByCampusAsync(id, 4);
+
+            List<Banner> bannerList = _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Campus);
+            ViewBag.BannerUrl = "";
+            if (bannerList != null && bannerList.Count() > 0)
+            {
+                ViewBag.BannerUrl = bannerList[0].ImageUrl;
+            }
+            
+            return View(model);
+        }
+
+        public ActionResult HereAndMore() 
+        {
+            return View();
         }
     }
 }

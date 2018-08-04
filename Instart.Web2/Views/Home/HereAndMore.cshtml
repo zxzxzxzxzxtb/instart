@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "here&more";
+    Layout = null;
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>here&more</title>
+    <link href="/content/css/common.css" type="text/css" rel="stylesheet" />
+    <link href="/content/css/main.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="model">
+        <div class="modelcont">
+            <div class="model-left fl">
+                <div class="graphic">
+                    <p>申请材料｜英国：作品集、1-2本sketch book、雅思成绩、两封推荐信、study plan、简历、成绩单、毕业证/在读证明、存款证明。 硕士不需要简历和study plan，但需要personal statement以及research proposal。</p>
+                    <p><img src="../yishaimg/lingshi/16.jpg" alt="" /></p>
+                </div>
+            </div>
+            <div class="model-right fr">
+                <div class="model-form">
+                    <ul>
+                        <li>
+                            <div>计划去的国家：</div>
+                            <div class="select">
+                                <input type="hidden" class="datacont" name="" />
+                                <span>选择国家</span>
+                                <p>
+                                    <a title="" href="#" rel="0">选择国家</a>
+                                    <a title="" href="#" rel="1">美国</a>
+                                    <a title="" href="#" rel="2">澳大利亚</a>
+                                    <a title="" href="#" rel="3">加拿大</a>
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div>计划学的专业：</div>
+                            <div class="select">
+                                <input type="hidden" class="datacont" name="" />
+                                <span>选择专业</span>
+                                <p>
+                                    <a title="" href="#" rel="0">选择专业</a>
+                                    <a title="" href="#" rel="1">环境科学</a>
+                                    <a title="" href="#" rel="2">计算机</a>
+                                    <a title="" href="#" rel="3">商务英语</a>
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div>上传作品集（可选）：</div>
+                            <div class="flles"><a href="#" class="blue">点击上传</a><input class="flietext" type="file" multiple="multiple" /></div>
+                            <div class="flltext"></div>
+                        </li>
+                        <li>
+                            <div>姓名：</div>
+                            <div class="cin">
+                                <input type="text" placeholder="请输入您的姓名" style="width:215px" />
+                            </div>
+                        </li>
+                        <li>
+                            <div>手机号：</div>
+                            <div class="cin">
+                                <input type="text" placeholder="请输入您的手机号" style="width:200px" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="modelbutton">
+            <a href="javascript:;" class="bluebox">提  交</a><a href="javascript:;" class="glaxbox" onclick="calcen()">取  消</a>
+        </div>
+    </div>
+
+    @section Bottom
+{
+        <script type="text/javascript">
+            //显示隐藏计划
+            $(".select").on("click", "span", function () {
+                $(this).parent().find("p").slideDown(100)
+            })
+            $(".select").on("mouseleave", function () {
+                $(this).find("p").slideUp(100)
+            })
+            //获取选择的值
+            $(".select").on("click", "p a", function (e) {
+                var text = $(this).text();     //选择的文字
+                var input = $(this).parents(".select").find(".datacont");    //获取收藏数据的input
+                var rel = $(this).attr("rel");   //选择的rel
+                $(this).parent().slideUp(100);
+                $(this).parents(".select").find("span").text(text);
+                input.val(rel);
+            })
+            //关闭弹出窗
+            function calcen() {
+                parent.$(".layui-layer-shade,.layui-layer-shade").remove();
+            }
+            //作品集
+            $(".flietext").change(function () {
+                var file = $(this).prop('files');
+                var len = file.length;
+                var html = "";
+                for (var i = 0; i < len; i++) {
+                    html += '<span>' + file[i].name + '</span>'
+                }
+                $(".flltext").html(html)
+            })
+        </script>
+    }
+</body>
+</html>

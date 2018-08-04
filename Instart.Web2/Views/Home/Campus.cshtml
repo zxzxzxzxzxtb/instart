@@ -1,0 +1,115 @@
+﻿@using Instart.Models
+@model Instart.Models.Campus
+@{
+    ViewBag.Title = "Campus";
+}
+
+<!--banner展示图-->
+<div class="banner">
+    <ul class="lubo_box">
+        <li style="opacity: 1;filter:alpha(opacity=100);"><a style="background:url(@ViewBag.BannerUrl) center top no-repeat"></a></li>
+    </ul>
+</div>
+<div class="maincont">
+    <!--校区风采-->
+    <div class="title">
+        <h2>校区风采</h2>
+    </div>
+    <div class="consequent">
+        <div class="quent-img bd">
+            <ul>
+                @foreach (CampusImg item in ViewBag.Imgs)
+                {
+                    <li><a href="javascript:void(0)"><img src="@item.ImgUrl" /></a></li>
+                }
+            </ul>
+        </div>
+        <div class="hd">
+            <a class="prev"></a>
+            <ul></ul>
+            <a class="next"></a>
+        </div>
+    </div>
+    <!--Instart 杭州-->
+    <div class="title topborder">
+        <h2>@Model.Name</h2>
+    </div>
+    <div class="padding30 overflow">
+        <div class="xue-left fl">
+            <div class="course-item">
+                <a href="javascript:void(0)" class="cimg"><img src="@Model.Avatar" alt="" /></a>
+                <div class="c-infos">@Html.Raw(Model.Introduce)</div>
+            </div>
+        </div>
+        <div class="tese-right fr">
+            <!--校区特色-->
+            <div class="eventitle">
+                <dl>
+                    <dt>校区特色</dt>
+                    <dd>Campus Feature</dd>
+                </dl>
+            </div>
+            <div class="evenpage">
+                @Html.Raw(Model.Feature)
+            </div>
+            <!--校区设备-->
+            <div class="eventitle">
+                <dl>
+                    <dt>校区设备</dt>
+                    <dd>Campus Device</dd>
+                </dl>
+            </div>
+            <div class="evenpage">
+                @Html.Raw(Model.Devices)
+            </div>
+            <!--校区地理位置-->
+            <div class="eventitle">
+                <dl>
+                    <dt>校区地理位置</dt>
+                    <dd>Campus Position</dd>
+                </dl>
+            </div>
+            <div class="evenpage">
+                @Html.Raw(Model.Position)
+            </div>
+            <!--校区周边环境-->
+            <div class="eventitle">
+                <dl>
+                    <dt>校区周边环境</dt>
+                    <dd>Campus Environment</dd>
+                </dl>
+            </div>
+            <div class="evenpage">
+                @Html.Raw(Model.Environment)
+            </div>
+        </div>
+    </div>
+    <!--成功学员-->
+    <div class="title topborder">
+        <h2>成功学员</h2>
+    </div>
+    <div class="success-people com-cont noborder">
+        <ul>
+            @foreach (Student item in ViewBag.Student)
+            {
+                <li>
+                    <div class="peoplecont">
+                        <div class="top"><a href="/student/details/@item.Id"><i></i><img src="@item.Avatar" alt="" /></a></div>
+                        <dl>
+                            <dt><a href="/student/details/@item.Id">@item.Name</a></dt>
+                            <dd class="pe1">@item.MajorName</dd>
+                            <dd class="pe2">offer：@item.SchoolName </dd>
+                        </dl>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+@section Bottom
+{
+    <script type="text/javascript">
+        $(".consequent").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, vis: 1, trigger: "click" });
+    </script>
+}

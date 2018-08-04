@@ -22,6 +22,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         IMajorService _majorService = AutofacService.Resolve<IMajorService>();
         IDivisionService _divisionService = AutofacService.Resolve<IDivisionService>();
         ICourseService _courseService = AutofacService.Resolve<ICourseService>();
+        ICampusService _campusService = AutofacService.Resolve<ICampusService>();
 
         public StudentController()
         {
@@ -31,6 +32,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
             base.AddDisposableObject(_majorService);
             base.AddDisposableObject(_divisionService);
             base.AddDisposableObject(_courseService);
+            base.AddDisposableObject(_campusService);
         }
 
         public ActionResult Index(int page = 1, int division = -1, string keyword = null)
@@ -92,6 +94,14 @@ namespace Instart.Web2.Areas.Manage.Controllers
                 divisionList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
             }
             ViewBag.DivisionList = divisionList;
+
+            List<SelectListItem> campusList = new List<SelectListItem>();
+            IEnumerable<Campus> campuses = _campusService.GetAllAsync();
+            foreach (var item in campuses)
+            {
+                campusList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
+            }
+            ViewBag.CampusList = campusList;
             return View(model);
         }
 

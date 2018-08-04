@@ -34,5 +34,7 @@ namespace Instart.Service
          List<Student> GetListByCourseAsync(int courseId = -1);
 
          List<Student> GetListByTeacherAsync(int teacherId = -1);
+
+         List<Student> GetListByCampusAsync(int campusId = -1, int topCount = 4);
     }
 }

@@ -24,7 +24,7 @@ namespace Instart.Models
         /// <summary>
         /// 英文名称
         /// </summary>
-        public string EnName { get; set; }
+        public string NameEn { get; set; }
 
         /// <summary>
         /// 地址
@@ -55,5 +55,30 @@ namespace Instart.Models
         /// 修改时间
         /// </summary>
         public DateTime ModifyTime { get; set; }
+
+        /// <summary>
+        /// 校区特色
+        /// </summary>
+        public string Feature { get; set; }
+
+        /// <summary>
+        /// 校区设备
+        /// </summary>
+        public string Devices { get; set; }
+
+        /// <summary>
+        /// 地理位置
+        /// </summary>
+        public string Position { get; set; }
+
+        /// <summary>
+        /// 周边环境
+        /// </summary>
+        public string Environment { get; set; }
+
+        /// <summary>
+        /// 校区LOGO
+        /// </summary>
+        public string Avatar { get; set; }
     }
 }
