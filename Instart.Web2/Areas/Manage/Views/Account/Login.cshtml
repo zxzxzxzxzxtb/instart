@@ -28,7 +28,7 @@
 <body class="yunBg">
     <div class="yunMain">
         <div class="yunTop">
-            <a class="yunLogo" href="www.tsingming.com"></a>
+            <a class="yunLogo" href="#"></a>
         </div>
         <div class="yunItmName">
             <img src="/content/images/admin.jpg" width="31" height="32" /><span class="yunItmS">管理员登录</span>
@@ -45,10 +45,18 @@
                         <td class="first-td">密  码：</td>
                         <td><input type="password" id="txtPassword" name="password" class="form-control w300" placeholder="密码"></td>
                     </tr>
+                    <tr>
+                        <td class="first-td"></td>
+                        <td>
+                            <label style="font-weight:normal;">
+                                <input id="chkRemember" type="checkbox" value="remember-me" checked="checked" style="position:relative;top:2px;" /> 3天内自动登录
+                            </label>
+                        </td>
+                    </tr>
                     <tr><td></td><td></td></tr>
                     <tr>
                         <td></td>
-                        <td><button id="btnSubmit" type="button" class="btn btn-success">登录</button></td>
+                        <td><button id="btnLogin" type="button" class="btn btn-success">登录</button></td>
                     </tr>
                 </table>
             </div>
@@ -57,27 +65,6 @@
             版权所有 Copyright © 2017-
             <script>document.write(new Date().getFullYear());</script>
         </div>
-    </div>
-
-
-
-</body>
-
-<body>
-
-    <div class="container">
-
-        <form class="form-signin">
-            <h3 class="form-signin-heading">登录</h3>
-            <input type="email" id="txtUserName" class="form-control" placeholder="用户名" required autofocus>
-            <input type="password" id="txtPassword" class="form-control" placeholder="密码" required>
-            <div class="checkbox">
-                <label>
-                    <input id="chkRemember" type="checkbox" value="remember-me" checked="checked"> 3天内自动登录
-                </label>
-            </div>
-            <button id="btnLogin" class="btn btn-lg btn-success btn-block" type="button">登录</button>
-        </form>
     </div>
 
     <script>
@@ -111,5 +98,7 @@
             });
         })
     </script>
+
 </body>
+
 </html>
