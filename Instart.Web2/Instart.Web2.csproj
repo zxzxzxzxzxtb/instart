@@ -133,6 +133,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Manage\Controllers\CopysController.cs" />
     <Compile Include="Areas\Manage\Controllers\HereMoreController.cs" />
+    <Compile Include="Areas\Manage\Controllers\PassLearnController.cs" />
     <Compile Include="Areas\Manage\Controllers\StudioController.cs" />
     <Compile Include="Areas\Manage\Controllers\AboutController.cs" />
     <Compile Include="Areas\Manage\Controllers\AccountController.cs" />
@@ -873,6 +874,7 @@
     <Content Include="Areas\Manage\Views\School\Edit.cshtml" />
     <Content Include="Areas\Manage\Views\HereMore\Index.cshtml" />
     <Content Include="Areas\Manage\Views\Copys\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\PassLearn\Index.cshtml" />
     <None Include="Properties\PublishProfiles\InstartWebConfig.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -917,16 +919,16 @@
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Home\Campus.cshtml" />
     <Content Include="Views\Home\HereAndMore.cshtml" />
-    <Content Include="Views\Feature\Studio.cshtml" />
-    <Content Include="Views\Feature\Teach.cshtml" />
-    <Content Include="Views\Feature\Division.cshtml" />
-    <Content Include="Views\Feature\Company.cshtml" />
-    <Content Include="Views\Feature\Index.cshtml" />
+    <Content Include="Views\About\Studio.cshtml" />
+    <Content Include="Views\About\Teach.cshtml" />
+    <Content Include="Views\About\Division.cshtml" />
+    <Content Include="Views\About\Company.cshtml" />
+    <Content Include="Views\About\Program.cshtml" />
     <Content Include="Views\Shared\PartialFeature.cshtml" />
-    <Content Include="Views\Feature\Show.cshtml" />
+    <Content Include="Views\About\Show.cshtml" />
     <Content Include="Views\Shared\PartialRecommendCourse.cshtml" />
     <Content Include="Views\Shared\PartialBanner.cshtml" />
-    <Content Include="Views\Feature\CompanyDetail.cshtml" />
+    <Content Include="Views\About\CompanyDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Manage\Models\" />
