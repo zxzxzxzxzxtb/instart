@@ -173,7 +173,6 @@
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="Controllers\FeatureController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MajorController.cs" />
     <Compile Include="Controllers\SchoolController.cs" />
@@ -927,6 +926,7 @@
     <Content Include="Views\Feature\Show.cshtml" />
     <Content Include="Views\Shared\PartialRecommendCourse.cshtml" />
     <Content Include="Views\Shared\PartialBanner.cshtml" />
+    <Content Include="Views\Feature\CompanyDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Manage\Models\" />
