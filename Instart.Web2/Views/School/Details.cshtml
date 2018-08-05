@@ -21,7 +21,7 @@
             </div>
             <div class="s-name-right"><a href="#"><img src="@Model.Logo" alt="" /></a></div>
         </div>
-        <div class="collshen"><a href="#">申请咨询</a></div>
+        <div class="collshen"><a href="javascript:void(0)" onclick="apply(@Model.Id)">申请咨询</a></div>
     </div>
 </div>
 <div class="maincont">
@@ -262,6 +262,17 @@
                     break;
             }
         })
+
+        function apply(id) {
+            layer.open({
+                type: 2,
+                title: '申请咨询',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['800px', '430px'],
+                content: '/school/schoolapply?id=' + id //iframe的url
+            });
+        }
     </script>
 }
 

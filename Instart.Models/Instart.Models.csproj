@@ -54,6 +54,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Copys.cs" />
+    <Compile Include="CourseOrder.cs" />
+    <Compile Include="WorksComment.cs" />
+    <Compile Include="MajorApply.cs" />
+    <Compile Include="TeacherQuestion.cs" />
     <Compile Include="HereMore.cs" />
     <Compile Include="StudioImg.cs" />
     <Compile Include="Studio.cs" />

@@ -1,6 +1,9 @@
-﻿using Instart.Models;
+﻿using Instart.Common;
+using Instart.Models;
+using Instart.Models.Enums;
 using Instart.Service;
 using Instart.Service.Base;
+using Instart.Web2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +24,8 @@ namespace Instart.Web2.Controllers
         IWorksService _workService = AutofacService.Resolve<IWorksService>();
         ISchoolService _schoolService = AutofacService.Resolve<ISchoolService>();
         IStudentService _studentService = AutofacService.Resolve<IStudentService>();
+        IMajorApplyService _majorApplyService = AutofacService.Resolve<IMajorApplyService>();
+        IWorksCommentService _worksCommentService = AutofacService.Resolve<IWorksCommentService>();
 
         public MajorController()
         {
@@ -30,6 +35,8 @@ namespace Instart.Web2.Controllers
             this.AddDisposableObject(_workService);
             this.AddDisposableObject(_schoolService);
             this.AddDisposableObject(_studentService);
+            this.AddDisposableObject(_majorApplyService);
+            this.AddDisposableObject(_worksCommentService);
         }
 
         public  ActionResult Index(int id = 0)
@@ -97,6 +104,138 @@ namespace Instart.Web2.Controllers
             }
             ViewBag.SchoolList = schoolList;
             return View(major);
+        }
+
+        /// <summary>
+        /// 申请咨询
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult MajorApply(int id = 0, string name = null)
+        {
+            if (id == 0)
+            {
+                throw new Exception("艺术专业不存在。");
+            }
+            ViewBag.MajorId = id;
+            ViewBag.MajorName = name;
+            ViewBag.CountryList = EnumberHelper.EnumToList<EnumCountry>();
+            ViewBag.MajorList = _majorService.GetAllAsync();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        [Operation("申请咨询")]
+        public JsonResult SubmitApply(MajorApply model)
+        {
+            if (model == null)
+            {
+                return Error("参数错误。");
+            }
+            if (string.IsNullOrEmpty(model.Question))
+            {
+                return Error("请输入您想描述的问题");
+            }
+
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请选择您计划去的国家");
+            }
+
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请选择您计划学的专业");
+            }
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请输入您的姓名");
+            }
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请输入您的手机号");
+            }
+            var result = new ResultBase();
+            result.success = _majorApplyService.InsertAsync(model);
+            return Json(result);
+        }
+
+        /// <summary>
+        /// WorksComment
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult WorksComment()
+        {
+            ViewBag.CountryList = EnumberHelper.EnumToList<EnumCountry>();
+            ViewBag.MajorList = _majorService.GetAllAsync();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        [Operation("作品评析")]
+        public JsonResult Comment(WorksComment model)
+        {
+            if (model == null)
+            {
+                return Error("参数错误。");
+            }
+
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请选择您计划去的国家");
+            }
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请选择您计划学的专业");
+            }
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请输入您的姓名");
+            }
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请输入您的手机号");
+            }
+            if (string.IsNullOrEmpty(model.Email))
+            {
+                return Error("请输入您的邮箱地址");
+            }
+            HttpFileCollectionBase files = Request.Files;
+            if (files != null)
+            {
+                for (int i = 0; i < files.Count; i++)
+                {
+                    HttpPostedFileBase file = files[i];
+                    //1-3个作品
+                    if (i == 0)
+                    {
+                        string uploadResult = UploadHelper.Process(file.FileName, file.InputStream);
+                        if (!string.IsNullOrEmpty(uploadResult))
+                        {
+                            model.ImgUrlA = uploadResult;
+                        }
+                    }
+                    if (i == 1)
+                    {
+                        string uploadResult = UploadHelper.Process(file.FileName, file.InputStream);
+                        if (!string.IsNullOrEmpty(uploadResult))
+                        {
+                            model.ImgUrlB = uploadResult;
+                        }
+                    }
+                    if (i == 2)
+                    {
+                        string uploadResult = UploadHelper.Process(file.FileName, file.InputStream);
+                        if (!string.IsNullOrEmpty(uploadResult))
+                        {
+                            model.ImgUrlC = uploadResult;
+                        }
+                    }
+                }
+            }
+            var result = new ResultBase();
+            result.success = _worksCommentService.InsertAsync(model);
+            return Json(result);
         }
     }
 }

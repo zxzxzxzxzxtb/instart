@@ -49,7 +49,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CopysService.cs" />
+    <Compile Include="CourseOrderService.cs" />
+    <Compile Include="Interfaces\ICourseOrderService.cs" />
+    <Compile Include="WorksCommentService.cs" />
+    <Compile Include="Interfaces\IWorksCommentService.cs" />
+    <Compile Include="Interfaces\IMajorApplyService.cs" />
+    <Compile Include="MajorApplyService.cs" />
+    <Compile Include="TeacherQuestionService.cs" />
     <Compile Include="Interfaces\ICopysService.cs" />
+    <Compile Include="Interfaces\ITeacherQuestionService.cs" />
     <Compile Include="Interfaces\IHereMoreService.cs" />
     <Compile Include="HereMoreService.cs" />
     <Compile Include="StudioService.cs" />

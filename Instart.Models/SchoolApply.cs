@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Instart.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,26 @@ namespace Instart.Models
         public int Id { get; set; }
 
         /// <summary>
+        /// 国家
+        /// </summary>
+        public EnumCountry Country { get; set; }
+
+        /// <summary>
+        /// 专业Id
+        /// </summary>
+        public int MajorId { get; set; }
+
+        /// <summary>
+        /// 专业名称
+        /// </summary>
+        public string MajorName { get; set; }
+
+        /// <summary>
+        /// 专业英文名称
+        /// </summary>
+        public string MajorNameEn { get; set; }
+
+        /// <summary>
         /// 学校Id
         /// </summary>
         public int SchoolId { get; set; }
@@ -27,6 +48,11 @@ namespace Instart.Models
         public string SchoolName { get; set; }
 
         /// <summary>
+        /// 学校英文名称
+        /// </summary>
+        public string SchoolNameEn { get; set; }
+
+        /// <summary>
         /// 申请人姓名
         /// </summary>
         public string Name { get; set; }
@@ -35,6 +61,16 @@ namespace Instart.Models
         /// 申请人电话
         /// </summary>
         public string Phone { get; set; }
+
+        /// <summary>
+        /// 邮箱
+        /// </summary>
+        public string Email { get; set; }
+
+        /// <summary>
+        /// 问题
+        /// </summary>
+        public string Question { get; set; }
 
         /// <summary>
         /// 申请时间

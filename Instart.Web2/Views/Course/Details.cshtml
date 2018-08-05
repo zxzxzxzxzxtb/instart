@@ -43,7 +43,7 @@
                 <p> <b>针对人群</b></p>
             </div>
             <div class="c-infos"> @Html.Raw(Model.ForPeople) </div>
-            <div class="c-yue"><a href="#">课程预约</a></div>
+            <div class="c-yue"><a href="javascript:void(0)" onclick="order(@Model.Id)">课程预约</a></div>
         </div>
     </div>
     <div class="wen-right">
@@ -53,7 +53,7 @@
                     <dt>课程过程</dt>
                     <dd>APPLICATION REQUEST</dd>
                 </dl>
-                <a href="#" class="di">课程咨询</a>
+                <a href="javascript:void(0)" class="di" onclick="apply(@Model.Id)">课程咨询</a>
             </div>
             <div class="claimlist">
                 @Html.Raw(Model.Process)
@@ -115,5 +115,27 @@
     <script type="text/javascript">
         $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, scroll: 2, vis: 4, trigger: "click" });
         $(".consequent").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, vis: 1, trigger: "click" });
+
+        function apply(id) {
+            layer.open({
+                type: 2,
+                title: '课程咨询',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['800px', '430px'],
+                content: '/course/courseapply?id=' + id //iframe的url
+            });
+        }
+
+        function order(id) {
+            layer.open({
+                type: 2,
+                title: '课程预约',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['800px', '430px'],
+                content: '/course/courseorder?id=' + id //iframe的url
+            });
+        }
     </script>
 }

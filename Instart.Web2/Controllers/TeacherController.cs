@@ -1,5 +1,9 @@
-﻿using Instart.Service;
+﻿using Instart.Common;
+using Instart.Models;
+using Instart.Models.Enums;
+using Instart.Service;
 using Instart.Service.Base;
+using Instart.Web2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +22,8 @@ namespace Instart.Web2.Controllers
         IDivisionService _divisionService = AutofacService.Resolve<IDivisionService>();
         IBannerService _bannerService = AutofacService.Resolve<IBannerService>();
         IStudentService _studentService = AutofacService.Resolve<IStudentService>();
+        IMajorService _majorService = AutofacService.Resolve<IMajorService>();
+        ITeacherQuestionService _teacherQuestionService = AutofacService.Resolve<ITeacherQuestionService>();
 
         public TeacherController()
         {
@@ -72,6 +78,58 @@ namespace Instart.Web2.Controllers
             ViewBag.CourseList = _teacherService.GetCoursesByIdAsync(id) ?? new List<Instart.Models.Course>();
             ViewBag.StudentList = _studentService.GetListByTeacherAsync(id) ?? new List<Instart.Models.Student>();
             return View(teacher);
+        }
+
+        /// <summary>
+        /// TeacherQuestion
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult TeacherQuestion(int id = 0)
+        {
+            if (id == 0)
+            {
+                throw new Exception("导师不存在");
+            }
+            ViewBag.TeacherId = id;
+            ViewBag.CountryList = EnumberHelper.EnumToList<EnumCountry>();
+            ViewBag.MajorList = _majorService.GetAllAsync();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        [Operation("向导师提问")]
+        public JsonResult SubmitQuestion(TeacherQuestion model)
+        {
+            if (model == null)
+            {
+                return Error("参数错误。");
+            }
+            if (string.IsNullOrEmpty(model.Question))
+            {
+                return Error("请输入您想描述的问题");
+            }
+
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请选择您计划去的国家");
+            }
+
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请选择您计划学的专业");
+            }
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请输入您的姓名");
+            }
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请输入您的手机号");
+            }
+            var result = new ResultBase();
+            result.success = _teacherQuestionService.InsertAsync(model);
+            return Json(result);
         }
     }
 }
