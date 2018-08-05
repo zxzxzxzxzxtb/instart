@@ -33,7 +33,7 @@
                     <dt>申请要求</dt>
                     <dd>APPLICATION REQUEST</dd>
                 </dl>
-                <a href="#" class="di">申请咨询</a>
+                <a href="javascript:void(0)" class="di" onclick="apply(@Model.Id, '@Model.Name')">申请咨询</a>
             </div>
             <div class="claimlist">
                 @Html.Raw(Model.Apply)
@@ -45,7 +45,7 @@
                     <dt>专业作品</dt>
                     <dd>SUBJECT WORKS</dd>
                 </dl>
-                <a href="#" class="di">作品评析</a>
+                <a href="javascript:void(0)" class="di" onclick="comment()">作品评析</a>
             </div>
             <div class="workcont">
                 @foreach (Works item in ViewBag.WorkList)
@@ -66,7 +66,7 @@
     <!--名校推荐-->
     <div class="title">
         <h2>名校推荐</h2>
-        <a href="#" class="more">查看全部&gt;&gt;</a>
+        <a href="/school" class="more">查看全部&gt;&gt;</a>
     </div>
     <div class="school com-cont noborder">
         <ul>
@@ -120,5 +120,27 @@
                 });
             });
         })
+
+        function apply(id,name) {
+            layer.open({
+                type: 2,
+                title: '申请咨询',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['800px', '430px'],
+                content: '/major/majorapply?id=' + id + "&name=" + name //iframe的url
+            });
+        }
+
+        function comment() {
+            layer.open({
+                type: 2,
+                title: '作品评析',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['480px', '540px'],
+                content: '/major/workscomment' //iframe的url
+            });
+        }
     </script>
 }

@@ -132,6 +132,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Manage\Controllers\CopysController.cs" />
+    <Compile Include="Areas\Manage\Controllers\CourseOrderController.cs" />
+    <Compile Include="Areas\Manage\Controllers\WorksCommentController.cs" />
+    <Compile Include="Areas\Manage\Controllers\MajorApplyController.cs" />
+    <Compile Include="Areas\Manage\Controllers\TeacherQuestionController.cs" />
     <Compile Include="Areas\Manage\Controllers\HereMoreController.cs" />
     <Compile Include="Areas\Manage\Controllers\PassLearnController.cs" />
     <Compile Include="Areas\Manage\Controllers\StudioController.cs" />
@@ -206,6 +210,7 @@
     <Content Include="Content\images\bo.png" />
     <Content Include="Content\images\close.png" />
     <Content Include="Content\images\default_school.jpg" />
+    <Content Include="Content\images\deng.png" />
     <Content Include="Content\images\foot-icon.png" />
     <Content Include="Content\images\here.png" />
     <Content Include="Content\images\instart.png" />
@@ -874,6 +879,10 @@
     <Content Include="Areas\Manage\Views\School\Edit.cshtml" />
     <Content Include="Areas\Manage\Views\HereMore\Index.cshtml" />
     <Content Include="Areas\Manage\Views\Copys\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\TeacherQuestion\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\MajorApply\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\WorksComment\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\CourseOrder\Index.cshtml" />
     <Content Include="Areas\Manage\Views\PassLearn\Index.cshtml" />
     <None Include="Properties\PublishProfiles\InstartWebConfig.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
@@ -919,6 +928,17 @@
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Home\Campus.cshtml" />
     <Content Include="Views\Home\HereAndMore.cshtml" />
+    <Content Include="Views\Teacher\TeacherQuestion.cshtml" />
+    <Content Include="Views\School\SchoolApply.cshtml" />
+    <Content Include="Views\Major\MajorApply.cshtml" />
+    <Content Include="Views\Major\WorksComment.cshtml" />
+    <Content Include="Views\Course\CourseApply.cshtml" />
+    <Content Include="Views\Course\CourseOrder.cshtml" />
+    <Content Include="Views\Feature\Studio.cshtml" />
+    <Content Include="Views\Feature\Teach.cshtml" />
+    <Content Include="Views\Feature\Division.cshtml" />
+    <Content Include="Views\Feature\Company.cshtml" />
+    <Content Include="Views\Feature\Index.cshtml" />
     <Content Include="Views\About\Studio.cshtml" />
     <Content Include="Views\About\Teach.cshtml" />
     <Content Include="Views\About\Division.cshtml" />

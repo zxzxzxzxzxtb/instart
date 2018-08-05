@@ -3,6 +3,7 @@ using Instart.Models;
 using Instart.Models.Enums;
 using Instart.Service;
 using Instart.Service.Base;
+using Instart.Web2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +21,14 @@ namespace Instart.Web2.Controllers
         ISchoolService _schoolService = AutofacService.Resolve<ISchoolService>();
         IStudentService _studentService = AutofacService.Resolve<IStudentService>();
         IMajorService _majorService = AutofacService.Resolve<IMajorService>();
+        ISchoolApplyService _schoolApplyService = AutofacService.Resolve<ISchoolApplyService>();
 
         public SchoolController()
         {
             this.AddDisposableObject(_schoolService);
             this.AddDisposableObject(_studentService);
             this.AddDisposableObject(_majorService);
+            this.AddDisposableObject(_schoolApplyService);
         }
 
         public ActionResult Index()
@@ -62,9 +65,9 @@ namespace Instart.Web2.Controllers
                     }
                 }
                 school.AcceptRate = "0";
-                if (schoolList.Total > 0)
+                if (studentList.Count() > 0)
                 {
-                    decimal rate = (decimal)count / schoolList.Total;
+                    decimal rate = (decimal)count / studentList.Count();
                     school.AcceptRate = (rate * 100).ToString("f2");
                 }
             }
@@ -106,9 +109,9 @@ namespace Instart.Web2.Controllers
                 }
             }
             school.AcceptRate = "0";
-            if (schoolList.Count() > 0)
+            if (studentList.Count() > 0)
             {
-                decimal rate = (decimal)count / schoolList.Count();
+                decimal rate = (decimal)count / studentList.Count();
                 school.AcceptRate = (rate * 100).ToString("f2");
             }
             ViewBag.SchoolStudents = schoolStudents;
@@ -130,6 +133,58 @@ namespace Instart.Web2.Controllers
             ViewBag.MajorBkList = majorBkList;
             ViewBag.MajorYjsList = majorYjsList;
             return View(school);
+        }
+
+        /// <summary>
+        /// 申请咨询
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult SchoolApply(int id = 0)
+        {
+            if (id == 0)
+            {
+                throw new Exception("艺术院校不存在。");
+            }
+            ViewBag.SchoolId = id;
+            ViewBag.CountryList = EnumberHelper.EnumToList<EnumCountry>();
+            ViewBag.MajorList = _majorService.GetAllAsync();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        [Operation("申请咨询")]
+        public JsonResult SubmitApply(SchoolApply model)
+        {
+            if (model == null)
+            {
+                return Error("参数错误。");
+            }
+            if (string.IsNullOrEmpty(model.Question))
+            {
+                return Error("请输入您想描述的问题");
+            }
+
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请选择您计划去的国家");
+            }
+
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请选择您计划学的专业");
+            }
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请输入您的姓名");
+            }
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请输入您的手机号");
+            }
+            var result = new ResultBase();
+            result.success = _schoolApplyService.InsertAsync(model);
+            return Json(result);
         }
     }
 }

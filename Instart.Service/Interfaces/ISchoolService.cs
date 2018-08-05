@@ -35,6 +35,6 @@ namespace Instart.Service
 
          bool SetMajors(int schoolId, string majorIds, string introduces);
 
-         List<School> GetListByMajorAsync(int majorId = 0);
+         List<School> GetListByMajorAsync(int majorId = 0, int topCount = 6);
     }
 }

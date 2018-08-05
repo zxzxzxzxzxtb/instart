@@ -77,6 +77,17 @@ namespace Instart.Web2.Areas.Manage.Controllers
                     model.Avatar = uploadResult;
                 }
             }
+
+            var bannerFile = Request.Files["fileBanner"];
+
+            if (bannerFile != null)
+            {
+                string uploadResult = UploadHelper.Process(bannerFile.FileName, bannerFile.InputStream);
+                if (!string.IsNullOrEmpty(uploadResult))
+                {
+                    model.BannerImg = uploadResult;
+                }
+            }
             var result = new ResultBase();
 
             if (model.Id > 0)

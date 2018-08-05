@@ -26,36 +26,36 @@
         {
             @Html.HiddenFor(m => m.Id)
             <div class="form-group">
-                <label class="col-sm-2 control-label">校区名称：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">校区名称：</label>
+                <div class="col-sm-9">
                     @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">英文名：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">英文名：</label>
+                <div class="col-sm-9">
                     @Html.TextBoxFor(m => m.NameEn, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">地址：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">地址：</label>
+                <div class="col-sm-9">
                     @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">电话：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">电话：</label>
+                <div class="col-sm-9">
                     @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">LOGO：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">LOGO：</label>
+                <div class="col-sm-9">
                     <img src="@Model.Avatar" id="avatarPreview" style="width:80%;height:200px;border:1px solid #eee;" />
                     <input type="hidden" name="Avatar" value="@Model.Avatar" />
                     <a href="javascript:void(0)" onclick="$('#fileAvatar').click()" class="btn-link" style="position:relative;top:90px;">点击上传</a>
@@ -64,42 +64,52 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">校区介绍：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">校区介绍：</label>
+                <div class="col-sm-9">
                     <textarea name="Introduce" id="Introduce" rows="10">@Model.Introduce</textarea>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">校区特色：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">校区特色：</label>
+                <div class="col-sm-9">
                     <textarea name="Feature" id="Feature" rows="10">@Model.Feature</textarea>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">校区设备：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">校区设备：</label>
+                <div class="col-sm-9">
                     <textarea name="Devices" id="Devices" rows="10">@Model.Devices</textarea>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">地理位置：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">地理位置：</label>
+                <div class="col-sm-9">
                     <textarea name="Position" id="Position" rows="10">@Model.Position</textarea>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">周边环境：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">周边环境：</label>
+                <div class="col-sm-9">
                     <textarea name="Environment" id="Environment" rows="10">@Model.Environment</textarea>
                 </div>
             </div>
 
             <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
+                <label class="col-sm-3 control-label">Banner图片：</label>
+                <div class="col-sm-9">
+                    <img src="@Model.BannerImg" id="bannerPreview" style="width:80%;height:100px;border:1px solid #eee;" />
+                    <input type="hidden" name="BannerImg" value="@Model.BannerImg" />
+                    <a href="javascript:void(0)" onclick="$('#fileBanner').click()" class="btn-link" style="position:relative;top:40px;">点击上传</a>
+                    <input type='file' id='fileBanner' name='fileBanner' style='display:none;'>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
                     <input type="button" class="btn btn-success" value="提交" onclick="save()" />
                 </div>
             </div>
@@ -120,6 +130,10 @@
 
             $('#fileAvatar').change(function () {
                 imagePreview(this.files[0], $("#avatarPreview"));
+            });
+
+            $('#fileBanner').change(function () {
+                imagePreview(this.files[0], $("#bannerPreview"));
             });
         })
 

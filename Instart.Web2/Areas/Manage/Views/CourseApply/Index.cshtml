@@ -9,7 +9,7 @@
     @Html.Partial("PartialApply")
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-top:75px;">
         <ol class="breadcrumb">
-            <li><a href="#">课程申请</a></li>
+            <li><a href="#">课程咨询</a></li>
         </ol>
 
         <div>
@@ -34,9 +34,11 @@
                 <tr>
                     <th>#</th>
                     <th>申请人</th>
-                    <th>申请课程</th>
-                    <th>手机</th>
-                    <th>专业</th>
+                    <th>课程名称</th>
+                    <th>计划去的国家</th>
+                    <th>计划学的专业</th>
+                    <th>手机号</th>
+                    <th>问题描述</th>
                     <th>状态</th>
                     <th>申请时间</th>
                     <th>受理时间</th>
@@ -52,8 +54,12 @@
                             <td style="width:5%;">@item.Id</td>
                             <td>@item.Name</td>
                             <td>@item.CourseName</td>
+                            <td>@item.Country.GetDescription()</td>
+                            <td>@item.MajorName</td>
                             <td>@item.Phone</td>
-                            <td>@item.Major</td>
+                            <td>
+                                @Html.Raw(item.Question)
+                            </td>
                             <td>@(item.IsAccept ? "已受理" : "未受理")</td>
                             <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
                             <td>@(item.IsAccept ? string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.AcceptTime) : "")</td>
@@ -98,7 +104,7 @@
                     return;
                 }
 
-                layer.confirm('确定受理该申请?', function (index) {
+                layer.confirm('确定受理该咨询?', function (index) {
                     $.post('/manage/courseapply/setaccept', { id: applyId }, function (slt) {
                         if (slt && slt.success) {
                             location.reload();

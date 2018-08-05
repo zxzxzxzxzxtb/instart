@@ -136,9 +136,9 @@ namespace Instart.Service
             return _schoolRepository.SetMajors(schoolId, majorIds, introduces);
         }
 
-        public List<School> GetListByMajorAsync(int majorId = 0) 
+        public List<School> GetListByMajorAsync(int majorId = 0, int topCount = 6) 
         {
-            return _schoolRepository.GetListByMajorAsync(majorId);
+            return _schoolRepository.GetListByMajorAsync(majorId, topCount);
         }
     }
 }
