@@ -93,6 +93,8 @@ namespace Instart.Web2.Controllers
         public ActionResult Teach()
         {
             ViewBag.Type = "Teach";
+            var model = _aboutService.GetInfoAsync() ?? new AboutInstart();
+            ViewBag.PassLearning = model.PassLearning;
             return View();
         }
     }

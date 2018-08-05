@@ -3,4 +3,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ProToPro</h2>
+<!--banner展示图-->
+@Html.Partial("PartialBanner", Instart.Models.Enums.EnumBannerPos.About)
+
+<div class="maincont">
+    <!--特色菜单-->
+    @Html.Partial("PartialFeature", new KeyValuePair<string, string>("type", ViewBag.Type.ToString()))
+</div>
+<div class="maincont padding30">
+    <div class="dancont">
+        @Html.Raw(ViewBag.PassLearning)
+    </div>
+</div>
+
+<div class="maincont">
+    <!--课程推荐-->
+    @Html.Partial("PartialRecommendCourse")
+</div>
