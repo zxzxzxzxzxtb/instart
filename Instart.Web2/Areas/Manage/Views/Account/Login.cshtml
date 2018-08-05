@@ -15,6 +15,7 @@
     <link href="~/Content/themes/blueskin/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/css/signin.css" rel="stylesheet">
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/content/css/login.css" rel="stylesheet" type="text/css" />
     <script src="~/Content/themes/blueskin/js/jquery-2.0.3.min.js"></script>
     <script src="~/Content/layui/layui.all.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -23,6 +24,44 @@
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+
+<body class="yunBg">
+    <div class="yunMain">
+        <div class="yunTop">
+            <a class="yunLogo" href="www.tsingming.com"></a>
+        </div>
+        <div class="yunItmName">
+            <img src="/content/images/admin.jpg" width="31" height="32" /><span class="yunItmS">管理员登录</span>
+        </div>
+        <div class="yunBox">
+            <div class="yun_u1">
+                <table class="table table-login">
+                    <tr>
+                        <td class="first-td">用户名：</td>
+                        <td><input type="text" id="txtUserName" name="username" class="form-control w300" placeholder="用户名"></td>
+                    </tr>
+                    <tr><td></td><td></td></tr>
+                    <tr>
+                        <td class="first-td">密  码：</td>
+                        <td><input type="password" id="txtPassword" name="password" class="form-control w300" placeholder="密码"></td>
+                    </tr>
+                    <tr><td></td><td></td></tr>
+                    <tr>
+                        <td></td>
+                        <td><button id="btnSubmit" type="button" class="btn btn-success">登录</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="yunFooter">
+            版权所有 Copyright © 2017-
+            <script>document.write(new Date().getFullYear());</script>
+        </div>
+    </div>
+
+
+
+</body>
 
 <body>
 
