@@ -17,20 +17,17 @@ namespace Instart.Web2.Controllers
     {
         IAboutInstartService _aboutService = AutofacService.Resolve<IAboutInstartService>();
         IBannerService _bannerService = AutofacService.Resolve<IBannerService>();
-        ICourseService _courseService = AutofacService.Resolve<ICourseService>();
 
         public AboutController()
         {
             this.AddDisposableObject(_aboutService);
             this.AddDisposableObject(_bannerService);
-            this.AddDisposableObject(_courseService);
         }
 
-        public  ActionResult Index()
+        public ActionResult Index()
         {
-            AboutInstart model = ( _aboutService.GetInfoAsync()) ?? new AboutInstart();
-            ViewBag.CourseList = ( _courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();
-            List<Banner> bannerList =  _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Student);
+            AboutInstart model = (_aboutService.GetInfoAsync()) ?? new AboutInstart();
+            List<Banner> bannerList = _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Student);
             ViewBag.BannerUrl = "";
             if (bannerList != null && bannerList.Count() > 0)
             {

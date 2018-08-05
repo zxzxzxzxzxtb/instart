@@ -17,15 +17,11 @@ namespace Instart.Web2.Controllers
     {
         IStudentService _studentService = AutofacService.Resolve<IStudentService>();
         ISchoolService _schoolService = AutofacService.Resolve<ISchoolService>();
-        IBannerService _bannerService = AutofacService.Resolve<IBannerService>();
-        ICourseService _courseService = AutofacService.Resolve<ICourseService>();
 
         public StudentController()
         {
             this.AddDisposableObject(_studentService);
             this.AddDisposableObject(_schoolService);
-            this.AddDisposableObject(_bannerService);
-            this.AddDisposableObject(_courseService);
         }
 
         public  ActionResult Index() {
@@ -93,8 +89,6 @@ namespace Instart.Web2.Controllers
             ViewBag.StudentMap = studentMap;
             ViewBag.SchoolMap = schoolMap;
             ViewBag.VideoList = ( _studentService.GetStarStudentsAsync()) ?? new List<Instart.Models.Student>();
-            ViewBag.CourseList = ( _courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();
-            ViewBag.BannerList = ( _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Student)) ?? new List<Instart.Models.Banner>();
             return View();
         }
 
@@ -103,7 +97,7 @@ namespace Instart.Web2.Controllers
             Student student =  _studentService.GetByIdAsync(id);
             IEnumerable<Student> studentList = ( _studentService.GetAllAsync()) ?? new List<Student>();
             ViewBag.StudentList = studentList;
-            List<Banner> bannerList = (_bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Student)) ?? new List<Instart.Models.Banner>();
+            List<Banner> bannerList = (AutofacService.Resolve<IBannerService>().GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Student)) ?? new List<Instart.Models.Banner>();
             ViewBag.BannerUrl = "";
             if (bannerList.Count() > 0) ViewBag.BannerUrl = bannerList[0].ImageUrl;
             return View(student ?? new Student());

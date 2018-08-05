@@ -9,6 +9,8 @@
     <link href="/content/css/common.css" type="text/css" rel="stylesheet" />
     <link href="/content/css/main.css" type="text/css" rel="stylesheet" />
 
+    <script src="/content/js/jquery-1.11.3.min.js" type="text/javascript"></script>
+
     @RenderSection("Head", required: false)
 </head>
 
@@ -77,7 +79,6 @@
         </div>
     </div>
 
-    <script src="/content/js/jquery-1.11.3.min.js" type="text/javascript"></script>
     <script src="/content/js/remH.js" type="text/javascript"></script>
     <script src="/content/js/index.js" type="text/javascript"></script>
     <script src="/content/js/banner.js" type="text/javascript"></script>
@@ -94,8 +95,6 @@
             var isIndex = true;
             var href = location.href.toLowerCase();
             var $lis = $(".nav-menu").children("li");
-
-            console.log($lis.length);
 
             $.each($lis, function () {
                 var nav = $(this).attr("data-flag");

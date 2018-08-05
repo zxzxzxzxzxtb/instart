@@ -19,7 +19,6 @@ namespace Instart.Web2.Controllers
         ISchoolService _schoolService = AutofacService.Resolve<ISchoolService>();
         ITeacherService _teacherService = AutofacService.Resolve<ITeacherService>();
         IStudentService _studentService = AutofacService.Resolve<IStudentService>();
-        ICourseService _courseService = AutofacService.Resolve<ICourseService>();
         IBannerService _bannerService = AutofacService.Resolve<IBannerService>();
         IRecruitService _recruitService = AutofacService.Resolve<IRecruitService>();
         ICampusService _campusService = AutofacService.Resolve<ICampusService>();
@@ -32,7 +31,6 @@ namespace Instart.Web2.Controllers
             this.AddDisposableObject(_schoolService);
             this.AddDisposableObject(_teacherService);
             this.AddDisposableObject(_studentService);
-            this.AddDisposableObject(_courseService);
             this.AddDisposableObject(_bannerService);
             this.AddDisposableObject(_recruitService);
             this.AddDisposableObject(_campusService);
@@ -46,8 +44,6 @@ namespace Instart.Web2.Controllers
             List<School> schoolList = ( _schoolService.GetRecommendListAsync(10)) ?? new List<Instart.Models.School>();
             ViewBag.TeacherList = ( _teacherService.GetRecommendListAsync(8)) ?? new List<Instart.Models.Teacher>();
             ViewBag.StudentList = ( _studentService.GetRecommendListAsync(8)) ?? new List<Instart.Models.Student>();
-            ViewBag.CourseList = ( _courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();
-            ViewBag.BannerList = ( _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Index)) ?? new List<Instart.Models.Banner>();
 
             //计算录取比例
             IEnumerable<Student> studentList = (_studentService.GetAllAsync()) ?? new List<Student>();
