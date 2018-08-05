@@ -17,26 +17,23 @@ namespace Instart.Web2.Controllers
     public class AboutController : ControllerBase
     {
         IAboutInstartService _aboutService = AutofacService.Resolve<IAboutInstartService>();
-        IBannerService _bannerService = AutofacService.Resolve<IBannerService>();
         IProgramService _programService = AutofacService.Resolve<IProgramService>();
         ICompanyService _companyService = AutofacService.Resolve<ICompanyService>();
         IStudioService _studioService = AutofacService.Resolve<IStudioService>();
+        IDivisionService _divisionService = AutofacService.Resolve<IDivisionService>();
 
         public AboutController()
         {
             this.AddDisposableObject(_aboutService);
-            this.AddDisposableObject(_bannerService);
+            this.AddDisposableObject(_programService);
+            this.AddDisposableObject(_companyService);
+            this.AddDisposableObject(_studioService);
+            this.AddDisposableObject(_divisionService);
         }
 
         public ActionResult Index()
         {
             AboutInstart model = (_aboutService.GetInfoAsync()) ?? new AboutInstart();
-            List<Banner> bannerList = _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Student);
-            ViewBag.BannerUrl = "";
-            if (bannerList != null && bannerList.Count() > 0)
-            {
-                ViewBag.BannerUrl = bannerList[0].ImageUrl;
-            }
             return View(model);
         }
 
@@ -62,6 +59,9 @@ namespace Instart.Web2.Controllers
         public ActionResult Division()
         {
             ViewBag.Type = "Division";
+
+            ViewBag.DivisionList = _divisionService.GetAllAsync() ?? new List<Division>();
+
             return View();
         }
 
