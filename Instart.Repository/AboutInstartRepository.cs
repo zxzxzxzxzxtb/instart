@@ -53,6 +53,7 @@ namespace Instart.Repository
             {
                 var fields = model.ToFields(removeFields: new List<string>
                 {
+                    "PassLearning",
                     "CreateTime"
                 });
 
@@ -71,6 +72,19 @@ namespace Instart.Repository
 
                 string sql = string.Format("update [AboutInstart] set {0};",string.Join(",", fieldList));
                 return conn.Execute(sql, model) > 0;
+            }
+        }
+
+        public bool UpdatePassLearningAsync(string content)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+
+                string sql = "update [AboutInstart] set PassLearning=@PassLearning;";
+                return conn.Execute(sql, new
+                {
+                    PassLearning = content
+                }) > 0;
             }
         }
     }

@@ -16,5 +16,7 @@ namespace Instart.Repository
         bool InsertAsync(AboutInstart model);
 
         bool UpdateAsync(AboutInstart model);
+
+        bool UpdatePassLearningAsync(string content);
     }
 }

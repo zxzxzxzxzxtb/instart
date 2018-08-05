@@ -46,5 +46,10 @@ namespace Instart.Service
 
             return _aboutInstartRepository.UpdateAsync(model);
         }
+
+        public bool UpdatePassLearningAsync(string content)
+        {
+            return _aboutInstartRepository.UpdatePassLearningAsync(content);
+        }
     }
 }
