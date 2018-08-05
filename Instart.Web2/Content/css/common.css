@@ -22,3 +22,4 @@ table{ width: 100%; border-collapse:separate;border-spacing:0;clear:both}
 .padding30{ padding-bottom:30px;}
 .relative{ position:relative}
 .textcenter{ text-align:center!important;}
+.clearfix{ clear:both; overflow:hidden; height:0; visibility:hidden;}

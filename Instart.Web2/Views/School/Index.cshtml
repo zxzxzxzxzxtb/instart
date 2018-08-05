@@ -31,28 +31,26 @@
     </div>
     <!--条件搜索-->
     <div class="conditie">
-        <dl>
-            <dt>国家：</dt>
+        <dl class="fl dl-country">
+            <dt>国家：<a href="javascript:void(0)" class="search-selected" data-id="-1">全部</a></dt>
             <dd class="dd-country">
-                <a href="javascript:void(0)" class="search-selected" data-id="-1">全部</a>
                 @foreach (Instart.Common.EnumberEntity item in ViewBag.CountryList)
                 {
                     <a href="javascript:void(0)" data-id="@item.EnumValue">@item.Description</a>
                 }
             </dd>
         </dl>
-        <dl>
-            <dt>学历：</dt>
+        <dl class="fr dl-country">
+            <dt>学历：<a href="javascript:void(0)" class="search-selected" data-id="-1">全部</a></dt>
             <dd class="dd-level">
-                <a href="javascript:void(0)" class="search-selected" data-id="-1">全部</a>
                 <a href="javascript:void(0)" data-id="1">本科</a>
                 <a href="javascript:void(0)" data-id="2">硕士</a>
             </dd>
         </dl>
-        <dl>
-            <dt>专业：</dt>
-            <dd class="dd-major">
-                <a href="javascript:void(0)" class="search-selected">全部</a>
+        <div class="clearfix"></div>
+        <dl class="dl-major">
+            <dt>专业：<a href="javascript:void(0)" class="search-selected">全部</a></dt>
+            <dd class="dd-major" style="width:86%">
                 @foreach (Major item in ViewBag.MajorList)
                 {
                     <a href="javascript:void(0)" data-id="@item.Id">@item.Name</a>
@@ -80,8 +78,16 @@
                 }
             });
 
+            $(".dl-country dt a,.dl-level dt a,.dl-major dt a").click(function () {
+                $(this).addClass("search-selected");
+                $(this).parent().parent().find('dd a:first').removeClass("search-selected");
+                $(this).parent().parent().find('dd a:first').siblings("a").removeClass("search-selected");
+                search();
+            });
+
             $(".dd-country > a,.dd-level > a,.dd-major > a").click(function () {
                 $(this).addClass("search-selected").siblings("a").removeClass("search-selected");
+                $(this).parent().parent().find("dt a").removeClass("search-selected");
                 search();
             });
         });
@@ -89,9 +95,9 @@
         function search(page) {
             page = page || 1;
             var keyword = $("#keyword").val();
-            var country = $(".dd-country > a.search-selected").attr("data-id");
-            var major = $(".dd-major > a.search-selected").attr("data-id");
-            var level = $(".dd-level > a.search-selected").attr("data-id");
+            var country = $(".dl-country a.search-selected").attr("data-id");
+            var major = $(".dl-major a.search-selected").attr("data-id");
+            var level = $(".dl-level a.search-selected").attr("data-id");
             getData(page, keyword, country, major, level);
         }
 

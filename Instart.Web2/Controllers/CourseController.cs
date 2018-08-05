@@ -56,6 +56,10 @@ namespace Instart.Web2.Controllers
 
         public ActionResult Details(int id = 0)
         {
+            if (id == 0)
+            {
+                throw new Exception("课程不存在。");
+            }
             Course course = _courseService.GetByIdAsync(id);
             ViewBag.WorkList = _worksService.GetListByMajorIdAsync(id, 3) ?? new List<Instart.Models.Works>();
             ViewBag.StudentList = _studentService.GetListByCourseAsync(id) ?? new List<Instart.Models.Student>();

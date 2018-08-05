@@ -15,7 +15,7 @@
 .nav li{ display:inline-block;}
 .nav li a{ display:block; padding:0 20px; font-size:18px; color:#4d4d4d;}
 .nav li a:hover{ color:#0802ff;}
-.here{ width:130px; height:130px; border-radius:50%; behavior:url("../yishajs/PIE.htc"); overflow:hidden; background:#0000ff url(/content/images/here.png) center center no-repeat; position:absolute; top:-21px; right:16%;}
+.here{ width:130px; height:130px; border-radius:50%; behavior:url("/content/js/PIE.htc"); overflow:hidden; background:#0000ff url(/content/images/here.png) center center no-repeat; position:absolute; top:-21px; right:16%;}
 .here a{ width:100%; height:100%; display:block;}
 /*banner*/
 .banner{ width: 100%; clear: both; position: relative; height:600px; overflow:hidden;}
@@ -239,13 +239,13 @@
 .hotsearch span,.hotsearch a{ color:#b3b3b3;}
 .hotsearch a{ margin-right:10px;}
 .hotsearch a:hover{ color:#0000ff;}
-.conditie{ color:#4d4d4d; border-bottom:1px dashed #eaeaea; padding:20px 0; margin-bottom:30px;}
+.conditie{ color:#4d4d4d; border-bottom:1px dashed #eaeaea; padding:20px 0; margin-bottom:30px; overflow:hidden}
 .conditie dl{ overflow:hidden; padding:10px 0;}
 .conditie dt,.conditie dd{ float:left;}
-.conditie dt{ margin-right:5px;}
-.conditie dd{ width:94%;}
+.conditie dt{ width:90px;}
+.conditie dt a{ padding-left:5px; color:#666;}
 .conditie dd a{ color:#4d4d4d; display:inline-block; margin-right:17px;}
-.conditie dd a:hover{ color:#0000ff;}
+.conditie a:hover{ color:#0000ff;}
 .pagenum{ padding-bottom:40px; border-bottom:1px dashed #bfbfbf;}
 .pagenum li.pre a,.pagenum li.next a{ text-indent:-999em;}
 .pagenum li a{ background:none; text-indent:0;}
@@ -356,8 +356,9 @@
 .evenpage img{ max-width:100%;}
 .mask{ display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:#000; opacity:0.4; filter:alpha(opacity=40); z-index:101;}
 .model{}
-.modelcont{ overflow:hidden; border-bottom:1px dotted #bbb; position:relative;}
-.modelcont:after{ content:""; position:absolute; top:0; left:50%; height:100%; border-left:1px dotted #bbb;}
+.modelcont{ border-bottom:1px dotted #bbb; position:relative;}
+.modelcont:after{display:block;clear:both;content:"";visibility:hidden;height:0}
+.modelcont:before{ content:""; position:absolute; top:0; left:50%; height:100%; border-left:1px dotted #bbb;}
 .model-left,.model-right{ width:50%; float:left;}
 .graphic{ padding:30px; text-align:justify}
 .graphic img{ max-width:100%;}
@@ -367,9 +368,11 @@
 .select{ position:relative; width:200px; border:1px solid #ccc; border-radius:5px; cursor:pointer;}
 .select span{ display:block; color:#999; padding:0 40px; cursor:pointer; overflow:hidden;}
 .select span:after{ content:""; position:absolute; right:0; top:0; bottom:0; width:56px; background:#f2f2f2 url(/content/images/select.png) center center no-repeat;}
-.select p{ position:absolute; top:40px; width:100%; border:1px solid #ccc; background:#fff; border-radius:5px; display:none; z-index:1;}
+.select p{ position:absolute; top:40px; width:100%; border:1px solid #ccc; background:#fff; border-radius:5px; display:none; z-index:10;}
 .select p a{ display:block; padding:0 40px; line-height:35px;}
 .select p a:hover{ background:#0000ff; color:#fff;}
+.cin{ position:relative;}
+.tiyou{ position:absolute; width:150%; font-size:12px; color:#999; top:38px; left:0;}
 .cin input{ border:1px solid #ccc; font-size:14px; color:#666; border-radius:5px; padding:10px 20px;}
 .modelbutton{ text-align:right; padding:15px 40px;}
 .modelbutton a{ display: inline-block; padding:15px 45px; font-size:16px; margin:0 20px; border-radius:5px;}
@@ -380,8 +383,9 @@
 .flles{ position:relative; cursor:pointer;}
 .flles a:hover{ color:#0000ff;}
 .flles input{ width:100%; height:100%; position:absolute; top:0; left:0; z-index:1; opacity:0; filter:alpha(opacity=0);}
-.flltext{ position:absolute; top:22px; left:0; color:#999; font-size:12px;}
-.flltext span{ margin-right:10px; width:90px; height:30px; display:inline-block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.flltext{ position:absolute; top:28px; left:0; color:#999; height:20px; line-height:20px; width:100%; font-size:12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.flltext span{ margin-right:10px; width:90px; height:30px; display:inline-block;}
+.dengpao{ padding-top:150px; background:url(/content/images/deng.png) center 45px no-repeat; margin-bottom:30px;}
 
 
 

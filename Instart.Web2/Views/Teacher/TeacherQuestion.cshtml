@@ -106,17 +106,6 @@
                 input.val(rel);
             });
 
-            //作品集
-            $(".flietext").change(function () {
-                var file = $(this).prop('files');
-                var len = file.length;
-                var html = "";
-                for (var i = 0; i < len; i++) {
-                    html += '<span>' + file[i].name + '</span>'
-                }
-                $(".flltext").html(html)
-            });
-
             $(".bluebox").click(function () {
                 $("#mainForm").ajaxSubmit({
                     success: function (slt) {
@@ -135,7 +124,7 @@
 
         //关闭弹出窗
         function cancel() {
-            parent.$(".layui-layer-shade,.layui-layer-shade").remove();
+            parent.$(".layui-layer-shade,.layui-layer").remove();
         }
     </script>
 </body>

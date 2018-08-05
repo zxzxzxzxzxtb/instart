@@ -97,14 +97,6 @@ namespace Instart.Web2.Controllers
             }
             ViewBag.Imgs = _campusService.GetImgsByCampusIdAsync(id) ?? new List<CampusImg>();
             ViewBag.Student = _studentService.GetListByCampusAsync(id, 4);
-
-            List<Banner> bannerList = _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Campus);
-            ViewBag.BannerUrl = "";
-            if (bannerList != null && bannerList.Count() > 0)
-            {
-                ViewBag.BannerUrl = bannerList[0].ImageUrl;
-            }
-            
             return View(model);
         }
 

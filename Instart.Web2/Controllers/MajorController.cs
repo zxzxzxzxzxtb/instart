@@ -92,9 +92,9 @@ namespace Instart.Web2.Controllers
                     }
                 }
                 school.AcceptRate = "0";
-                if (schoolList.Count() > 0)
+                if (studentList.Count() > 0)
                 {
-                    decimal rate = (decimal)count / schoolList.Count();
+                    decimal rate = (decimal)count / studentList.Count();
                     school.AcceptRate = (rate * 100).ToString("f2");
                 }
             }

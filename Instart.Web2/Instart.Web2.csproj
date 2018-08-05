@@ -187,6 +187,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\CommonDataHelper.cs" />
     <Compile Include="Infrastructures\ControllerBase.cs" />
     <Compile Include="Infrastructures\Extensions.cs" />
     <Compile Include="Infrastructures\HtmlHelperExtend.cs" />
@@ -209,6 +210,7 @@
     <Content Include="Content\images\bo.png" />
     <Content Include="Content\images\close.png" />
     <Content Include="Content\images\default_school.jpg" />
+    <Content Include="Content\images\deng.png" />
     <Content Include="Content\images\foot-icon.png" />
     <Content Include="Content\images\here.png" />
     <Content Include="Content\images\instart.png" />
@@ -944,7 +946,6 @@
   <ItemGroup>
     <Folder Include="Areas\Manage\Models\" />
     <Folder Include="Content\ueditor\net\Bin\" />
-    <Folder Include="Helper\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
