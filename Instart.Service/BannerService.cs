@@ -36,7 +36,7 @@ namespace Instart.Service
 
         public List<Banner> GetListByPosAsync(EnumBannerPos pos = EnumBannerPos.Index)
         {
-            return _bannerRepository.GetListByPosAsync(pos);
+            return _bannerRepository.GetListByPosAsync(pos);   
         }
 
         public bool InsertAsync(Banner model)

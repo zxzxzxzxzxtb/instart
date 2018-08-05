@@ -20,7 +20,6 @@ namespace Instart.Web2.Controllers
     {
         ITeacherService _teacherService = AutofacService.Resolve<ITeacherService>();
         IDivisionService _divisionService = AutofacService.Resolve<IDivisionService>();
-        IBannerService _bannerService = AutofacService.Resolve<IBannerService>();
         IStudentService _studentService = AutofacService.Resolve<IStudentService>();
         IMajorService _majorService = AutofacService.Resolve<IMajorService>();
         ITeacherQuestionService _teacherQuestionService = AutofacService.Resolve<ITeacherQuestionService>();
@@ -29,7 +28,6 @@ namespace Instart.Web2.Controllers
         {
             this.AddDisposableObject(_teacherService);
             this.AddDisposableObject(_divisionService);
-            this.AddDisposableObject(_bannerService);
             this.AddDisposableObject(_studentService);
         }
 
@@ -49,7 +47,6 @@ namespace Instart.Web2.Controllers
 
             ViewBag.DivisionList = divisionList;
             ViewBag.DivisionId = id;
-            ViewBag.BannerList = ( _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Teacher)) ?? new List<Instart.Models.Banner>();
             return View();
         }
 
@@ -74,7 +71,6 @@ namespace Instart.Web2.Controllers
                 throw new Exception("导师不存在");
             }
 
-            ViewBag.BannerList = ( _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Teacher)) ?? new List<Instart.Models.Banner>();
             ViewBag.CourseList = _teacherService.GetCoursesByIdAsync(id) ?? new List<Instart.Models.Course>();
             ViewBag.StudentList = _studentService.GetListByTeacherAsync(id) ?? new List<Instart.Models.Student>();
             return View(teacher);

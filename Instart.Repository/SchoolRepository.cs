@@ -244,11 +244,11 @@ namespace Instart.Repository
             return result > 0;
         }
 
-        public List<School> GetListByMajorAsync(int majorId = 0)
+        public List<School> GetListByMajorAsync(int majorId = 0, int topCount = 6)
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = string.Format("select s.* from [SchoolMajor] sm left join [School] s on s.Id = sm.SchoolId where sm.MajorId = {0} and s.Status=1 order by s.Id desc;", majorId);
+                string sql = string.Format("select top {0} s.* from [SchoolMajor] sm left join [School] s on s.Id = sm.SchoolId where sm.MajorId = {1} and s.Status=1 order by s.Id desc;", topCount, majorId);
                 var result = conn.Query<School>(sql, null);
                 return result != null ? result.ToList() : null;
             }

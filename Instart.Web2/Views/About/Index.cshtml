@@ -52,51 +52,32 @@
     <div class="tese com-cont">
         <ul>
             <li>
-                <div class="teseimg"><a href="#"><img src="../yishaimg/lingshi/11.jpg" alt="" /><b>Pre to Pro</b></a></div>
+                <div class="teseimg"><a href="/feature/?type=1"><img src="@Model.PreToProImg" alt="" /><b>Pre to Pro</b></a></div>
             </li>
             <li>
-                <div class="teseimg"><a href="#"><img src="../yishaimg/lingshi/11.jpg" alt="" /><b>学部制度</b></a></div>
+                <div class="teseimg"><a href="/feature/division"><img src="@Model.DivisionImg" alt="" /><b>学部制度</b></a></div>
             </li>
             <li>
-                <div class="teseimg"><a href="#"><img src="../yishaimg/lingshi/11.jpg" alt="" /><b>跨学科教学</b></a></div>
+                <div class="teseimg"><a href="/feature/teach"><img src="@Model.PassLearningImg" alt="" /><b>跨学科教学</b></a></div>
             </li>
             <li>
-                <div class="teseimg"><a href="#"><img src="../yishaimg/lingshi/11.jpg" alt="" /><b>Workshop</b></a></div>
+                <div class="teseimg"><a href="/feature/?type=2"><img src="@Model.WorkShopImg" alt="" /><b>Workshop</b></a></div>
             </li>
             <li>
-                <div class="teseimg"><a href="#"><img src="../yishaimg/lingshi/11.jpg" alt="" /><b>24小时工作室</b></a></div>
+                <div class="teseimg"><a href="/feature/studio"><img src="@Model.StudioImg" alt="" /><b>24小时工作室</b></a></div>
             </li>
             <li>
-                <div class="teseimg"><a href="#"><img src="../yishaimg/lingshi/11.jpg" alt="" /><b>实习推荐</b></a></div>
+                <div class="teseimg"><a href="/feature/company"><img src="@Model.CompanyImg" alt="" /><b>实习推荐</b></a></div>
             </li>
             <li>
-                <div class="teseimg"><a href="#"><img src="../yishaimg/lingshi/11.jpg" alt="" /><b>艺术家孵化平台</b></a></div>
+                <div class="teseimg"><a href="/feature/?type=3"><img src="@Model.ActorImg" alt="" /><b>艺术家孵化平台</b></a></div>
             </li>
             <li>
-                <div class="teseimg"><a href="#"><img src="../yishaimg/lingshi/11.jpg" alt="" /><b>驻地项目</b></a></div>
+                <div class="teseimg"><a href="/feature/?type=4"><img src="@Model.ProgramsImg" alt="" /><b>驻地项目</b></a></div>
             </li>
         </ul>
     </div>
     <!--课程推荐-->
-    <div class="title">
-        <h2>课程推荐</h2>
-        <a href="/Course" class="more">查看全部&gt;&gt;</a>
-    </div>
-    <div class="recommend com-cont">
-        <ul>
-            @foreach (Course item in ViewBag.CourseList)
-            {
-                <li>
-                    <div class="recimg">
-                        <a href="/course/details/@item.Id">
-                            <i></i>
-                            <p>@item.Introduce</p>
-                            <img src="@item.Picture" alt="@item.Name" />
-                        </a>
-                    </div>
-                </li>
-            }
-        </ul>
-    </div>
+    @Html.Partial("PartialRecommendCourse")
 </div>
 

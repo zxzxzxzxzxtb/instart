@@ -20,7 +20,6 @@ namespace Instart.Web2.Controllers
     {
         IMajorService _majorService = AutofacService.Resolve<IMajorService>();
         IDivisionService _divisionService = AutofacService.Resolve<IDivisionService>();
-        IBannerService _bannerService = AutofacService.Resolve<IBannerService>();
         IWorksService _workService = AutofacService.Resolve<IWorksService>();
         ISchoolService _schoolService = AutofacService.Resolve<ISchoolService>();
         IStudentService _studentService = AutofacService.Resolve<IStudentService>();
@@ -31,7 +30,6 @@ namespace Instart.Web2.Controllers
         {
             this.AddDisposableObject(_majorService);
             this.AddDisposableObject(_divisionService);
-            this.AddDisposableObject(_bannerService);
             this.AddDisposableObject(_workService);
             this.AddDisposableObject(_schoolService);
             this.AddDisposableObject(_studentService);
@@ -55,7 +53,6 @@ namespace Instart.Web2.Controllers
 
             ViewBag.DivisionList = divisionList;
             ViewBag.DivisionId = id;
-            ViewBag.BannerList = ( _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Major)) ?? new List<Instart.Models.Banner>();
             return View();
         }
 
@@ -81,8 +78,7 @@ namespace Instart.Web2.Controllers
             }
 
             ViewBag.WorkList = ( _workService.GetListByMajorIdAsync(id, 3)) ?? new List<Instart.Models.Works>();
-            ViewBag.BannerList = ( _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Teacher)) ?? new List<Instart.Models.Banner>();
-            List<School> schoolList = _schoolService.GetListByMajorAsync(id) ?? new List<Instart.Models.School>();
+            List<School> schoolList = _schoolService.GetListByMajorAsync(id, 6) ?? new List<Instart.Models.School>();
             //计算录取比例
             IEnumerable<Student> studentList = (_studentService.GetAllAsync()) ?? new List<Student>();
             foreach (School school in schoolList)

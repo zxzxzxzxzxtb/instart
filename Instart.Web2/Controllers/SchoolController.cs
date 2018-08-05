@@ -20,17 +20,13 @@ namespace Instart.Web2.Controllers
     {
         ISchoolService _schoolService = AutofacService.Resolve<ISchoolService>();
         IStudentService _studentService = AutofacService.Resolve<IStudentService>();
-        IBannerService _bannerService = AutofacService.Resolve<IBannerService>();
-        ICourseService _courseService = AutofacService.Resolve<ICourseService>();
         IMajorService _majorService = AutofacService.Resolve<IMajorService>();
         ISchoolApplyService _schoolApplyService = AutofacService.Resolve<ISchoolApplyService>();
 
         public SchoolController()
         {
             this.AddDisposableObject(_schoolService);
-            this.AddDisposableObject(_bannerService);
             this.AddDisposableObject(_studentService);
-            this.AddDisposableObject(_courseService);
             this.AddDisposableObject(_majorService);
             this.AddDisposableObject(_schoolApplyService);
         }
@@ -41,10 +37,7 @@ namespace Instart.Web2.Controllers
             //热门搜索
             IEnumerable<School> hotList = (_schoolService.GetHotListAsync(4)) ?? new List<School>();
             ViewBag.HotList = hotList;
-
-            ViewBag.BannerList = (_bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.School)) ?? new List<Instart.Models.Banner>();//banner
-            ViewBag.CourseList = (_courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();//推荐课程
-
+            
             //专业列表
             IEnumerable<Major> majorList = (_majorService.GetAllAsync()) ?? new List<Major>();
             ViewBag.MajorList = majorList;
@@ -72,9 +65,9 @@ namespace Instart.Web2.Controllers
                     }
                 }
                 school.AcceptRate = "0";
-                if (schoolList.Total > 0)
+                if (studentList.Count() > 0)
                 {
-                    decimal rate = (decimal)count / schoolList.Total;
+                    decimal rate = (decimal)count / studentList.Count();
                     school.AcceptRate = (rate * 100).ToString("f2");
                 }
             }
@@ -116,9 +109,9 @@ namespace Instart.Web2.Controllers
                 }
             }
             school.AcceptRate = "0";
-            if (schoolList.Count() > 0)
+            if (studentList.Count() > 0)
             {
-                decimal rate = (decimal)count / schoolList.Count();
+                decimal rate = (decimal)count / studentList.Count();
                 school.AcceptRate = (rate * 100).ToString("f2");
             }
             ViewBag.SchoolStudents = schoolStudents;
@@ -139,8 +132,6 @@ namespace Instart.Web2.Controllers
             }
             ViewBag.MajorBkList = majorBkList;
             ViewBag.MajorYjsList = majorYjsList;
-            //推荐课程
-            ViewBag.CourseList = (_courseService.GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();
             return View(school);
         }
 
