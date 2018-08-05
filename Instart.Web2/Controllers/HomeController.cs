@@ -1,7 +1,9 @@
 ﻿using Instart.Common;
 using Instart.Models;
+using Instart.Models.Enums;
 using Instart.Service;
 using Instart.Service.Base;
+using Instart.Web2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,9 @@ namespace Instart.Web2.Controllers
         IBannerService _bannerService = AutofacService.Resolve<IBannerService>();
         IRecruitService _recruitService = AutofacService.Resolve<IRecruitService>();
         ICampusService _campusService = AutofacService.Resolve<ICampusService>();
+        ICopysService _copysService = AutofacService.Resolve<ICopysService>();
+        IMajorService _majorService = AutofacService.Resolve<IMajorService>();
+        IHereMoreService _hereMoreService = AutofacService.Resolve<IHereMoreService>();
 
         public HomeController() {
             this.AddDisposableObject(_partnerService);
@@ -31,6 +36,9 @@ namespace Instart.Web2.Controllers
             this.AddDisposableObject(_bannerService);
             this.AddDisposableObject(_recruitService);
             this.AddDisposableObject(_campusService);
+            this.AddDisposableObject(_copysService);
+            this.AddDisposableObject(_majorService);
+            this.AddDisposableObject(_hereMoreService);
         }
 
         public  ActionResult Index() {
@@ -104,9 +112,66 @@ namespace Instart.Web2.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// here&more
+        /// </summary>
+        /// <returns></returns>
         public ActionResult HereAndMore() 
         {
+            Copys copys = _copysService.GetInfoAsync();
+            ViewBag.Copy = copys == null ? "" : copys.HereMoreCopy;
+            ViewBag.CountryList = EnumberHelper.EnumToList<EnumCountry>();
+            ViewBag.MajorList = _majorService.GetAllAsync();
             return View();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        [Operation("设置专业")]
+        public JsonResult SetHereMore(HereMore model)
+        {
+            if (model == null)
+            {
+                return Error("参数错误。");
+            }
+
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("专业名称不能为空。");
+            }
+            HttpFileCollectionBase files = Request.Files;
+            for (int i = 0; i < files.Count; i++)
+            {
+                HttpPostedFileBase file = files[i];
+                //1-3个作品
+                if (i == 0) 
+                {
+                    string uploadResult = UploadHelper.Process(file.FileName, file.InputStream);
+                    if (!string.IsNullOrEmpty(uploadResult))
+                    {
+                        model.ImgUrlA = uploadResult;
+                    }
+                }
+                if (i == 1)
+                {
+                    string uploadResult = UploadHelper.Process(file.FileName, file.InputStream);
+                    if (!string.IsNullOrEmpty(uploadResult))
+                    {
+                        model.ImgUrlB = uploadResult;
+                    }
+                }
+                if (i == 2)
+                {
+                    string uploadResult = UploadHelper.Process(file.FileName, file.InputStream);
+                    if (!string.IsNullOrEmpty(uploadResult))
+                    {
+                        model.ImgUrlC = uploadResult;
+                    }
+                }
+            }
+            var result = new ResultBase();
+            result.success = _hereMoreService.InsertAsync(model);
+            return Json(result);
         }
     }
 }

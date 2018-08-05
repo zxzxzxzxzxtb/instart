@@ -65,6 +65,8 @@
                 <li class="dropdown li-menu-apply">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">申请管理 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
+                        <li><a href="/manage/copys">文案管理</a></li>
+                        <li><a href="/manage/heremore">here&more</a></li>
                         <li><a href="/manage/schoolapply">学校申请</a></li>
                         <li><a href="/manage/courseapply">课程申请</a></li>
                     </ul>
@@ -131,9 +133,9 @@
 
         var systemMenus = ["user", "log"];
         var schoolMenus = ["campus", "division", "school", "teacher", "major", "course", "student", "works"];
-        var applyMenus = ["schoolapply", "courseapply"];
+        var applyMenus = ["copys", "heremore", "schoolapply", "courseapply"];
         var otherMenus = ["banner", "partner", "recruit", "contact", "about"];
-        var featureMenus = ["program","recommend","edu","rule","studio"];
+        var featureMenus = ["program", "company", "studio"];
 
         $.each($lis, function () {
             var nav = $(this).attr("data-flag");

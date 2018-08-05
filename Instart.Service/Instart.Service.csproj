@@ -48,6 +48,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CopysService.cs" />
+    <Compile Include="Interfaces\ICopysService.cs" />
+    <Compile Include="Interfaces\IHereMoreService.cs" />
+    <Compile Include="HereMoreService.cs" />
     <Compile Include="StudioService.cs" />
     <Compile Include="Interfaces\IStudioService.cs" />
     <Compile Include="Interfaces\ICompanyService.cs" />

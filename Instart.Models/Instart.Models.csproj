@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Copys.cs" />
+    <Compile Include="HereMore.cs" />
     <Compile Include="StudioImg.cs" />
     <Compile Include="Studio.cs" />
     <Compile Include="Enums\EnumProgramType.cs" />
