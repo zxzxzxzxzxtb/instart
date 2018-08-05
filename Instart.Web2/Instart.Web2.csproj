@@ -200,8 +200,10 @@
   <ItemGroup>
     <Content Include="Content\css\admin.css" />
     <Content Include="Content\css\common.css" />
+    <Content Include="Content\css\login.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\signin.css" />
+    <Content Include="Content\images\admin.jpg" />
     <Content Include="Content\images\arrow.png" />
     <Content Include="Content\images\arrow2.png" />
     <Content Include="Content\images\arrow3.png" />
@@ -234,6 +236,7 @@
     <Content Include="Content\images\lingshi\schollbg.jpg" />
     <Content Include="Content\images\lingshi\ucl.jpg" />
     <Content Include="Content\images\lingshi\video.jpg" />
+    <Content Include="Content\images\loginbg.jpg" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\qcord.png" />
     <Content Include="Content\images\select.png" />
@@ -934,11 +937,6 @@
     <Content Include="Views\Major\WorksComment.cshtml" />
     <Content Include="Views\Course\CourseApply.cshtml" />
     <Content Include="Views\Course\CourseOrder.cshtml" />
-    <Content Include="Views\Feature\Studio.cshtml" />
-    <Content Include="Views\Feature\Teach.cshtml" />
-    <Content Include="Views\Feature\Division.cshtml" />
-    <Content Include="Views\Feature\Company.cshtml" />
-    <Content Include="Views\Feature\Index.cshtml" />
     <Content Include="Views\About\Studio.cshtml" />
     <Content Include="Views\About\Teach.cshtml" />
     <Content Include="Views\About\Division.cshtml" />

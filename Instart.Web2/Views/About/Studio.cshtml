@@ -35,8 +35,10 @@
 <div class="workbo">
     <div class="bd">
         <ul>
-            <li> <a href="#"><img src="../yishaimg/lingshi/dabaner.jpg" /></a> </li>
-            <li> <a href="#"><img src="../yishaimg/lingshi/dabaner.jpg" /></a> </li>
+            @foreach (StudioImg item in ViewBag.ImageList)
+            {
+                 <li> <a href="javascript:void(0)"><img src="@item.ImgUrl" /></a> </li>
+            }           
         </ul>
     </div>
     <div class="hd"> <a class="prev"></a> <a class="next"></a> </div>
@@ -46,4 +48,13 @@
     <!--课程推荐-->
     @Html.Partial("PartialRecommendCourse")
 </div>
+
+@section Bottom{
+    <script>
+        window.onload = window.onresize = function () {
+            water("main");
+        }
+        $(".workbo").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, vis: 1, trigger: "click" });
+    </script>
+}
 

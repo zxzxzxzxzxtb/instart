@@ -60,7 +60,7 @@ namespace Instart.Web2.Controllers
         {
             ViewBag.Type = "Division";
 
-            ViewBag.DivisionList = _divisionService.GetAllAsync() ?? new List<Division>();
+            ViewBag.DivisionList = _divisionService.GetAllAsync() ?? new List<Division>();           
 
             return View();
         }
@@ -87,6 +87,7 @@ namespace Instart.Web2.Controllers
         {
             ViewBag.Type = "Studio";
             var model = _studioService.GetInfoAsync();
+            ViewBag.ImageList = _studioService.GetImgsAsync();
             return View(model);
         }
 
