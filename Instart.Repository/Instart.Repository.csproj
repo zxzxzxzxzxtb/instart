@@ -59,7 +59,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CopysRepository.cs" />
+    <Compile Include="Interfaces\ICopysRepository.cs" />
+    <Compile Include="Interfaces\IHereMoreRepository.cs" />
     <Compile Include="Interfaces\IStudioRepository.cs" />
+    <Compile Include="HereMoreRepository.cs" />
     <Compile Include="StudioRepository.cs" />
     <Compile Include="Interfaces\ICompanyRepository.cs" />
     <Compile Include="Interfaces\IProgramRepository.cs" />

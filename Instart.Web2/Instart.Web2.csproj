@@ -131,6 +131,8 @@
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Manage\Controllers\CopysController.cs" />
+    <Compile Include="Areas\Manage\Controllers\HereMoreController.cs" />
     <Compile Include="Areas\Manage\Controllers\StudioController.cs" />
     <Compile Include="Areas\Manage\Controllers\AboutController.cs" />
     <Compile Include="Areas\Manage\Controllers\AccountController.cs" />
@@ -195,8 +197,12 @@
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\signin.css" />
     <Content Include="Content\images\arrow.png" />
+    <Content Include="Content\images\arrow2.png" />
+    <Content Include="Content\images\arrow3.png" />
     <Content Include="Content\images\banner.jpg" />
     <Content Include="Content\images\bigin.png" />
+    <Content Include="Content\images\bo.png" />
+    <Content Include="Content\images\close.png" />
     <Content Include="Content\images\default_school.jpg" />
     <Content Include="Content\images\foot-icon.png" />
     <Content Include="Content\images\here.png" />
@@ -208,6 +214,7 @@
     <Content Include="Content\images\lingshi\13.jpg" />
     <Content Include="Content\images\lingshi\14.jpg" />
     <Content Include="Content\images\lingshi\15.jpg" />
+    <Content Include="Content\images\lingshi\16.jpg" />
     <Content Include="Content\images\lingshi\2.jpg" />
     <Content Include="Content\images\lingshi\3.jpg" />
     <Content Include="Content\images\lingshi\4.jpg" />
@@ -219,8 +226,10 @@
     <Content Include="Content\images\lingshi\dabaner.jpg" />
     <Content Include="Content\images\lingshi\schollbg.jpg" />
     <Content Include="Content\images\lingshi\ucl.jpg" />
+    <Content Include="Content\images\lingshi\video.jpg" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\qcord.png" />
+    <Content Include="Content\images\select.png" />
     <Content Include="Content\images\star-half.png" />
     <Content Include="Content\images\star-off.png" />
     <Content Include="Content\images\star-on.png" />
@@ -861,6 +870,8 @@
     <Content Include="Areas\Manage\Views\About\Index.cshtml" />
     <Content Include="Areas\Manage\Views\Shared\PartialFeature.cshtml" />
     <Content Include="Areas\Manage\Views\School\Edit.cshtml" />
+    <Content Include="Areas\Manage\Views\HereMore\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\Copys\Index.cshtml" />
     <None Include="Properties\PublishProfiles\InstartWebConfig.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />

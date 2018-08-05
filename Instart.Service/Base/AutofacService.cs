@@ -51,6 +51,8 @@ namespace Instart.Service.Base
             builder.RegisterType<ProgramService>().As<IProgramService>().InstancePerLifetimeScope();
             builder.RegisterType<CompanyService>().As<ICompanyService>().InstancePerLifetimeScope();
             builder.RegisterType<StudioService>().As<IStudioService>().InstancePerLifetimeScope();
+            builder.RegisterType<CopysService>().As<ICopysService>().InstancePerLifetimeScope();
+            builder.RegisterType<HereMoreService>().As<IHereMoreService>().InstancePerLifetimeScope();
             container = builder.Build();
         }
     }
