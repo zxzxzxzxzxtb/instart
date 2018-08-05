@@ -53,6 +53,10 @@ namespace Instart.Service.Base
             builder.RegisterType<StudioService>().As<IStudioService>().InstancePerLifetimeScope();
             builder.RegisterType<CopysService>().As<ICopysService>().InstancePerLifetimeScope();
             builder.RegisterType<HereMoreService>().As<IHereMoreService>().InstancePerLifetimeScope();
+            builder.RegisterType<TeacherQuestionService>().As<ITeacherQuestionService>().InstancePerLifetimeScope();
+            builder.RegisterType<MajorApplyService>().As<IMajorApplyService>().InstancePerLifetimeScope();
+            builder.RegisterType<WorksCommentService>().As<IWorksCommentService>().InstancePerLifetimeScope();
+            builder.RegisterType<CourseOrderService>().As<ICourseOrderService>().InstancePerLifetimeScope();
             container = builder.Build();
         }
     }

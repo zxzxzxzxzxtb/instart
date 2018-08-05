@@ -29,7 +29,7 @@
                                 <p> <b>针对人群</b> </p>
                             </div>
                             <div class="c-infos"> @Html.Raw(item.ForPeople) </div>
-                            <div class="c-yue"><a href="#">课程预约</a></div>
+                            <div class="c-yue"><a href="javascript:void(0)" onclick="order(@item.Id)">课程预约</a></div>
                         </div>
                     </li>
                 }
@@ -89,6 +89,17 @@
        //瀑布流
        window.onload=window.onresize=function(){
             water("main");
+       }
+
+       function order(id) {
+           layer.open({
+               type: 2,
+               title: '课程预约',
+               shadeClose: true,
+               shade: 0.8,
+               area: ['800px', '430px'],
+               content: '/course/courseorder?id=' + id //iframe的url
+           });
        }
     </script>
 }

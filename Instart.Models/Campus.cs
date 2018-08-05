@@ -80,5 +80,10 @@ namespace Instart.Models
         /// 校区LOGO
         /// </summary>
         public string Avatar { get; set; }
+
+        /// <summary>
+        /// 校区Banner
+        /// </summary>
+        public string BannerImg { get; set; }
     }
 }

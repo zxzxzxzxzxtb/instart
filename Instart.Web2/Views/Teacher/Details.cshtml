@@ -17,7 +17,7 @@
         <div class="mee-left fl"><img src="@Model.Avatar" alt=""></div>
         <div class="mee-right fr">
             <div class="mee-info">
-                <div class="stel"><a href="#">向TA提问</a></div>
+                <div class="stel"><a href="javascript:void(0)" onclick="ask(@Model.Id)">向TA提问</a></div>
                 <dl class="mee-info-top">
                     <dt>导师背景</dt>
                     <dd><em>姓名</em><span>@Model.Name</span></dd>
@@ -63,4 +63,17 @@
         </ul>
     </div>
 </div>
-
+@section Bottom{
+    <script type="text/javascript">
+        function ask(id) {
+            layer.open({
+                type: 2,
+                title: '向TA提问',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['800px', '430px'],
+                content: '/teacher/teacherquestion?id='+id //iframe的url
+            });
+        }
+    </script>
+}

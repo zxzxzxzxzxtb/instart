@@ -51,6 +51,10 @@ namespace Instart.Repository
             builder.RegisterType<StudioRepository>().As<IStudioRepository>().InstancePerLifetimeScope();
             builder.RegisterType<CopysRepository>().As<ICopysRepository>().InstancePerLifetimeScope();
             builder.RegisterType<HereMoreRepository>().As<IHereMoreRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<TeacherQuestionRepository>().As<ITeacherQuestionRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<MajorApplyRepository>().As<IMajorApplyRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<WorksCommentRepository>().As<IWorksCommentRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<CourseOrderRepository>().As<ICourseOrderRepository>().InstancePerLifetimeScope();
             container = builder.Build();
         }
     }

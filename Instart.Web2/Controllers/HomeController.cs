@@ -58,9 +58,9 @@ namespace Instart.Web2.Controllers
                     }
                 }
                 school.AcceptRate = "0";
-                if (schoolList.Count() > 0)
+                if (studentList.Count() > 0)
                 {
-                    decimal rate = (decimal)count / schoolList.Count();
+                    decimal rate = (decimal)count / studentList.Count();
                     school.AcceptRate = (rate * 100).ToString("f2");
                 }
             }
@@ -97,14 +97,6 @@ namespace Instart.Web2.Controllers
             }
             ViewBag.Imgs = _campusService.GetImgsByCampusIdAsync(id) ?? new List<CampusImg>();
             ViewBag.Student = _studentService.GetListByCampusAsync(id, 4);
-
-            List<Banner> bannerList = _bannerService.GetBannerListByPosAsync(Instart.Models.Enums.EnumBannerPos.Campus);
-            ViewBag.BannerUrl = "";
-            if (bannerList != null && bannerList.Count() > 0)
-            {
-                ViewBag.BannerUrl = bannerList[0].ImageUrl;
-            }
-            
             return View(model);
         }
 
@@ -123,7 +115,7 @@ namespace Instart.Web2.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        [Operation("设置专业")]
+        [Operation("here&more提交")]
         public JsonResult SetHereMore(HereMore model)
         {
             if (model == null)
@@ -133,35 +125,51 @@ namespace Instart.Web2.Controllers
 
             if (string.IsNullOrEmpty(model.Name))
             {
-                return Error("专业名称不能为空。");
+                return Error("请选择您计划去的国家");
+            }
+
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请选择您计划学的专业");
+            }
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请输入您的姓名");
+            }
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请输入您的手机号");
             }
             HttpFileCollectionBase files = Request.Files;
-            for (int i = 0; i < files.Count; i++)
+            if (files != null)
             {
-                HttpPostedFileBase file = files[i];
-                //1-3个作品
-                if (i == 0) 
+                for (int i = 0; i < files.Count; i++)
                 {
-                    string uploadResult = UploadHelper.Process(file.FileName, file.InputStream);
-                    if (!string.IsNullOrEmpty(uploadResult))
+                    HttpPostedFileBase file = files[i];
+                    //1-3个作品
+                    if (i == 0)
                     {
-                        model.ImgUrlA = uploadResult;
+                        string uploadResult = UploadHelper.Process(file.FileName, file.InputStream);
+                        if (!string.IsNullOrEmpty(uploadResult))
+                        {
+                            model.ImgUrlA = uploadResult;
+                        }
                     }
-                }
-                if (i == 1)
-                {
-                    string uploadResult = UploadHelper.Process(file.FileName, file.InputStream);
-                    if (!string.IsNullOrEmpty(uploadResult))
+                    if (i == 1)
                     {
-                        model.ImgUrlB = uploadResult;
+                        string uploadResult = UploadHelper.Process(file.FileName, file.InputStream);
+                        if (!string.IsNullOrEmpty(uploadResult))
+                        {
+                            model.ImgUrlB = uploadResult;
+                        }
                     }
-                }
-                if (i == 2)
-                {
-                    string uploadResult = UploadHelper.Process(file.FileName, file.InputStream);
-                    if (!string.IsNullOrEmpty(uploadResult))
+                    if (i == 2)
                     {
-                        model.ImgUrlC = uploadResult;
+                        string uploadResult = UploadHelper.Process(file.FileName, file.InputStream);
+                        if (!string.IsNullOrEmpty(uploadResult))
+                        {
+                            model.ImgUrlC = uploadResult;
+                        }
                     }
                 }
             }

@@ -1,0 +1,119 @@
+﻿@using Instart.Models
+@using Instart.Web2.Infrastructures
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    @Html.Partial("PartialApply")
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-top:75px;">
+        <ol class="breadcrumb">
+            <li><a href="#">专业咨询</a></li>
+        </ol>
+
+        <div>
+            <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
+            <form method="post" action="" target="_self" class="form-inline">
+                <div class="form-group">
+                    <select id="selAccept" name="accept" class="form-control" style="width:100px;">
+                        <option value="-1">全部</option>
+                        <option value="0">未受理</option>
+                        <option value="1">已受理</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="专业名称" style="width:300px;">
+                </div>
+                <button type="submit" class="btn btn-success">查询</button>
+                <a href="/manage/majorapply" class="btn btn-default">全部</a>
+            </form>
+        </div>
+        <table class="table table-bordered table-hover" style="margin-top:15px;">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>提问人</th>
+                    <th>计划去的国家</th>
+                    <th>计划学的专业</th>
+                    <th>手机号</th>
+                    <th>问题描述</th>
+                    <th>状态</th>
+                    <th>申请时间</th>
+                    <th>受理时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (MajorApply item in Model)
+                    {
+                        <tr>
+                            <td style="width:5%;">@item.Id</td>
+                            <td>@item.Name</td>
+                            <td>@item.Country.GetDescription()</td>
+                            <td>@item.MajorName</td>
+                            <td>@item.Phone</td>
+                            <td>
+                            @Html.Raw(item.Question)
+                            </td>
+                            <td>@(item.IsAccept ? "已受理" : "未受理")</td>
+                            <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
+                            <td>@(item.IsAccept ? string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.AcceptTime) : "")</td>
+                            <td style="width:10%;">
+                                @if (!item.IsAccept)
+                                {
+                                    <a data-id="@item.Id" href="javascript:void(0)" class="accept">受理</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <div class="row page-center">
+            @if (ViewBag.TotalPages > 1)
+            {
+                <div class="pagination">
+                    <ul class="pl0">
+                        @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new
+           {
+               area = "manage",
+               keyword = ViewBag.Keyword,
+               accept = ViewBag.Accept
+           })
+                    </ul>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+
+@section Bottom{
+    <script>
+        $(function () {
+            $("#selAccept").val("@((int)ViewBag.Accept)");
+
+            $(".accept").click(function () {
+                var applyId = $(this).attr("data-id");
+                if (applyId == 0) {
+                    return;
+                }
+
+                $.post('/manage/majorapply/setaccept', { id: applyId }, function (slt) {
+                    if (slt && slt.success) {
+                        location.reload();
+                    }
+                    else {
+                        layer.msg(slt.message || '操作失败，请重试');
+                    }
+                });
+
+                layer.close(index);
+            });
+        });
+    </script>
+}
+
