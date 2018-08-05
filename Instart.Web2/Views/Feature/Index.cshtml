@@ -1,0 +1,50 @@
+﻿@using Instart.Models
+@model List<Program>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--banner展示图-->
+@Html.Partial("PartialBanner", Instart.Models.Enums.EnumBannerPos.About)
+
+<div class="maincont">
+    <!--Instart 特色-->
+    <div class="title">
+        <h2>Instart 特色</h2>
+    </div>
+
+    <!--特色菜单-->
+    @Html.Partial("PartialFeature", new KeyValuePair<string,string>("type", ViewBag.Type.ToString()))    
+
+    <!--列表-->
+    <div class="course-info com-cont" id="main">
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>
+                    <div class="course-item">
+                        <a href="/feature/show/@item.Id" class="cimg"><img src="@item.Picture" alt="" /></a>
+                        <div class="c-guide">
+                            <p> <b>项目名称</b> <span>@item.Name</span> </p>
+                        </div>
+                        <div class="c-infos">@item.Introduce</div>
+                        <div class="c-yue"><a href="/feature/show/@item.Id" target="_blank">项目咨询</a></div>
+                    </div>
+                </li>
+            }            
+        </ul>
+    </div>
+
+    <!--课程推荐-->
+    @Html.Partial("PartialRecommendCourse")
+        
+</div>
+
+@section Bottom{
+    <script>
+        window.onload = window.onresize = function () {
+            water("main");
+        }
+    </script>
+}

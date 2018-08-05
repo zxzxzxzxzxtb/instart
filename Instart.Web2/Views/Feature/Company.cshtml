@@ -1,0 +1,72 @@
+﻿@using Instart.Models
+@model List<Company>
+
+@{
+    ViewBag.Title = "ProToPro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<!--banner展示图-->
+@Html.Partial("PartialBanner", Instart.Models.Enums.EnumBannerPos.About)
+
+<div class="maincont">
+    <!--特色菜单-->
+    @Html.Partial("PartialFeature", new KeyValuePair<string, string>("type", ViewBag.Type.ToString()))
+
+    <div class="course-info com-cont" id="main">
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>
+                    <div class="course-item">
+                        <a href="/company/companydetail/@item.Id" class="cimg"><img src="@item.ImgUrl" alt="" /></a>
+                        <div class="c-guide">
+                            <p> <b>实习单位</b> <span>@item.Name</span> </p>
+                        </div>
+                        <div class="c-infos">@item.Introduce </div>
+                        <div class="c-guide">
+                            <p> <b>招聘职务</b> <span>Course Title</span> </p>
+                        </div>
+                        <div class="c-infos"> @item.Postions</div>
+                        <div class="c-yue"><a href="/company/companydetail/@item.Id">实习预约</a></div>
+                    </div>
+                </li>
+            }            
+        </ul>
+    </div>
+</div>
+</div>
+<!--实习单位环境/作品 轮播图-->
+<div class="workbo">
+    <div class="bd">
+        <ul>
+            <li>
+                <a href="#"><img src="../yishaimg/lingshi/dabaner.jpg" /></a>
+            </li>
+            <li>
+                <a href="#"><img src="../yishaimg/lingshi/dabaner.jpg" /></a>
+            </li>
+        </ul>
+    </div>
+    <div class="hd">
+        <a class="prev"></a>
+        <a class="next"></a>
+    </div>
+</div>
+
+<div class="maincont">
+    <!--课程推荐-->
+    @Html.Partial("PartialRecommendCourse")
+</div>
+
+@section Bottom{
+    <script>
+        window.onload = window.onresize = function () {
+            water("main");
+        }
+    </script>
+}
+
