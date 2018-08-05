@@ -31,7 +31,7 @@
                         <div class="c-yue"><a href="#">实习预约</a></div>
                     </div>
                 </li>
-            }            
+            }
         </ul>
     </div>
 </div>
@@ -39,12 +39,13 @@
 <div class="workbo">
     <div class="bd">
         <ul>
-            <li>
-                <a href="#"><img src="../yishaimg/lingshi/dabaner.jpg" /></a>
-            </li>
-            <li>
-                <a href="#"><img src="../yishaimg/lingshi/dabaner.jpg" /></a>
-            </li>
+            @foreach (var item in Model)
+            {
+                <li>
+                    <a href="javascript:void(0)"><img src="@item.ImgUrl" /></a>
+                </li>
+            }
+
         </ul>
     </div>
     <div class="hd">
@@ -63,6 +64,7 @@
         window.onload = window.onresize = function () {
             water("main");
         }
+        $(".workbo").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, vis: 1, trigger: "click" });
     </script>
 }
 
