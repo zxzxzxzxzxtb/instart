@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @Html.Partial("PartialFeature")
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-top:75px;">
+        <ol class="breadcrumb">
+            <li><a href="#">跨学科教学</a></li>
+        </ol>
+        <textarea name="PassLearning" id="PassLearning" rows="20" style="height:600px;" >@Html.Raw(ViewBag.Learning)</textarea>
+        <br />
+        <input type="button" class="btn btn-primary" value="保存" onclick="save()" />
+    </div>
+</div>
+
+@section Bottom{
+    <script>
+        var editor = UE.getEditor('PassLearning');
+
+        function save() {
+            var content = editor.getContent();
+            
+            $.post("/manage/passlearn/set", { content: content }, function (slt) {
+                if (slt && slt.success) {
+                    layer.msg('保存成功');
+                }
+                else {
+                    layer.msg(slt.message || '操作失败，请重试');
+                }
+            })
+        }
+    </script>
+}
