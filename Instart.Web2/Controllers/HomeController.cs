@@ -41,7 +41,7 @@ namespace Instart.Web2.Controllers
 
         public  ActionResult Index() {
             ViewBag.PartnerList = ( _partnerService.GetRecommendListAsync(14)) ?? new List<Instart.Models.Partner>();
-            List<School> schoolList = ( _schoolService.GetRecommendListAsync(10)) ?? new List<Instart.Models.School>();
+            List<School> schoolList = ( _schoolService.GetRecommendListAsync(9)) ?? new List<Instart.Models.School>();
             ViewBag.TeacherList = ( _teacherService.GetRecommendListAsync(8)) ?? new List<Instart.Models.Teacher>();
             ViewBag.StudentList = ( _studentService.GetRecommendListAsync(8)) ?? new List<Instart.Models.Student>();
 

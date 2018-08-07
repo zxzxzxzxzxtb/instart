@@ -887,6 +887,7 @@
     <Content Include="Areas\Manage\Views\WorksComment\Index.cshtml" />
     <Content Include="Areas\Manage\Views\CourseOrder\Index.cshtml" />
     <Content Include="Areas\Manage\Views\PassLearn\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\Instart.pubxml" />
     <None Include="Properties\PublishProfiles\InstartWebConfig.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -951,6 +952,8 @@
   <ItemGroup>
     <Folder Include="Areas\Manage\Models\" />
     <Folder Include="Content\ueditor\net\Bin\" />
+    <Folder Include="Content\ueditor\net\upload\image\" />
+    <Folder Include="Content\ueditor\net\upload\video\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
