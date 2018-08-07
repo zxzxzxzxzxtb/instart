@@ -48,7 +48,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">单位图片：</label>
                 <div class="col-sm-10">
-                    <img src="@Model.ImgUrl" id="avatarPreview" style="width:200px;height:200px;border:1px solid #eee;" />
+                    <img src="@Model.ImgUrl" id="avatarPreview" style="width:80%;height:200px;border:1px solid #eee;" />
                     <input type="hidden" name="ImgUrl" value="@Model.ImgUrl" />
                     <a href="javascript:void(0)" onclick="$('#fileAvatar').click()" class="btn-link" style="position:relative;top:90px;">点击上传</a>
                     <input type='file' id='fileAvatar' name='fileAvatar' style='display:none;'>
@@ -79,7 +79,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">工作环境：</label>
                 <div class="col-sm-10">
-                    <img src="@Model.Environment" id="environmentPreview" style="width:200px;height:200px;border:1px solid #eee;" />
+                    <img src="@Model.Environment" id="environmentPreview" style="width:80%;height:200px;border:1px solid #eee;" />
                     <input type="hidden" name="Environment" value="@Model.Environment" />
                     <a href="javascript:void(0)" onclick="$('#fileEnvironment').click()" class="btn-link" style="position:relative;top:90px;">点击上传</a>
                     <input type='file' id='fileEnvironment' name='fileEnvironment' style='display:none;'>
@@ -89,7 +89,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">作品：</label>
                 <div class="col-sm-10">
-                    <img src="@Model.Works" id="worksPreview" style="width:200px;height:200px;border:1px solid #eee;" />
+                    <img src="@Model.Works" id="worksPreview" style="width:80%;height:200px;border:1px solid #eee;" />
                     <input type="hidden" name="Works" value="@Model.Works" />
                     <a href="javascript:void(0)" onclick="$('#fileWorks').click()" class="btn-link" style="position:relative;top:90px;">点击上传</a>
                     <input type='file' id='fileWorks' name='fileWorks' style='display:none;'>
@@ -98,7 +98,7 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <input type="button" class="btn btn-primary" value="提交" onclick="save()" />
+                    <input type="button" class="btn btn-success" value="提交" onclick="save()" />
                 </div>
             </div>
         }
