@@ -1,4 +1,4 @@
-﻿@using Instart.Models
+@using Instart.Models
 @model List<Company>
 
 @{
@@ -15,13 +15,14 @@
                     <a href="/about/companydetail/@item.Id" class="cimg"><img src="@item.ImgUrl" alt="" /></a>
                     <div class="c-guide">
                         <p> <b>@item.Name</b> <span>@item.NameEn</span> </p>
+
                     </div>
                     <div class="c-infos">@Html.Raw(item.Introduce) </div>
                     <div class="c-guide">
                         <p> <b>招聘职务</b> </p>
                     </div>
                     <div class="c-infos"> @item.Postions</div>
-                    <div class="c-yue"><a href="#">实习预约</a></div>
+                    <div class="c-yue"><a href="javascript:void(0)" onclick="apply(@item.Id)">实习预约</a></div>
                 </div>
             </li>
         }
@@ -47,10 +48,24 @@
     </div>
 </div>
 
-<script>
-    window.onload = window.onresize = function () {
-        water("main");
-    }
-    $(".workbo").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, vis: 1, trigger: "click" });
-</script>
+
+    <script>
+        window.onload = window.onresize = function () {
+            water("main");
+        }
+        $(".workbo").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, vis: 1, trigger: "click" });
+
+        function apply(id) {
+            layer.open({
+                type: 2,
+                title: '实习预约',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['800px', '480px'],
+                content: '/about/companyapply?id=' + id //iframe的url
+            });
+        }
+    </script>
+
+
 

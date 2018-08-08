@@ -1,13 +1,13 @@
-﻿@model Instart.Models.TeacherQuestion
+﻿@model Instart.Models.CompanyApply
 @{
-    ViewBag.Title = "向导师提问";
+    ViewBag.Title = "实习预约";
     Layout = null;
 }
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>向导师提问</title>
+    <title>实习预约</title>
     <link href="/content/css/common.css" type="text/css" rel="stylesheet" />
     <link href="/content/css/main.css" type="text/css" rel="stylesheet" />
 
@@ -24,27 +24,24 @@
 </head>
 
 <body>
-    <form class="form-horizontal edit-container-width" id="mainForm" method="post" target="_self" action="/teacher/submitquestion" enctype="multipart/form-data">
-        <input type="hidden" name="TeacherId" value="@ViewBag.TeacherId" />
-        <div class="model">
-            <div class="modelcont">
-                <div class="model-left fl">
-                    <div class="modelzixun">
-                        <dl>
-                            <dt>问题描述</dt>
-                            <dd><textarea placeholder="请输入您想描述的问题" style="height:160px" name="Question"></textarea></dd>
-                        </dl>
-                    </div>
+    <div class="model">
+        <div class="modelcont">
+            <div class="model-left fl">
+                <div class="graphic">
+                    @Html.Raw(ViewBag.Copy)
                 </div>
-                <div class="model-right fr">
-                    <div class="model-form">
+            </div>
+            <div class="model-right fr">
+                <div class="model-form">
+                    <form class="form-horizontal edit-container-width" id="mainForm" method="post" target="_self" action="/about/setcompany" enctype="multipart/form-data">
+                        <input type="hidden" name="CompanyId" value="@ViewBag.CompanyId" />
                         <ul>
                             <li>
                                 <div>计划去的国家：</div>
                                 <div class="select">
                                     <input type="hidden" class="datacont" id="Country" name="Country" />
                                     <span>选择国家</span>
-                                    <p style="overflow:auto">
+                                    <p>
                                         @foreach (Instart.Common.EnumberEntity item in ViewBag.CountryList)
                                         {
                                             <a title="" href="javascript:void(0)" rel="@item.EnumValue">@item.Description</a>
@@ -57,13 +54,18 @@
                                 <div class="select">
                                     <input type="hidden" class="datacont" name="MajorId" />
                                     <span>选择专业</span>
-                                    <p style="overflow:auto">
+                                    <p>
                                         @foreach (Instart.Models.Major item in ViewBag.MajorList)
                                         {
-                                        <a title="" href="javascript:void(0)" rel="@item.Id">@item.Name</a>
+                                            <a title="" href="javascript:void(0)" rel="@item.Id">@item.Name</a>
                                         }
                                     </p>
                                 </div>
+                            </li>
+                            <li>
+                                <div>上传作品集（可选）：</div>
+                                <div class="flles"><a href="javascript:void(0)" class="blue">点击上传</a><input class="flietext" type="file" multiple="multiple" name="fileUpload" /></div>
+                                <div class="flltext"></div>
                             </li>
                             <li>
                                 <div>姓名：</div>
@@ -78,14 +80,14 @@
                                 </div>
                             </li>
                         </ul>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <div class="modelbutton textcenter">
+        <div class="modelbutton">
             <a href="javascript:;" class="bluebox">提  交</a><a href="javascript:;" class="glaxbox" onclick="cancel()">取  消</a>
         </div>
-    </form>
+    </div>
     <script type="text/javascript">
         $(function () {
             //显示隐藏计划
@@ -121,8 +123,19 @@
                     }
                 });
             });
-        })
 
+            //作品集
+            $(".flietext").change(function () {
+                var file = $(this).prop('files');
+                var len = file.length;
+                var html = "";
+                for (var i = 0; i < len; i++) {
+                    html += file[i].name + '；&nbsp;'
+                }
+                $(".flltext").html(html)
+            })
+        })
+            
         //关闭弹出窗
         function cancel() {
             parent.$(".layui-layer-shade,.layui-layer").remove();

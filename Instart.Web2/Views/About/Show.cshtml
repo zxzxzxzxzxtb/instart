@@ -1,4 +1,4 @@
-﻿@using Instart.Models
+@using Instart.Models
 @model Program
 
 @{
@@ -11,9 +11,10 @@
         <a href="#" class="cimg"><img src="@Model.Picture" alt="" /></a>
         <div class="c-guide">
             <p> <b>项目名称</b> <span>@Model.Name</span> </p>
+
         </div>
         <div class="c-infos">@Model.Introduce</div>
-        <div class="c-yue"><a href="javascript:void(0)">项目咨询</a></div>
+        <div class="c-yue"><a href="javascript:void(0)" onclick="apply(@Model.Id)">项目咨询</a></div>
     </div>
 </div>
 <div class="xue-right fr">
@@ -21,5 +22,15 @@
         @Html.Raw(Model.Details)
     </div>
 </div>
-
-
+    <script type="text/javascript">
+        function apply(id) {
+            layer.open({
+                type: 2,
+                title: '项目咨询',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['800px', '430px'],
+                content: '/about/programapply?id=' + id //iframe的url
+            });
+        }
+    </script>

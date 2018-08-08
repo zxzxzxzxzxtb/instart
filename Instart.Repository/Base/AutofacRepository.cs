@@ -55,6 +55,8 @@ namespace Instart.Repository
             builder.RegisterType<MajorApplyRepository>().As<IMajorApplyRepository>().InstancePerLifetimeScope();
             builder.RegisterType<WorksCommentRepository>().As<IWorksCommentRepository>().InstancePerLifetimeScope();
             builder.RegisterType<CourseOrderRepository>().As<ICourseOrderRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<ProgramApplyRepository>().As<IProgramApplyRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<CompanyApplyRepository>().As<ICompanyApplyRepository>().InstancePerLifetimeScope();
             container = builder.Build();
         }
     }
