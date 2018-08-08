@@ -1,0 +1,84 @@
+﻿@using Instart.Models
+@model List<Program>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--banner展示图-->
+@Html.Partial("PartialBanner", Instart.Models.Enums.EnumBannerPos.About)
+
+<div class="maincont">
+    <!--特色菜单-->
+    <div class="title">
+        <h2>Instart 特色</h2>
+    </div>
+    <div class="inslist">
+        <span class="per"><a href="javascript:;"></a></span> <span class="next"><a href="javascript:;"></a></span>
+        <div class="insliu">
+            <ul>
+                <li>
+                    <p><a class="feature-menu" href="javascript:void(0)" data-flag="ProToPro" data-href="/about/program/?type=1">Pre to Pro</a></p>
+                </li>
+                <li>
+                    <p><a class="feature-menu" href="javascript:void(0)" data-flag="Division" data-href="/about/division">学部制度</a></p>
+                </li>
+                <li>
+                    <p><a class="feature-menu" href="javascript:void(0)" data-flag="Teach" data-href="/about/teach">跨学科教学</a></p>
+                </li>
+                <li>
+                    <p><a class="feature-menu" href="javascript:void(0)" data-flag="Workshop" data-href="/about/program/?type=2">Workshop</a></p>
+                </li>
+                <li>
+                    <p><a class="feature-menu" href="javascript:void(0)" data-flag="Studio" data-href="/about/studio">24小时工作室</a></p>
+                </li>
+                <li>
+                    <p><a class="feature-menu" href="javascript:void(0)" data-flag="Company" data-href="/about/company">实习推荐</a></p>
+                </li>
+                <li>
+                    <p><a class="feature-menu" href="javascript:void(0)" data-flag="Actor" data-href="/about/program/?type=3">艺术家孵化平台</a></p>
+                </li>
+                <li>
+                    <p><a class="feature-menu" href="javascript:void(0)" data-flag="Area" data-href="/about/program/?type=4">驻地项目</a></p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--列表-->
+    <div class="course-info com-cont">
+        <iframe id="mainFrame" src="" style="width:100%;height:800px;border:none;"></iframe>
+    </div>
+
+    <!--课程推荐-->
+    @Html.Partial("PartialRecommendCourse")
+</div>
+
+@section Bottom{
+    <script>
+        window.onload = window.onresize = function () {
+            water("main");
+        }
+    </script>
+
+    <script>
+        $(function () {
+            $("a.feature-menu").click(function () {
+                var href = $(this).attr("data-href")
+                $("#mainFrame").attr("src", href);
+                $("a.feature-menu").css({ "background": "#fff", "color": "#1a1a1a" });
+                $(this).css({ "background": "#0000ff", "color": "#fff" });
+            });
+
+            initMenu();
+        });
+
+        function initMenu() {
+            var pos = parseInt("@ViewBag.Type");
+            var cur = $("a.feature-menu").eq(pos-1);
+            cur.click();
+        }
+    </script>
+}
+
+
