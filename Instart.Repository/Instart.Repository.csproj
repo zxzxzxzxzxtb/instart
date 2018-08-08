@@ -60,8 +60,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CopysRepository.cs" />
+    <Compile Include="CompanyApplyRepository.cs" />
+    <Compile Include="Interfaces\ICompanyApplyRepository.cs" />
+    <Compile Include="ProgramApplyRepository.cs" />
     <Compile Include="CourseOrderRepository.cs" />
-    <Compile Include="Interfaces\ICourseOrderRepository.cs" />
+    <Compile Include="Interfaces\IProgramApplyRepository.cs" />
+    <Compile Include="Interfaces\ICourseApplyRepository.cs" />
     <Compile Include="WorksCommentRepository.cs" />
     <Compile Include="Interfaces\IWorksCommentRepository.cs" />
     <Compile Include="Interfaces\IMajorApplyRepository.cs" />
@@ -79,7 +83,7 @@
     <Compile Include="ProgramRepository.cs" />
     <Compile Include="RecruitRepository.cs" />
     <Compile Include="Interfaces\IRecruitRepository.cs" />
-    <Compile Include="Interfaces\ICourseApplyRepository.cs" />
+    <Compile Include="Interfaces\ICourseOrderRepository.cs" />
     <Compile Include="ContactRepository.cs" />
     <Compile Include="ArticleRepository.cs" />
     <Compile Include="BannerRepository.cs" />

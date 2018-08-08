@@ -21,7 +21,7 @@
 			var switchTime=400;//图片切换时间
 			cir();
 			Btn();
-
+			_box.find("li:first").animate({"opacity":"1"},300);
 		//根据图片的数量来生成圆点
 
 			function cir(){
@@ -124,8 +124,8 @@
 			});
 		});
 	}
-	
 })(jQuery);
 
+	
 
 

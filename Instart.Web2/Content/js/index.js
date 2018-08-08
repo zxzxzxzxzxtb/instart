@@ -24,6 +24,7 @@ var index={
 	},
 	//Instart特色
 	picimg:function(){
+        var _ul=$(".insliu ul");
         var lis=$(".insliu li");
 		if(lis.length==0){
 		   return;
@@ -33,9 +34,7 @@ var index={
 		lis.css("width",Math.floor(PW*0.2));
         var lisW=lis.width();
         var len=lis.length;
-        var _ul=$(".insliu ul");
-		var ins=$(".insliu li");
-		var len=ins.length;
+		var len=lis.length;
 		var yinlen=len-5;
 		var herelink=window.location.href;
         _ul.css("width",lisW*len+"px");
@@ -56,19 +55,10 @@ var index={
 	        var now=-here*lisW;
 	    	_ul.stop(true,false).animate({"left":now},300)
 	    }
-		ins.each(function() {
-            var links=$(this).find("a").attr("href");
-			if(herelink.indexOf(links)>=0){
-			    $(this).find("a").addClass("active");
-				dang=$(this).index()
-			}
-        });
-		if(dang>3||dang<(len-3)){
-		    _ul.css("left",-lisW*(dang-2))
-		}
-		if(dang>=(len-3)){
-		    _ul.css("left",-lisW*yinlen)
-		}
+		lis.on("click",function(){
+		    $(this).find("a").addClass("active");
+			$(this).siblings().find("a").removeClass("active");
+		})
 	 }
 }
 index.init();
