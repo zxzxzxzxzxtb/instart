@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -221,6 +221,11 @@ namespace Instart.Web2.Controllers
             var result = new ResultBase();
             result.success = _companyApplyService.InsertAsync(model);
             return Json(result);
+        }
+        public ActionResult Feature(int type = 1)
+        {
+            ViewBag.Type = type;
+            return View();
         }
     }
 }

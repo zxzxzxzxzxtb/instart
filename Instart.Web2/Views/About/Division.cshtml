@@ -1,57 +1,40 @@
 ﻿@using Instart.Models
 @{
-    ViewBag.Title = "ProToPro";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutFeature.cshtml";
 }
 
-<!--banner展示图-->
-@Html.Partial("PartialBanner", Instart.Models.Enums.EnumBannerPos.About)
 
-<div class="maincont">
-    <!--特色菜单-->
-    @Html.Partial("PartialFeature", new KeyValuePair<string, string>("type", ViewBag.Type.ToString()))
-
-    <div class="pagemeun">
-        @foreach (Division item in ViewBag.DivisionList)
-        {
-            <p><a class="division-tab" data-id="tab@(item.Id)" href="javascript:void(0)">@item.Name</a></p>
-        }
-    </div>
+<div class="pagemeun">
     @foreach (Division item in ViewBag.DivisionList)
     {
-        <div class="dancont padding30 dengpao tab-content" data-id="tab@(item.Id)" style="display:none;">
-            @Html.Raw(item.Introduce)
-        </div>
-    }  
-    
-    
+        <p><a class="division-tab" data-id="tab@(item.Id)" href="javascript:void(0)">@item.Name</a></p>
+    }
 </div>
-
-<div class="maincont" style="margin-top:50px;">
-    <!--课程推荐-->
-    @Html.Partial("PartialRecommendCourse")
-    
-</div>
-
-@section Bottom{
-    <script>
-        $(function () {
-            $(".division-tab").click(function () {
-                $(".division-tab").parent("p").removeClass("active");
-                $(this).parent("p").addClass("active");
-                var tabId = $(this).attr("data-id");
-                var $contents = $(".tab-content");
-                $contents.css("display", "none");
-                $.each($contents, function () {
-                    var contentId = $(this).attr("data-id");
-                    if (tabId == contentId) {
-                        $(this).css("display","block");
-                    }
-                });
-            });
-
-            $(".division-tab").eq(0).click();
-        })
-    </script>
+@foreach (Division item in ViewBag.DivisionList)
+{
+    <div class="dancont padding30 dengpao tab-content" data-id="tab@(item.Id)" style="display:none;">
+        @Html.Raw(item.Introduce)
+    </div>
 }
+
+<script>
+    $(function () {
+        $(".division-tab").click(function () {
+            $(".division-tab").parent("p").removeClass("active");
+            $(this).parent("p").addClass("active");
+            var tabId = $(this).attr("data-id");
+            var $contents = $(".tab-content");
+            $contents.css("display", "none");
+            $.each($contents, function () {
+                var contentId = $(this).attr("data-id");
+                if (tabId == contentId) {
+                    $(this).css("display", "block");
+                }
+            });
+        });
+
+        $(".division-tab").eq(0).click();
+    })
+</script>
 

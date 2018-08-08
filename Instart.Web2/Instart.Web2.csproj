@@ -956,6 +956,8 @@
     <Content Include="Views\About\CompanyDetail.cshtml" />
     <Content Include="Views\About\ProgramApply.cshtml" />
     <Content Include="Views\About\CompanyApply.cshtml" />
+    <Content Include="Views\About\Feature.cshtml" />
+    <Content Include="Views\Shared\_LayoutFeature.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Manage\Models\" />
