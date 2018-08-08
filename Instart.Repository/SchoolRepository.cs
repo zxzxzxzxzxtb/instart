@@ -112,7 +112,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = string.Format("select top {0} Id,Name,NameEn,Difficult,Avatar,Country,Fee,Scholarship,LimitDate,Language from [School] where Status=1 and IsRecommend = 1 order by Id desc;",topCount);
+                string sql = string.Format("select top {0} * from [School] where Status=1 and IsRecommend = 1 order by Id desc;",topCount);
                 var result = conn.Query<School>(sql, null);
                 return result != null ? result.ToList() : null;
             }

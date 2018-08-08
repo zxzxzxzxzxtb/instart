@@ -100,6 +100,8 @@
             $('#fileProgram').change(function () {
                 imagePreview(this.files[0], $("#programPreview"));
             });
+
+            $("#selType").val("@((int)Model.Type)");
         })
         function save() {
             var name = $("input[name='Name']").val();
@@ -118,6 +120,6 @@
                 }
             });
         }
-    </script>
+</script>
 }
 
