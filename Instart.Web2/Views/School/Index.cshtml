@@ -1,4 +1,5 @@
 ﻿@using Instart.Models
+@using Instart.Web2.Infrastructures
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -113,19 +114,19 @@
                             var item = slt.data.list[index];
                             var country = "";
                             switch (item.Country) {
-                                case '0':
+                                case 0:
                                     country = "英国";
                                     break;
-                                case '1':
+                                case 1:
                                     country = "美国";
                                     break;
-                                case '2':
+                                case 2:
                                     country = "欧洲";
                                     break;
-                                case '3':
+                                case 3:
                                     country = "亚洲";
                                     break;
-                                case '9':
+                                case 9:
                                     country = "其他";
                                     break;
                             }

@@ -28,7 +28,7 @@
                             <p> <b>招聘职务</b> </p>
                         </div>
                         <div class="c-infos"> @item.Postions</div>
-                        <div class="c-yue"><a href="#">实习预约</a></div>
+                        <div class="c-yue"><a href="javascript:void(0)" onclick="apply(@item.Id)">实习预约</a></div>
                     </div>
                 </li>
             }
@@ -65,6 +65,17 @@
             water("main");
         }
         $(".workbo").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, vis: 1, trigger: "click" });
+
+        function apply(id) {
+            layer.open({
+                type: 2,
+                title: '实习预约',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['800px', '480px'],
+                content: '/about/companyapply?id=' + id //iframe的url
+            });
+        }
     </script>
 }
 

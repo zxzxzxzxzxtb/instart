@@ -8,6 +8,8 @@ using Instart.Models;
 using Instart.Service;
 using Instart.Service.Base;
 using Instart.Models.Enums;
+using Instart.Common;
+using Instart.Web2.Models;
 
 namespace Instart.Web2.Controllers
 {
@@ -21,6 +23,10 @@ namespace Instart.Web2.Controllers
         ICompanyService _companyService = AutofacService.Resolve<ICompanyService>();
         IStudioService _studioService = AutofacService.Resolve<IStudioService>();
         IDivisionService _divisionService = AutofacService.Resolve<IDivisionService>();
+        IMajorService _majorService = AutofacService.Resolve<IMajorService>();
+        IProgramApplyService _programApplyService = AutofacService.Resolve<IProgramApplyService>();
+        ICopysService _copysService = AutofacService.Resolve<ICopysService>();
+        ICompanyApplyService _companyApplyService = AutofacService.Resolve<ICompanyApplyService>();
 
         public AboutController()
         {
@@ -29,6 +35,10 @@ namespace Instart.Web2.Controllers
             this.AddDisposableObject(_companyService);
             this.AddDisposableObject(_studioService);
             this.AddDisposableObject(_divisionService);
+            this.AddDisposableObject(_majorService);
+            this.AddDisposableObject(_programApplyService);
+            this.AddDisposableObject(_copysService);
+            this.AddDisposableObject(_companyApplyService);
         }
 
         public ActionResult Index()
@@ -97,6 +107,120 @@ namespace Instart.Web2.Controllers
             var model = _aboutService.GetInfoAsync() ?? new AboutInstart();
             ViewBag.PassLearning = model.PassLearning;
             return View();
+        }
+
+        /// <summary>
+        /// 项目咨询
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ProgramApply(int id = 0)
+        {
+            if (id == 0)
+            {
+                throw new Exception("项目不存在");
+            }
+            ViewBag.ProgramId = id;
+            ViewBag.CountryList = EnumberHelper.EnumToList<EnumCountry>();
+            ViewBag.MajorList = _majorService.GetAllAsync();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        [Operation("项目咨询")]
+        public JsonResult SubmitApply(ProgramApply model)
+        {
+            if (model == null)
+            {
+                return Error("参数错误");
+            }
+            if (model.MajorId == 0)
+            {
+                return Error("请选择您计划学的专业");
+            }
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请输入您的姓名");
+            }
+            if (string.IsNullOrEmpty(model.Phone))
+            {
+                return Error("请输入您的微信号");
+            }
+            var result = new ResultBase();
+            result.success = _programApplyService.InsertAsync(model);
+            return Json(result);
+        }
+
+        /// <summary>
+        /// 实习预约
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult CompanyApply()
+        {
+            Copys copys = _copysService.GetInfoAsync();
+            ViewBag.Copy = copys == null ? "" : copys.CompanyApplyCopy;
+            ViewBag.CountryList = EnumberHelper.EnumToList<EnumCountry>();
+            ViewBag.MajorList = _majorService.GetAllAsync();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        [Operation("实习预约提交")]
+        public JsonResult SetCompany(CompanyApply model)
+        {
+            if (model == null)
+            {
+                return Error("参数错误");
+            }
+            if (model.MajorId == 0)
+            {
+                return Error("请选择您计划学的专业");
+            }
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                return Error("请输入您的姓名");
+            }
+            if (string.IsNullOrEmpty(model.Phone))
+            {
+                return Error("请输入您的微信号");
+            }
+            HttpFileCollectionBase files = Request.Files;
+            if (files != null)
+            {
+                for (int i = 0; i < files.Count; i++)
+                {
+                    HttpPostedFileBase file = files[i];
+                    //1-3个作品
+                    if (i == 0)
+                    {
+                        string uploadResult = UploadHelper.Process(file.FileName, file.InputStream);
+                        if (!string.IsNullOrEmpty(uploadResult))
+                        {
+                            model.ImgUrlA = uploadResult;
+                        }
+                    }
+                    if (i == 1)
+                    {
+                        string uploadResult = UploadHelper.Process(file.FileName, file.InputStream);
+                        if (!string.IsNullOrEmpty(uploadResult))
+                        {
+                            model.ImgUrlB = uploadResult;
+                        }
+                    }
+                    if (i == 2)
+                    {
+                        string uploadResult = UploadHelper.Process(file.FileName, file.InputStream);
+                        if (!string.IsNullOrEmpty(uploadResult))
+                        {
+                            model.ImgUrlC = uploadResult;
+                        }
+                    }
+                }
+            }
+            var result = new ResultBase();
+            result.success = _companyApplyService.InsertAsync(model);
+            return Json(result);
         }
     }
 }

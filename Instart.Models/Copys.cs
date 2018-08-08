@@ -20,5 +20,10 @@ namespace Instart.Models
         /// 课程预约文案
         /// </summary>
         public string CourseApplyCopy { get; set; }
+
+        /// <summary>
+        /// 实习预约文案
+        /// </summary>
+        public string CompanyApplyCopy { get; set; }
     }
 }

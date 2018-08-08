@@ -8,14 +8,17 @@ using System.Threading.Tasks;
 
 namespace Instart.Repository
 {
-    public interface ICourseOrderRepository
+    public interface ICourseApplyRepository
     {
-        PageModel<CourseOrder> GetListAsync(int pageIndex, int pageSize, string courseName, EnumAccept accept);
+        PageModel<CourseApply> GetListAsync(int pageIndex, int pageSize, string courseName, EnumAccept accept);
+
+        List<string> GetApplyCourseNameListAsync();
 
         bool SetAcceptAsync(int id);
 
-        bool InsertAsync(CourseOrder model);
+        bool InsertAsync(CourseApply model);
 
-        List<CourseOrder> GetTopListAsync(int topCount);
+        List<CourseApply> GetTopListAsync(int topCount);
+
     }
 }

@@ -120,15 +120,9 @@ namespace Instart.Web2.Controllers
         {
             if (model == null)
             {
-                return Error("参数错误。");
+                return Error("参数错误");
             }
-
-            if (string.IsNullOrEmpty(model.Name))
-            {
-                return Error("请选择您计划去的国家");
-            }
-
-            if (string.IsNullOrEmpty(model.Name))
+            if (model.MajorId == 0)
             {
                 return Error("请选择您计划学的专业");
             }
@@ -136,9 +130,9 @@ namespace Instart.Web2.Controllers
             {
                 return Error("请输入您的姓名");
             }
-            if (string.IsNullOrEmpty(model.Name))
+            if (string.IsNullOrEmpty(model.Phone))
             {
-                return Error("请输入您的手机号");
+                return Error("请输入您的微信号");
             }
             HttpFileCollectionBase files = Request.Files;
             if (files != null)

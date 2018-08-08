@@ -1,4 +1,5 @@
 ﻿@using Instart.Models
+@using Instart.Web2.Infrastructures
 @model Instart.Models.School
 @{
     ViewBag.Title = Model.Name;
@@ -6,7 +7,7 @@
 }
 
 <!--banner展示图-->
-<div class="banner-img">
+<div class="banner">
     <div class="neitu"><img src="@Model.BannerImg" alt="" /></div>
     <div class="ban-collage">
         <div class="s-name">
@@ -32,7 +33,7 @@
     <div class="coll-background overflow">
         <div class="coll-back-left fl">
             <div class="coll-info detton">
-                <p><span><i class="glaxfont">国家:</i> <input type="hidden" id="country" value="@Model.Country" /><span id="countrySpan"></span></span><span><i class="glaxfont">留学预算:</i> @Model.Fee</span><span><i class="glaxfont">平均奖学金:</i> @Model.Scholarship</span></p>
+                <p><span><i class="glaxfont">国家:</i> @Model.Country.GetDescription()</span><span><i class="glaxfont">留学预算:</i> @Model.Fee</span><span><i class="glaxfont">平均奖学金:</i> @Model.Scholarship</span></p>
                 <p><span><i class="glaxfont">申请截止日期:</i> @Model.LimitDate</span></p>
                 <p><span><i class="glaxfont">语言要求:</i> @Model.Language</span></p>
                 <p><span><i class="glaxfont">优势专业:</i> @Model.RecommendMajor</span></p>
@@ -40,7 +41,7 @@
             <div class="coll-info detton">
                 <p><span><i class="glaxfont">学校性质:</i> @(Model.Type == 0 ? "公立" : "私立")</span><span><i class="glaxfont">建校时间:</i>@Model.CreateYear</span></p>
                 <p><span><i class="glaxfont">学校地址:</i> @Model.Address</span></p>
-                <p><span><i class="glaxfont">学校网址:</i> @Model.WebSite</span></p>
+                <p><span><i class="glaxfont">学校网址:</i> <a href="@Model.WebSite" target="_blank" style="color:#0000ff">@Model.WebSite</a></span></p>
                 <p><span><i class="glaxfont">知名校友:</i> @Model.OldBoy</span></p>
             </div>
         </div>
@@ -223,25 +224,6 @@
                 precision: true, //是否包含小数
                 readOnly: true
             });
-
-            var country = $("#country").val();
-            switch (country) {
-                case '0':
-                    $("#countrySpan").text("英国");
-                    break;
-                case '1':
-                    $("#countrySpan").text("美国");
-                    break;
-                case '2':
-                    $("#countrySpan").text("欧洲");
-                    break;
-                case '3':
-                    $("#countrySpan").text("亚洲");
-                    break;
-                case '9':
-                    $("#countrySpan").text("其他");
-                    break;
-            }
         })
 
         function apply(id) {

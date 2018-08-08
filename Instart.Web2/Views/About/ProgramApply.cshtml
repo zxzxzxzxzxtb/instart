@@ -1,13 +1,13 @@
-﻿@model Instart.Models.TeacherQuestion
+﻿@model Instart.Models.ProgramApply
 @{
-    ViewBag.Title = "向导师提问";
+    ViewBag.Title = "项目咨询";
     Layout = null;
 }
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>向导师提问</title>
+    <title>项目咨询</title>
     <link href="/content/css/common.css" type="text/css" rel="stylesheet" />
     <link href="/content/css/main.css" type="text/css" rel="stylesheet" />
 
@@ -24,15 +24,15 @@
 </head>
 
 <body>
-    <form class="form-horizontal edit-container-width" id="mainForm" method="post" target="_self" action="/teacher/submitquestion" enctype="multipart/form-data">
-        <input type="hidden" name="TeacherId" value="@ViewBag.TeacherId" />
+    <form class="form-horizontal edit-container-width" id="mainForm" method="post" target="_self" action="/about/submitapply" enctype="multipart/form-data">
+        <input type="hidden" name="ProgramId" value="@ViewBag.ProgramId" />
         <div class="model">
             <div class="modelcont">
                 <div class="model-left fl">
                     <div class="modelzixun">
                         <dl>
-                            <dt>问题描述</dt>
-                            <dd><textarea placeholder="请输入您想描述的问题" style="height:160px" name="Question"></textarea></dd>
+                            <dt>内容描述</dt>
+                            <dd><textarea placeholder="请输入您想咨询的内容" style="height:160px" name="Question"></textarea></dd>
                         </dl>
                     </div>
                 </div>

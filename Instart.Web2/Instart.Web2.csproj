@@ -132,6 +132,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Manage\Controllers\CopysController.cs" />
+    <Compile Include="Areas\Manage\Controllers\CompanyApplyController.cs" />
+    <Compile Include="Areas\Manage\Controllers\ProgramApplyController.cs" />
     <Compile Include="Areas\Manage\Controllers\CourseOrderController.cs" />
     <Compile Include="Areas\Manage\Controllers\WorksCommentController.cs" />
     <Compile Include="Areas\Manage\Controllers\MajorApplyController.cs" />
@@ -236,7 +238,9 @@
     <Content Include="Content\images\lingshi\schollbg.jpg" />
     <Content Include="Content\images\lingshi\ucl.jpg" />
     <Content Include="Content\images\lingshi\video.jpg" />
+    <Content Include="Content\images\loading-2.gif" />
     <Content Include="Content\images\loginbg.jpg" />
+    <Content Include="Content\images\loginbg.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\qcord.png" />
     <Content Include="Content\images\select.png" />
@@ -887,6 +891,8 @@
     <Content Include="Areas\Manage\Views\WorksComment\Index.cshtml" />
     <Content Include="Areas\Manage\Views\CourseOrder\Index.cshtml" />
     <Content Include="Areas\Manage\Views\PassLearn\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\ProgramApply\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\CompanyApply\Index.cshtml" />
     <None Include="Properties\PublishProfiles\Instart.pubxml" />
     <None Include="Properties\PublishProfiles\InstartWebConfig.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
@@ -948,6 +954,8 @@
     <Content Include="Views\Shared\PartialRecommendCourse.cshtml" />
     <Content Include="Views\Shared\PartialBanner.cshtml" />
     <Content Include="Views\About\CompanyDetail.cshtml" />
+    <Content Include="Views\About\ProgramApply.cshtml" />
+    <Content Include="Views\About\CompanyApply.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Manage\Models\" />

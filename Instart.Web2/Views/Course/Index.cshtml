@@ -3,7 +3,6 @@
     ViewBag.Title = "课程";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <!--banner展示图-->
 @Html.Partial("PartialBanner", Instart.Models.Enums.EnumBannerPos.Course)
 
@@ -84,22 +83,19 @@
 </div>
 @section Bottom{
     <script type="text/javascript">
-       //SuperSlide.js
-       $(".chenggong").slide({titCell:".hd ul",mainCell:".bd ul",autoPage:true,effect:"left",autoPlay:false,scroll:2,vis:4,trigger:"click"});
-       //瀑布流
-       window.onload=window.onresize=function(){
-            water("main");
-       }
+        //SuperSlide.js
+        $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, scroll: 2, vis: 4, trigger: "click" });
 
-       function order(id) {
-           layer.open({
-               type: 2,
-               title: '课程预约',
-               shadeClose: true,
-               shade: 0.8,
-               area: ['800px', '430px'],
-               content: '/course/courseorder?id=' + id //iframe的url
-           });
-       }
+        function order(id) {
+            layer.open({
+                type: 2,
+                title: '课程预约',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['800px', '430px'],
+                content: '/course/courseorder?id=' + id //iframe的url
+            });
+        }
     </script>
+    <script src="/content/js/pubu.js" type="text/javascript"></script>
 }
