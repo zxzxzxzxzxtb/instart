@@ -3,31 +3,23 @@
 
 @{
     ViewBag.Title = "Show";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutFeature.cshtml";
 }
 
-<!--banner展示图-->
-@Html.Partial("PartialBanner", Instart.Models.Enums.EnumBannerPos.About)
+<div class="xue-left fl">
+    <div class="course-item">
+        <a href="#" class="cimg"><img src="@Model.Picture" alt="" /></a>
+        <div class="c-guide">
+            <p> <b>项目名称</b> <span>@Model.Name</span> </p>
+        </div>
+        <div class="c-infos">@Model.Introduce</div>
+        <div class="c-yue"><a href="javascript:void(0)">项目咨询</a></div>
+    </div>
+</div>
+<div class="xue-right fr">
+    <div class="claimlist">
+        @Html.Raw(Model.Details)
+    </div>
+</div>
 
-<div class="maincont">
-    <!--特色菜单-->
-    @Html.Partial("PartialFeature", new KeyValuePair<string, string>("type", ViewBag.Type.ToString()))    
-</div>
-<div class="maincont padding30 overflow">
-    <div class="xue-left fl">
-        <div class="course-item">
-            <a href="#" class="cimg"><img src="@Model.Picture" alt="" /></a>
-            <div class="c-guide">
-                <p> <b>项目名称</b> <span>@Model.Name</span> </p>
-            </div>
-            <div class="c-infos">@Model.Introduce</div>
-            <div class="c-yue"><a href="javascript:void(0)">项目咨询</a></div>
-        </div>
-    </div>
-    <div class="xue-right fr">
-        <div class="claimlist">
-            @Html.Raw(Model.Details)
-        </div>
-    </div>
-</div>
 

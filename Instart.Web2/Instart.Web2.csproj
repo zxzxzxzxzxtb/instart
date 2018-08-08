@@ -948,6 +948,8 @@
     <Content Include="Views\Shared\PartialRecommendCourse.cshtml" />
     <Content Include="Views\Shared\PartialBanner.cshtml" />
     <Content Include="Views\About\CompanyDetail.cshtml" />
+    <Content Include="Views\About\Feature.cshtml" />
+    <Content Include="Views\Shared\_LayoutFeature.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Manage\Models\" />

@@ -2,39 +2,32 @@
 @model List<Company>
 
 @{
-    ViewBag.Title = "ProToPro";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutFeature.cshtml";
 }
 
-<!--banner展示图-->
-@Html.Partial("PartialBanner", Instart.Models.Enums.EnumBannerPos.About)
-
-<div class="maincont">
-    <!--特色菜单-->
-    @Html.Partial("PartialFeature", new KeyValuePair<string, string>("type", ViewBag.Type.ToString()))
-
-    <div class="course-info com-cont" id="main">
-        <ul>
-            @foreach (Company item in Model)
-            {
-                <li>
-                    <div class="course-item">
-                        <a href="/about/companydetail/@item.Id" class="cimg"><img src="@item.ImgUrl" alt="" /></a>
-                        <div class="c-guide">
-                            <p> <b>@item.Name</b> <span>@item.NameEn</span> </p>
-                        </div>
-                        <div class="c-infos">@Html.Raw(item.Introduce) </div>
-                        <div class="c-guide">
-                            <p> <b>招聘职务</b> </p>
-                        </div>
-                        <div class="c-infos"> @item.Postions</div>
-                        <div class="c-yue"><a href="#">实习预约</a></div>
+<div class="course-info com-cont" id="main">
+    <ul>
+        @foreach (Company item in Model)
+        {
+            <li>
+                <div class="course-item">
+                    <a href="/about/companydetail/@item.Id" class="cimg"><img src="@item.ImgUrl" alt="" /></a>
+                    <div class="c-guide">
+                        <p> <b>@item.Name</b> <span>@item.NameEn</span> </p>
                     </div>
-                </li>
-            }
-        </ul>
-    </div>
+                    <div class="c-infos">@Html.Raw(item.Introduce) </div>
+                    <div class="c-guide">
+                        <p> <b>招聘职务</b> </p>
+                    </div>
+                    <div class="c-infos"> @item.Postions</div>
+                    <div class="c-yue"><a href="#">实习预约</a></div>
+                </div>
+            </li>
+        }
+    </ul>
 </div>
+
 <!--实习单位环境/作品 轮播图-->
 <div class="workbo">
     <div class="bd">
@@ -54,17 +47,10 @@
     </div>
 </div>
 
-<div class="maincont">
-    <!--课程推荐-->
-    @Html.Partial("PartialRecommendCourse")
-</div>
-
-@section Bottom{
-    <script>
-        window.onload = window.onresize = function () {
-            water("main");
-        }
-        $(".workbo").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, vis: 1, trigger: "click" });
-    </script>
-}
+<script>
+    window.onload = window.onresize = function () {
+        water("main");
+    }
+    $(".workbo").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, vis: 1, trigger: "click" });
+</script>
 

@@ -98,5 +98,11 @@ namespace Instart.Web2.Controllers
             ViewBag.PassLearning = model.PassLearning;
             return View();
         }
+
+        public ActionResult Feature(int type = 1)
+        {
+            ViewBag.Type = type;
+            return View();
+        }
     }
 }
