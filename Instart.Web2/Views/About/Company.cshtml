@@ -1,4 +1,4 @@
-@using Instart.Models
+﻿@using Instart.Models
 @model List<Company>
 
 @{
@@ -10,7 +10,7 @@
     <ul>
         @foreach (Company item in Model)
         {
-            <li>
+            <li style="position:relative;">
                 <div class="course-item">
                     <a href="/about/companydetail/@item.Id" class="cimg"><img src="@item.ImgUrl" alt="" /></a>
                     <div class="c-guide">
@@ -48,24 +48,20 @@
     </div>
 </div>
 
+<script>
+    $(".workbo").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, vis: 1, trigger: "click" });
 
-    <script>
-        window.onload = window.onresize = function () {
-            water("main");
-        }
-        $(".workbo").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, vis: 1, trigger: "click" });
-
-        function apply(id) {
-            layer.open({
-                type: 2,
-                title: '实习预约',
-                shadeClose: true,
-                shade: 0.8,
-                area: ['800px', '480px'],
-                content: '/about/companyapply?id=' + id //iframe的url
-            });
-        }
-    </script>
-
+    function apply(id) {
+        layer.open({
+            type: 2,
+            title: '实习预约',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['800px', '480px'],
+            content: '/about/companyapply?id=' + id //iframe的url
+        });
+    }
+</script>
+<script src="/content/js/pubu.js" type="text/javascript"></script>
 
 

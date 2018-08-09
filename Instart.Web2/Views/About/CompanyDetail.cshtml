@@ -27,16 +27,15 @@
         @Html.Raw(Model.Details)
     </div>
 </div>
-    {
-    <script type="text/javascript">
-        function apply(id) {
-            layer.open({
-                type: 2,
-                title: '实习预约',
-                shadeClose: true,
-                shade: 0.8,
-                area: ['800px', '480px'],
-                content: '/about/companyapply?id=' + id //iframe的url
-            });
-        }
-    </script>
+<script type="text/javascript">
+    function apply(id) {
+        layer.open({
+            type: 2,
+            title: '实习预约',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['800px', '480px'],
+            content: '/about/companyapply?id=' + id //iframe的url
+        });
+    }
+</script>

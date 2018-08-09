@@ -1,4 +1,4 @@
-@using Instart.Models
+﻿@using Instart.Models
 @model Program
 
 @{
@@ -22,7 +22,7 @@
         @Html.Raw(Model.Details)
     </div>
 </div>
-    <script type="text/javascript">
+<script type="text/javascript">
         function apply(id) {
             layer.open({
                 type: 2,
@@ -33,4 +33,4 @@
                 content: '/about/programapply?id=' + id //iframe的url
             });
         }
-    </script>
+</script>

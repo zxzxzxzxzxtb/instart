@@ -155,8 +155,13 @@ namespace Instart.Web2.Controllers
         /// 实习预约
         /// </summary>
         /// <returns></returns>
-        public ActionResult CompanyApply()
+        public ActionResult CompanyApply(int id = 0)
         {
+            if (id == 0)
+            {
+                throw new Exception("实习单位不存在");
+            }
+            ViewBag.CompanyId = id;
             Copys copys = _copysService.GetInfoAsync();
             ViewBag.Copy = copys == null ? "" : copys.CompanyApplyCopy;
             ViewBag.CountryList = EnumberHelper.EnumToList<EnumCountry>();
