@@ -54,8 +54,8 @@
                     foreach (CampusImg item in ViewBag.ImgList)
                     {
                         <li class="icoli">
-                            <img src="@item.ImgUrl" style="width:200px;height:200px;border:1px solid #eee;" /><p>
-                                <a href="javascript:void(0)" onclick="deleteImg(this, @item.Id)" class="btn btn-primary">删除</a>
+                            <img src="@item.ImgUrl" style="width:200px;height:200px;border:1px solid #eee;" class="img-thumbnail" /><p>
+                                <a href="javascript:void(0)" onclick="deleteImg(this, @item.Id)" class="btn btn-default">删除</a>
                             </p>
                         </li>
                     }
@@ -73,7 +73,7 @@
                         <input type="hidden" id="CampusId" name="CampusId" value="@ViewBag.CampusId" />
                         <img src="" id="imgPreview" style="width:200px;height:200px;border:1px solid #eee;" /><p>
                             <input type='file' id='campusImg' name='campusImg' style="margin-left: 25px;">
-                            <a href="javascript:void(0)" onclick="imgSubmit()" class="btn btn-primary">上传</a>
+                            <a href="javascript:void(0)" onclick="imgSubmit()" class="btn btn-success" style="margin-top:15px;">上传</a>
                         </p>
                     }
                 </li>

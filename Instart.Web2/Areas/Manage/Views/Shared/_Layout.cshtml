@@ -185,7 +185,13 @@
 
     $(function () {
         $('img').error(function () {
-            $(this).attr('src', "/content/images/place_img.jpg");
+            var w = $(this).width();
+            var h = $(this).height();
+            if (w == h) {
+                $(this).attr('src', "/content/images/place_img2.jpg");
+            } else {
+                $(this).attr('src', "/content/images/place_img.jpg");
+            }            
         });
     });
 
