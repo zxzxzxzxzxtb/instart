@@ -4,25 +4,25 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutFeature.cshtml";
 }
-
-<div class="course-info com-cont" id="main">
-    <ul>
-        @foreach (var item in Model)
-        {
-            <li style="position:relative;">
-                <div class="course-item">
-                    <a href="/about/show/@item.Id" class="cimg"><img src="@item.Picture" alt="" /></a>
-                    <div class="c-guide">
-                        <p> <b>@item.Name</b> <span>@item.NameEn</span> </p>
+<div class="maincont">
+    <div class="course-info com-cont" id="main">
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>
+                    <div class="course-item">
+                        <a href="/about/show/@item.Id" class="cimg"><img src="@item.Picture" alt="" /></a>
+                        <div class="c-guide">
+                            <p> <b>@item.Name</b> <span>@item.NameEn</span> </p>
+                        </div>
+                        <div class="c-infos">@item.Introduce</div>
+                        <div class="c-yue"><a href="javascript:void(0)" onclick="apply(@item.Id)">项目咨询</a></div>
                     </div>
-                    <div class="c-infos">@item.Introduce</div>
-                    <div class="c-yue"><a href="javascript:void(0)" onclick="apply(@item.Id)">项目咨询</a></div>
-                </div>
-            </li>
-        }
-    </ul>
+                </li>
+            }
+        </ul>
+    </div>
 </div>
-
 <script>
     function apply(id) {
         layer.open({
