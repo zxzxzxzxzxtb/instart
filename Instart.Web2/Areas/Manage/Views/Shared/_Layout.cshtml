@@ -183,4 +183,10 @@
         }
     }());
 
+    $(function () {
+        $('img').error(function () {
+            $(this).attr('src', "http://temp.im/640x260");
+        });
+    });
+
 </script>

@@ -22,7 +22,8 @@
         {
             enctype = "multipart/form-data",
             id = "mainForm",
-            @class = "form-horizontal edit-container-width"
+            @class = "form-horizontal edit-container-width",
+            style="width:800px !important"
         }))
         {
             @Html.HiddenFor(m => m.Id)
@@ -61,9 +62,9 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">项目图片：</label>
                 <div class="col-sm-10">
-                    <img src="@Model.Picture" id="programPreview" style="width:200px;height:200px;border:1px solid #eee;" />
+                    <img src="@Model.Picture" id="programPreview" style="width:80%;height:250px;border:1px solid #eee;" />
                     <input type="hidden" name="Picture" value="@Model.Picture" />
-                    <a href="javascript:void(0)" onclick="$('#fileProgram').click()" class="btn-link" style="position:relative;top:90px;">点击上传</a>
+                    <a href="javascript:void(0)" onclick="$('#fileProgram').click()" class="btn-link" style="position:relative;top:115px;">点击上传</a>
                     <input type='file' id='fileProgram' name='fileProgram' style='display:none;'>
                 </div>
             </div>
@@ -71,14 +72,14 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">项目介绍：</label>
                 <div class="col-sm-10">
-                    <textarea name="Introduce" id="Introduce" rows="10" class="form-control">@Model.Introduce</textarea>
+                    <textarea name="Introduce" id="Introduce" rows="15" class="form-control">@Model.Introduce</textarea>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">项目详情：</label>
                 <div class="col-sm-10">
-                    <textarea name="Details" id="Details" rows="10">@Model.Details</textarea>
+                    <textarea name="Details" id="Details" style="height:400px;">@Html.Raw(Model.Details)</textarea>
                 </div>
             </div>
 

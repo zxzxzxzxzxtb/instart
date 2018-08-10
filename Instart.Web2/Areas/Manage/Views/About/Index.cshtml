@@ -18,15 +18,16 @@
         {
             enctype = "multipart/form-data",
             id = "mainForm",
-            @class = "form-horizontal edit-container-width"
+            @class = "form-horizontal edit-container-width",
+            style = "width:800px !important;"
         }))
         {
             <div class="form-group">
                 <label class="col-sm-2 control-label">视频封面：</label>
                 <div class="col-sm-10">
-                    <img src="@Model.ImgUrl" id="imgPreview" style="width:80%;height:200px;border:1px solid #eee;" />
+                    <img src="@Model.ImgUrl" id="imgPreview" style="width:80%;height:250px;border:1px solid #eee;" />
                     <input type="hidden" name="ImgUrl" value="@Model.ImgUrl" />
-                    <a href="javascript:void(0)" onclick="$('#fileImg').click()" class="btn-link" style="position:relative;top:90px;">点击上传</a>
+                    <a href="javascript:void(0)" onclick="$('#fileImg').click()" class="btn-link" style="position:relative;top:115px;">点击上传</a>
                     <input type='file' id='fileImg' name='fileImg' style='display:none;'>
                 </div>
             </div>
@@ -46,37 +47,37 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Instart简介：</label>
                 <div class="col-sm-10">
-                    <textarea name="Introduce" id="Introduce" rows="15">@@Html.Raw(Model.Introduce)</textarea>
+                    <textarea name="Introduce" id="Introduce" style="height:400px;">@Html.Raw(Model.Introduce)</textarea>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">Instart团队：</label>
                 <div class="col-sm-10">
-                    <textarea name="Team" id="Team" rows="15">@Html.Raw(Model.Team)</textarea>
+                    <textarea name="Team" id="Team" style="height:400px;">@Html.Raw(Model.Team)</textarea>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">Instart发展：</label>
                 <div class="col-sm-10">
-                    <textarea name="Develop" id="Develop" rows="15">@Html.Raw(Model.Develop)</textarea>
+                    <textarea name="Develop" id="Develop" style="height:400px;">@Html.Raw(Model.Develop)</textarea>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">跨学科教学：</label>
                 <div class="col-sm-10">
-                    <textarea name="PassLearning" id="PassLearning" rows="10">@@Html.Raw(Model.PassLearning)</textarea>
+                    <textarea name="PassLearning" id="PassLearning" style="height:400px;">@Html.Raw(Model.PassLearning)</textarea>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">PreToPro封面：</label>
                 <div class="col-sm-10">
-                    <img src="@Model.PreToProImg" id="preToProPreview" style="width:80%;height:100px;border:1px solid #eee;" />
+                    <img src="@Model.PreToProImg" id="preToProPreview" style="width:80%;height:200px;border:1px solid #eee;" />
                     <input type="hidden" name="PreToProImg" value="@Model.PreToProImg" />
-                    <a href="javascript:void(0)" onclick="$('#filePreToPro').click()" class="btn-link" style="position:relative;top:40px;">点击上传</a>
+                    <a href="javascript:void(0)" onclick="$('#filePreToPro').click()" class="btn-link" style="position: relative; top: 90px;">点击上传</a>
                     <input type='file' id='filePreToPro' name='filePreToPro' style='display:none;'>
                 </div>
             </div>
@@ -84,9 +85,9 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">学部制度封面：</label>
                 <div class="col-sm-10">
-                    <img src="@Model.DivisionImg" id="divisionPreview" style="width:80%;height:100px;border:1px solid #eee;" />
+                    <img src="@Model.DivisionImg" id="divisionPreview" style="width: 80%; height: 200px; border: 1px solid #eee;" />
                     <input type="hidden" name="DivisionImg" value="@Model.DivisionImg" />
-                    <a href="javascript:void(0)" onclick="$('#fileDivision').click()" class="btn-link" style="position:relative;top:40px;">点击上传</a>
+                    <a href="javascript:void(0)" onclick="$('#fileDivision').click()" class="btn-link" style="position: relative; top: 90px;">点击上传</a>
                     <input type='file' id='fileDivision' name='fileDivision' style='display:none;'>
                 </div>
             </div>
@@ -94,9 +95,9 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">跨学科教学封面：</label>
                 <div class="col-sm-10">
-                    <img src="@Model.PassLearningImg" id="passLearningPreview" style="width:80%;height:100px;border:1px solid #eee;" />
+                    <img src="@Model.PassLearningImg" id="passLearningPreview" style="width: 80%; height: 200px; border: 1px solid #eee;" />
                     <input type="hidden" name="PassLearningImg" value="@Model.PassLearningImg" />
-                    <a href="javascript:void(0)" onclick="$('#filePassLearning').click()" class="btn-link" style="position:relative;top:40px;">点击上传</a>
+                    <a href="javascript:void(0)" onclick="$('#filePassLearning').click()" class="btn-link" style="position: relative; top: 90px;">点击上传</a>
                     <input type='file' id='filePassLearning' name='filePassLearning' style='display:none;'>
                 </div>
             </div>
@@ -104,9 +105,9 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">WorkShop封面：</label>
                 <div class="col-sm-10">
-                    <img src="@Model.WorkShopImg" id="workShopPreview" style="width:80%;height:100px;border:1px solid #eee;" />
+                    <img src="@Model.WorkShopImg" id="workShopPreview" style="width: 80%; height: 200px; border: 1px solid #eee;" />
                     <input type="hidden" name="WorkShopImg" value="@Model.WorkShopImg" />
-                    <a href="javascript:void(0)" onclick="$('#fileWorkShop').click()" class="btn-link" style="position:relative;top:40px;">点击上传</a>
+                    <a href="javascript:void(0)" onclick="$('#fileWorkShop').click()" class="btn-link" style="position: relative; top: 90px;">点击上传</a>
                     <input type='file' id='fileWorkShop' name='fileWorkShop' style='display:none;'>
                 </div>
             </div>
@@ -114,9 +115,9 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">24小时工作室封面：</label>
                 <div class="col-sm-10">
-                    <img src="@Model.StudioImg" id="studioPreview" style="width:80%;height:100px;border:1px solid #eee;" />
+                    <img src="@Model.StudioImg" id="studioPreview" style="width: 80%; height: 200px; border: 1px solid #eee;" />
                     <input type="hidden" name="StudioImg" value="@Model.StudioImg" />
-                    <a href="javascript:void(0)" onclick="$('#fileStudio').click()" class="btn-link" style="position:relative;top:40px;">点击上传</a>
+                    <a href="javascript:void(0)" onclick="$('#fileStudio').click()" class="btn-link" style="position: relative; top: 90px;">点击上传</a>
                     <input type='file' id='fileStudio' name='fileStudio' style='display:none;'>
                 </div>
             </div>
@@ -124,9 +125,9 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">实习推荐封面：</label>
                 <div class="col-sm-10">
-                    <img src="@Model.CompanyImg" id="companyPreview" style="width:80%;height:100px;border:1px solid #eee;" />
+                    <img src="@Model.CompanyImg" id="companyPreview" style="width: 80%; height: 200px; border: 1px solid #eee;" />
                     <input type="hidden" name="CompanyImg" value="@Model.CompanyImg" />
-                    <a href="javascript:void(0)" onclick="$('#fileCompany').click()" class="btn-link" style="position:relative;top:40px;">点击上传</a>
+                    <a href="javascript:void(0)" onclick="$('#fileCompany').click()" class="btn-link" style="position: relative; top: 90px;">点击上传</a>
                     <input type='file' id='fileCompany' name='fileCompany' style='display:none;'>
                 </div>
             </div>
@@ -134,9 +135,9 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">艺术家孵化平台封面：</label>
                 <div class="col-sm-10">
-                    <img src="@Model.ActorImg" id="actorPreview" style="width:80%;height:100px;border:1px solid #eee;" />
+                    <img src="@Model.ActorImg" id="actorPreview" style="width: 80%; height: 200px; border: 1px solid #eee;" />
                     <input type="hidden" name="ActorImg" value="@Model.ActorImg" />
-                    <a href="javascript:void(0)" onclick="$('#fileActor').click()" class="btn-link" style="position:relative;top:40px;">点击上传</a>
+                    <a href="javascript:void(0)" onclick="$('#fileActor').click()" class="btn-link" style="position: relative; top: 90px;">点击上传</a>
                     <input type='file' id='fileActor' name='fileActor' style='display:none;'>
                 </div>
             </div>
@@ -144,9 +145,9 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">驻地项目封面：</label>
                 <div class="col-sm-10">
-                    <img src="@Model.ProgramsImg" id="programsPreview" style="width:80%;height:100px;border:1px solid #eee;" />
+                    <img src="@Model.ProgramsImg" id="programsPreview" style="width: 80%; height: 200px; border: 1px solid #eee;" />
                     <input type="hidden" name="ProgramsImg" value="@Model.ProgramsImg" />
-                    <a href="javascript:void(0)" onclick="$('#filePrograms').click()" class="btn-link" style="position:relative;top:40px;">点击上传</a>
+                    <a href="javascript:void(0)" onclick="$('#filePrograms').click()" class="btn-link" style="position:relative;top:90px;">点击上传</a>
                     <input type='file' id='filePrograms' name='filePrograms' style='display:none;'>
                 </div>
             </div>

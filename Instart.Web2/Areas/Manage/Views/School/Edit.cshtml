@@ -7,33 +7,33 @@
 }
 <div class="row">
     @Html.Partial("PartialSchool")
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-top:75px;">
+    <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-2 main" style="padding-top:75px;">
         <ol class="breadcrumb">
             <li><a href="/manage/school">艺术院校</a></li>
             <li class="active">@ViewBag.Action</li>
         </ol>
 
-        <form class="form-horizontal edit-container-width" id="mainForm" method="post" target="_self" action="/manage/school/set" enctype="multipart/form-data">
+        <form class="form-horizontal edit-container-width" id="mainForm" method="post" target="_self" style="width:800px !important;" action="/manage/school/set" enctype="multipart/form-data">
 
             <input type="hidden" name="Id" value="@Model.Id" />
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">学校名称：</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">学校名称：</label>
+                <div class="col-sm-10">
                     <input type="text" class="form-control" name="Name" value="@Model.Name">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">英文名：</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">英文名：</label>
+                <div class="col-sm-10">
                     <input type="text" class="form-control" name="NameEn" value="@Model.NameEn">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">学校类型：</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">学校类型：</label>
+                <div class="col-sm-10">
                     <select id="selType" name="Type" class="form-control">
                         <option value="0">公立</option>
                         <option value="1">私立</option>
@@ -42,8 +42,8 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">国家：</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">国家：</label>
+                <div class="col-sm-10">
                     <select id="selCountry" name="Country" class="form-control">
                         <option value="0">英国</option>
                         <option value="1">美国</option>
@@ -55,8 +55,8 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">学历：</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">学历：</label>
+                <div class="col-sm-10">
                     <div class="checkbox">
                         <label style="float:left; margin-right: 10px">
                             <input type="checkbox" name="ckEducation" value="1" />本科
@@ -69,85 +69,85 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">地址：</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">地址：</label>
+                <div class="col-sm-10">
                     <input type="text" class="form-control" name="Address" value="@Model.Address">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">网址：</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">网址：</label>
+                <div class="col-sm-10">
                     <input type="text" class="form-control" name="WebSite" value="@Model.WebSite">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">学费：</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">学费：</label>
+                <div class="col-sm-10">
                     <input type="text" class="form-control" name="Fee" value="@Model.Fee">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">奖学金：</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">奖学金：</label>
+                <div class="col-sm-10">
                     <input type="text" class="form-control" name="Scholarship" value="@Model.Scholarship">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">申请难度：</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">申请难度：</label>
+                <div class="col-sm-10">
                     <input type="text" class="form-control" name="Difficult" value="@Model.Difficult">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">申请截止日期：</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">申请截止日期：</label>
+                <div class="col-sm-10">
                     <input type="text" class="form-control" name="LimitDate" value="@Model.LimitDate">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">语言要求：</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">语言要求：</label>
+                <div class="col-sm-10">
                     <input type="text" class="form-control" name="Language" value="@Model.Language">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">推荐专业：</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">推荐专业：</label>
+                <div class="col-sm-10">
                     <input type="text" class="form-control" name="RecommendMajor" value="@Model.RecommendMajor">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">建校时间：</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">建校时间：</label>
+                <div class="col-sm-10">
                     <input type="text" class="form-control" name="CreateYear" value="@Model.CreateYear">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">知名校友：</label>
-                <div class="col-sm-9">
-                    <textarea name="OldBoy" rows="10" class="form-control">@Model.OldBoy</textarea>
+                <label class="col-sm-2 control-label">知名校友：</label>
+                <div class="col-sm-10">
+                    <textarea name="OldBoy" rows="15" class="form-control">@Model.OldBoy</textarea>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">学校简介：</label>
-                <div class="col-sm-9">
-                    <textarea name="Introduce" rows="10" class="form-control">@Model.Introduce</textarea>
+                <label class="col-sm-2 control-label">学校简介：</label>
+                <div class="col-sm-10">
+                    <textarea name="Introduce" rows="15" class="form-control">@Model.Introduce</textarea>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">学校图片：</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">学校图片：</label>
+                <div class="col-sm-10">
                     <img src="@Model.Avatar" id="avatarPreview" style="width:80%;height:200px;border:1px solid #eee;" />
                     <input type="hidden" name="Avatar" value="@Model.Avatar" />
                     <a href="javascript:void(0)" onclick="$('#fileAvatar').click()" class="btn-link" style="position:relative;top:90px;">点击上传</a>
@@ -156,41 +156,41 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">Logo：</label>
-                <div class="col-sm-9">
-                    <img src="@Model.Logo" id="logoPreview" style="width:100px;height:100px;border:1px solid #eee;" />
+                <label class="col-sm-2 control-label">Logo：</label>
+                <div class="col-sm-10">
+                    <img src="@Model.Logo" id="logoPreview" style="width:150px;height:150px;border:1px solid #eee;" />
                     <input type="hidden" name="Logo" value="@Model.Logo" />
-                    <a href="javascript:void(0)" onclick="$('#fileLogo').click()" class="btn-link" style="position:relative;top:40px;">点击上传</a>
+                    <a href="javascript:void(0)" onclick="$('#fileLogo').click()" class="btn-link" style="position:relative;top:65px;">点击上传</a>
                     <input type="file" id="fileLogo" name="fileLogo" style="display:none;">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">Banner：</label>
-                <div class="col-sm-9">
-                    <img src="@Model.BannerImg" id="bannerPreview" style="width:80%;height:100px;border:1px solid #eee;" />
+                <label class="col-sm-2 control-label">Banner：</label>
+                <div class="col-sm-10">
+                    <img src="@Model.BannerImg" id="bannerPreview" style="width:80%;height:200px;border:1px solid #eee;" />
                     <input type="hidden" name="Logo" value="@Model.BannerImg" />
-                    <a href="javascript:void(0)" onclick="$('#fileBanner').click()" class="btn-link" style="position:relative;top:40px;">点击上传</a>
+                    <a href="javascript:void(0)" onclick="$('#fileBanner').click()" class="btn-link" style="position:relative;top:90px;">点击上传</a>
                     <input type="file" id="fileBanner" name="fileBanner" style="display:none;">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">申请要求：</label>
-                <div class="col-sm-9">
-                    <textarea name="ApplyCondition" id="ApplyCondition" rows="10">@Model.ApplyCondition</textarea>
+                <label class="col-sm-2 control-label">申请要求：</label>
+                <div class="col-sm-10">
+                    <textarea name="ApplyCondition" id="ApplyCondition" style="height:400px;">@Html.Raw(Model.ApplyCondition)</textarea>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">学费明细：</label>
-                <div class="col-sm-9">
-                    <textarea name="Moneys" id="Moneys" rows="10">@Model.Moneys</textarea>
+                <label class="col-sm-2 control-label">学费明细：</label>
+                <div class="col-sm-10">
+                    <textarea name="Moneys" id="Moneys" style="height:400px;">@Html.Raw(Model.Moneys)</textarea>
                 </div>
             </div>
 
             <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-9">
+                <div class="col-sm-offset-2 col-sm-10">
                     <button id="btnSubmit" type="button" class="btn btn-success">提交</button>
                 </div>
             </div>

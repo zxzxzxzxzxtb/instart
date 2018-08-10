@@ -21,7 +21,8 @@
         {
             enctype = "multipart/form-data",
             id = "mainForm",
-            @class = "form-horizontal edit-container-width"
+            @class = "form-horizontal edit-container-width",
+            style="width:800px !important;"
         }))
         {
             @Html.HiddenFor(m => m.Id)
@@ -48,7 +49,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">专业图片：</label>
                 <div class="col-sm-10">
-                    <img src="@Model.ImgUrl" id="majorPreview" style="width:200px;height:200px;border:1px solid #eee;" />
+                    <img src="@Model.ImgUrl" id="majorPreview" style="width:80%;height:200px;border:1px solid #eee;" />
                     <input type="hidden" name="ImgUrl" value="@Model.ImgUrl" />
                     <a href="javascript:void(0)" onclick="$('#fileMajor').click()" class="btn-link" style="position:relative;top:90px;">点击上传</a>
                     <input type='file' id='fileMajor' name='fileMajor' style='display:none;'>
@@ -58,21 +59,21 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">专业描述：</label>
                 <div class="col-sm-10">
-                    <textarea name="Introduce" id="Introduce" rows="10" class="form-control">@Model.Introduce</textarea>
+                    <textarea name="Introduce" id="Introduce" rows="15" class="form-control">@Model.Introduce</textarea>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">就业前景：</label>
                 <div class="col-sm-10">
-                    <textarea name="Prospect" id="Prospect" rows="10" class="form-control">@Model.Prospect</textarea>
+                    <textarea name="Prospect" id="Prospect" rows="15" class="form-control">@Model.Prospect</textarea>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">申请要求：</label>
                 <div class="col-sm-10">
-                    <textarea name="Apply" id="Apply" rows="10">@Model.Apply</textarea>
+                    <textarea name="Apply" id="Apply" style="height:400px;">@Html.Raw(Model.Apply)</textarea>
                 </div>
             </div>
 
@@ -98,7 +99,7 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <input type="button" class="btn btn-primary" value="提交" onclick="save()" />
+                    <input type="button" class="btn btn-success" value="提交" onclick="save()" />
                 </div>
             </div>
         }
