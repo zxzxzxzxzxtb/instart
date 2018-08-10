@@ -47,7 +47,7 @@
 
     <!--列表-->
     <div class="course-info com-cont">
-        <iframe id="mainFrame" src="" style="width:100%;height:800px;border:none;"></iframe>
+        <iframe src="" scrolling="no" frameborder="0" id="contmain" name="cont" height="200"></iframe>
     </div>
 
     <!--课程推荐-->
@@ -59,9 +59,11 @@
         $(function () {
             $("a.feature-menu").click(function () {
                 var href = $(this).attr("data-href")
-                $("#mainFrame").attr("src", href);
+                $("#contmain").attr("src", href);
                 $("a.feature-menu").css({ "background": "#fff", "color": "#1a1a1a" });
                 $(this).css({ "background": "#0000ff", "color": "#fff" });
+
+                setIframeHeight("contmain");
             });
 
             initMenu();
@@ -71,6 +73,22 @@
             var pos = parseInt("@ViewBag.Type");
             var cur = $("a.feature-menu").eq(pos-1);
             cur.click();
+        }
+
+        //计算子页面的高度
+        function setIframeHeight(id) {
+            var iframe = document.getElementById(id);
+            if (iframe.attachEvent) {
+                iframe.attachEvent("onload", function () {
+                    iframe.height = iframe.contentWindow.document.documentElement.clientHeight;
+                });
+                return;
+            } else {
+                iframe.onload = function () {
+                    iframe.height = iframe.contentDocument.body.clientHeight;
+                };
+                return;
+            }
         }
     </script>
 }

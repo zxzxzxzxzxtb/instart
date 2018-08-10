@@ -61,7 +61,7 @@
                             <td>@(item.IsAccept ? "已受理" : "未受理")</td>
                             <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
                             <td>@(item.IsAccept ? string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.AcceptTime) : "")</td>
-                            <td style="width:10%;">
+                            <td style="width:5%;">
                                 @if (!item.IsAccept)
                                 {
                                     <a data-id="@item.Id" href="javascript:void(0)" class="accept">受理</a>

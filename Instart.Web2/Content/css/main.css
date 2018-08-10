@@ -229,6 +229,7 @@
 .xue-img{ border:1px dashed #bdbdbd; border-radius:5px;}
 .xue-img img{ width:100%;}
 .xue-img dd{ text-align:right; padding:7px 14px; color:#666;}
+.xue-img dd span i:before{content:""; display:inline-block; width:8px; height:8px; border-radius:50%; background:#39b54a; margin-right:6px;}
 .xue-right{ width:67%; border:1px dotted #bebebe; border-radius:5px;}
 .xue-right dl.mee-info-top{ border-bottom:1px dotted #bebebe; padding-bottom:30px;}
 .xue-img-p{ margin-right:-4%; padding-bottom:30px;}
