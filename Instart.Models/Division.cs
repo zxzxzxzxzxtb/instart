@@ -50,5 +50,10 @@ namespace Instart.Models
         /// 修改时间
         /// </summary>
         public DateTime ModifyTime { get; set; }
+
+        /// <summary>
+        /// 背景颜色
+        /// </summary>
+        public string BgColor { get; set; }
     }
 }

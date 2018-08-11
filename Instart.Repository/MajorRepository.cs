@@ -14,7 +14,8 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = "select * from [Major] where Id = @Id and Status=1;";
+                string sql = @"select a.*, b.Name as DivisionName,b.NameEn as DivisionNameEn,b.BgColor as DivisionColor 
+                    from [Major] as a left join [Division] as b on b.Id = a.DivisionId where a.Id = @Id and a.Status=1;";
                 return conn.QueryFirstOrDefault<Major>(sql, new { Id = id });
             }
         }
@@ -43,7 +44,7 @@ namespace Instart.Repository
                 }
 
                 string sql = string.Format(@"select * from (
-                     select a.*, b.Name as DivisionName,b.NameEn as DivisionNameEn, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Major] as a
+                     select a.*, b.Name as DivisionName,b.NameEn as DivisionNameEn,b.BgColor as DivisionColor, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Major] as a
                      left join [Division] as b on b.Id = a.DivisionId {0}
                      ) as c
                      where RowNumber between {1} and {2};",where,((pageIndex - 1) * pageSize) + 1, pageIndex * pageSize);
@@ -74,7 +75,8 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                var fields = model.ToFields(removeFields: new List<string> { "Id", "DivisionName", "DivisionNameEn", "IsSelected", "SchoolInfo" });
+                var fields = model.ToFields(removeFields: new List<string> { "Id", "DivisionName", "DivisionNameEn", 
+                    "DivisionColor", "IsSelected", "SchoolInfo" });
                 if (fields == null || fields.Count == 0)
                 {
                     return false;
@@ -100,6 +102,7 @@ namespace Instart.Repository
                     "CreateTime",
                     "Status",
                     "DivisionNameEn",
+                    "DivisionColor",
                     "IsSelected",
                     "SchoolInfo"
                 };
@@ -148,7 +151,8 @@ namespace Instart.Repository
                 }
 
                 string sql = string.Format(@"select * from (
-                     select a.Id,a.Name,a.NameEn,a.Introduce,a.CreateTime,a.DivisionId,b.Name as DivisionName,b.NameEn as DivisionNameEn,a.ImgUrl, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Major] as a
+                     select a.Id,a.Name,a.NameEn,a.Introduce,a.CreateTime,a.DivisionId,b.Name as DivisionName,b.NameEn as DivisionNameEn,
+                     b.BgColor as DivisionColor,a.ImgUrl, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Major] as a
                      left join [Division] as b on b.Id = a.DivisionId where a.Status=1 and a.DivisionId={0}
                      ) as c
                      where RowNumber between {1} and {2};", divisionId,((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);

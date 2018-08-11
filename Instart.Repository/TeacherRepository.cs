@@ -14,7 +14,7 @@ namespace Instart.Repository
         public Teacher GetByIdAsync(int id) {
             using (var conn = DapperFactory.GetConnection()) {
                 string sql = @"select t.*, b.Name as MajorName, b.NameEn as MajorNameEn, 
-                     d.Name as DivisionName, d.NameEn as DivisionNameEn, e.Name as SchoolName, e.NameEn as SchoolNameEn from [Teacher] t 
+                     d.Name as DivisionName, d.NameEn as DivisionNameEn, d.BgColor as DivisionColor, e.Name as SchoolName, e.NameEn as SchoolNameEn from [Teacher] t 
                      left join [Major] as b on b.Id = t.MajorId 
                      left join [Division] as d on d.Id = t.DivisionId 
                      left join [School] as e on e.Id = t.SchoolId where t.Id = @Id and t.Status=1;";
@@ -41,7 +41,8 @@ namespace Instart.Repository
                     return new PageModel<Teacher>();
                 }
 
-                string sql = string.Format(@"select * from ( select t.*, d.Name as DivisionName, ROW_NUMBER() over (Order by t.Id desc) as RowNumber from [Teacher] as t
+                string sql = string.Format(@"select * from ( select t.*, d.Name as DivisionName, d.NameEn as DivisionNameEn, 
+                    d.BgColor as DivisionColor, ROW_NUMBER() over (Order by t.Id desc) as RowNumber from [Teacher] as t
                     left join [Division] d on d.Id = t.DivisionId {0} ) as b 
                     where RowNumber between {1} and {2};",where,((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
                 var list = conn.Query<Teacher>(sql);
@@ -68,7 +69,8 @@ namespace Instart.Repository
 
         public bool InsertAsync(Teacher model) {
             using (var conn = DapperFactory.GetConnection()) {
-                var fields = model.ToFields(removeFields: new List<string> { "Id", "DivisionName", "DivisionNameEn","SchoolName", "SchoolNameEn", "MajorName", "MajorNameEn", "IsSelected"});
+                var fields = model.ToFields(removeFields: new List<string> { "Id", "DivisionName", "DivisionNameEn",
+                    "DivisionColor", "SchoolName", "SchoolNameEn", "MajorName", "MajorNameEn", "IsSelected"});
                 if (fields == null || fields.Count == 0) {
                     return false;
                 }
@@ -91,6 +93,7 @@ namespace Instart.Repository
                     "Status",
                     "DivisionName",
                     "DivisionNameEn",
+                    "DivisionColor",
                     "SchoolName",
                     "SchoolNameEn",
                     "MajorName",
@@ -126,12 +129,12 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = string.Format(@"select top {0} t.Id,t.Name,t.NameEn,t.Avatar,s.Name as SchoolName,s.NameEn as SchoolNameEn,
-                                m.Name as MajorName,m.NameEn as MajorNameEn,d.Name as DivisionName,d.NameEn as DivisionNameEn from Teacher t
+                                m.Name as MajorName,m.NameEn as MajorNameEn,d.Name as DivisionName,d.NameEn as DivisionNameEn,d.BgColor as DivisionColor from Teacher t
                                 left join School s on t.SchoolId = s.Id
                                 left join Major m on t.MajorId = m.Id
                                 left join Division d on t.DivisionId = d.Id
                                 where t.Status = 1 and t.IsRecommend = 1
-                                order by t.Id desc;",topCount);
+                                order by t.Id desc;", topCount);
                 var list = conn.Query<Teacher>(sql, null);
                 return list != null ? list.ToList() : null;
             }
@@ -209,13 +212,13 @@ namespace Instart.Repository
                 }
 
                 string sql = string.Format(@"select * from (select TOP (100) PERCENT t.Id,t.Name,t.NameEn,t.Avatar,s.Name as SchoolName,s.NameEn as SchoolNameEn,
-                                m.Name as MajorName,m.NameEn as MajorNameEn,d.Name as DivisionName,d.NameEn as DivisionNameEn, ROW_NUMBER() over (Order by t.Id desc) as RowNumber from Teacher t
+                                m.Name as MajorName,m.NameEn as MajorNameEn,d.Name as DivisionName,d.NameEn as DivisionNameEn,d.BgColor as DivisionColor, ROW_NUMBER() over (Order by t.Id desc) as RowNumber from Teacher t
                                 left join School s on t.SchoolId = s.Id
                                 left join Major m on t.MajorId = m.Id
                                 left join Division d on t.DivisionId = d.Id
                                 where t.DivisionId = @DivisionId and t.Status = 1 
                                 order by t.Id desc) as b 
-                                where RowNumber between {0} and {1};",((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
+                                where RowNumber between {0} and {1};", ((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
 
                 var list = conn.Query<Teacher>(sql, new { DivisionId = divisionId });
 

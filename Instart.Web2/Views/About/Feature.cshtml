@@ -44,15 +44,13 @@
             </ul>
         </div>
     </div>
-
-    <!--列表-->
-    <div class="course-info com-cont">
-        <iframe src="" scrolling="no" frameborder="0" id="contmain" name="cont" height="200"></iframe>
-    </div>
-
-    <!--课程推荐-->
-    @Html.Partial("PartialRecommendCourse")
 </div>
+<div class="padding30">
+    <iframe src="" scrolling="no" frameborder="0" id="contmain" name="cont" height="200"></iframe>
+</div>
+
+<!--课程推荐-->
+@Html.Partial("PartialRecommendCourse")
 
 @section Bottom{
     <script>
@@ -71,7 +69,7 @@
 
         function initMenu() {
             var pos = parseInt("@ViewBag.Type");
-            var cur = $("a.feature-menu").eq(pos-1);
+            var cur = $("a.feature-menu").eq(pos - 1);
             cur.click();
         }
 
@@ -80,12 +78,12 @@
             var iframe = document.getElementById(id);
             if (iframe.attachEvent) {
                 iframe.attachEvent("onload", function () {
-                    iframe.height = iframe.contentWindow.document.documentElement.clientHeight;
+                    iframe.height = iframe.contentWindow.document.documentElement.scrollHeight;
                 });
                 return;
             } else {
                 iframe.onload = function () {
-                    iframe.height = iframe.contentDocument.body.clientHeight;
+                    iframe.height = iframe.contentDocument.body.scrollHeight;
                 };
                 return;
             }
