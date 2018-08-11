@@ -147,6 +147,11 @@ namespace Instart.Models
         public string DivisionNameEn { get; set; }
 
         /// <summary>
+        /// 学部颜色
+        /// </summary>
+        public string DivisionColor { get; set; }
+
+        /// <summary>
         /// 状态，1：正常，0：删除
         /// </summary>
         public int Status { get; set; }

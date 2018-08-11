@@ -68,7 +68,7 @@
 .teacher-cont dd.teac-m p small{ font-size:12px; display:block; color:#999;}
 .teacher-cont dd.teac-m:hover{ color:#0100fe;}
 .teacher-cont dd.teac-b,.list-cont dd.teac-b{ height:38px; line-height:38px; padding:0 15px; text-align:left; color:#666;-webkit-transition:0.3s all; transition:0.3s all;}
-.teacher-cont dd.teac-b:before,.list-cont dd.teac-b:before{ content:""; display:inline-block; width:8px; height:8px; border-radius:50%; background:#ff0000; margin-right:6px;}
+/*.teacher-cont dd.teac-b:before,.list-cont dd.teac-b:before{ content:""; display:inline-block; width:8px; height:8px; border-radius:50%; background:#ff0000; margin-right:6px;}*/
 .teacher-cont dd.teac-b:hover,.list-cont dd.teac-b:hover{ color:#0100fe; -webkit-transform:translateX(10px); transform:translateX(10px)}
 .school li{ width:33.333%; margin-bottom:40px;}
 .s-name{ padding:15px;height:162px; border-bottom:1px dotted #bfbfbf; overflow:hidden; border-left:1px dotted #bfbfbf; border-right:1px dotted #bfbfbf; display:-webkit-box;display:-webkit-flex;-webkit-box-align:center;-webkit-align-items:center;}
@@ -229,7 +229,7 @@
 .xue-img{ border:1px dashed #bdbdbd; border-radius:5px;}
 .xue-img img{ width:100%;}
 .xue-img dd{ text-align:right; padding:7px 14px; color:#666;}
-.xue-img dd span i:before{content:""; display:inline-block; width:8px; height:8px; border-radius:50%; background:#39b54a; margin-right:6px;}
+/*.xue-img dd span i:before{content:""; display:inline-block; width:8px; height:8px; border-radius:50%; background:#39b54a; margin-right:6px;}*/
 .xue-right{ width:67%; border:1px dotted #bebebe; border-radius:5px;}
 .xue-right dl.mee-info-top{ border-bottom:1px dotted #bebebe; padding-bottom:30px;}
 .xue-img-p{ margin-right:-4%; padding-bottom:30px;}

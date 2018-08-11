@@ -32,6 +32,11 @@ namespace Instart.Models
         public string DivisionNameEn { get; set; }
 
         /// <summary>
+        /// 学部颜色
+        /// </summary>
+        public string DivisionColor { get; set; }
+
+        /// <summary>
         /// 学校Id
         /// </summary>
         public int SchoolId { get; set; }

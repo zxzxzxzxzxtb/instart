@@ -8,7 +8,7 @@
 <div class="pagemeun">
     @foreach (Division item in ViewBag.DivisionList)
     {
-        <p><a class="division-tab" data-id="tab@(item.Id)" href="javascript:void(0)">@item.Name</a></p>
+        <p style="border-bottom:4px solid @item.BgColor;"><a class="division-tab" data-id="tab@(item.Id)" href="javascript:void(0)">@item.Name</a></p>
     }
 </div>
 @foreach (Division item in ViewBag.DivisionList)

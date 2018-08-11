@@ -200,6 +200,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\colorpicker\docs.js" />
+    <Content Include="Content\colorpicker\spectrum.css" />
+    <Content Include="Content\colorpicker\spectrum.js" />
     <Content Include="Content\css\admin.css" />
     <Content Include="Content\css\common.css" />
     <Content Include="Content\css\login.css" />
@@ -242,6 +245,8 @@
     <Content Include="Content\images\loginbg.jpg" />
     <Content Include="Content\images\loginbg.png" />
     <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\place_img.jpg" />
+    <Content Include="Content\images\place_img2.jpg" />
     <Content Include="Content\images\qcord.png" />
     <Content Include="Content\images\select.png" />
     <Content Include="Content\images\star-half.png" />

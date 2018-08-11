@@ -14,11 +14,11 @@
         {
             if (item.Id == ViewBag.DivisionId)
             {
-                <p class="active"><a href="/major/index/@item.Id">@item.Name</a></p>
+                <p class="active" style="border-bottom:4px solid @item.BgColor;"><a href="/major/index/@item.Id">@item.Name</a></p>
             }
             else
             {
-                <p><a href="/major/index/@item.Id">@item.Name</a></p>
+                <p style="border-bottom:4px solid @item.BgColor;"><a href="/major/index/@item.Id">@item.Name</a></p>
             }
         }
     </div>
@@ -60,7 +60,7 @@
                             html += '<dl>';
                             html += '<dt><a href="/major/details/'+item.Id+'"><strong>'+item.Name+'</strong><small>'+(item.NameEn || '')+'</small></a></dt>';
                             html += '<dd class="teac-m">'+ item.Introduce +'</dd>';
-                            html += '<dd class="teac-b">' + item.DivisionName + " " + (item.DivisionNameEn || '') + '</dd>';
+                            html += '<dd class="teac-b"><i style="display:inline-block; width:8px; height:8px; border-radius:50%; background:' + item.DivisionColor +'; margin-right:6px;"></i>' + item.DivisionName + " " + (item.DivisionNameEn || '') + '</dd>';
                             html += '</dl>';
                             html += '</div></li>';
                         }
