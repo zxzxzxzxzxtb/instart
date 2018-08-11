@@ -88,6 +88,28 @@
                 return;
             }
         }
+
+        function programApply(id) {
+            layer.open({
+                type: 2,
+                title: '项目咨询',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['800px', '430px'],
+                content: '/about/programapply?id=' + id //iframe的url
+            });
+        }
+
+        function companyOrder(id) {
+            layer.open({
+                type: 2,
+                title: '实习预约',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['800px', '480px'],
+                content: '/about/companyapply?id=' + id //iframe的url
+            });
+        }
     </script>
 }
 

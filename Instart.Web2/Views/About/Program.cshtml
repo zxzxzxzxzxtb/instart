@@ -13,7 +13,7 @@
                     <div class="course-item">
                         <a href="/about/show/@item.Id" class="cimg"><img src="@item.Picture" alt="" /></a>
                         <div class="c-guide">
-                            <p> <b>@item.Name</b> <span>@item.NameEn</span> </p>
+                            <p> <b><a href="/about/show/@item.Id">@item.Name</a></b> <span>@item.NameEn</span> </p>
                         </div>
                         <div class="c-infos">@item.Introduce</div>
                         <div class="c-yue"><a href="javascript:void(0)" onclick="apply(@item.Id)">项目咨询</a></div>
@@ -25,14 +25,7 @@
 </div>
 <script>
     function apply(id) {
-        layer.open({
-            type: 2,
-            title: '项目咨询',
-            shadeClose: true,
-            shade: 0.8,
-            area: ['800px', '430px'],
-            content: '/about/programapply?id=' + id //iframe的url
-        });
+        window.parent.programApply(id);
     }
 </script>
 <script src="/content/js/pubu.js" type="text/javascript"></script>
