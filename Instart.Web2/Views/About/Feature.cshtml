@@ -69,8 +69,18 @@
 
         function initMenu() {
             var pos = parseInt("@ViewBag.Type");
-            var cur = $("a.feature-menu").eq(pos - 1);
+            var cur = $(".insliu li").find("a").eq(pos - 1);
             cur.click();
+            var dang;
+            $(".insliu li").each(function () {
+                var alen = $(this).find("a.active").length;
+                if (alen > 0) {
+                    dang = $(this).index();
+                }
+            });
+            if (dang >= 5) {
+                $(".insliu ul").css("left", -(dang - 4) * $(".insliu li").width());
+            }
         }
 
         //计算子页面的高度
