@@ -51,6 +51,19 @@ namespace Instart.Repository
             }
         }
 
+        public List<Works> GetListByCourseIdAsync(int courseId, int topCount)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = string.Format(@"select top {0} t.* from (select distinct w.Id,w.Name,w.ImgUrl from Works w
+                    left join Student s on s.MajorId = w.MajorId
+                    left join StudentCourse sc on sc.StudentId = s.Id
+                    where sc.CourseId=@CourseId and w.Status=1) as t order by t.Id desc", topCount);
+                var list = conn.Query<Works>(sql, new { CourseId = courseId });
+                return list != null ? list.ToList() : null;
+            }
+        }
+
         public bool InsertAsync(Works model) {
             using (var conn = DapperFactory.GetConnection()) {
                 var fields = model.ToFields(removeFields: new List<string> { "Id", "MajorName" });

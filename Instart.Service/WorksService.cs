@@ -86,5 +86,15 @@ namespace Instart.Service
 
             return _worksRepository.GetListByMajorIdAsync(majorId, topCount);
         }
+
+        public List<Works> GetListByCourseIdAsync(int courseId, int topCount)
+        {
+            if (courseId <= 0)
+            {
+                throw new ArgumentException("courseId错误");
+            }
+
+            return _worksRepository.GetListByCourseIdAsync(courseId, topCount);
+        }
     }
 }
