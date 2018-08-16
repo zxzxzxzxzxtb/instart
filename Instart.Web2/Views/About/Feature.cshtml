@@ -46,7 +46,7 @@
     </div>
 </div>
 <div class="padding30">
-    <iframe src="" scrolling="no" frameborder="0" id="contmain" name="cont" height="200"></iframe>
+    <iframe src="" scrolling="no" frameborder="0" id="contmain" name="cont"></iframe>
 </div>
 
 <!--课程推荐-->
@@ -88,12 +88,12 @@
             var iframe = document.getElementById(id);
             if (iframe.attachEvent) {
                 iframe.attachEvent("onload", function () {
-                    iframe.height = iframe.contentWindow.document.documentElement.scrollHeight;
+                    iframe.height = iframe.contentWindow.document.documentElement.clientHeight;
                 });
                 return;
             } else {
                 iframe.onload = function () {
-                    iframe.height = iframe.contentDocument.body.scrollHeight;
+                    iframe.height = iframe.contentDocument.body.clientHeight;
                 };
                 return;
             }
