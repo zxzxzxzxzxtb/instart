@@ -97,11 +97,11 @@
         <h2>合作伙伴</h2>
     </div>
     <div class="teamwork com-cont">
-        <ul>
+        <ul style="border-bottom: hidden;">
             @foreach (Partner item in ViewBag.PartnerList)
             {
                 <li>
-                    <p><a href="@item.Link" target="_blank"><img src="@item.ImageUrl" alt="@item.Name" /></a></p>
+                    <p style="padding:10px 20px;"><a href="@item.Link" target="_blank"><img src="@item.ImageUrl" alt="@item.Name" /></a></p>
                 </li>
             }
         </ul>

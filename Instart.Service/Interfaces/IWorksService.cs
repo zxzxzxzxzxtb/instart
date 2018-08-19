@@ -20,5 +20,7 @@ namespace Instart.Service
          bool DeleteAsync(int id);
 
          List<Works> GetListByMajorIdAsync(int majorId, int topCount);
+
+         List<Works> GetListByCourseIdAsync(int courseId, int topCount);
     }
 }
